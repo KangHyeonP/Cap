@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Seungwoo/Scenes/MainMenu.unity
+    path: Assets/Caps/UI/Scenes/MainMenu.unity
     guid: 2b30f8a534d4765408bc14b2deaedfc9
   - enabled: 1
-    path: Assets/Seungwoo/Scenes/GameScene.unity
+    path: Assets/Caps/UI/Scenes/GameScene.unity
     guid: 26918dbe2a5607f42b029ade4576df5f
   m_configObjects: {}
