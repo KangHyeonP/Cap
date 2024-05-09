@@ -4,33 +4,44 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    private static CameraController instance;
+    public static CameraController Instance => instance;
+
     [SerializeField]
-    private TestPlayer player; // 추후 플레이어 로직 설정
+    private Player player; // 추후 플레이어 로직 설정
     private Vector3 targetPos, refVel = Vector3.zero;
     private Camera cam;
+    public Camera Cam => cam;
+
 
     [SerializeField]
     private float zOffset; // 카메라 기본 고정값
+    public float ZOffset => zOffset;
     private Vector3 mousePoint;
     [SerializeField]
     private float camDist = 2.0f;
     [SerializeField]
     private float smoothTime = 0.2f;
+    private bool activeCam = true; // 카메라를 움직일 수 있는지 여부
 
+    // Status
     PlayerVetor playerVecStatus;
 
+    // Mouse Pointer
     private Vector2 pointer;
     public Vector2 Pointer => pointer;
 
+    // Anagle
     private float playerAngle;
     public float PlayerAngle => playerAngle;
-
     Vector2 mouseVecValue;
 
-    private static CameraController instance;
-    public static CameraController Instance => instance;
-
     bool isReverse = false;
+
+    // 현재 방에 있는 agents
+    private List<Agent> agents;
+    public List<Agent> Agents => agents;
+
 
     private void Awake()
     {
@@ -43,15 +54,21 @@ public class CameraController : MonoBehaviour
     {
         targetPos = player.transform.position;
         zOffset = transform.position.z;
+        agents = new List<Agent>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        mousePoint = CheckMousePointer();
-        targetPos = UpdateTargetPos();
-        UpdateCamPos();
-        PlayerPos();
+        if (activeCam || !InGameManager.Instance.IsPause)
+        {
+            mousePoint = CheckMousePointer();
+            targetPos = UpdateTargetPos();
+            UpdateCamPos();
+            PlayerPos();
+        }
+
+        
     }
 
     private void Init()
@@ -59,9 +76,9 @@ public class CameraController : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
-        else Destroy(this.gameObject);
+       //else Destroy(this.gameObject);
     }
 
     private Vector3 CheckMousePointer()
@@ -99,44 +116,12 @@ public class CameraController : MonoBehaviour
     private void PlayerPos()
     {
         pointer = cam.ScreenToWorldPoint(Input.mousePosition);
-        mouseVecValue = pointer - (Vector2)GameManager.Instance.player.transform.localPosition;
+        mouseVecValue = pointer - (Vector2)InGameManager.Instance.player.transform.localPosition;
 
         playerAngle = Mathf.Atan2(mouseVecValue.y, mouseVecValue.x) * Mathf.Rad2Deg;
 
         AngleCalculate(playerAngle);
     }
-    /*
-    // 방향 설정
-    private void AngleCalculate(float angleValue)
-    {
-        bool isReverse = false;
-
-        // 윗방향
-        if (angleValue <= 120 && angleValue > 60)
-            playerVecStatus = PlayerVetor.Up;
-        // 오른 대각
-        else if (angleValue <= 60 && angleValue > 0)
-            playerVecStatus = PlayerVetor.UpRight;
-        // 오른
-        else if (angleValue <= 0 && angleValue > -60)
-            playerVecStatus = PlayerVetor.Right;
-        // 후면
-        else if (angleValue <= -60 && angleValue > -120)
-            playerVecStatus = PlayerVetor.Down;
-        // 왼쪽(오른쪽에서 뒤집기)
-        else if (angleValue <= -120 && angleValue > -180)
-            playerVecStatus = PlayerVetor.Right;
-        // 왼쪽 대각(오른쪽에서 뒤집기)
-        else if (angleValue <= 180 || angleValue > 120)
-            playerVecStatus = PlayerVetor.UpRight;
-
-
-        if (angleValue > 90 || angleValue <= -90) isReverse = true;
-        else isReverse = false;
-
-        GameManager.Instance.player.VectorStatus(playerVecStatus);
-        GameManager.Instance.player.isReverse = isReverse;
-    }*/
 
     // 방향 설정
     private void AngleCalculate(float angleValue)
@@ -169,8 +154,32 @@ public class CameraController : MonoBehaviour
             if (angleValue >= -75 && angleValue <= 75) isReverse = false;
         }
 
-        Debug.Log(angleValue);
+        //Debug.Log(angleValue);
 
-        GameManager.Instance.player.ChancgVector(playerVecStatus, isReverse);
+        InGameManager.Instance.player.ChancgVector(playerVecStatus, isReverse);
+    }
+
+    public void CameraActive(bool value)
+    {
+        activeCam = value;
+    }
+
+    public void CameraPos(float x, float y)
+    {
+        transform.position = new Vector3(x, y, ZOffset);
+    }
+
+    public void UpdateAgent(List<Agent> a)
+    {
+        //agents = new List<Agent>(); //리스트 초기화, list.Capacity
+        agents.Clear();
+        
+        foreach(Agent value in a)
+        {
+            if (value != null) agents.Add(value);
+        }
+
+        
+        //Debug.Log("현재 리스트 저장된 값 : " + agents.Capacity);
     }
 }

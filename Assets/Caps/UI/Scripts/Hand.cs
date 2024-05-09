@@ -22,7 +22,7 @@ public class Hand : MonoBehaviour
 	{
 		mouse = CameraController.Instance.Pointer;
 		angle = CameraController.Instance.PlayerAngle;
-		if (GameManager.Instance.player.IsReverse)
+		if (InGameManager.Instance.player.IsReverse)
 		{
 			angle *= -1;
             this.transform.rotation = Quaternion.AngleAxis(180 - angle, Vector3.forward);

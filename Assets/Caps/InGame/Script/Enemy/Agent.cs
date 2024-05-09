@@ -54,6 +54,9 @@ public class Agent : MonoBehaviour
     Vector3 moveVec; // lean상태에서 움직일 방향
     Vector3 tableVec; // table 위치
 
+    // AI 임시 삭제용
+    public bool TestAgent = false;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -73,7 +76,11 @@ public class Agent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isDetect) UpdateState(curStatus);
+        if (!InGameManager.Instance.IsPause)
+        {
+            if (isDetect) UpdateState(curStatus);
+        }
+        if (TestAgent) Destroy(this.gameObject);
 
         //if (Input.GetKeyDown(KeyCode.Space)) Die();
     }
@@ -81,7 +88,10 @@ public class Agent : MonoBehaviour
     // 떨림 방지
     private void FixedUpdate()
     {
-        rigid.velocity = Vector2.zero;
+        if (!InGameManager.Instance.IsPause)
+        {
+            rigid.velocity = Vector2.zero;
+        }
     }
 
     private void UpdateState(EnemyStatus enemy)
@@ -134,7 +144,7 @@ public class Agent : MonoBehaviour
 
     private float AgentVector()
     {
-        Vector3 value = GameManager.Instance.player.transform.position - transform.position;
+        Vector3 value = InGameManager.Instance.player.transform.position - transform.position;
         // 현재 자기 자신을 기점으로 플레이어의 위치를 계산하여 어느 방향을 바라봐야하는지 보여줌
         float angle;
         angle = Mathf.Atan2(value.y, value.x) * Mathf.Rad2Deg; // 범위가 180 ~ -180
@@ -227,9 +237,11 @@ public class Agent : MonoBehaviour
 
     }
 
-    private void Damage()
+    public void Damage(int damage)
     {
-        
+        Debug.Log("맞았어");
+        Debug.Log("받은 데미지 : " + damage);
+
     }
     // 집가서 다시 해보기
     
@@ -261,7 +273,7 @@ public class Agent : MonoBehaviour
     {
         Debug.Log("기대다.");
 
-        Vector3 playerVec = GameManager.Instance.player.transform.position - transform.position;
+        Vector3 playerVec = InGameManager.Instance.player.transform.position - transform.position;
 
         int index = -1; // 애니메이션 방향
         moveVec = Vector3.zero; // 움직일 방향

@@ -44,6 +44,11 @@ public class RoomController : MonoBehaviour
         
         //CheckEnemy(curIndex);
     }
+
+    public Room CurRoom()
+    {
+        return Rooms[CurIndex];
+    }
  
     /*
     private void CheckEnemy(int num)

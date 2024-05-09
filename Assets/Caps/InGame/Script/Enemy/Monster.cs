@@ -41,7 +41,7 @@ public class Monster : MonoBehaviour
 
     private void Init()
     {
-        player = GameManager.Instance.player.GetComponent<Rigidbody2D>();
+        player = InGameManager.Instance.player.GetComponent<Rigidbody2D>();
     }
 
     private void Chase()

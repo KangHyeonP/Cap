@@ -11,7 +11,8 @@ public class SkillUI : MonoBehaviour
 	public TextMeshProUGUI coolTimeCounter;
 	public float coolTime;     
 	private float currentCoolTime; 
-	private bool canUseSkill = true;  
+	private bool canUseSkill = true;
+	public bool CanUseSkill => canUseSkill;
 	void Start() 
 	{
 		skillFilter.fillAmount = 0; 
@@ -19,10 +20,7 @@ public class SkillUI : MonoBehaviour
 
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.Space))
-		{
-			UseSkill();
-		}
+
 	}
 	public void UseSkill()    
 	{

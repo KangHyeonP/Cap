@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class InGameManager : MonoBehaviour
 {
-    private static GameManager instance;
-    public static GameManager Instance => instance;
+    private static InGameManager instance;
+    public static InGameManager Instance => instance;
 
     // 임시 플레이어 등록
-    public TestPlayer player;
+    public Player player;
 
     private bool isPause = false; //일단 현재는 인게임 상태이므로 일시정지 해제
     public bool IsPause => isPause;
@@ -39,16 +39,14 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(this.gameObject);
         }
     }
 
     public void Pause(bool check)
     {
         isPause = check;
+
+        if (isPause) Time.timeScale = 0f;
+        else Time.timeScale = 1f;
     }
 }

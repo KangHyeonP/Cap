@@ -90,7 +90,7 @@ public class Table : MonoBehaviour
     {
         if (!playerCheck) return; 
         
-        moveVec = GameManager.Instance.player.transform.localPosition;
+        moveVec = InGameManager.Instance.player.transform.localPosition;
         moveVec -= transform.position;
 
         float tableAngle = VectorValue(moveVec);
@@ -184,7 +184,7 @@ public class Table : MonoBehaviour
     // AI 테이블 기대기 여부 계산
     private void LeanAgent(Vector3 vec, GameObject agentObj)
     {
-        moveVec = GameManager.Instance.player.transform.localPosition;
+        moveVec = InGameManager.Instance.player.transform.localPosition;
 
         int playerLine = -1;
         int agentLine = -1;

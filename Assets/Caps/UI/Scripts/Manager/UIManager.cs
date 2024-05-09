@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class UIManager : MonoBehaviour
 	public GameObject TabUI;
 	public GameObject DictUI;
 	public GameObject ExitUI;
+	public InGameUI inGameUI;
 
 	[HideInInspector]
 	public bool IsPause = false;
@@ -20,6 +22,14 @@ public class UIManager : MonoBehaviour
 	public bool IsDict = false;
 	[HideInInspector]
 	public bool IsExit = false;
+
+	//InputKey
+	private bool isEscKey;
+	private bool isPauseKey;
+	private bool isTabKey;
+	private bool isInventoryKey;
+
+
 
 	private void Awake()
 	{
@@ -34,20 +44,11 @@ public class UIManager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
-		{
-			OpenPause();
-		}
+		InputKey();
 
-		if(Input.GetKeyDown(KeyCode.Tab))
-		{
-			OpenTab();
-		}
-
-		if(Input.GetKeyDown(KeyCode.I))
-		{
-			OpenDict();
-		}
+        OpenPause();
+		OpenTab();
+		OpenDict();
 	}
 
 	private void Init()
@@ -55,16 +56,23 @@ public class UIManager : MonoBehaviour
 		if (Instance == null)
 		{
 			instance = this;
-			//DontDestroyOnLoad(this.gameObject);
 		}
-		//else
-		//{
-		//	Destroy(this.gameObject);
-		//}
 	}
+
+	//public void InitPlayer
+
+	private void InputKey()
+	{
+		isEscKey = Input.GetKeyDown(KeyCode.Escape);
+		isPauseKey = Input.GetKeyDown(KeyCode.P);
+		isTabKey = Input.GetKeyDown(KeyCode.Tab);
+		isInventoryKey = Input.GetKeyDown(KeyCode.I);
+    }
 
 	private void OpenDict() //도감
 	{
+		if (!isInventoryKey) return;
+
 		if (!IsDict)
 		{
 			DictUI.SetActive(true);
@@ -79,6 +87,8 @@ public class UIManager : MonoBehaviour
 
 	private void OpenTab() //탭
 	{
+		if (!isTabKey) return;
+
 		if (!IsTab)
 		{
 			TabUI.SetActive(true);
@@ -91,6 +101,8 @@ public class UIManager : MonoBehaviour
 
 	private void OpenPause() //일시정지
 	{
+		if (!isPauseKey) return;
+
 		if(!IsPause)
 		{
 			PauseTime(true);
@@ -114,11 +126,13 @@ public class UIManager : MonoBehaviour
 	{
 		if(IsPause)
 		{
+			InGameManager.Instance.Pause(true);
 			Time.timeScale = 0f;
 		}
 		else
 		{
-			Time.timeScale = 1f;
+            InGameManager.Instance.Pause(false);
+            Time.timeScale = 1f;
 		}
 		Time.fixedDeltaTime = 0.02f * Time.timeScale;
 	}

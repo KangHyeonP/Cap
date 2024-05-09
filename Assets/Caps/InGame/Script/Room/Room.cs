@@ -26,7 +26,7 @@ public class Room : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -37,7 +37,6 @@ public class Room : MonoBehaviour
             AgentActive(isPlayerRoom);
         }
     }
-
 
     // 현재 플레이어가 방에 들어온 상태
     private void PlayerRoom(bool check)
@@ -54,5 +53,10 @@ public class Room : MonoBehaviour
             foreach (Agent a in agetns)
                 a.PlayerRoom();
         }
+    }
+
+    public void RoomAgent()
+    {
+        CameraController.Instance.UpdateAgent(agetns);
     }
 }
