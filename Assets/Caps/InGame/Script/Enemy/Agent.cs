@@ -14,50 +14,59 @@ public enum EnemyStatus
     Die
 }
 
-public class Agent : MonoBehaviour
+public abstract class Agent : MonoBehaviour
 {
     // 추후 gameManager의 player를 받아올것
     [SerializeField]
-    Transform target;
+    protected Transform target;
 
-    NavMeshAgent agent;
-    Rigidbody2D rigid;
-    CircleCollider2D cirCollider2D;
-    SpriteRenderer spritesRenderer;
+    // Component
+    protected NavMeshAgent agent;
+    protected Rigidbody2D rigid;
+    protected CircleCollider2D cirCollider2D;
+    protected SpriteRenderer spritesRenderer;
+    protected Animator anim;
 
     // 추후 애니메이션으로 변경
     [SerializeField]
-    private Sprite[] basicSprites;
+    protected Sprite[] basicSprites;
 
 
-    /*private bool activeRoom = false;
-    public bool ActiveRoom => activeRoom;*/
+    // 현재 AI 활성화 상태인지 고려, 랜덤생성 or 다음 칸 배치 같은 문제에서 적용함
+    protected bool activeRoom = false;
+    public bool ActiveRoom => activeRoom;
 
     // AI Status
-    private EnemyStatus curStatus;
+    protected EnemyStatus curStatus;
     public EnemyStatus CurStatus => curStatus;
 
-    private bool isDie = false;
-    private bool isDetect = false;
-    private bool isMoveLean = false;
-    private bool isLean = false;
+    protected bool isDie = false;
+    protected bool isDetect = false;
+    protected bool isMoveLean = false;
+    protected bool isLean = false;
+
+    [SerializeField]
+    protected float attackDelay;
+    protected float curAttackDelay;
+    [SerializeField]
+    protected float attackMoveDelay; // 공격 후 제동 시간
 
     // Object Interaction
-    private bool tableMove;
-    private TableArrow curTableArrow;
+    protected bool tableMove;
+    protected TableArrow curTableArrow;
 
     // Agent Vector;
-    private float agentAngleValue;
-    private int agentAngleIndex;
-    private bool isReverse = false;
+    protected float agentAngleValue;
+    protected int agentAngleIndex;
+    protected bool isReverse = false;
 
-    Vector3 moveVec; // lean상태에서 움직일 방향
-    Vector3 tableVec; // table 위치
+    protected Vector3 moveVec; // lean상태에서 움직일 방향
+    protected Vector3 tableVec; // table 위치
 
     // AI 임시 삭제용
     public bool TestAgent = false;
 
-    private void Awake()
+    protected virtual  void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
@@ -66,27 +75,26 @@ public class Agent : MonoBehaviour
         curStatus = EnemyStatus.Idle;
         cirCollider2D = GetComponent<CircleCollider2D>();
         spritesRenderer = GetComponent<SpriteRenderer>();
+        // anim = GetComponent<Animator>(); AI 그림 나오면 적용할거임
     }
 
-    void Start()
+    protected virtual void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (!InGameManager.Instance.IsPause)
         {
             if (isDetect) UpdateState(curStatus);
         }
+        // AI 삭제 임시용
         if (TestAgent) Destroy(this.gameObject);
-
-        //if (Input.GetKeyDown(KeyCode.Space)) Die();
     }
 
     // 떨림 방지
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (!InGameManager.Instance.IsPause)
         {
@@ -94,16 +102,19 @@ public class Agent : MonoBehaviour
         }
     }
 
-    private void UpdateState(EnemyStatus enemy)
+    protected void UpdateState(EnemyStatus enemy)
     {
         if (isDie) return;
 
         AgentAngle();
 
+        // 추후 애니메이션으로 수정할거임
         if (isDetect && enemy != EnemyStatus.Lean) ChangeSprite();
 
         if (isReverse) transform.localScale = new Vector3(-1, 1, 1);
         else transform.localScale = new Vector3(1, 1, 1);
+
+        curAttackDelay += Time.deltaTime; // 추격중일때만 채울지도 고려
 
         switch (enemy)
         {
@@ -129,20 +140,21 @@ public class Agent : MonoBehaviour
         }
     }
 
-    private void ChangeSprite()
+    // 방향별 스프라이트 수정, 추후 애니메이션을 적용할 거라서 코드 수정필요함
+    protected void ChangeSprite()
     {
         if (agentAngleIndex == 3) agentAngleIndex = 2;
         spritesRenderer.sprite = basicSprites[agentAngleIndex];
     }
 
     // 플레이어의 방향 계산
-    private void AgentAngle()
+    protected void AgentAngle()
     {
         agentAngleValue = AgentVector();
         agentAngleIndex = AngleCalculate(agentAngleValue); // up(후면), down(정면), left(왼쪽), right(오른쪽)
     }
 
-    private float AgentVector()
+    protected float AgentVector()
     {
         Vector3 value = InGameManager.Instance.player.transform.position - transform.position;
         // 현재 자기 자신을 기점으로 플레이어의 위치를 계산하여 어느 방향을 바라봐야하는지 보여줌
@@ -152,7 +164,7 @@ public class Agent : MonoBehaviour
         return angle;
     }
 
-    private int AngleCalculate(float angleValue)
+    protected int AngleCalculate(float angleValue)
     {
         // 아마 해당 이미지를 넣어봐야지 알듯
 
@@ -172,7 +184,7 @@ public class Agent : MonoBehaviour
         return Index;
     }
 
-    private void Idle()
+    protected void Idle()
     {
        /* if (!activeRoom)
         {
@@ -196,7 +208,7 @@ public class Agent : MonoBehaviour
         isDetect = true;
     }
 
-    private void Chase()
+    protected void Chase()
     {
         //if (!isDetect) return;
 
@@ -211,28 +223,31 @@ public class Agent : MonoBehaviour
         if (distance <= 2.0f) curStatus = EnemyStatus.Attack;
     }
 
-    private void Attack()
+    protected void Attack()
     {
-        if(agent.isStopped) return;
+        if(agent.isStopped || attackDelay > curAttackDelay) return;
 
-        Debug.Log("공격크");
+        Debug.Log("코루틴 시작 1");
+        isDetect = false;
+        agent.isStopped = true;
+        curAttackDelay = 0;
+
         StartCoroutine(IAttack());
     }
 
-    private IEnumerator IAttack()
+    protected virtual IEnumerator IAttack()
     {
-        isDetect = false;
-        agent.isStopped = true;
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(attackMoveDelay);
 
-        // 공격로직 작성
-
+        Debug.Log("코루틴 종료 후 1");
         agent.isStopped = false;
         isDetect = true;
         curStatus = EnemyStatus.Idle;
     }
-
-    private void Stun()
+    
+    // 연호가 해당 프레임까지 그려주기 힘들면 다른 방면 생각
+    // 그려준다면 방향별로 고개만 빙글빙글 3프레임정도
+    protected void Stun()
     {
 
     }
@@ -243,7 +258,6 @@ public class Agent : MonoBehaviour
         Debug.Log("받은 데미지 : " + damage);
 
     }
-    // 집가서 다시 해보기
     
     public void UpLean() // 테이블 이동 및 저격까지
     {
