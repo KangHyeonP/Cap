@@ -7,7 +7,7 @@ using UnityEngine;
 // 플레이어 방향 상태, 왼쪽은 오른쪽에서 뒤집기
 public enum PlayerVetor
 {
-    Up, UpRight, Right, Down,
+    Front, Cross, Side, Back,
 }
 
 public enum PlayerAnimator
@@ -40,7 +40,7 @@ public abstract class Player : MonoBehaviour
     public float SkillDelay => skillDelay;
 
     // Status - movement
-    protected PlayerVetor curVec = PlayerVetor.Down;
+    protected PlayerVetor curVec = PlayerVetor.Front;
 
     protected Vector2 inputVec;
     public Vector2 InputVec => inputVec;

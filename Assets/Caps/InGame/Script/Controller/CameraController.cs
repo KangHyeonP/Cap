@@ -128,22 +128,22 @@ public class CameraController : MonoBehaviour
     {
         // 후면(윗 방향)
         if (angleValue < 120 && angleValue > 60)
-            playerVecStatus = PlayerVetor.Up;
+            playerVecStatus = PlayerVetor.Back;
         // 오른 대각
         else if (angleValue <= 60 && angleValue >= 10)
-            playerVecStatus = PlayerVetor.UpRight;
+            playerVecStatus = PlayerVetor.Cross;
         // 오른
         else if (angleValue < 10 && angleValue >= -60)
-            playerVecStatus = PlayerVetor.Right;
+            playerVecStatus = PlayerVetor.Side;
         // 정면(아랫 방향)
         else if (angleValue < -60 && angleValue > -120)
-            playerVecStatus = PlayerVetor.Down;
+            playerVecStatus = PlayerVetor.Front;
         // 왼쪽(오른쪽에서 뒤집기)
         else if (angleValue <= -120 || angleValue > 170)
-            playerVecStatus = PlayerVetor.Right;
+            playerVecStatus = PlayerVetor.Side;
         // 왼쪽 대각(오른쪽에서 뒤집기)
         else if (angleValue <= 170 || angleValue >= 120)
-            playerVecStatus = PlayerVetor.UpRight;
+            playerVecStatus = PlayerVetor.Cross;
 
         if (!isReverse) // 안 뒤집힌 상태
         {
