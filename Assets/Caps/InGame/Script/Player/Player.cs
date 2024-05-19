@@ -7,12 +7,12 @@ using UnityEngine;
 // 플레이어 방향 상태, 왼쪽은 오른쪽에서 뒤집기
 public enum PlayerVetor
 {
-    Front, Cross, Side, Back,
+    Front, Cross, Side, Back
 }
 
 public enum PlayerAnimator
 {
-    Idle, Run
+    Idle, Run, Roll
 }
 
 public abstract class Player : MonoBehaviour
@@ -28,6 +28,7 @@ public abstract class Player : MonoBehaviour
     public int Hp => hp;
 
     protected float speed = 3.0f; // 스피드
+    protected float rollingSpeed = 1.0f;
     protected float power; // 공격력
     protected float armor; // 방어력
 
@@ -44,6 +45,8 @@ public abstract class Player : MonoBehaviour
 
     protected Vector2 inputVec;
     public Vector2 InputVec => inputVec;
+    protected Vector2 moveVec;
+    protected Vector2 rollVec;
 
     // Status - animation
     protected PlayerAnimator curAnim = PlayerAnimator.Idle;
@@ -53,14 +56,15 @@ public abstract class Player : MonoBehaviour
     protected bool isWalk = false;
 
     // Status - curStatus
-
     protected bool isHit = false; // 피격당함
     protected bool isDead;
-
+    protected bool isRoll = false;
+    protected bool rollReverse = false; // 애니메이션 대칭
 
     // InputKey
-    protected bool isAttack;
-    protected bool isSkill;
+    protected bool attackKey;
+    protected bool skillKey;
+    protected bool rollKey;
 
     protected virtual void Awake()
     {
@@ -79,10 +83,11 @@ public abstract class Player : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (!InGameManager.Instance.IsPause)
+        if (!InGameManager.Instance.IsPause && !isDead)
         {
             InputKey();
             VectorStatus(curVec);
+            Roll();
             Attack();
             Skill();
         }
@@ -90,7 +95,7 @@ public abstract class Player : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if (!InGameManager.Instance.IsPause)
+        if (!InGameManager.Instance.IsPause && !isDead)
         {
             Move();
         }
@@ -100,24 +105,82 @@ public abstract class Player : MonoBehaviour
     {
         inputVec.x = Input.GetAxisRaw("Horizontal");
         inputVec.y = Input.GetAxisRaw("Vertical");
-        isAttack = Input.GetButton("Fire1");
-        isSkill = Input.GetButtonDown("Jump");
+        attackKey = Input.GetButton("Fire1");
+        skillKey = Input.GetButtonDown("Jump");
+        rollKey = Input.GetButton("Fire2");
     }
 
     protected void Move()
     {
         // 만약 inputVec 0이면 Idle, 아니면 Run으로 체인지
-        isWalk = InputVec != Vector2.zero ? true : false;
+        moveVec = inputVec.normalized;
+        Vector2 nextVec;
 
-        Vector2 nextVect = inputVec.normalized * speed * Time.fixedDeltaTime;
-        rigid.MovePosition(rigid.position + nextVect);
+        if (isRoll)
+        {
+            nextVec = rollVec.normalized * rollingSpeed * 1.5f * Time.fixedDeltaTime;
+        }
+        else
+        {
+            isWalk = moveVec != Vector2.zero ? true : false;
+            nextVec = moveVec.normalized * speed * Time.fixedDeltaTime;
+            anim.SetBool("Walk", isWalk);
+        }
 
-        anim.SetBool("Walk", isWalk);
+        rigid.MovePosition(rigid.position + nextVec);
+    }
+
+    protected void Roll()
+    {
+        if (!isRoll && InputVec != Vector2.zero && rollKey)
+        {
+            rollVec = moveVec;
+            StartCoroutine(IRoll());
+        }
+    }
+
+    private IEnumerator IRoll()
+    {
+        string rollStatus = null;
+        rollReverse = false;
+
+        // 구르기 방향 계산
+        if(rollVec.x > 0)
+        {
+            if (rollVec.y > 0) rollStatus = "RollCrossUp";
+            else if (rollVec.y == 0) rollStatus = "RollSide";
+            else rollStatus = "RollCrossDown";
+        }
+        else if(rollVec.x ==0)
+        {
+            if (rollVec.y > 0) rollStatus = "RollBack";
+            else if(rollVec.y < 0) rollStatus = "RollFront";
+        }
+        else
+        {
+            rollReverse = true;
+            if (rollVec.y > 0) rollStatus = "RollCrossUp";
+            else if (rollVec.y == 0) rollStatus = "RollSide";
+            else rollStatus = "RollCrossDown";
+        }
+
+        if (rollReverse) transform.localScale = new Vector3(-1, 1, 1);
+        else transform.localScale = new Vector3(1, 1, 1);
+
+        isRoll = true;
+        rollingSpeed *= 2;
+        anim.SetTrigger("Roll");
+        anim.SetTrigger(rollStatus);
+
+        yield return new WaitForSeconds(0.75f);
+
+        isRoll = false;
+        rollingSpeed *= 0.5f;
     }
 
     protected void Damage(int power)
     {
-        if (!isDead) return;
+        //if (!isDead) return;
 
         hp -= power;
         Debug.Log("피격당함");
@@ -129,7 +192,7 @@ public abstract class Player : MonoBehaviour
     {
         curAttackDelay += Time.deltaTime;
 
-        if (isAttack && curAttackDelay >= attackDelay)
+        if (attackKey && curAttackDelay >= attackDelay)
         {
             curAttackDelay = 0;
             StartCoroutine(IAttack());
@@ -137,14 +200,18 @@ public abstract class Player : MonoBehaviour
     }
 
     // 방향 전환
-    public void ChancgVector(PlayerVetor pVec, bool checkReverse)
+    public void ChangeVector(PlayerVetor pVec, bool checkReverse)
     {
+        Debug.Log("실행 됨?");
+        Debug.Log("그럼 리버스는 ? :" + checkReverse);
         isReverse = checkReverse;
         VectorStatus(pVec);
     }
 
     protected void VectorStatus(PlayerVetor pVec)
     {
+        if (isRoll) return;
+
         if (isReverse) transform.localScale = new Vector3(-1, 1, 1);
         else transform.localScale = new Vector3(1, 1, 1);
 
@@ -152,6 +219,7 @@ public abstract class Player : MonoBehaviour
             AnimationChange(pVec);
         curVec = pVec;
     }
+
     public void AnimStatus(PlayerAnimator pAnim)
     {
         curAnim = pAnim;
@@ -179,7 +247,7 @@ public abstract class Player : MonoBehaviour
 
     protected void Skill()
     {
-        if (!isSkill || !UIManager.Instance.inGameUI.skillUI.CanUseSkill) return;
+        if (!skillKey || !UIManager.Instance.inGameUI.skillUI.CanUseSkill) return;
 
         StartCoroutine(ESkill());
     }

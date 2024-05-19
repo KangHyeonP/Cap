@@ -156,7 +156,7 @@ public class CameraController : MonoBehaviour
 
         //Debug.Log(angleValue);
 
-        InGameManager.Instance.player.ChancgVector(playerVecStatus, isReverse);
+        InGameManager.Instance.player.ChangeVector(playerVecStatus, isReverse);
     }
 
     public void CameraActive(bool value)

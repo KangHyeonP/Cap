@@ -227,7 +227,7 @@ public abstract class Agent : MonoBehaviour
     {
         if(agent.isStopped || attackDelay > curAttackDelay) return;
 
-        Debug.Log("코루틴 시작 1");
+        //Debug.Log("코루틴 시작 1");
         isDetect = false;
         agent.isStopped = true;
         curAttackDelay = 0;

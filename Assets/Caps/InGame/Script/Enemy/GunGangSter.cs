@@ -27,9 +27,9 @@ public class GunGangSter : Agent
     {
         yield return null;
 
-        Debug.Log("어택 로직 실행");
+        //Debug.Log("어택 로직 실행");
         yield return new WaitForSeconds(2f);
-        Debug.Log("어택 로직 종료");
+        //Debug.Log("어택 로직 종료");
 
         yield return StartCoroutine(base.IAttack());
     }
