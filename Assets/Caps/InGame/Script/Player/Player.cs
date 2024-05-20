@@ -65,6 +65,17 @@ public abstract class Player : MonoBehaviour
     protected bool attackKey;
     protected bool skillKey;
     protected bool rollKey;
+    protected bool swapKey1;
+    protected bool swapKey2;
+    protected bool swapKey3;
+    protected bool swapKey4;
+    protected bool interaction;
+    protected bool qKey;
+    protected bool shiftKey;
+
+    // Weapon
+    protected int weaponIndex = 0;
+    public string[] weapon;
 
     protected virtual void Awake()
     {
@@ -90,6 +101,9 @@ public abstract class Player : MonoBehaviour
             Roll();
             Attack();
             Skill();
+            // 추후 게임 매니저로 변경될 가능성 있음
+            Interaction();
+            EatDrug();
         }
     }
 
@@ -108,6 +122,13 @@ public abstract class Player : MonoBehaviour
         attackKey = Input.GetButton("Fire1");
         skillKey = Input.GetButtonDown("Jump");
         rollKey = Input.GetButton("Fire2");
+        swapKey1 = Input.GetButtonDown("Swap1");
+        swapKey2 = Input.GetButtonDown("Swap2");
+        swapKey3 = Input.GetButtonDown("Swap3");
+        swapKey4 = Input.GetButtonDown("Swap4");
+        interaction = Input.GetButtonDown("Interaction");
+        qKey = Input.GetKeyDown(KeyCode.Q);
+        shiftKey = Input.GetKey(KeyCode.LeftShift);
     }
 
     protected void Move()
@@ -196,6 +217,53 @@ public abstract class Player : MonoBehaviour
         {
             curAttackDelay = 0;
             StartCoroutine(IAttack());
+        }
+    }
+
+    protected void Swap()
+    {
+        int curIndex = -1;
+
+        if (!swapKey1 && !swapKey2 && !swapKey3) return;
+
+        if (swapKey1)
+            curIndex = 0;
+
+        if (swapKey2)
+            curIndex = 1;
+
+        if (swapKey3)
+            curIndex = 2;
+
+        if (curIndex != weaponIndex)
+        {
+            weaponIndex = curIndex;
+            Debug.Log(weapon[weaponIndex]);
+        }
+    }
+
+    protected void Interaction()
+    {
+        if (interaction && InGameManager.Instance.isItem == true)
+        {
+            InGameManager.Instance?.tempItem.GetItem();
+        }
+    }
+    protected void EatDrug()
+    {
+        if (qKey)
+        {
+            // 인벤 마약
+            if (shiftKey && InGameManager.Instance.drugInven != null)
+            {
+                InGameManager.Instance.drugInven.UseItem();
+                UIManager.Instance.inGameUI.DrugInven(null);
+            }
+            // 땅에있는 마약
+            else if (InGameManager.Instance.tempDrug != null && !shiftKey)
+            {
+                InGameManager.Instance.tempDrug.UseItem();
+            }
         }
     }
 

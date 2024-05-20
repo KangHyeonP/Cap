@@ -1,0 +1,93 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class Drug : Item
+{
+    public int drugGuage;
+    private SpriteRenderer drugSprite;
+
+    protected void Awake()
+    {
+        base.Awake();
+    }
+
+    protected void Start()
+    {
+        base.Start();
+
+    }
+
+    // Update is called once per frame
+    protected void Update()
+    {
+        base.Update();
+        drugSprite = GetComponent<SpriteRenderer>();
+    }
+
+    public override void GetItem()
+    {
+        if(InGameManager.Instance.drugInven != null)
+        {
+            InGameManager.Instance.drugInven.gameObject.SetActive(true);
+            InGameManager.Instance.drugInven.PutDrug();
+            
+        }
+
+        InGameManager.Instance.drugInven = this;
+        InGameManager.Instance.UpdateDrugType(drugSprite.sprite); //이거 UI연동하려고 추가한거임 (지)
+        InGameManager.Instance.tempDrug = null;
+        Debug.Log(InGameManager.Instance.drugInven); //디버그 (지)
+        
+        
+
+        base.GetItem();
+    }
+
+    public override void UseItem()
+    {
+        Debug.Log(InGameManager.Instance.tempItem); //디버그 (지)
+        GetDrug();
+        InGameManager.Instance.UpdateDrug(drugGuage);
+        Destroy(this.gameObject);
+    }
+
+    public void GetDrug()
+    {
+        drugGuage = Random.Range(1, 11);
+    }
+
+    public void PutDrug()
+    {
+        transform.position = InGameManager.Instance.player.transform.position;
+        Vector3 nextVec = new Vector3(0, 3, transform.position.z); //GameManager.Instance.player.inputVec * 30;
+        transform.position += nextVec;
+        //Vector2.Distance(nextVec, sumVec));
+
+    }
+
+    // 콜라이더 추가
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            InGameManager.Instance.tempItem = this;
+            InGameManager.Instance.tempDrug = this;
+            InGameManager.Instance.isItem = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            //itemCol = null;
+            InGameManager.Instance.tempItem = null;
+            InGameManager.Instance.tempDrug = null;
+            InGameManager.Instance.isItem = false;
+        }
+    }
+
+}

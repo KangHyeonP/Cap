@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InGameUI : MonoBehaviour
 {
     public SkillUI skillUI;
-
+    public Image DrugUI;
     private void Awake()
     {
         
@@ -26,5 +27,10 @@ public class InGameUI : MonoBehaviour
     private void InitUI()
     {
         skillUI.coolTime = InGameManager.Instance.player.SkillDelay;
+    }
+
+    public void DrugInven(Sprite s)
+    {
+        DrugUI.sprite = s;
     }
 }

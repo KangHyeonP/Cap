@@ -16,7 +16,26 @@ public class InGameManager : MonoBehaviour
 
     [Header("플레이어")]
     private int hp;
+    public int Hp => hp;
+
     private int maxHp;
+
+    // Item
+    public bool isItem;
+    //public bool IsItem => isItem;
+
+    // 수정해야함
+    public Drug drugInven = null;
+    //public Drug DrugInven => drugInven;
+
+    public Item tempItem = null;
+    //public Item TempItem => tempItem;
+
+    public Drug tempDrug = null;
+    //public Drug TempDrug => tempDrug;
+
+    public int drugGuage;
+    //public int DrugGuage => drugGuage;
 
     private void Awake()
     {
@@ -48,5 +67,32 @@ public class InGameManager : MonoBehaviour
 
         if (isPause) Time.timeScale = 0f;
         else Time.timeScale = 1f;
+    }
+
+    public void UpdateDrug(int value)
+    {
+        // UI 매니저에서 수정
+        /*
+        drugGuage += value;
+        drugBar.value = drugGuage;
+        */
+    }
+    public void UpdateKey()
+    {
+        // 이것도 UI
+        //numKeyUI.text = "Key: " + numKey;
+    }
+
+    public void UpdateBomb()
+    {
+        // 이것도 UI
+        //numBombUI.text = "Bomb: " + numBomb;
+    }
+    
+    public void UpdateDrugType(Sprite s)
+    {
+        UIManager.Instance.inGameUI.DrugInven(s);
+        // 이것도 UI
+        //drugTypeUI.sprite = drugInven.drugSprite.sprite;
     }
 }
