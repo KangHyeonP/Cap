@@ -20,9 +20,4 @@ public class TabUI : MonoBehaviour
 		UIManager.Instance.IsTab = false;
 		gameObject.SetActive(false);
 	}
-
-	public void TabOn()
-	{
-		UIManager.Instance.IsTab = true;
-	}
 }

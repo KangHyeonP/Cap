@@ -15734,7 +15734,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f815df7950ea1ef48931ab3d04e21c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirstButton: {fileID: 9186576383939208667}
+  selectButton:
+  - {fileID: 9186576383939208667}
+  - {fileID: 1664536267984178824}
+  - {fileID: 7837655712632810828}
+  - {fileID: 5431228027472797715}
 --- !u!224 &1148841058413456707
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16285,6 +16289,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1139775729041965190}
         m_TargetAssemblyTypeName: PauseUI, Assembly-CSharp
+        m_MethodName: UpdateIndex
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1139775729041965190}
+        m_TargetAssemblyTypeName: PauseUI, Assembly-CSharp
         m_MethodName: Restart
         m_Mode: 1
         m_Arguments:
@@ -16439,7 +16455,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: ae714ab2d3b90e14cac0d0693f4ef5d3, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -17030,15 +17046,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f7f32996baa5143a236548734e3c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PauseUI: {fileID: 4255452069823174857}
-  TabUI: {fileID: 3536160395816042395}
+  pauseUI: {fileID: 1139775729041965190}
+  TabUI: {fileID: 2106968837925672044}
   DictUI: {fileID: 7942823303982189903}
   ExitUI: {fileID: 6365074069520943300}
   inGameUI: {fileID: 9060043169335142034}
-  IsPause: 0
+  TempUI: {fileID: 0}
+  IsPopup: 0
   IsTab: 0
   IsDict: 0
-  IsExit: 0
 --- !u!114 &2401209494131625039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20353,6 +20369,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1139775729041965190}
+        m_TargetAssemblyTypeName: PauseUI, Assembly-CSharp
+        m_MethodName: UpdateIndex
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
       - m_Target: {fileID: 6365074069520943300}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -23009,6 +23037,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1139775729041965190}
         m_TargetAssemblyTypeName: PauseUI, Assembly-CSharp
+        m_MethodName: UpdateIndex
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1139775729041965190}
+        m_TargetAssemblyTypeName: PauseUI, Assembly-CSharp
         m_MethodName: Setting
         m_Mode: 1
         m_Arguments:
@@ -23170,18 +23210,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1139775729041965190}
-        m_TargetAssemblyTypeName: PauseUI, Assembly-CSharp
-        m_MethodName: FirstButtonOn
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -24174,7 +24202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.69803923}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.41960785}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -24255,6 +24283,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1139775729041965190}
+        m_TargetAssemblyTypeName: PauseUI, Assembly-CSharp
+        m_MethodName: UpdateIndex
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 4255452069823174857}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive

@@ -7,9 +7,16 @@ public class ExitUI : MonoBehaviour
 {
 	public Button FirstButton;
 
-	private void OnEnable()
-	{
-		FirstButton.Select();
-		UIManager.Instance.IsExit = true;
-	}
+    private void OnEnable()
+    {
+        UIManager.Instance.TempUI = this.gameObject;
+        UIManager.Instance.IsPopup++;
+        FirstButton.Select();
+    }
+
+    private void OnDisable()
+    {
+        UIManager.Instance.pauseUI.SelectButtonOn();
+        UIManager.Instance.IsPopup--;
+    }
 }

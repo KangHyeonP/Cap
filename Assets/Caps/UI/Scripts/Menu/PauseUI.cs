@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class PauseUI : MonoBehaviour
 {
 	private Animator animator;
-	public Button FirstButton;
+	public Button[] selectButton;
+	private int buttonIndex = 0;
+	
 
 	private void Awake()
 	{
@@ -16,12 +18,17 @@ public class PauseUI : MonoBehaviour
 
 	private void OnEnable()
 	{
-		FirstButtonOn();
+        SelectButtonOn();
 	}
 
-	public void FirstButtonOn()
+	public void SelectButtonOn()
 	{
-		FirstButton.Select();
+		selectButton[buttonIndex].Select();
+	}
+
+	public void UpdateIndex(int i)
+	{
+		buttonIndex = i;
 	}
 
 	public void Restart() //¿ÁΩ√¿€
@@ -45,12 +52,13 @@ public class PauseUI : MonoBehaviour
 
 	public void PauseOff()
 	{
-		UIManager.Instance.IsPause = false;
+		UIManager.Instance.IsPopup = 0;
 		gameObject.SetActive(false);
 	}
 
 	public void PauseOn()
 	{
-		UIManager.Instance.IsPause = true;
+		UIManager.Instance.IsPopup = 1;
 	}
+
 }

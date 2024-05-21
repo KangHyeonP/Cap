@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GunGangSter : Agent
 {
+    private GameObject bullet;
+
     protected override void Awake()
     {
         base.Awake();
@@ -23,14 +25,11 @@ public class GunGangSter : Agent
         base.FixedUpdate();
     }
 
-    protected override IEnumerator IAttack()
+    protected override void AttackLogic()
     {
-        yield return null;
-
-        //Debug.Log("어택 로직 실행");
-        yield return new WaitForSeconds(2f);
-        //Debug.Log("어택 로직 종료");
-
-        yield return StartCoroutine(base.IAttack());
+        // 로직 수정하기
+        GameObject bulletcopy = Instantiate(bullet, transform.position, Quaternion.identity);
+        Vector2 bulletDir = (target.position - transform.position).normalized;
+        bulletcopy.GetComponent<Rigidbody2D>().velocity = bulletDir * attackSpeed;
     }
 }

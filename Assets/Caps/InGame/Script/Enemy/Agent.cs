@@ -45,11 +45,14 @@ public abstract class Agent : MonoBehaviour
     protected bool isMoveLean = false;
     protected bool isLean = false;
 
+    // AI Attack
     [SerializeField]
     protected float attackDelay;
     protected float curAttackDelay;
     [SerializeField]
     protected float attackMoveDelay; // 공격 후 제동 시간
+    protected float attackSpeed;
+    protected float attackDistance;
 
     // Object Interaction
     protected bool tableMove;
@@ -237,6 +240,8 @@ public abstract class Agent : MonoBehaviour
 
     protected virtual IEnumerator IAttack()
     {
+        //AttackLogic();
+
         yield return new WaitForSeconds(attackMoveDelay);
 
         Debug.Log("코루틴 종료 후 1");
@@ -244,7 +249,9 @@ public abstract class Agent : MonoBehaviour
         isDetect = true;
         curStatus = EnemyStatus.Idle;
     }
-    
+
+    protected abstract void AttackLogic();
+
     // 연호가 해당 프레임까지 그려주기 힘들면 다른 방면 생각
     // 그려준다면 방향별로 고개만 빙글빙글 3프레임정도
     protected void Stun()

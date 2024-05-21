@@ -59,7 +59,7 @@ public class Table : MonoBehaviour
         {
             playerCheck = true;
 
-            Debug.Log("µé¾î¿È");
+            //Debug.Log("µé¾î¿È");
         }
 
         if(!enemyCheck && curArrow != TableArrow.none && collision.gameObject.tag.Equals("Agent"))
@@ -76,7 +76,7 @@ public class Table : MonoBehaviour
         {
             playerCheck = false;
             ActiveLine(false);
-            Debug.Log("³ª¿È");
+            //Debug.Log("³ª¿È");
         }
 
         if (enemyCheck && curArrow != TableArrow.none && collision.gameObject.tag.Equals("Agent"))

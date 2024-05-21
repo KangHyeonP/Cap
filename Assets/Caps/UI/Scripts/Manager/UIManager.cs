@@ -8,20 +8,19 @@ public class UIManager : MonoBehaviour
 	private static UIManager instance;
 	public static UIManager Instance => instance;
 
-	public GameObject PauseUI;
-	public GameObject TabUI;
+	public PauseUI pauseUI;
+	public TabUI TabUI;
 	public GameObject DictUI;
 	public GameObject ExitUI;
 	public InGameUI inGameUI;
+    public GameObject TempUI;
 
-	[HideInInspector]
-	public bool IsPause = false;
-	[HideInInspector]
+    [HideInInspector]
+    public int IsPopup = 0;
+    [HideInInspector]
 	public bool IsTab = false;
 	[HideInInspector]
 	public bool IsDict = false;
-	[HideInInspector]
-	public bool IsExit = false;
 
 	//InputKey
 	private bool isEscKey;
@@ -29,9 +28,7 @@ public class UIManager : MonoBehaviour
 	private bool isTabKey;
 	private bool isInventoryKey;
 
-
-
-	private void Awake()
+    private void Awake()
 	{
 		Init();
 	}
@@ -44,14 +41,44 @@ public class UIManager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		InputKey();
+		//InputKey();
 
-        OpenPause();
-		OpenTab();
-		OpenDict();
-	}
+        //OpenPause();
+		//OpenTab();
+		//OpenDict();
 
-	private void Init()
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+        {
+			Debug.Log(IsPopup);
+            OpenPause();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab) && !IsTab)
+        {
+            OpenTab();
+            Debug.Log("Open");
+        }
+
+        if (Input.GetKeyUp(KeyCode.Tab) && IsTab)
+        {
+            OpenTab();
+            Debug.Log("Close");
+        }
+
+        if (Input.GetKeyDown(KeyCode.I) && IsPopup == 0)
+        {
+            OpenDict();
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Debug.Log("IsTab: " + IsTab);
+            Debug.Log("IsDict: " + IsDict);
+        }
+
+    }
+
+    private void Init()
 	{
 		if (Instance == null)
 		{
@@ -71,7 +98,7 @@ public class UIManager : MonoBehaviour
 
 	private void OpenDict() //도감
 	{
-		if (!isInventoryKey) return;
+		//if (!isInventoryKey) return;
 
 		if (!IsDict)
 		{
@@ -87,46 +114,50 @@ public class UIManager : MonoBehaviour
 
 	private void OpenTab() //탭
 	{
-		if (!isTabKey) return;
+		//if (!isTabKey) return;
 
 		if (!IsTab)
 		{
-			TabUI.SetActive(true);
+			IsTab = true;
+			TabUI.gameObject.SetActive(true);
 		}
 		else
 		{
-			TabUI.GetComponent<TabUI>().Close();
+			TabUI.Close();
 		}
 	}
 
-	private void OpenPause() //일시정지
+
+    private void OpenPause() //일시정지
 	{
-		if (!isPauseKey) return;
+		
+        switch (IsPopup)
+        {
+            case 0:
+                PauseTime(true);
+                pauseUI.gameObject.SetActive(true);
+                break;
+            case 1:
+                PauseTime(false);
+                pauseUI.gameObject.GetComponent<PauseUI>().Close();
+                IsPopup--;
+                break;
+            case 2:
+                TempUI.SetActive(false);
+                break;
+        }
 
-		if(!IsPause)
-		{
-			PauseTime(true);
-			PauseUI.SetActive(true);
-		}
-		else
-		{
-			if(IsExit)
-			{
-				ExitUI.SetActive(false);
-			}
-			else
-			{
-				PauseTime(false);
-				PauseUI.GetComponent<PauseUI>().Close();
-			}
-		}
-	}
+    }
 
-	private void PauseTime(bool IsPause)
+    private void PauseTime(bool IsPause)
 	{
 		if(IsPause)
 		{
-			InGameManager.Instance.Pause(true);
+            if (IsTab)
+            {
+                TabUI.Close();
+            }
+            InGameManager.Instance.Pause(true);
 			Time.timeScale = 0f;
 		}
 		else

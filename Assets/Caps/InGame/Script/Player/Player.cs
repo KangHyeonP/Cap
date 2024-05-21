@@ -270,8 +270,6 @@ public abstract class Player : MonoBehaviour
     // 방향 전환
     public void ChangeVector(PlayerVetor pVec, bool checkReverse)
     {
-        Debug.Log("실행 됨?");
-        Debug.Log("그럼 리버스는 ? :" + checkReverse);
         isReverse = checkReverse;
         VectorStatus(pVec);
     }
@@ -345,6 +343,6 @@ public abstract class Player : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("플레이어에 들어온 트리거");
+        //Debug.Log("플레이어에 들어온 트리거");
     }
 }
