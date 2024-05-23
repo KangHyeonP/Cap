@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     public static CameraController Instance => instance;
 
     [SerializeField]
-    private Player player; // 추후 플레이어 로직 설정
+    //private Player player; // 추후 플레이어 로직 설정
     private Vector3 targetPos, refVel = Vector3.zero;
     private Camera cam;
     public Camera Cam => cam;
@@ -52,7 +52,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        targetPos = player.transform.position;
+        targetPos = InGameManager.Instance.player.transform.position;
         zOffset = transform.position.z;
         agents = new List<Agent>();
     }
@@ -99,7 +99,7 @@ public class CameraController : MonoBehaviour
     private Vector3 UpdateTargetPos()
     {
         Vector3 mousePos = mousePoint * camDist;
-        Vector3 refVec = player.transform.position + mousePos;
+        Vector3 refVec = InGameManager.Instance.player.transform.position + mousePos;
         refVec.z = zOffset;
         return refVec;
     }

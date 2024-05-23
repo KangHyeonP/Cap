@@ -50,4 +50,14 @@ public class DataManager : MonoBehaviour
     {
         
     }
+
+    // 락 해제, 추후 로직 변동 필요할듯
+
+    public void UpdateLock(int index)
+    {
+        if (jsonClass._PlayerData.playerLock[index]) return;
+
+        jsonClass.UpdateLock(index);
+    }
+
 }

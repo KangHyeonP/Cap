@@ -83,7 +83,7 @@ public abstract class Agent : MonoBehaviour
 
     protected virtual void Start()
     {
-        
+        target = InGameManager.Instance.player.transform;
     }
 
     protected virtual void Update()

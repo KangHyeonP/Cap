@@ -323,10 +323,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 137dcb34ffef4d44c90b2daf160be62b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: []
-  playerAimAccuracy: []
-  playerAttackPower: 
-  playerLockCheck: 
+  playerHp: 0
+  playerSpeed: 0
+  playerAimAccuracy: 0
+  playerAttackPower: 0
 --- !u!4 &106019976
 Transform:
   m_ObjectHideFlags: 0
@@ -1393,7 +1393,7 @@ GameObject:
   - component: {fileID: 902038891}
   - component: {fileID: 902038890}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: UnLockButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1406,13 +1406,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 902038888}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1396968615}
-  m_Father: {fileID: 3948700049544634759}
+  m_Father: {fileID: 1738921289084422516}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1463,13 +1463,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1725687576301801095}
+        m_TargetAssemblyTypeName: CharacterImage, Assembly-CSharp
+        m_MethodName: UnLockButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1522,8 +1522,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1189995339}
+  - component: {fileID: 1189995340}
   m_Layer: 0
-  m_Name: DataMaanger
+  m_Name: DataManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1544,6 +1545,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1189995340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189995338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b903c7a17a003714d9dd2f62c7f5b79e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1318337355
 GameObject:
   m_ObjectHideFlags: 0
@@ -1770,18 +1783,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 45
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 4
+    m_MaxSize: 50
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: "Lock\uD480\uAE30"
 --- !u!222 &1396968617
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2677,7 +2690,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7996190675513065739}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1725687576301801095}
+        m_TargetAssemblyTypeName: CharacterImage, Assembly-CSharp
+        m_MethodName: SelectButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1306252630143445894
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2885,6 +2910,7 @@ RectTransform:
   - {fileID: 1607068276290409920}
   - {fileID: 5454021574602613276}
   - {fileID: 4042376632935815308}
+  - {fileID: 902038889}
   m_Father: {fileID: 3948700049544634759}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3290,7 +3316,6 @@ RectTransform:
   - {fileID: 553362808}
   - {fileID: 862149284}
   - {fileID: 1738921289084422516}
-  - {fileID: 902038889}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3459,7 +3484,7 @@ GameObject:
   - component: {fileID: 7996190675513065739}
   - component: {fileID: 1216324403616188761}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: SelectButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

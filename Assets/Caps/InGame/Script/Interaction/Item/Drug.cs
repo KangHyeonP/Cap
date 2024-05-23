@@ -11,6 +11,7 @@ public class Drug : Item
     protected void Awake()
     {
         base.Awake();
+        drugSprite = GetComponent<SpriteRenderer>();
     }
 
     protected void Start()
@@ -23,7 +24,6 @@ public class Drug : Item
     protected void Update()
     {
         base.Update();
-        drugSprite = GetComponent<SpriteRenderer>();
     }
 
     public override void GetItem()
@@ -38,16 +38,12 @@ public class Drug : Item
         InGameManager.Instance.drugInven = this;
         InGameManager.Instance.UpdateDrugType(drugSprite.sprite); //이거 UI연동하려고 추가한거임 (지)
         InGameManager.Instance.tempDrug = null;
-        Debug.Log(InGameManager.Instance.drugInven); //디버그 (지)
-        
-        
 
         base.GetItem();
     }
 
     public override void UseItem()
     {
-        Debug.Log(InGameManager.Instance.tempItem); //디버그 (지)
         GetDrug();
         InGameManager.Instance.UpdateDrug(drugGuage);
         Destroy(this.gameObject);

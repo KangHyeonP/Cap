@@ -38,8 +38,6 @@ public class CharacterImage : MonoBehaviour
     private void Init()
     {
         maxIndex = characterSprites.Length - 1;
-
-
     }
 
     public void UpdateIndex(int num)
@@ -60,8 +58,8 @@ public class CharacterImage : MonoBehaviour
         else buttons[1].sprite = sprites[0];
 
         // 메인 캐릭터 이미지 갱신
-        //if()
-        characterImage.sprite = characterSprites[curIndex];
+        if(!DataManager.Instacne.JsonClass._PlayerData.playerLock[curIndex]) characterImage.sprite = characterSprites[4];
+        else characterImage.sprite = characterSprites[curIndex];
     }
 
     public void SelectButton()
@@ -69,6 +67,14 @@ public class CharacterImage : MonoBehaviour
         if (DataManager.Instacne.JsonClass._PlayerData.playerLock[curIndex])
         {
             DataManager.Instacne.DefaultData.SettingValue(curIndex);
+            GameManager.Instance.playerCheck = true;
+            GameManager.Instance.selectCharacter = (ECharacters)curIndex;
         }
+    }
+
+    // 임시용 현재 UI화면 lock 풀기
+    public void UnLockButton()
+    {
+        DataManager.Instacne.UpdateLock(curIndex);
     }
 }

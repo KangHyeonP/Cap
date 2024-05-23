@@ -4,7 +4,6 @@ using UnityEngine;
 */
 
 using System.IO;
-using UnityEditor.Playables;
 using UnityEngine;
 
 //public enum 
@@ -16,31 +15,27 @@ public class JsonClass
     public PlayerData _PlayerData => _playerData;
 
     // DefaultPath
-    private string defaultPath = Application.persistentDataPath + '/';
+    private string defaultPath;
     private const string pDJsonName = "PlayerData.json";
 
     private string pdPath;
 
     private FileInfo fileInfo;
-    // Default Data
+
+    // Init Data Settings
     public JsonClass()
     {
         _playerData = new PlayerData();
-        //FileCheck(playerData.jsonName)
-
-        pdPath = defaultPath + pDJsonName;
     }
 
-    // Data 실행 로직
+    // Check Data
     public void StartPlayerData()
     {
+        defaultPath = Application.persistentDataPath + '/';
+        pdPath = defaultPath + pDJsonName;
         fileInfo = new FileInfo(pdPath);
 
-        if (!fileInfo.Exists)
-        {
-            File.WriteAllText(pdPath, JsonUtility.ToJson(_playerData));
-            return;
-        }
+        if (!fileInfo.Exists) return; // default값으로 실행될듯
 
         string readJsonData = File.ReadAllText(pdPath);
         _playerData = JsonUtility.FromJson<PlayerData>(pDJsonName);
@@ -48,36 +43,15 @@ public class JsonClass
 
     }
 
-    // PlayerData 저장
+    // Save PlayerData 저장(죽을때, 게임을 종료할 때 해당 조건을 게임매니저에서 실행)
     public void SavePlayerData()
     {
-
         File.WriteAllText(pdPath, JsonUtility.ToJson(_playerData));
     }
 
-
-    /*
-    // 해당 경로에 파일 존재여부 체크
-    private FileInfo FileCheck(string pathName)
+    public void UpdateLock(int index)
     {
-        return new FileInfo(defaultPath + pathName);
-    }
-
-    private void loadFile(FileInfo f)
-    {
-        if (!f.Exists) return; // 파일이 존재 안하면 return
-
-
-    }*/
-
-    private void DataSetting()
-    {
-        //string playerData = JsonUtility.ToJson(PlayerData);
-    }
-
-    private void PlayerDataCheck()
-    {
-
+        _playerData.playerLock[index] = true;
     }
 }
 

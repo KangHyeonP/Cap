@@ -8,19 +8,22 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance => instance;
 
     // Player Status
+    [SerializeField]
     private int playerHp = 0;
     public int PlayerHp => playerHp;
-
+    [SerializeField]
     private float playerSpeed;
     public float PlayerSpeed => playerSpeed;
-
+    [SerializeField]
     private float playerAimAccuracy;
     public float PlayerAimAccuracy => playerSpeed;
-
+    [SerializeField]
     private int playerAttackPower;
     public int PlayerAttackPower => playerAttackPower;
 
-    //private bool playerLockCheck;
+    public ECharacters selectCharacter;
+
+    public bool playerCheck = false;
 
     private void Awake()
     {
@@ -55,5 +58,12 @@ public class GameManager : MonoBehaviour
         playerSpeed = speed;
         playerAimAccuracy = aim;
         playerAttackPower = power;
+    }
+
+
+    // 죽을때 or 게임 종료할 때
+    public void SaveData()
+    {
+        DataManager.Instacne.JsonClass.SavePlayerData();
     }
 }

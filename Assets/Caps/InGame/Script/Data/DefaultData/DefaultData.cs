@@ -42,11 +42,10 @@ public class CharacterData
     private float[] defaultSpeed = { 5, 10, 2, 2, 2 };
     private float[] defaultAimAccuracy = { 10, 15, 3, 3, 3 };
     private int[] defaultAttackPower = { 10, 5, 4, 4, 4 };
-    public bool[] lockCheck = { true, false, false, false, false }; // true : 해제, false : 잠금
 
     public void UpdateData(int i)
     {
-        if (lockCheck[i])
+        if (DataManager.Instacne.JsonClass._PlayerData.playerLock[i])
         GameManager.Instance.GetPlayerValue(defaultHp[i], defaultSpeed[i], defaultAimAccuracy[i], defaultAttackPower[i]);
     }
 }

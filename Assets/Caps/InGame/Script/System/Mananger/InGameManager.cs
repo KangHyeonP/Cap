@@ -8,6 +8,9 @@ public class InGameManager : MonoBehaviour
     private static InGameManager instance;
     public static InGameManager Instance => instance;
 
+    [SerializeField]
+    private GameObject[] prefabs;
+
     // 임시 플레이어 등록
     public Player player;
 
@@ -40,6 +43,7 @@ public class InGameManager : MonoBehaviour
     private void Awake()
     {
         Init();
+        GeneratePlayer();
     }
 
     void Start()
@@ -59,6 +63,36 @@ public class InGameManager : MonoBehaviour
         {
             instance = this;
         }
+
+
+    }
+
+    private void GeneratePlayer()
+    {
+        int index = 0;
+        GameObject playerObj;
+
+        switch (GameManager.Instance.selectCharacter)
+        {
+            case ECharacters.main:
+                index = (int)ECharacters.main;
+                break;
+                /*case ECharacters.sub:
+
+                    break;
+                case ECharacters.c1:
+
+                    break;
+                case ECharacters.c2:
+
+                    break;
+                case ECharacters.c3:
+
+                    break;*/      
+        }
+
+        playerObj = Instantiate(prefabs[index], transform.position, transform.rotation);
+        player = playerObj.GetComponent<Player>();
     }
 
     public void Pause(bool check)
