@@ -168,9 +168,9 @@ public abstract class Player : MonoBehaviour
         // 구르기 방향 계산
         if(rollVec.x > 0)
         {
-            if (rollVec.y > 0) rollStatus = "RollCrossUp";
+            if (rollVec.y > 0) rollStatus = "RollCross";
             else if (rollVec.y == 0) rollStatus = "RollSide";
-            else rollStatus = "RollCrossDown";
+            else rollStatus = "RollSide";
         }
         else if(rollVec.x ==0)
         {
@@ -180,9 +180,9 @@ public abstract class Player : MonoBehaviour
         else
         {
             rollReverse = true;
-            if (rollVec.y > 0) rollStatus = "RollCrossUp";
+            if (rollVec.y > 0) rollStatus = "RollCross";
             else if (rollVec.y == 0) rollStatus = "RollSide";
-            else rollStatus = "RollCrossDown";
+            else rollStatus = "RollSide";
         }
 
         if (rollReverse) transform.localScale = new Vector3(-1, 1, 1);
