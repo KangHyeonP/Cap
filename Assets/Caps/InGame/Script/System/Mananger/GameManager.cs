@@ -11,6 +11,16 @@ public class GameManager : MonoBehaviour
     private int playerHp = 0;
     public int PlayerHp => playerHp;
 
+    private float playerSpeed;
+    public float PlayerSpeed => playerSpeed;
+
+    private float playerAimAccuracy;
+    public float PlayerAimAccuracy => playerSpeed;
+
+    private int playerAttackPower;
+    public int PlayerAttackPower => playerAttackPower;
+
+    //private bool playerLockCheck;
 
     private void Awake()
     {
@@ -38,5 +48,12 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+    public void GetPlayerValue(int hp, float speed, float aim, int power)
+    {
+        playerHp = hp;
+        playerSpeed = speed;
+        playerAimAccuracy = aim;
+        playerAttackPower = power;
     }
 }
