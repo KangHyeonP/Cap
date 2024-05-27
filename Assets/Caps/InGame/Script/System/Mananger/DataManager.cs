@@ -19,8 +19,8 @@ public class DataManager : MonoBehaviour
     // Generacte Value
     public DataManager()
     {
-        jsonClass = new JsonClass();
-        defaultData = new DefaultData();
+        if(jsonClass == null) jsonClass = new JsonClass();
+        if(defaultData == null) defaultData = new DefaultData();
     }
 
     private void Awake()

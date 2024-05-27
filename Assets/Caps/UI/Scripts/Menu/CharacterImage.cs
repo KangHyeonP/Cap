@@ -76,5 +76,6 @@ public class CharacterImage : MonoBehaviour
     public void UnLockButton()
     {
         DataManager.Instacne.UpdateLock(curIndex);
+        characterImage.sprite = characterSprites[curIndex];
     }
 }

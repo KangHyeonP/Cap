@@ -35,10 +35,13 @@ public class JsonClass
         pdPath = defaultPath + pDJsonName;
         fileInfo = new FileInfo(pdPath);
 
-        if (!fileInfo.Exists) return; // default값으로 실행될듯
+        //Debug.Log(Application.persistentDataPath);
+        //Debug.Log(pdPath);
+
+        if (!fileInfo.Exists) return;
 
         string readJsonData = File.ReadAllText(pdPath);
-        _playerData = JsonUtility.FromJson<PlayerData>(pDJsonName);
+        _playerData = JsonUtility.FromJson<PlayerData>(readJsonData);
 
 
     }

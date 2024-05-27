@@ -66,4 +66,6 @@ public class GameManager : MonoBehaviour
     {
         DataManager.Instacne.JsonClass.SavePlayerData();
     }
+
+    
 }
