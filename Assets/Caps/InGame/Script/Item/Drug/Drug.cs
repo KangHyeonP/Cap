@@ -11,6 +11,7 @@ public class Drug : Item
     protected void Awake()
     {
         base.Awake();
+        drugSprite = GetComponent<SpriteRenderer>();
     }
 
     protected void Start()
@@ -23,7 +24,7 @@ public class Drug : Item
     protected void Update()
     {
         base.Update();
-        drugSprite = GetComponent<SpriteRenderer>();
+        
     }
 
     public override void GetItem()
@@ -56,7 +57,12 @@ public class Drug : Item
 
     public void GetDrug()
     {
-        drugGuage = Random.Range(1, 11);
+        if(DrugManager.Instance.guageUp)
+        {
+            drugGuage = Random.Range(9, 13);
+            return;
+        }
+        drugGuage = Random.Range(6, 10);
     }
 
     public void PutDrug()

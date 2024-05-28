@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ThirdNerf : RandomNerf
 {
+    
+    
     protected void Awake()
     {
         base.Awake();

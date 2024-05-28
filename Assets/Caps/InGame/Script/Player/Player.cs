@@ -153,6 +153,11 @@ public abstract class Player : MonoBehaviour
 
     protected void Roll()
     {
+        if (DrugManager.Instance.isRollBan)
+        {
+            return;
+        }
+
         if (!isRoll && InputVec != Vector2.zero && rollKey)
         {
             rollVec = moveVec;
@@ -202,6 +207,7 @@ public abstract class Player : MonoBehaviour
     protected void Damage(int power)
     {
         //if (!isDead) return;
+        power *= DrugManager.Instance.doubleDamagePivot;
 
         if (DrugManager.Instance.green2)
         {

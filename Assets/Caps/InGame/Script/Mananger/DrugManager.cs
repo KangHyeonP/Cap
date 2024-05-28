@@ -72,11 +72,14 @@ public class DrugManager : MonoBehaviour
     public bool secondNerf1;
     public bool secondNerf2;
     public bool secondNerf3;
+    public bool guageUp;
 
     //3rd Nerf
     public bool thirdNerf1;
     public bool thirdNerf2;
     public bool thirdNerf3;
+    public bool isRollBan;
+    public int doubleDamagePivot = 1;
 
     private void Awake()
     {
@@ -237,29 +240,89 @@ public class DrugManager : MonoBehaviour
         }
     }
 
-    public void RunFirstNerf1()
+    public void RunFirstNerf1() //1단계 너프, 상점 가격 증가 hosthate
     {
-        Debug.Log("상점가격증가");
-    }
-
-    public void RunFirstNerf2()
-    {
-        if (!isBandage)
-            return;
-        int infect = Random.Range(1, 11);
-        if (infect == 1)
-            Debug.Log("붕대 사용 못함");
-    }
-
-    public void RunFirstNerf3()
-    {
-        int bombMissCheck = Random.Range(1, 11);
-        if (bombMissCheck == 1)
+        if(firstNerf1)
         {
-            Debug.Log("수류탄 불발");
+            Debug.Log("상점가격증가");
+        }
+        
+    }
+
+    public void RunFirstNerf2() // 1단계 너프, 오염된 붕대 InfectedBandage
+    {
+        if(firstNerf2)
+        {
+            int infect = Random.Range(1, 11);
+            if (infect == 1)
+                Debug.Log("붕대 사용 못함");
+        }
+        
+    }
+
+    public void RunFirstNerf3() //1단계 너프, 불발 수류탄 BombMiss
+    {
+        if(firstNerf3)
+        {
+            int bombMissCheck = Random.Range(1, 11);
+            if (bombMissCheck == 1)
+            {
+                Debug.Log("수류탄 불발");
+            }
         }
     }
 
-    
+    public void RunSecondNerf1() //2단계 너프, 마약복용 게이지 증가 GuageIncrease
+    {
+        if(secondNerf1)
+        {
+            guageUp = true;
+        }    
+    }
+
+    public void RunSecondNerf2() //2단계 너프, 마약 색맹 
+    {
+        if(secondNerf2)
+        {
+            Debug.Log("마약 색맹");
+        }
+    }
+
+    public void RunSecondNerf3() //2단계 너프, 조준 미스 
+    {
+        if (firstNerf2)
+        {
+            int miss = Random.Range(1, 101);
+            if (miss >= 1 && miss <=15)
+            {
+                Debug.Log("총알 빗나감");
+            }
+                
+        }
+    }
+
+    public void RunThirdNerf1() //3단계 너프, 구르기 금지
+    {
+        if(thirdNerf1)
+        {
+            isRollBan = true;
+        }
+    }
+
+    public void RunThirdNerf2() //마약 복용 및 교체 이외 아이템 습득 불가능
+    {
+        if(thirdNerf2)
+        {
+            Debug.Log("아이템 불가");
+        }
+    }
+
+    public void RunThirdNerf3() //데미지 2배
+    {
+        if(thirdNerf3)
+        {
+            doubleDamagePivot = 2;
+        }
+    }
 
 }

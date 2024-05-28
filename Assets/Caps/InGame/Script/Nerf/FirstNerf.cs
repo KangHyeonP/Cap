@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class FirstNerf : RandomNerf
 {
+    
     protected void Awake()
     {
         base.Awake();
@@ -17,9 +20,12 @@ public class FirstNerf : RandomNerf
         base.Update();
     }
 
+    
+
     public override void Nerf1()
     {
         DrugManager.Instance.firstNerf1 = true;
+        DrugManager.Instance.RunFirstNerf1();
     }
 
     public override void Nerf2()
