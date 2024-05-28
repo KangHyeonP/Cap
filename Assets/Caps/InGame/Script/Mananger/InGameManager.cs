@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InGameManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class InGameManager : MonoBehaviour
     // 임시 플레이어 등록
     public Player player;
 
+    public Slider drugBar;
+
     private bool isPause = false; //일단 현재는 인게임 상태이므로 일시정지 해제
     public bool IsPause => isPause;
 
@@ -19,6 +22,7 @@ public class InGameManager : MonoBehaviour
     public int Hp => hp;
 
     private int maxHp;
+    public int MaxHp => maxHp;
 
     // Item
     public bool isItem;
@@ -36,6 +40,8 @@ public class InGameManager : MonoBehaviour
 
     public int drugGuage;
     //public int DrugGuage => drugGuage;
+
+    
 
     private void Awake()
     {
@@ -71,11 +77,10 @@ public class InGameManager : MonoBehaviour
 
     public void UpdateDrug(int value)
     {
-        // UI 매니저에서 수정
-        /*
+       
         drugGuage += value;
         drugBar.value = drugGuage;
-        */
+        
     }
     public void UpdateKey()
     {
@@ -94,5 +99,23 @@ public class InGameManager : MonoBehaviour
         UIManager.Instance.inGameUI.DrugInven(s);
         // 이것도 UI
         //drugTypeUI.sprite = drugInven.drugSprite.sprite;
+    }
+
+    public void MaxHPUpdate()
+    {
+        if (DrugManager.Instance.MaxHPUp)
+        {
+            maxHp += 2;
+            DrugManager.Instance.red1 = false;
+        }
+    }
+
+    public void HealHp(int value)
+    {
+        if (hp + value > maxHp)
+        {
+            hp = maxHp;
+        }
+        else hp += value;
     }
 }

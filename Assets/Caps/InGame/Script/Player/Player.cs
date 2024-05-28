@@ -203,9 +203,18 @@ public abstract class Player : MonoBehaviour
     {
         //if (!isDead) return;
 
-        hp -= power;
-        Debug.Log("피격당함");
-        Debug.Log("현재 체력 : " + hp);
+        if (DrugManager.Instance.green2)
+        {
+            DrugManager.Instance.RunGreenBuff2();
+        }
+
+        if(DrugManager.Instance.red2)
+        {
+            DrugManager.Instance.RunRedBuff2();
+        }
+
+
+        
     }
 
     // 무기 기능 구현하여 추가하기

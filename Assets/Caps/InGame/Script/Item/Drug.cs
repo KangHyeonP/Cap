@@ -50,6 +50,7 @@ public class Drug : Item
         Debug.Log(InGameManager.Instance.tempItem); //디버그 (지)
         GetDrug();
         InGameManager.Instance.UpdateDrug(drugGuage);
+        DrugAbility();
         Destroy(this.gameObject);
     }
 
@@ -67,9 +68,14 @@ public class Drug : Item
 
     }
 
+    protected virtual void DrugAbility()
+    {
+
+    }
+    
     // 콜라이더 추가
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
@@ -79,7 +85,7 @@ public class Drug : Item
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    protected void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
