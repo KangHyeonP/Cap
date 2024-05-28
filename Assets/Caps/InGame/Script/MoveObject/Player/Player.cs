@@ -30,7 +30,7 @@ public abstract class Player : MonoBehaviour
     protected float speed = 3.0f; // 스피드
     protected float rollingSpeed = 1.0f;
     protected float power; // 공격력
-    protected float armor; // 방어력
+    protected int armor; // 방탄
 
     // 무기 구현이후 attackDelay알맞게 수정
     protected float attackDelay = 1.0f;
@@ -201,11 +201,26 @@ public abstract class Player : MonoBehaviour
 
     protected void Damage(int power)
     {
-        //if (!isDead) return;
+        if (isDead) return;
+
+        // 회피 여부 체크
+        if (DrugManager.Instance.green2)
+        {
+            DrugManager.Instance.RunGreenBuff2();
+            return; // 상태관련해서 수정할게 있으면 수정하고 리턴
+        }
+
+        
 
         hp -= power;
         Debug.Log("피격당함");
         Debug.Log("현재 체력 : " + hp);
+
+        // 광전사 여부 체크
+        if (DrugManager.Instance.red2)
+        {
+            DrugManager.Instance.RunRedBuff2();
+        }
     }
 
     // 무기 기능 구현하여 추가하기

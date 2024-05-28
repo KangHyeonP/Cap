@@ -38,8 +38,17 @@ public class Bandage : Item
     public void UseBandage()
     {
         // 로직 수정
+        if (DrugManager.Instance.bandageNerf)
+        {
+            int infect = Random.Range(1, 11);
+            if (infect == 1)
+                Debug.Log("붕대 사용 못함");
+            return;
+        }
+
+
         //if (InGameManager.Instance.health < InGameManager.Instance.maxHealth)
-         //   InGameManager.Instance.health++; 
+        //   InGameManager.Instance.health++; 
     }
     // 콜라이더 추가
     private void OnTriggerEnter2D(Collider2D collision)

@@ -9,6 +9,8 @@ public class Bullet : MonoBehaviour
 
 	private void Start()
 	{
+        if (DrugManager.Instance.isBulletSizeUp) gameObject.transform.localScale *= 2;
+
         if (eraseSpeed > 0)
         {
             StartCoroutine(Erase());

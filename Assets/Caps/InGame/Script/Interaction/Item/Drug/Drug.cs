@@ -46,12 +46,18 @@ public class Drug : Item
     {
         GetDrug();
         InGameManager.Instance.UpdateDrug(drugGuage);
+        DrugAbility();
         Destroy(this.gameObject);
     }
 
     public void GetDrug()
     {
-        drugGuage = Random.Range(1, 11);
+        if(DrugManager.Instance.guageUp)
+        {
+            drugGuage = Random.Range(9, 13);
+            return;
+        }
+        drugGuage = Random.Range(6, 10);
     }
 
     public void PutDrug()
@@ -62,10 +68,14 @@ public class Drug : Item
         //Vector2.Distance(nextVec, sumVec));
 
     }
+    protected virtual void DrugAbility()
+    {
+
+    }
 
     // 콜라이더 추가
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
@@ -75,7 +85,7 @@ public class Drug : Item
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    protected void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
