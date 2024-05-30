@@ -30,6 +30,8 @@ public abstract class Agent : MonoBehaviour
     // 추후 애니메이션으로 변경
     [SerializeField]
     protected Sprite[] basicSprites;
+    [SerializeField]
+    protected Transform muzzle;
 
 
     // 현재 AI 활성화 상태인지 고려, 랜덤생성 or 다음 칸 배치 같은 문제에서 적용함
@@ -44,15 +46,22 @@ public abstract class Agent : MonoBehaviour
     protected bool isDetect = false;
     protected bool isMoveLean = false;
     protected bool isLean = false;
+    protected bool isAttack = false;
+    public bool IsAttack => isAttack;
 
     // AI Attack
     [SerializeField]
     protected float attackDelay;
+    [SerializeField]
     protected float curAttackDelay;
     [SerializeField]
     protected float attackMoveDelay; // 공격 후 제동 시간
+    [SerializeField]
     protected float attackSpeed;
+    [SerializeField]
     protected float attackDistance;
+    [SerializeField]
+    protected float attackRecoil;
 
     // Object Interaction
     protected bool tableMove;
@@ -223,14 +232,15 @@ public abstract class Agent : MonoBehaviour
         
         agent.SetDestination(target.position);
         float distance = Vector3.Distance(target.position, transform.position);
-        if (distance <= 2.0f) curStatus = EnemyStatus.Attack;
+        if (distance <= attackDistance && attackDelay > curAttackDelay) curStatus = EnemyStatus.Attack;
     }
 
     protected void Attack()
     {
-        if(agent.isStopped || attackDelay > curAttackDelay) return;
+        if(agent.isStopped || IsAttack) return;
 
         //Debug.Log("코루틴 시작 1");
+        isAttack = true;
         isDetect = false;
         agent.isStopped = true;
         curAttackDelay = 0;
@@ -240,11 +250,13 @@ public abstract class Agent : MonoBehaviour
 
     protected virtual IEnumerator IAttack()
     {
-        //AttackLogic();
+        yield return new WaitForSeconds(0.5f); // 쏘기전 잠깐 제동
+
+        AttackLogic();
 
         yield return new WaitForSeconds(attackMoveDelay);
 
-        Debug.Log("코루틴 종료 후 1");
+        isAttack = false;
         agent.isStopped = false;
         isDetect = true;
         curStatus = EnemyStatus.Idle;

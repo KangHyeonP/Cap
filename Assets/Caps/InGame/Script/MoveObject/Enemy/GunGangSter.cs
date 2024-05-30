@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GunGangSter : Agent
 {
+    [SerializeField]
     private GameObject bullet;
+    int hp = 5;
 
     protected override void Awake()
     {
@@ -27,9 +29,29 @@ public class GunGangSter : Agent
 
     protected override void AttackLogic()
     {
-        // 로직 수정하기
-        GameObject bulletcopy = Instantiate(bullet, transform.position, Quaternion.identity);
-        Vector2 bulletDir = (target.position - transform.position).normalized;
-        bulletcopy.GetComponent<Rigidbody2D>().velocity = bulletDir * attackSpeed;
+
+        Vector2 bulletDir = (target.position - muzzle.position).normalized;
+        muzzle.up = bulletDir;
+        muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z + Random.Range(-attackRecoil, attackRecoil + 1));
+
+        GameObject bulletcopy = Instantiate(bullet, muzzle.position, muzzle.rotation);
+        bulletcopy.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
+    }
+
+    // 나중에 agent로 올리기
+    private void OnTriggerEnter2D(Collider2D collision) //수정
+    {
+        if (collision.CompareTag("PlayerBullet"))
+        {
+            Destroy(collision.gameObject);
+
+            hp--;
+            Debug.Log("몬스터 남은 체력: " + hp);
+
+            if (hp == 0)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

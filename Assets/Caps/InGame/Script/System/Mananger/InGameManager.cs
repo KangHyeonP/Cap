@@ -22,7 +22,7 @@ public class InGameManager : MonoBehaviour
     private bool isPause = false; //일단 현재는 인게임 상태이므로 일시정지 해제
     public bool IsPause => isPause;
 
-    [Header("플레이어")]
+    [SerializeField]
     private int hp;
     public int Hp => hp;
 
@@ -70,7 +70,7 @@ public class InGameManager : MonoBehaviour
             instance = this;
         }
 
-
+        maxHp = GameManager.Instance.PlayerHp;
     }
 
     private void GeneratePlayer()
@@ -150,5 +150,15 @@ public class InGameManager : MonoBehaviour
             hp = maxHp;
         }
         else hp += value;
+    }
+
+    public void Hit(int value)
+    {
+        if (hp - value <= 0)
+        {
+            hp = 0;
+            Debug.Log("사망함"); // 이건 나중에
+        }
+        else hp -= value;
     }
 }

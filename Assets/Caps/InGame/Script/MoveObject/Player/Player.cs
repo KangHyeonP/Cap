@@ -23,9 +23,6 @@ public abstract class Player : MonoBehaviour
 
     // Status
     // Status - Basic
-    [SerializeField]
-    protected int hp = 10; // 체력
-    public int Hp => hp;
 
     protected float speed = 3.0f; // 스피드
     protected float rollingSpeed = 1.0f;
@@ -210,11 +207,8 @@ public abstract class Player : MonoBehaviour
             return; // 상태관련해서 수정할게 있으면 수정하고 리턴
         }
 
-        
-
-        hp -= power;
-        Debug.Log("피격당함");
-        Debug.Log("현재 체력 : " + hp);
+        InGameManager.Instance.Hit(power);
+        UIManager.Instance.hpUpdate();
 
         // 광전사 여부 체크
         if (DrugManager.Instance.red2)
@@ -355,9 +349,13 @@ public abstract class Player : MonoBehaviour
 
     protected abstract void PlayerSkill();
 
-
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("플레이어에 들어온 트리거");
+        if (collision.tag == "EnemyBullet") //수정
+        {
+            Debug.Log("총알 닿음");
+            Destroy(collision.gameObject);
+            Damage(1); // 데미지 로직 나중에 수정
+        }
     }
 }
