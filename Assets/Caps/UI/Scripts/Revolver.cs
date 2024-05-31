@@ -12,7 +12,6 @@ public class Revolver : MonoBehaviour
     public float fireDelay = 3.0f;
     public int recoil = 0;
 	public int bulletCount = 1;
-	public int greenBulletCount = 0;
 
     private float fireTime = 0;
 	
@@ -64,13 +63,8 @@ public class Revolver : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
-<<<<<<< HEAD
-		if(DrugManager.Instance.lucianPassive)
-		{
-=======
         if (DrugManager.Instance.lucianPassive)
         {
->>>>>>> feature/TES-18_데이터_시스템_개발하기
             yield return new WaitForSeconds(0.1f);
             for (int i = 0; i < bulletCount; i++)
             {

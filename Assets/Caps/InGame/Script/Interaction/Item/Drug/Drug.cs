@@ -24,10 +24,6 @@ public class Drug : Item
     protected void Update()
     {
         base.Update();
-<<<<<<< HEAD:Assets/Caps/InGame/Script/Item/Drug/Drug.cs
-        
-=======
->>>>>>> feature/TES-18_데이터_시스템_개발하기:Assets/Caps/InGame/Script/Interaction/Item/Drug/Drug.cs
     }
 
     public override void GetItem()
@@ -77,11 +73,6 @@ public class Drug : Item
 
     }
 
-    protected virtual void DrugAbility()
-    {
-
-    }
-    
     // �ݶ��̴� �߰�
 
     protected void OnTriggerEnter2D(Collider2D collision)

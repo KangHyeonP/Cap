@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/Caps/InGame/Script/Item/Drug.meta
-guid: aa5c79a8ea9d7fa4f9e4fee75c2301dd
-=======
 guid: 5d1a43c518f064f479aae6deaafa43cb
->>>>>>> feature/TES-18_데이터_시스템_개발하기:Assets/Caps/InGame/Script/Interaction/Item/Drug.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
