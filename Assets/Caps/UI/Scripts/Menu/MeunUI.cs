@@ -7,6 +7,7 @@ public class MeunUI : MonoBehaviour
 {
 	public void GameStart()
 	{
-		SceneManager.LoadScene(1);
+		if (GameManager.Instance.playerCheck)
+			SceneManager.LoadScene(1);
 	}
 }

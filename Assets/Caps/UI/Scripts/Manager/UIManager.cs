@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class UIManager : MonoBehaviour
 	public GameObject ExitUI;
 	public InGameUI inGameUI;
     public GameObject TempUI;
+
+    public Image[] heartImages;
+    public Sprite[] heartSprites;
+    private int hp;
 
     [HideInInspector]
     public int IsPopup = 0;
@@ -31,7 +36,9 @@ public class UIManager : MonoBehaviour
     private void Awake()
 	{
 		Init();
-	}
+		hpInit();
+
+    }
 
 	void Start()
 	{
@@ -147,6 +154,35 @@ public class UIManager : MonoBehaviour
                 break;
         }
 
+    }
+
+    private void hpInit()
+    {
+        int hp = InGameManager.Instance.MaxHp;
+
+        for (int i = hp / 2; i < heartImages.Length; i++)
+        {
+            heartImages[i].gameObject.SetActive(false);
+        }
+        hpUpdate();
+    }
+
+    public void hpUpdate()
+    {
+        int hp = InGameManager.Instance.Hp;
+
+        for (int i = 0; i < heartImages.Length; i++)
+        {
+            heartImages[i].sprite = heartSprites[2];
+        }
+        for (int i = 0; i < hp / 2; i++)
+        {
+            heartImages[i].sprite = heartSprites[0];
+        }
+        if (hp % 2 == 1)
+        {
+            heartImages[hp / 2].sprite = heartSprites[1];
+        }
     }
 
     private void PauseTime(bool IsPause)

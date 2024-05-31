@@ -9,12 +9,14 @@ public class CharacterImage : MonoBehaviour
     private Image characterImage;
     [SerializeField]
     private Sprite[] characterSprites;
-    private int imageIndex = 0;
+    private int curIndex = 0;
     private int maxIndex = 99;
     [SerializeField]
     private Image[] buttons;
     [SerializeField]
     private Sprite[] sprites;
+
+    private bool[] lockCheck;
 
     private void Awake()
     {
@@ -42,23 +44,38 @@ public class CharacterImage : MonoBehaviour
     {
         if (num < 0)
         {
-            if (imageIndex > 0) imageIndex--;
+            if (curIndex > 0) curIndex--;
         }
         else
         {
-            if (imageIndex < maxIndex) imageIndex++;
+            if (curIndex < maxIndex) curIndex++;
         }
 
-        // 메인 캐릭터 이미지 갱신
-        if (imageIndex == 0) buttons[0].sprite = sprites[1];
+        if (curIndex == 0) buttons[0].sprite = sprites[1];
         else buttons[0].sprite = sprites[0];
 
-        if (imageIndex == maxIndex) buttons[1].sprite = sprites[1];
+        if (curIndex == maxIndex) buttons[1].sprite = sprites[1];
         else buttons[1].sprite = sprites[0];
 
-        characterImage.sprite = characterSprites[imageIndex];
+        // 메인 캐릭터 이미지 갱신
+        if(!DataManager.Instacne.JsonClass._PlayerData.playerLock[curIndex]) characterImage.sprite = characterSprites[4];
+        else characterImage.sprite = characterSprites[curIndex];
     }
 
+    public void SelectButton()
+    {
+        if (DataManager.Instacne.JsonClass._PlayerData.playerLock[curIndex])
+        {
+            DataManager.Instacne.DefaultData.SettingValue(curIndex);
+            GameManager.Instance.playerCheck = true;
+            GameManager.Instance.selectCharacter = (ECharacters)curIndex;
+        }
+    }
 
-
+    // 임시용 현재 UI화면 lock 풀기
+    public void UnLockButton()
+    {
+        DataManager.Instacne.UpdateLock(curIndex);
+        characterImage.sprite = characterSprites[curIndex];
+    }
 }

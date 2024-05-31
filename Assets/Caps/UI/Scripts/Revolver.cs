@@ -64,8 +64,13 @@ public class Revolver : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
+<<<<<<< HEAD
 		if(DrugManager.Instance.lucianPassive)
 		{
+=======
+        if (DrugManager.Instance.lucianPassive)
+        {
+>>>>>>> feature/TES-18_데이터_시스템_개발하기
             yield return new WaitForSeconds(0.1f);
             for (int i = 0; i < bulletCount; i++)
             {
