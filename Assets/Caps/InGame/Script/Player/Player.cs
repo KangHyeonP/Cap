@@ -153,6 +153,11 @@ public abstract class Player : MonoBehaviour
 
     protected void Roll()
     {
+        if (DrugManager.Instance.isRollBan)
+        {
+            return;
+        }
+
         if (!isRoll && InputVec != Vector2.zero && rollKey)
         {
             rollVec = moveVec;
@@ -202,10 +207,20 @@ public abstract class Player : MonoBehaviour
     protected void Damage(int power)
     {
         //if (!isDead) return;
+        power *= DrugManager.Instance.doubleDamagePivot;
 
-        hp -= power;
-        Debug.Log("피격당함");
-        Debug.Log("현재 체력 : " + hp);
+        if (DrugManager.Instance.green2)
+        {
+            DrugManager.Instance.RunGreenBuff2();
+        }
+
+        if(DrugManager.Instance.red2)
+        {
+            DrugManager.Instance.RunRedBuff2();
+        }
+
+
+        
     }
 
     // 무기 기능 구현하여 추가하기

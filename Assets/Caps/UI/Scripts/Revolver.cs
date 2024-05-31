@@ -12,6 +12,7 @@ public class Revolver : MonoBehaviour
     public float fireDelay = 3.0f;
     public int recoil = 0;
 	public int bulletCount = 1;
+	public int greenBulletCount = 0;
 
     private float fireTime = 0;
 	
@@ -62,6 +63,19 @@ public class Revolver : MonoBehaviour
         fireTime = 0;
 
         yield return new WaitForSeconds(0.1f);
+
+		if(DrugManager.Instance.lucianPassive)
+		{
+            yield return new WaitForSeconds(0.1f);
+            for (int i = 0; i < bulletCount; i++)
+            {
+                muzzle.localRotation = Quaternion.Euler(0, 0, Random.Range(-90 - recoil, -90 + recoil));
+                //muzzle.position, transform.rotation 이걸 저장할 값이 필요함(루시안 패시브 떄문)
+                GameObject fireBullet = Instantiate(bullet, muzzle.position, transform.rotation);
+                Rigidbody2D rb = fireBullet.GetComponent<Rigidbody2D>();
+                rb.AddForce(muzzle.up * (fireSpeed + Random.Range(1, -1)), ForceMode2D.Impulse);
+            }
+        }
 
         fireEffect.SetActive(false);
 	}
