@@ -6,7 +6,6 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float eraseSpeed;
-    
 
 	private void Start()
 	{

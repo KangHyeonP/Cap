@@ -25,9 +25,7 @@ public class Bandage : Item
 
     public override void GetItem()
     {
-        if (InGameManager.Instance.MaxHp == InGameManager.Instance.Hp)
-            return;
-        UseItem();
+            UseItem();
     }
 
     public override void UseItem()
@@ -39,13 +37,6 @@ public class Bandage : Item
 
     public void UseBandage()
     {
-        InGameManager.Instance.HealHp(1);
-
-
-        if(DrugManager.Instance.red2)
-        {
-            DrugManager.Instance.RunRedBuff2();
-        }
         // 로직 수정
         if (DrugManager.Instance.bandageNerf)
         {

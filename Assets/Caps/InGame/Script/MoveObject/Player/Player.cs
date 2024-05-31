@@ -150,11 +150,6 @@ public abstract class Player : MonoBehaviour
 
     protected void Roll()
     {
-        if (DrugManager.Instance.isRollBan)
-        {
-            return;
-        }
-
         if (!isRoll && InputVec != Vector2.zero && rollKey)
         {
             rollVec = moveVec;
@@ -203,23 +198,6 @@ public abstract class Player : MonoBehaviour
 
     protected void Damage(int power)
     {
-<<<<<<< HEAD:Assets/Caps/InGame/Script/Player/Player.cs
-        //if (!isDead) return;
-        power *= DrugManager.Instance.doubleDamagePivot;
-
-        if (DrugManager.Instance.green2)
-        {
-            DrugManager.Instance.RunGreenBuff2();
-        }
-
-        if(DrugManager.Instance.red2)
-        {
-            DrugManager.Instance.RunRedBuff2();
-        }
-
-
-        
-=======
         if (isDead) return;
 
         // È¸ÇÇ ¿©ºÎ Ã¼Å©
@@ -237,7 +215,6 @@ public abstract class Player : MonoBehaviour
         {
             DrugManager.Instance.RunRedBuff2();
         }
->>>>>>> feature/TES-18_ë°ì´í„°_ì‹œìŠ¤í…œ_ê°œë°œí•˜ê¸°:Assets/Caps/InGame/Script/MoveObject/Player/Player.cs
     }
 
     // ¹«±â ±â´É ±¸ÇöÇÏ¿© Ãß°¡ÇÏ±â

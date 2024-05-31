@@ -15,13 +15,9 @@ public class InGameManager : MonoBehaviour
     // ÀÓ½Ã ÇÃ·¹ÀÌ¾î µî·Ï
     public Player player;
 
-<<<<<<< HEAD:Assets/Caps/InGame/Script/Mananger/InGameManager.cs
-    public Slider drugBar;
-=======
     [SerializeField]
     private Slider drugBar;
     public float DrugGague => drugBar.value;
->>>>>>> feature/TES-18_ë°ì´í„°_ì‹œìŠ¤í…œ_ê°œë°œí•˜ê¸°:Assets/Caps/InGame/Script/System/Mananger/InGameManager.cs
 
     private bool isPause = false; //ÀÏ´Ü ÇöÀç´Â ÀÎ°ÔÀÓ »óÅÂÀÌ¹Ç·Î ÀÏ½ÃÁ¤Áö ÇØÁ¦
     public bool IsPause => isPause;
@@ -49,8 +45,6 @@ public class InGameManager : MonoBehaviour
 
     public int drugGuage;
     //public int DrugGuage => drugGuage;
-
-    
 
     private void Awake()
     {
@@ -117,18 +111,11 @@ public class InGameManager : MonoBehaviour
 
     public void UpdateDrug(int value)
     {
-<<<<<<< HEAD:Assets/Caps/InGame/Script/Mananger/InGameManager.cs
-       
-        drugGuage += value;
-        drugBar.value = drugGuage;
-        
-=======
         // UI ¸Å´ÏÀú¿¡¼­ ¼öÁ¤
         drugGuage += value;
         drugBar.value = drugGuage;
 
         DrugManager.Instance.LockCheck(DrugGague);
->>>>>>> feature/TES-18_ë°ì´í„°_ì‹œìŠ¤í…œ_ê°œë°œí•˜ê¸°:Assets/Caps/InGame/Script/System/Mananger/InGameManager.cs
     }
     public void UpdateKey()
     {
@@ -148,10 +135,6 @@ public class InGameManager : MonoBehaviour
         // ÀÌ°Íµµ UI
         //drugTypeUI.sprite = drugInven.drugSprite.sprite;
     }
-<<<<<<< HEAD:Assets/Caps/InGame/Script/Mananger/InGameManager.cs
-
-=======
->>>>>>> feature/TES-18_ë°ì´í„°_ì‹œìŠ¤í…œ_ê°œë°œí•˜ê¸°:Assets/Caps/InGame/Script/System/Mananger/InGameManager.cs
     public void MaxHPUpdate()
     {
         if (DrugManager.Instance.MaxHPUp)
@@ -160,10 +143,6 @@ public class InGameManager : MonoBehaviour
             DrugManager.Instance.red1 = false;
         }
     }
-<<<<<<< HEAD:Assets/Caps/InGame/Script/Mananger/InGameManager.cs
-
-=======
->>>>>>> feature/TES-18_ë°ì´í„°_ì‹œìŠ¤í…œ_ê°œë°œí•˜ê¸°:Assets/Caps/InGame/Script/System/Mananger/InGameManager.cs
     public void HealHp(int value)
     {
         if (hp + value > maxHp)
@@ -172,8 +151,6 @@ public class InGameManager : MonoBehaviour
         }
         else hp += value;
     }
-<<<<<<< HEAD:Assets/Caps/InGame/Script/Mananger/InGameManager.cs
-=======
 
     public void Hit(int value)
     {
@@ -184,5 +161,4 @@ public class InGameManager : MonoBehaviour
         }
         else hp -= value;
     }
->>>>>>> feature/TES-18_ë°ì´í„°_ì‹œìŠ¤í…œ_ê°œë°œí•˜ê¸°:Assets/Caps/InGame/Script/System/Mananger/InGameManager.cs
 }
