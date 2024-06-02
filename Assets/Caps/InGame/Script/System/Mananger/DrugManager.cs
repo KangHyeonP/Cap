@@ -14,7 +14,13 @@ public class DrugManager : MonoBehaviour
     public static DrugManager Instance => instance;
 
     public EDrugColor[] buffSteps= {EDrugColor.red,EDrugColor.red,EDrugColor.red};
+    public ColorBuff[] colorBuffs;
     public bool[] isBuffStepActive = { false, false, false};
+    public int[] stackDrug = { 0, 0, 0, 0, 0 };// red, orange, yellow, green, blue 순
+    public int[] tempStackDrug = { 0, 0, 0, 0, 0 }; // 현재 락에서 먹은 마약 개수 체크
+    public int fullStackDrug = 0; // 마약 총 누적량
+
+    private int duffIndex = -1;
 
     [SerializeField]
     private FirstNerf firstNerf;
@@ -23,7 +29,8 @@ public class DrugManager : MonoBehaviour
     [SerializeField]
     private ThirdNerf thirdNerf;
 
-    //Red
+    // 추후에 redLevel로 묶고 BuffSteps와 연동
+    //Red 
     public bool red1;
     public bool red2;
     public bool red3;
@@ -72,7 +79,7 @@ public class DrugManager : MonoBehaviour
     public bool isBandage;
     public bool bandageNerf;
     public bool bombMissCheck;
-    public bool guageUp;
+    public bool gaugeUp;
     public bool colorBlindCheck;
     public bool aimMissCheck;
     public bool isRollBan;
@@ -99,7 +106,59 @@ public class DrugManager : MonoBehaviour
     // DrugGague Check
     public void LockCheck(float gauge)
     {
+        Debug.Log("락 체크");
 
+        if (gauge >= 75)
+        {
+            duffIndex = 2;
+        }
+        else if (gauge >= 50)
+        {
+            duffIndex = 1;
+        }
+        else if (gauge >= 25)
+        {
+            duffIndex = 0;
+        }
+        else duffIndex = -1;
+
+        if(duffIndex != -1 && !isBuffStepActive[duffIndex])
+        {
+            isBuffStepActive[duffIndex] = true;
+            Debug.Log("락 실행");
+
+            for (int i=0; i<tempStackDrug.Length; i++)
+            {
+                stackDrug[i] += tempStackDrug[i];
+                fullStackDrug += stackDrug[i];
+            }
+
+            LockActive();
+        }
+    }
+
+    // 락 활성화, 만약 숫자가 겹침(빨 0~10까지, 주황 10~20까지, 값이 10이면 순차적으로 빨 실행)
+    private void LockActive()
+    {
+        float curGauge = 0;// 시작 게이지 값
+        float stackGauge = 0; // 현재 누적된 게이지 양
+        float value = Random.Range(0.1f, 100.0f);
+
+        Debug.Log("현재 랜덤 값 : " + value);
+
+        for (int i=0; i<stackDrug.Length; i++)
+        {
+            stackGauge += 100 * (stackDrug[i] / (float)fullStackDrug);
+            Debug.Log(i + " 인덱스의 범위 값 :  " + stackGauge);
+            if (curGauge <= value && value <= stackGauge)
+            {
+                buffSteps[duffIndex] = (EDrugColor)i;
+                colorBuffs[i].ExcuteBuff(duffIndex);
+                Debug.Log("실행한 마약 :  " + (EDrugColor)i);
+                break;
+            }
+            curGauge = stackGauge;
+        }
     }
 
     // redbuffs (if문 추가 해야됨)

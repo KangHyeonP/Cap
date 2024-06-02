@@ -6,7 +6,6 @@ public class GunGangSter : Agent
 {
     [SerializeField]
     private GameObject bullet;
-    int hp = 5;
 
     protected override void Awake()
     {
@@ -36,22 +35,5 @@ public class GunGangSter : Agent
 
         GameObject bulletcopy = Instantiate(bullet, muzzle.position, muzzle.rotation);
         bulletcopy.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
-    }
-
-    // 나중에 agent로 올리기
-    private void OnTriggerEnter2D(Collider2D collision) //수정
-    {
-        if (collision.CompareTag("PlayerBullet"))
-        {
-            Destroy(collision.gameObject);
-
-            hp--;
-            Debug.Log("몬스터 남은 체력: " + hp);
-
-            if (hp == 0)
-            {
-                Destroy(gameObject);
-            }
-        }
     }
 }

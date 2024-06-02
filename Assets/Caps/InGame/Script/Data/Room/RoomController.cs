@@ -12,7 +12,7 @@ public class RoomController : MonoBehaviour
     private static RoomController instance;
     public static RoomController Instance => instance;
 
-    private int curIndex = 0;
+    private int curIndex = 0; // 현재 룸 인덱스
     public int CurIndex => curIndex;
 
 
@@ -23,7 +23,7 @@ public class RoomController : MonoBehaviour
 
     void Start()
     {
-        
+        rooms[0].ActiveRoom();
     }
 
     // Update is called once per frame
@@ -41,8 +41,11 @@ public class RoomController : MonoBehaviour
     public void ChangePlayerRoom(int num)
     {
         curIndex = num;
-        
-        //CheckEnemy(curIndex);
+    }
+
+    public void ClearRoomCount() // 적을 처지할 때 마다 방이 클리어 상태인지 확인
+    {
+        rooms[curIndex].ClearCheckRoom();
     }
 
     public Room CurRoom()

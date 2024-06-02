@@ -19,6 +19,15 @@ public abstract class ColorBuff : MonoBehaviour
         
     }
 
+    public void ExcuteBuff(int i)
+    {
+        if (i == 0) FirstBuff();
+        else if (i == 1) SecondBuff();
+        else if (i == 2) ThirdBuff();
+
+        Debug.Log(i+1 + " 버프 실행");
+    }
+
     public abstract void FirstBuff();
 
     public abstract void SecondBuff();

@@ -46,7 +46,7 @@ public class SecondNerf : MonoBehaviour
 
     public  void GuageIncrease() // 마약 게이지 증가
     {
-        DrugManager.Instance.guageUp = true;
+        DrugManager.Instance.gaugeUp = true;
         Debug.Log("마약 게이지 증가");
     }
 

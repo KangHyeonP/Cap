@@ -23,8 +23,8 @@ public abstract class Player : MonoBehaviour
 
     // Status
     // Status - Basic
-
     protected float speed = 3.0f; // 스피드
+    [SerializeField]
     protected float rollingSpeed = 1.0f;
     protected float power; // 공격력
     protected int armor; // 방탄
@@ -32,6 +32,7 @@ public abstract class Player : MonoBehaviour
     // 무기 구현이후 attackDelay알맞게 수정
     protected float attackDelay = 1.0f;
     protected float curAttackDelay;
+    protected bool avoidCheck;
 
     [SerializeField]
     protected float skillDelay = 15f;
@@ -44,6 +45,7 @@ public abstract class Player : MonoBehaviour
     public Vector2 InputVec => inputVec;
     protected Vector2 moveVec;
     protected Vector2 rollVec;
+    protected Vector2 nextVec;
 
     // Status - animation
     protected PlayerAnimator curAnim = PlayerAnimator.Idle;
@@ -73,6 +75,8 @@ public abstract class Player : MonoBehaviour
     // Weapon
     protected int weaponIndex = 0;
     public string[] weapon;
+    [SerializeField]
+    private GameObject weaponPivot;
 
     protected virtual void Awake()
     {
@@ -132,11 +136,10 @@ public abstract class Player : MonoBehaviour
     {
         // 만약 inputVec 0이면 Idle, 아니면 Run으로 체인지
         moveVec = inputVec.normalized;
-        Vector2 nextVec;
 
         if (isRoll)
         {
-            nextVec = rollVec.normalized * rollingSpeed * 1.5f * Time.fixedDeltaTime;
+            nextVec = rollVec.normalized * rollingSpeed * Time.fixedDeltaTime;
         }
         else
         {
@@ -161,9 +164,11 @@ public abstract class Player : MonoBehaviour
     {
         string rollStatus = null;
         rollReverse = false;
+        weaponPivot.SetActive(false);
+        isRoll = true;
 
         // 구르기 방향 계산
-        if(rollVec.x > 0)
+        if (rollVec.x > 0)
         {
             if (rollVec.y > 0) rollStatus = "RollCross";
             else if (rollVec.y == 0) rollStatus = "RollSide";
@@ -185,20 +190,31 @@ public abstract class Player : MonoBehaviour
         if (rollReverse) transform.localScale = new Vector3(-1, 1, 1);
         else transform.localScale = new Vector3(1, 1, 1);
 
-        isRoll = true;
         rollingSpeed *= 2;
         anim.SetTrigger("Roll");
         anim.SetTrigger(rollStatus);
 
-        yield return new WaitForSeconds(0.75f);
+        avoidCheck = true;
 
+        yield return new WaitForSeconds(0.7f);
+
+        avoidCheck = false;
+        nextVec = Vector2.zero;
+
+        yield return new WaitForSeconds(0.3f);
+
+        weaponPivot.SetActive(true);
         isRoll = false;
         rollingSpeed *= 0.5f;
+
+        //yield return new WaitForSeconds()
     }
 
     protected void Damage(int power)
     {
         if (isDead) return;
+
+        if (avoidCheck) return;
 
         // 회피 여부 체크
         if (DrugManager.Instance.green2)
@@ -322,7 +338,7 @@ public abstract class Player : MonoBehaviour
 
     protected void Skill()
     {
-        if (!skillKey || !UIManager.Instance.inGameUI.skillUI.CanUseSkill) return;
+        if (!skillKey || !UIManager.Instance.inGameUI.skillUI.CanUseSkill || isRoll) return;
 
         StartCoroutine(ESkill());
     }
@@ -353,6 +369,7 @@ public abstract class Player : MonoBehaviour
     {
         if (collision.tag == "EnemyBullet") //수정
         {
+            if (avoidCheck) return;
             Debug.Log("총알 닿음");
             Destroy(collision.gameObject);
             Damage(1); // 데미지 로직 나중에 수정

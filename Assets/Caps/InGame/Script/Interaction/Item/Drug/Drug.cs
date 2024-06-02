@@ -7,6 +7,8 @@ public class Drug : Item
 {
     public int drugGuage;
     private SpriteRenderer drugSprite;
+    [SerializeField]
+    protected EDrugColor value;
 
     protected void Awake()
     {
@@ -52,7 +54,9 @@ public class Drug : Item
 
     public void GetDrug()
     {
-        if(DrugManager.Instance.guageUp)
+        DrugManager.Instance.tempStackDrug[(int)value]++;
+
+        if(DrugManager.Instance.gaugeUp)
         {
             drugGuage = Random.Range(9, 13);
             return;

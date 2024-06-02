@@ -20,6 +20,7 @@ public class BlueBuff : ColorBuff
     public override void FirstBuff()
     {
         DrugManager.Instance.blue1 = true;
+        DrugManager.Instance.RunBlueBuff1();
     }
 
     public override void SecondBuff()
@@ -30,5 +31,6 @@ public class BlueBuff : ColorBuff
     public override void ThirdBuff()
     {
         DrugManager.Instance.blue3 = true;
+        DrugManager.Instance.RunBlueBuff3();
     }
 }

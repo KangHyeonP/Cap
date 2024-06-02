@@ -38,11 +38,17 @@ public abstract class Agent : MonoBehaviour
     protected bool activeRoom = false;
     public bool ActiveRoom => activeRoom;
 
-    // AI Status
+    // AI Stats
+    [SerializeField]
+    private int hp = 5;
+
+    // AI State
+    [SerializeField]
     protected EnemyStatus curStatus;
     public EnemyStatus CurStatus => curStatus;
 
     protected bool isDie = false;
+    [SerializeField]
     protected bool isDetect = false;
     protected bool isMoveLean = false;
     protected bool isLean = false;
@@ -232,7 +238,7 @@ public abstract class Agent : MonoBehaviour
         
         agent.SetDestination(target.position);
         float distance = Vector3.Distance(target.position, transform.position);
-        if (distance <= attackDistance && attackDelay > curAttackDelay) curStatus = EnemyStatus.Attack;
+        if ((distance <= attackDistance) && (attackDelay <= curAttackDelay)) curStatus = EnemyStatus.Attack;
     }
 
     protected void Attack()
@@ -274,8 +280,15 @@ public abstract class Agent : MonoBehaviour
     public void Damage(int damage)
     {
         Debug.Log("맞았어");
-        Debug.Log("받은 데미지 : " + damage);
 
+        hp--;
+        Debug.Log("몬스터 남은 체력: " + hp);
+
+        if (hp == 0)
+        {
+            RoomController.Instance.ClearRoomCount();
+            Destroy(gameObject);
+        }
     }
     
     public void UpLean() // 테이블 이동 및 저격까지
@@ -376,11 +389,6 @@ public abstract class Agent : MonoBehaviour
         transform.localPosition = Vector3.MoveTowards(transform.position, moveVec, 3.0f * Time.deltaTime);
     }
 
-    /*private void ChangeLean(int index, Vector3 vec)
-    {
-        Debug.Log("현재 인덱스(위,아래,왼,오 기준 각각 2개씩) : " + index);
-        //transform.position += vec; // 일단 순간이동, 코루틴안에 코루틴 끊어치기느낌으로 작업하면 될지도?
-    }*/
 
     private void UpdateLean()
     {
@@ -401,11 +409,13 @@ public abstract class Agent : MonoBehaviour
         agent.enabled = false;
     }
 
-    /*private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.CompareTag("PlayerBullet"))
         {
-            isDetect = true;
+            Destroy(collision.gameObject);
+            Damage(1);
+            
         }
-    }*/
+    }
 }

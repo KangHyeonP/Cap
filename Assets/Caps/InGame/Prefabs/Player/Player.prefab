@@ -312,9 +312,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b614535aa49638644b87f6babbb982d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rollingSpeed: 2.5
   skillDelay: 2
   isReverse: 0
   weapon: []
+  weaponPivot: {fileID: 9197894793384565284}
   SkillDamage: 300
 --- !u!95 &7175629184101664539
 Animator:

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShortcutManagement;
 using UnityEngine;
 
 public class YellowBuff : ColorBuff
@@ -23,6 +22,7 @@ public class YellowBuff : ColorBuff
     public override void FirstBuff()
     {
         DrugManager.Instance.yellow1 = true;
+
     }
 
     public override void SecondBuff()
