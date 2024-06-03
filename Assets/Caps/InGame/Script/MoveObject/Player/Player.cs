@@ -206,8 +206,6 @@ public abstract class Player : MonoBehaviour
         weaponPivot.SetActive(true);
         isRoll = false;
         rollingSpeed *= 0.5f;
-
-        //yield return new WaitForSeconds()
     }
 
     protected void Damage(int power)

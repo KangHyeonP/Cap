@@ -40,6 +40,7 @@ public class InGameManager : MonoBehaviour
     public Item tempItem = null;
     //public Item TempItem => tempItem;
 
+    // 나중에 Stack형식으로 바꿔야할듯?
     public Drug tempDrug = null;
     //public Drug TempDrug => tempDrug;
 

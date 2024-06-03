@@ -185,7 +185,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void PauseTime(bool IsPause)
+    public void PauseTime(bool IsPause)
 	{
 		if(IsPause)
 		{
@@ -201,6 +201,6 @@ public class UIManager : MonoBehaviour
             InGameManager.Instance.Pause(false);
             Time.timeScale = 1f;
 		}
-		Time.fixedDeltaTime = 0.02f * Time.timeScale;
+		//Time.fixedDeltaTime = 0.02f * Time.timeScale;
 	}
 }

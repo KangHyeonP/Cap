@@ -34,7 +34,9 @@ public class CameraController : MonoBehaviour
     // Anagle
     private float playerAngle;
     public float PlayerAngle => playerAngle;
-    Vector2 mouseVecValue;
+
+    private Vector2 mouseVecValue;
+    public Vector2 MouseVecValue => mouseVecValue;
 
     bool isReverse = false;
 

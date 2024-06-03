@@ -67,8 +67,10 @@ public class Drug : Item
     public void PutDrug()
     {
         transform.position = InGameManager.Instance.player.transform.position;
-        Vector3 nextVec = new Vector3(0, 3, transform.position.z); //GameManager.Instance.player.inputVec * 30;
-        transform.position += nextVec;
+
+        itemRigid.AddForce(CameraController.Instance.MouseVecValue.normalized, ForceMode2D.Impulse);
+        //Vector3 nextVec = new Vector3(0, 3, transform.position.z); //GameManager.Instance.player.inputVec * 30;
+        //transform.position += nextVec;
         //Vector2.Distance(nextVec, sumVec));
 
     }
