@@ -22,12 +22,16 @@ public class InGameManager : MonoBehaviour
     private bool isPause = false; //일단 현재는 인게임 상태이므로 일시정지 해제
     public bool IsPause => isPause;
 
+    // Player Status
     [SerializeField]
     private int hp;
     public int Hp => hp;
 
     private int maxHp;
     public int MaxHp => maxHp;
+
+    private bool isDead;
+    public bool IsDead => isDead;
 
     // Item
     public bool isItem;
@@ -158,8 +162,14 @@ public class InGameManager : MonoBehaviour
         if (hp - value <= 0)
         {
             hp = 0;
-            Debug.Log("사망함"); // 이건 나중에
+            GameOver();
         }
         else hp -= value;
+    }
+
+    // 추후 사망로직 추가하기
+    private void GameOver()
+    {
+        player.GetComponent<BoxCollider2D>().enabled = false;
     }
 }
