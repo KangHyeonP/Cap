@@ -47,6 +47,8 @@ public class InGameManager : MonoBehaviour
     public int drugGuage;
 
     public int grenadeCount;
+    public Stack<Item> grenades = new Stack<Item>();
+    public GameObject grenadeObj;
 
 
     private void Awake()
@@ -104,6 +106,11 @@ public class InGameManager : MonoBehaviour
         player = playerObj.GetComponent<Player>();
     }
 
+    private void PlayerVector()
+    {
+
+    }
+
     public void Pause(bool check)
     {
         isPause = check;
@@ -126,10 +133,20 @@ public class InGameManager : MonoBehaviour
         //numKeyUI.text = "Key: " + numKey;
     }
 
-    public void UpdateBomb()
+    public void UpdateGrenade()
     {
         // ÀÌ°Íµµ UI
         //numBombUI.text = "Bomb: " + numBomb;
+    }
+
+    public void UseGrenade()
+    {
+        if(grenadeCount > 0)
+        {
+            grenadeCount--;
+            grenades.Pop().UseItem();
+            //grenades[grenadeCount].UseItem();
+        }
     }
     
     public void UpdateDrugType(Sprite s)

@@ -40,7 +40,7 @@ public abstract class Agent : MonoBehaviour
 
     // AI Stats
     [SerializeField]
-    private int hp = 5;
+    private int hp = 100;
 
     // AI State
     [SerializeField]
@@ -57,17 +57,17 @@ public abstract class Agent : MonoBehaviour
 
     // AI Attack
     [SerializeField]
-    protected float attackDelay;
+    protected float attackDelay; // 공격 딜레이
     [SerializeField]
-    protected float curAttackDelay;
+    protected float curAttackDelay; // 현재 공격 딜레이 시간
     [SerializeField]
-    protected float attackMoveDelay; // 공격 후 제동 시간
+    protected float attackMoveDelay; // 공격 전 제동 시간
     [SerializeField]
-    protected float attackSpeed;
+    protected float attackSpeed; // 총알 속도
     [SerializeField]
-    protected float attackDistance;
+    protected float attackDistance; // 공격 사거리
     [SerializeField]
-    protected float attackRecoil;
+    protected float attackRecoil; // 공격 반동
 
     // Object Interaction
     protected bool tableMove;
@@ -283,10 +283,10 @@ public abstract class Agent : MonoBehaviour
     {
         Debug.Log("맞았어");
 
-        hp--;
+        hp -= damage;
         Debug.Log("몬스터 남은 체력: " + hp);
 
-        if (hp == 0)
+        if (hp <= 0)
         {
             RoomController.Instance.ClearRoomCount();
             Destroy(gameObject);

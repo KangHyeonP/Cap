@@ -107,6 +107,7 @@ public abstract class Player : MonoBehaviour
             // 추후 게임 매니저로 변경될 가능성 있음
             Interaction();
             EatDrug();
+            UserGenade();
         }
     }
 
@@ -314,6 +315,14 @@ public abstract class Player : MonoBehaviour
             {
                 InGameManager.Instance.tempDrug.UseItem();
             }
+        }
+    }
+
+    protected void UserGenade()
+    {
+        if(swapKey4)
+        {
+            InGameManager.Instance.UseGrenade();
         }
     }
 

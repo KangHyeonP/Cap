@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 public class Grenade : Item
@@ -26,28 +27,45 @@ public class Grenade : Item
 
     public override void GetItem()
     {
-        UseItem();
+        InGameManager.Instance.tempItem = null;
+        InGameManager.Instance.isItem = false;
+        InGameManager.Instance.grenadeCount++;
+        InGameManager.Instance.grenades.Push(this);
+
+        base.GetItem();
     }
 
     public override void UseItem()
     {
-        UseKey();
+        UseGrenade();
 
         Destroy(this.gameObject);
     }
 
-    public void UseKey()
+    public void UseGrenade()
     {
         // 로직 수정
         //InGameManager.Instance.numKey++;
-        Debug.Log("열쇠 먹음");
-        InGameManager.Instance.UpdateKey();
+        //StartCoroutine(Explode());
+
+        GameObject grenade = Instantiate(InGameManager.Instance.grenadeObj
+            , InGameManager.Instance.player.transform.position, InGameManager.Instance.player.transform.rotation);
+
+        InGameManager.Instance.UpdateGrenade();
+    }
+
+    private IEnumerator Explode()
+    {
+        yield return null;
+        GameObject grenade = Instantiate(InGameManager.Instance.grenadeObj
+            , InGameManager.Instance.player.transform.position, InGameManager.Instance.player.transform.rotation);
+        //yield return new WaitForSeconds(1.5f);
     }
 
     // 콜라이더 추가
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && InGameManager.Instance.tempItem == null)
         {
             //itemCol = collision.gameObject;
             InGameManager.Instance.tempItem = this;
@@ -57,7 +75,7 @@ public class Grenade : Item
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && InGameManager.Instance.tempItem != null)
         {
             //itemCol = null;
             InGameManager.Instance.tempItem = null;
