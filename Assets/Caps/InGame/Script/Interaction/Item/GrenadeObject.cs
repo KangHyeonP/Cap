@@ -11,6 +11,7 @@ public class GrenadeObject : MonoBehaviour
     public int damage = 100;
 
     public Vector2 moveVec;
+    private Vector2 lastVec;
         
     void Start()
     {
@@ -23,7 +24,8 @@ public class GrenadeObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        lastVec = rigid.velocity;
+        Debug.Log(lastVec);
     }
 
     private IEnumerator Explode()
@@ -40,14 +42,16 @@ public class GrenadeObject : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.tag == "Wall") // 벽에 부딪히면 반대로 가면서 힘을 반으로 감소
+        if (collision.gameObject.tag == "Wall") // 벽에 부딪히면 반대로 가면서 힘을 반으로 감소
         {
-            Vector2 newVec = -rigid.velocity.normalized;
-            float power = rigid.velocity.magnitude * 0.5f;
-            rigid.velocity = Vector2.zero;
-            rigid.AddForce(newVec * power, ForceMode2D.Impulse); 
+            Debug.Log("벽에 닿은지");
+
+            var speed = lastVec.magnitude * 0.5f;
+            var dir = Vector2.Reflect(lastVec.normalized, collision.contacts[0].normal);
+
+            rigid.velocity = dir * Mathf.Max(speed, 0f);
         }
     }
 }
