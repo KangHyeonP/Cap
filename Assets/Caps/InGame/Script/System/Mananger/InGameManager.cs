@@ -35,21 +35,19 @@ public class InGameManager : MonoBehaviour
 
     // Item
     public bool isItem;
-    //public bool IsItem => isItem;
 
     // 수정해야함
     public Drug drugInven = null;
-    //public Drug DrugInven => drugInven;
 
     public Item tempItem = null;
-    //public Item TempItem => tempItem;
 
     // 나중에 Stack형식으로 바꿔야할듯?
     public Drug tempDrug = null;
-    //public Drug TempDrug => tempDrug;
 
     public int drugGuage;
-    //public int DrugGuage => drugGuage;
+
+    public int grenadeCount;
+
 
     private void Awake()
     {
