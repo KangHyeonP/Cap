@@ -40,7 +40,7 @@ public abstract class Agent : MonoBehaviour
 
     // AI Stats
     [SerializeField]
-    private int hp = 5;
+    private int hp = 100;
 
     // AI State
     [SerializeField]
@@ -57,17 +57,17 @@ public abstract class Agent : MonoBehaviour
 
     // AI Attack
     [SerializeField]
-    protected float attackDelay;
+    protected float attackDelay; // 공격 딜레이
     [SerializeField]
-    protected float curAttackDelay;
+    protected float curAttackDelay; // 현재 공격 딜레이 시간
     [SerializeField]
-    protected float attackMoveDelay; // 공격 후 제동 시간
+    protected float attackMoveDelay; // 공격 전 제동 시간
     [SerializeField]
-    protected float attackSpeed;
+    protected float attackSpeed; // 총알 속도
     [SerializeField]
-    protected float attackDistance;
+    protected float attackDistance; // 공격 사거리
     [SerializeField]
-    protected float attackRecoil;
+    protected float attackRecoil; // 공격 반동
 
     // Object Interaction
     protected bool tableMove;
@@ -105,7 +105,8 @@ public abstract class Agent : MonoBehaviour
     {
         if (!InGameManager.Instance.IsPause)
         {
-            if (isDetect) UpdateState(curStatus);
+            //if (isDetect) UpdateState(curStatus);
+            UpdateState(curStatus);
         }
         // AI 삭제 임시용
         if (TestAgent) Destroy(this.gameObject);
@@ -132,7 +133,7 @@ public abstract class Agent : MonoBehaviour
         if (isReverse) transform.localScale = new Vector3(-1, 1, 1);
         else transform.localScale = new Vector3(1, 1, 1);
 
-        curAttackDelay += Time.deltaTime; // 추격중일때만 채울지도 고려
+        curAttackDelay += Time.deltaTime;
 
         switch (enemy)
         {
@@ -243,7 +244,7 @@ public abstract class Agent : MonoBehaviour
 
     protected void Attack()
     {
-        if(agent.isStopped || IsAttack) return;
+        if(IsAttack) return;
 
         //Debug.Log("코루틴 시작 1");
         isAttack = true;
@@ -256,11 +257,12 @@ public abstract class Agent : MonoBehaviour
 
     protected virtual IEnumerator IAttack()
     {
-        yield return new WaitForSeconds(0.5f); // 쏘기전 잠깐 제동
+        yield return new WaitForSeconds(attackMoveDelay);
+        // yield return new WaitForSeconds(0.5f); // 쏘기전 잠깐 제동
 
         AttackLogic();
 
-        yield return new WaitForSeconds(attackMoveDelay);
+        //yield return new WaitForSeconds(attackMoveDelay);
 
         isAttack = false;
         agent.isStopped = false;
@@ -281,10 +283,10 @@ public abstract class Agent : MonoBehaviour
     {
         Debug.Log("맞았어");
 
-        hp--;
+        hp -= damage;
         Debug.Log("몬스터 남은 체력: " + hp);
 
-        if (hp == 0)
+        if (hp <= 0)
         {
             RoomController.Instance.ClearRoomCount();
             Destroy(gameObject);
@@ -380,7 +382,7 @@ public abstract class Agent : MonoBehaviour
 
         isLean = false;
 
-        yield return new WaitForSeconds(0.5f); // 조준까지 걸어가는 시간
+        yield return new WaitForSeconds(0.75f); // 조준까지 걸어가는 시간
         agent.isStopped = false;
         curStatus = EnemyStatus.Chase;
     }
@@ -390,11 +392,11 @@ public abstract class Agent : MonoBehaviour
     }
 
 
-    private void UpdateLean()
+    /*private void UpdateLean()
     {
         if (!isMoveLean) return;
         transform.localPosition = Vector3.MoveTowards(transform.position, moveVec, 1.0f);
-    }
+    }*/
 
 
     // 나중에 죽었을때 기능 구현

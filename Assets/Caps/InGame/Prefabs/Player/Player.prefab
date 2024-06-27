@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8753367312754223936}
   - component: {fileID: 3946241458111896140}
   - component: {fileID: 2041997970580175796}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Revolver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 457906096318024}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FireEffectPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 7709076486287083608}
   - component: {fileID: 1863655681656279165}
   - component: {fileID: 7175629184101664539}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 562e6fc89c7525e449211b0a457340ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -312,6 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b614535aa49638644b87f6babbb982d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  silhouette: {fileID: 0}
   rollingSpeed: 2.5
   skillDelay: 2
   isReverse: 0
@@ -348,7 +349,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6277288580957594013}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FireEffectPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -381,7 +382,7 @@ GameObject:
   - component: {fileID: 3450217804624236369}
   - component: {fileID: 1423497988794698324}
   - component: {fileID: 6539931122431241530}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -488,7 +489,7 @@ GameObject:
   - component: {fileID: 2439620374926447457}
   - component: {fileID: 3324702438879904767}
   - component: {fileID: 3909435282988275679}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -677,7 +678,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8632312112390639586}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FireEffectPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -708,7 +709,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2693226136484830093}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -740,7 +741,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7744147660308848469}
   - component: {fileID: 3537468008070782590}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -826,7 +827,7 @@ GameObject:
   - component: {fileID: 4766121889989116145}
   - component: {fileID: 4670368941814657341}
   - component: {fileID: 3888340995771560847}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FireEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -930,7 +931,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8973046306544488883}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -961,7 +962,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1130705018076850720}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -993,7 +994,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5039272356127041211}
   - component: {fileID: 7921960208038533238}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HandPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

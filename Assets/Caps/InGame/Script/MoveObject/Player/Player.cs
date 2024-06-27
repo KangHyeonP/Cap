@@ -20,6 +20,8 @@ public abstract class Player : MonoBehaviour
     protected Rigidbody2D rigid;
     protected SpriteRenderer spriteRenderer;
     protected Animator anim;
+    [SerializeField]
+    protected SpriteRenderer silhouette;//피격 전용 실루엣
 
     // Status
     // Status - Basic
@@ -105,6 +107,7 @@ public abstract class Player : MonoBehaviour
             // 추후 게임 매니저로 변경될 가능성 있음
             Interaction();
             EatDrug();
+            UserGenade();
         }
     }
 
@@ -210,9 +213,7 @@ public abstract class Player : MonoBehaviour
 
     protected void Damage(int power)
     {
-        if (isDead) return;
-
-        if (avoidCheck) return;
+        if (avoidCheck || isHit) return;
 
         // 회피 여부 체크
         if (DrugManager.Instance.green2)
@@ -224,12 +225,39 @@ public abstract class Player : MonoBehaviour
         InGameManager.Instance.Hit(power);
         UIManager.Instance.hpUpdate();
 
+        if(InGameManager.Instance.IsDead)
+        {
+            isDead = true;
+            return;
+        }
+        else
+        {
+            isHit = true;
+            StartCoroutine(HitTime());
+        }
+
         // 광전사 여부 체크
         if (DrugManager.Instance.red2)
         {
             DrugManager.Instance.RunRedBuff2();
         }
     }
+
+    private IEnumerator HitTime()
+    {
+        int i = 0;
+        for(i =0; i<3; i++)  // 추후 실루엣 스프라이트로 변경
+        {
+            spriteRenderer.color = Color.red;
+            yield return new WaitForSeconds(0.4f);
+            spriteRenderer.color = Color.white;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        yield return null;
+        isHit = false;
+    }
+
 
     // 무기 기능 구현하여 추가하기
     protected void Attack()
@@ -287,6 +315,14 @@ public abstract class Player : MonoBehaviour
             {
                 InGameManager.Instance.tempDrug.UseItem();
             }
+        }
+    }
+
+    protected void UserGenade()
+    {
+        if(swapKey4)
+        {
+            InGameManager.Instance.UseGrenade();
         }
     }
 
@@ -367,8 +403,7 @@ public abstract class Player : MonoBehaviour
     {
         if (collision.tag == "EnemyBullet") //수정
         {
-            if (avoidCheck) return;
-            Debug.Log("총알 닿음");
+            if (avoidCheck || isHit) return;
             Destroy(collision.gameObject);
             Damage(1); // 데미지 로직 나중에 수정
         }

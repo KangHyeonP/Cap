@@ -30,11 +30,13 @@ public class Drug : Item
 
     public override void GetItem()
     {
-        if(InGameManager.Instance.drugInven != null)
+        InGameManager.Instance.tempItem = null;
+        InGameManager.Instance.isItem = false; // 이부분 추가
+
+        if (InGameManager.Instance.drugInven != null)
         {
             InGameManager.Instance.drugInven.gameObject.SetActive(true);
-            InGameManager.Instance.drugInven.PutDrug();
-            
+            InGameManager.Instance.drugInven.PutDrug();     
         }
 
         InGameManager.Instance.drugInven = this;
@@ -69,10 +71,6 @@ public class Drug : Item
         transform.position = InGameManager.Instance.player.transform.position;
 
         itemRigid.AddForce(CameraController.Instance.MouseVecValue.normalized, ForceMode2D.Impulse);
-        //Vector3 nextVec = new Vector3(0, 3, transform.position.z); //GameManager.Instance.player.inputVec * 30;
-        //transform.position += nextVec;
-        //Vector2.Distance(nextVec, sumVec));
-
     }
     protected virtual void DrugAbility()
     {
@@ -95,7 +93,6 @@ public class Drug : Item
     {
         if (collision.tag == "Player")
         {
-            //itemCol = null;
             InGameManager.Instance.tempItem = null;
             InGameManager.Instance.tempDrug = null;
             InGameManager.Instance.isItem = false;

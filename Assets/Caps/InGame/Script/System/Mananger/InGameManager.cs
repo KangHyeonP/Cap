@@ -22,6 +22,7 @@ public class InGameManager : MonoBehaviour
     private bool isPause = false; //일단 현재는 인게임 상태이므로 일시정지 해제
     public bool IsPause => isPause;
 
+    // Player Status
     [SerializeField]
     private int hp;
     public int Hp => hp;
@@ -29,23 +30,26 @@ public class InGameManager : MonoBehaviour
     private int maxHp;
     public int MaxHp => maxHp;
 
+    private bool isDead;
+    public bool IsDead => isDead;
+
     // Item
     public bool isItem;
-    //public bool IsItem => isItem;
 
     // 수정해야함
     public Drug drugInven = null;
-    //public Drug DrugInven => drugInven;
 
     public Item tempItem = null;
-    //public Item TempItem => tempItem;
 
     // 나중에 Stack형식으로 바꿔야할듯?
     public Drug tempDrug = null;
-    //public Drug TempDrug => tempDrug;
 
     public int drugGuage;
-    //public int DrugGuage => drugGuage;
+
+    public int grenadeCount;
+    public Stack<Item> grenades = new Stack<Item>();
+    public GameObject grenadeObj;
+
 
     private void Awake()
     {
@@ -102,6 +106,11 @@ public class InGameManager : MonoBehaviour
         player = playerObj.GetComponent<Player>();
     }
 
+    private void PlayerVector()
+    {
+
+    }
+
     public void Pause(bool check)
     {
         isPause = check;
@@ -124,10 +133,20 @@ public class InGameManager : MonoBehaviour
         //numKeyUI.text = "Key: " + numKey;
     }
 
-    public void UpdateBomb()
+    public void UpdateGrenade()
     {
         // 이것도 UI
         //numBombUI.text = "Bomb: " + numBomb;
+    }
+
+    public void UseGrenade()
+    {
+        if(grenadeCount > 0)
+        {
+            grenadeCount--;
+            grenades.Pop().UseItem();
+            //grenades[grenadeCount].UseItem();
+        }
     }
     
     public void UpdateDrugType(Sprite s)
@@ -158,8 +177,14 @@ public class InGameManager : MonoBehaviour
         if (hp - value <= 0)
         {
             hp = 0;
-            Debug.Log("사망함"); // 이건 나중에
+            GameOver();
         }
         else hp -= value;
+    }
+
+    // 추후 사망로직 추가하기
+    private void GameOver()
+    {
+        player.GetComponent<BoxCollider2D>().enabled = false;
     }
 }

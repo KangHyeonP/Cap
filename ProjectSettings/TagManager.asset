@@ -8,15 +8,16 @@ TagManager:
   - Room
   - EnemyBullet
   - PlayerBullet
+  - Wall
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - MiniMapIcon
-  - 
+  - Item
   - 
   - 
   - 
