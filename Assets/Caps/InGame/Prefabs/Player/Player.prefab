@@ -296,7 +296,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -313,6 +313,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   silhouette: {fileID: 0}
+  speed: 3
+  power: 0
   rollingSpeed: 2.5
   skillDelay: 2
   isReverse: 0

@@ -25,11 +25,13 @@ public abstract class Player : MonoBehaviour
 
     // Status
     // Status - Basic
-    protected float speed = 3.0f; // 스피드
     [SerializeField]
-    protected float rollingSpeed = 1.0f;
-    protected float power; // 공격력
-    protected int armor; // 방탄
+    protected float speed = 3.0f; // 스피드, 일단 임의
+    [SerializeField]
+    protected int power; // 공격력
+    [SerializeField]
+    //protected 
+    protected float rollingSpeed = 2.5f;
 
     // 무기 구현이후 attackDelay알맞게 수정
     protected float attackDelay = 1.0f;
