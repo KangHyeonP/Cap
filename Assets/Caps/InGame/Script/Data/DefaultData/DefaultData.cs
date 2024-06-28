@@ -35,13 +35,14 @@ public class CharacterData
 {
     // 메인, 서브, 1, 2, 3 -> Characters, 이름 꼭 지어야함
     private int[] defaultHp = { 6, 4, 1, 1, 1 };
-    private float[] defaultSpeed = { 5, 10, 2, 2, 2 };
-    private float[] defaultAimAccuracy = { 10, 15, 3, 3, 3 };
+    private float[] defaultSpeed = { 3.5f, 4.0f, 2, 2, 2 };
+    private float[] defaultAimAccuracy = { 5, 7, 3, 3, 3 };
     private int[] defaultAttackPower = { 10, 5, 4, 4, 4 };
+    private float[] defaultAttackDealy = { 0, 0, 0, 0, 0 };
 
     public void UpdateData(int i)
     {
         if (DataManager.Instacne.JsonClass._PlayerData.playerLock[i])
-        GameManager.Instance.GetPlayerValue(defaultHp[i], defaultSpeed[i], defaultAimAccuracy[i], defaultAttackPower[i]);
+        GameManager.Instance.GetPlayerValue(defaultHp[i], defaultSpeed[i], defaultAimAccuracy[i], defaultAttackPower[i], defaultAttackDealy[i]);
     }
 }

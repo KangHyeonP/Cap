@@ -16,10 +16,14 @@ public class GameManager : MonoBehaviour
     public float PlayerSpeed => playerSpeed;
     [SerializeField]
     private float playerAimAccuracy;
-    public float PlayerAimAccuracy => playerSpeed;
+    public float PlayerAimAccuracy => playerAimAccuracy;
     [SerializeField]
     private int playerAttackPower;
     public int PlayerAttackPower => playerAttackPower;
+
+    [SerializeField]
+    private float playerAttackDelay;
+    public float PlayerAttackDelay => playerAttackDelay;
 
     public ECharacters selectCharacter;
 
@@ -52,12 +56,13 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    public void GetPlayerValue(int hp, float speed, float aim, int power)
+    public void GetPlayerValue(int hp, float speed, float aim, int power, float attackDelay)
     {
         playerHp = hp;
         playerSpeed = speed;
         playerAimAccuracy = aim;
         playerAttackPower = power;
+        playerAttackDelay = attackDelay;
     }
 
 

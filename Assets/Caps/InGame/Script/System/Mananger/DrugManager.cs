@@ -36,7 +36,7 @@ public class DrugManager : MonoBehaviour
     public bool red3;
 
     public bool MaxHPUp;   
-    public int playerAttackDamage;
+    public int power;
     public int redBuffAttackDamagePivot;
 
     //Orange
@@ -44,7 +44,7 @@ public class DrugManager : MonoBehaviour
     public bool orange2;
     public bool orange3;
 
-    public float playerAttackCorrectness;
+    public float aim;
     public bool isBulletSizeUp = false; //추후 락 시스템에서 재구현(지)
 
     //Yellow
@@ -61,7 +61,7 @@ public class DrugManager : MonoBehaviour
     public bool green2;
     public bool green3;
 
-    public float playerAttackSpeed;
+    public float playerAttackDelay;
     public int firstGreenBuffMoveSpeed;
 
     //Blue
@@ -70,7 +70,7 @@ public class DrugManager : MonoBehaviour
     public bool blue3;
 
     public bool lucianPassive;
-    public float playerMoveSpeed;
+    public float speed;
     public float reloadSpeed;
     public int maxBullet;
 

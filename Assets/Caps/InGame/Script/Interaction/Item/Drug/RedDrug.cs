@@ -18,13 +18,12 @@ public class RedDrug : Drug
     protected void Update()
     {
         base.Update();
-        
     }
 
     protected override void DrugAbility()
     {
-        base.DrugAbility();
-        DrugManager.Instance.playerAttackDamage += 5;   
+        DrugManager.Instance.power += 1;
+        Debug.Log(DrugManager.Instance.power);
     }
 
     

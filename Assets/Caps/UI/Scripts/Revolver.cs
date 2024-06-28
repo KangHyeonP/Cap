@@ -10,17 +10,28 @@ public class Revolver : MonoBehaviour
     public GameObject bullet;
 	public float fireSpeed = 10.0f;
     public float fireDelay = 3.0f;
-    public int recoil = 0;
+    public float recoil = 0;
 	public int bulletCount = 1;
+    private float curRecoil = 0;
 
     private float fireTime = 0;
-	
+
+    private float[] muzzleRecoil;
+    private Vector3[] muzzleTransform;
+    private Quaternion[] muzzleRotation;
+    private Vector3[] muzzleUp;
+    private float[] powerSpeed;
 
 	// Start is called before the first frame update
 	void Start()
     {
         fireTime = fireDelay;
-	}
+        muzzleRecoil = new float[bulletCount];
+        muzzleTransform = new Vector3[bulletCount];
+        muzzleRotation = new Quaternion[bulletCount];
+        muzzleUp = new Vector3[bulletCount];
+        powerSpeed = new float[bulletCount];
+    }
 
 	// Update is called once per frame
 	void Update()
@@ -37,10 +48,10 @@ public class Revolver : MonoBehaviour
 
     void ShotDelay()
     {
-		if (fireTime >= fireDelay)
-		{
+        // 라이플은 맥시멈 0.2초당 1발
+        if (fireTime >= 0.2f &&
+            fireDelay <= fireTime + InGameManager.Instance.AttackDelay + DrugManager.Instance.playerAttackDelay)
             StartCoroutine(Shot());
-		}
 	}
 
     IEnumerator Shot()
@@ -49,14 +60,22 @@ public class Revolver : MonoBehaviour
 		fireEffect.transform.rotation = fireEffectPos.rotation;
 		fireEffect.SetActive(true);
 
+        if (recoil < InGameManager.Instance.Aim + DrugManager.Instance.aim)
+            curRecoil = 0;
+        else curRecoil = recoil - (InGameManager.Instance.Aim + DrugManager.Instance.aim);
 
 		for(int i=0;i<bulletCount; i++)
 		{
-			muzzle.localRotation = Quaternion.Euler(0, 0, Random.Range(-90 - recoil, -90 + recoil));
+            muzzleRecoil[i] = Random.Range(-90.0f - curRecoil, -90.0f + curRecoil);
+            muzzle.localRotation = Quaternion.Euler(0, 0, muzzleRecoil[i]);
+            muzzleTransform[i] = muzzle.position;
+            muzzleRotation[i] = transform.rotation;
+            muzzleUp[i] = muzzle.up;
+            powerSpeed[i] = fireSpeed + Random.Range(1.0f, -1.0f);
 
-			GameObject fireBullet = Instantiate(bullet, muzzle.position, transform.rotation);
+            GameObject fireBullet = Instantiate(bullet, muzzleTransform[i], muzzleRotation[i]);
 			Rigidbody2D rb = fireBullet.GetComponent<Rigidbody2D>();
-			rb.AddForce(muzzle.up * (fireSpeed+Random.Range(1,-1)), ForceMode2D.Impulse);
+			rb.AddForce(muzzleUp[i] * powerSpeed[i], ForceMode2D.Impulse);
 		}
 
         fireTime = 0;
@@ -66,11 +85,11 @@ public class Revolver : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             for (int i = 0; i < bulletCount; i++)
             {
-                //muzzle.localRotation = Quaternion.Euler(0, 0, Random.Range(-90 - recoil, -90 + recoil));
-                //muzzle.position, transform.rotation 이걸 저장할 값이 필요함(루시안 패시브 떄문)
-                GameObject fireBullet = Instantiate(bullet, muzzle.position, transform.rotation);
+                muzzle.localRotation = Quaternion.Euler(0, 0, muzzleRecoil[i]);
+
+                GameObject fireBullet = Instantiate(bullet, muzzleTransform[i], muzzleRotation[i]);
                 Rigidbody2D rb = fireBullet.GetComponent<Rigidbody2D>();
-                rb.AddForce(muzzle.up * (fireSpeed + Random.Range(1, -1)), ForceMode2D.Impulse);
+                rb.AddForce(muzzleUp[i] * powerSpeed[i], ForceMode2D.Impulse);
             }
         }
 

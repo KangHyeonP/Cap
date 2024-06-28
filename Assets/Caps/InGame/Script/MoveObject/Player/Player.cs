@@ -25,17 +25,15 @@ public abstract class Player : MonoBehaviour
 
     // Status
     // Status - Basic
-    [SerializeField]
-    protected float speed = 3.0f; // 스피드, 일단 임의
-    [SerializeField]
-    protected int power; // 공격력
+    //[SerializeField]
+    //protected float speed = 3.0f; // 스피드, 일단 임의
+    //[SerializeField]
+    //protected int power; // 공격력
     [SerializeField]
     //protected 
     protected float rollingSpeed = 2.5f;
 
     // 무기 구현이후 attackDelay알맞게 수정
-    protected float attackDelay = 1.0f;
-    protected float curAttackDelay;
     protected bool avoidCheck;
 
     [SerializeField]
@@ -104,7 +102,6 @@ public abstract class Player : MonoBehaviour
             InputKey();
             VectorStatus(curVec);
             Roll();
-            Attack();
             Skill();
             // 추후 게임 매니저로 변경될 가능성 있음
             Interaction();
@@ -149,7 +146,8 @@ public abstract class Player : MonoBehaviour
         else
         {
             isWalk = moveVec != Vector2.zero ? true : false;
-            nextVec = moveVec.normalized * speed * Time.fixedDeltaTime;
+            nextVec = moveVec.normalized * Time.fixedDeltaTime *
+                (InGameManager.Instance.Speed + DrugManager.Instance.speed);
             anim.SetBool("Walk", isWalk);
         }
 
@@ -260,19 +258,6 @@ public abstract class Player : MonoBehaviour
         isHit = false;
     }
 
-
-    // 무기 기능 구현하여 추가하기
-    protected void Attack()
-    {
-        curAttackDelay += Time.deltaTime;
-
-        if (attackKey && curAttackDelay >= attackDelay)
-        {
-            curAttackDelay = 0;
-            StartCoroutine(IAttack());
-        }
-    }
-
     protected void Swap()
     {
         int curIndex = -1;
@@ -363,13 +348,6 @@ public abstract class Player : MonoBehaviour
         anim.SetBool("Walk", false);
 
         anim.SetBool(pVec.ToString(), true);
-    }
-
-    public IEnumerator IAttack()
-    {
-
-        Debug.Log("공격");
-        yield return new WaitForSeconds(1.0f);
     }
 
     protected void Skill()
