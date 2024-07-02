@@ -104,8 +104,8 @@ MonoBehaviour:
   muzzle: {fileID: 1130705018076850720}
   bullet: {fileID: 1549065888667674428, guid: 11f3a2b7588c9144db1368b298716f50, type: 3}
   fireSpeed: 10
-  fireDelay: 0.5
-  recoil: 5
+  fireDelay: 2
+  recoil: 17
   bulletCount: 1
 --- !u!1 &134783549798723848
 GameObject:
@@ -313,8 +313,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   silhouette: {fileID: 0}
-  speed: 3
-  power: 0
   rollingSpeed: 2.5
   skillDelay: 2
   isReverse: 0

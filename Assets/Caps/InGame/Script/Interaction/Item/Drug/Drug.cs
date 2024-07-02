@@ -40,7 +40,7 @@ public class Drug : Item
         }
 
         InGameManager.Instance.drugInven = this;
-        InGameManager.Instance.UpdateDrugType(drugSprite.sprite); //이거 UI연동하려고 추가한거임 (지)
+        UIManager.Instance.inGameUI.DrugInven(drugSprite.sprite);
         InGameManager.Instance.tempDrug = null;
 
         base.GetItem();

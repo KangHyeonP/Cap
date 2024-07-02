@@ -37,8 +37,8 @@ public class CharacterData
     private int[] defaultHp = { 6, 4, 1, 1, 1 };
     private float[] defaultSpeed = { 3.5f, 4.0f, 2, 2, 2 };
     private float[] defaultAimAccuracy = { 5, 7, 3, 3, 3 };
-    private int[] defaultAttackPower = { 10, 5, 4, 4, 4 };
-    private float[] defaultAttackDealy = { 0, 0, 0, 0, 0 };
+    private int[] defaultAttackPower = { 10, 8, 4, 4, 4 };
+    private float[] defaultAttackDealy = { 10.0f, 12.0f, 6, 6, 6 };
 
     public void UpdateData(int i)
     {

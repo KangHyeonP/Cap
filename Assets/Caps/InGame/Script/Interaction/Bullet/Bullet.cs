@@ -19,7 +19,7 @@ public class Bullet : MonoBehaviour
 
 	IEnumerator Erase()
     {
-        yield return new WaitForSeconds(eraseSpeed);
+        yield return new WaitForSeconds(eraseSpeed + DrugManager.Instance.playerAttackRange);
         Destroy(gameObject);
     }
 }

@@ -46,12 +46,17 @@ public class Revolver : MonoBehaviour
 
 	
 
+    // 일단 라이플이라 생각하고 작업 중
     void ShotDelay()
     {
         // 라이플은 맥시멈 0.2초당 1발
         if (fireTime >= 0.2f &&
-            fireDelay <= fireTime + InGameManager.Instance.AttackDelay + DrugManager.Instance.playerAttackDelay)
+            fireDelay <= fireTime + InGameManager.Instance.AttackDelay / 10.0f + DrugManager.Instance.playerAttackDelay / 16.0f)
+        {
+            Debug.Log(InGameManager.Instance.AttackDelay + " : Ingame");
+            Debug.Log(DrugManager.Instance.playerAttackDelay/8.0f + " : Drug");
             StartCoroutine(Shot());
+        }
 	}
 
     IEnumerator Shot()

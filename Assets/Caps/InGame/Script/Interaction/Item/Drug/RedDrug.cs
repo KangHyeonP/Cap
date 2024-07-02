@@ -23,7 +23,6 @@ public class RedDrug : Drug
     protected override void DrugAbility()
     {
         DrugManager.Instance.power += 1;
-        Debug.Log(DrugManager.Instance.power);
     }
 
     

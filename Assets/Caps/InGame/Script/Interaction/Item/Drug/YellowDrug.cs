@@ -22,7 +22,7 @@ public class YellowDrugDrug : Drug
     protected override void DrugAbility()
     {
         base.DrugAbility();
-        DrugManager.Instance.playerAttackRange += 5;
+        DrugManager.Instance.playerAttackRange += 0.1f;
     }
 
 

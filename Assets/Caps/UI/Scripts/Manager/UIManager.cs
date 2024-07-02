@@ -156,9 +156,14 @@ public class UIManager : MonoBehaviour
 
     }
 
-    private void hpInit()
+    public void hpInit()
     {
         int hp = InGameManager.Instance.MaxHp;
+
+        for(int i = 0; i < heartImages.Length; i++)
+        {
+            heartImages[i].gameObject.SetActive(true);
+        }
 
         for (int i = hp / 2; i < heartImages.Length; i++)
         {

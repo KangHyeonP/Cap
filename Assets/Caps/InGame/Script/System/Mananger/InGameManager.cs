@@ -43,7 +43,7 @@ public class InGameManager : MonoBehaviour
     public float Aim => aim;
 
     private float attackDelay;
-    public float AttackDelay;
+    public float AttackDelay => attackDelay;
 
     private bool isDead;
     public bool IsDead => isDead;
@@ -168,19 +168,17 @@ public class InGameManager : MonoBehaviour
         }
     }
     
-    public void UpdateDrugType(Sprite s)
+    /*public void UpdateDrugType(Sprite s)
     {
         UIManager.Instance.inGameUI.DrugInven(s);
         // 이것도 UI
         //drugTypeUI.sprite = drugInven.drugSprite.sprite;
-    }
+    }*/
     public void MaxHPUpdate()
     {
-        if (DrugManager.Instance.MaxHPUp)
-        {
-            maxHp += 2;
-            DrugManager.Instance.red1 = false;
-        }
+        // 만약 락 해제 기능 나오면 로직 수정해야함
+        maxHp += 2;
+        UIManager.Instance.hpInit();
     }
     public void HealHp(int value)
     {

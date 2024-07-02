@@ -160,6 +160,8 @@ public class DrugManager : MonoBehaviour
             curGauge = stackGauge;
         }
     }
+    
+    // 락 해제기능 나올 시 UnBuff기능도 만들어야함
 
     // redbuffs (if문 추가 해야됨)
     public void RunRedBuff1()
