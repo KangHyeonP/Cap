@@ -91,6 +91,7 @@ public class InGameManager : MonoBehaviour
         }
 
         maxHp = GameManager.Instance.PlayerHp;
+        hp = maxHp;
         speed = GameManager.Instance.PlayerSpeed;
         power = GameManager.Instance.PlayerAttackPower;
         aim = GameManager.Instance.PlayerAimAccuracy;

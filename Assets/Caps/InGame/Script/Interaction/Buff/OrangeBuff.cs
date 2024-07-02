@@ -25,7 +25,8 @@ public class OrangeBuff : ColorBuff
 
     public override void SecondBuff()
     {
-
+        DrugManager.Instance.orange2 = true;
+        DrugManager.Instance.RunOrangeBuff1();
     }
 
     public override void ThirdBuff()

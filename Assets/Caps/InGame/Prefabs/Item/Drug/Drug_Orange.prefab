@@ -162,4 +162,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drugGuage: 0
-  value: 0
+  value: 1

@@ -283,6 +283,11 @@ public abstract class Agent : MonoBehaviour
     {
         Debug.Log("맞았어");
 
+        if(DrugManager.Instance.red2)
+        {
+            damage = damage + damage * DrugManager.Instance.powerUpValue / 100;
+        }
+
         hp -= damage;
         Debug.Log("몬스터 남은 체력: " + hp);
 

@@ -53,8 +53,6 @@ public class Revolver : MonoBehaviour
         if (fireTime >= 0.2f &&
             fireDelay <= fireTime + InGameManager.Instance.AttackDelay / 10.0f + DrugManager.Instance.playerAttackDelay / 16.0f)
         {
-            Debug.Log(InGameManager.Instance.AttackDelay + " : Ingame");
-            Debug.Log(DrugManager.Instance.playerAttackDelay/8.0f + " : Drug");
             StartCoroutine(Shot());
         }
 	}
