@@ -12,7 +12,7 @@ public class PoolManager : MonoBehaviour
     [SerializeField]
     private int initCount;
 
-    public Queue<Bullet> poolingBulletQueue = new Queue<Bullet>();
+    public Queue<Bullet> poolingObjectQueue = new Queue<Bullet>();
 
     private void Awake()
     {
@@ -24,9 +24,9 @@ public class PoolManager : MonoBehaviour
     {
         for (int i = 0; i < initCount; i++)
         {
-            poolingBulletQueue.Enqueue(CreateNewObject());
+            poolingObjectQueue.Enqueue(CreateNewObject());
         }
-        Debug.Log(poolingBulletQueue.Count);
+        Debug.Log(poolingObjectQueue.Count);
     }
 
     private Bullet CreateNewObject()
@@ -39,9 +39,9 @@ public class PoolManager : MonoBehaviour
 
     public Bullet GetObject()
     {
-        if (Instance.poolingBulletQueue.Count > 0)
+        if (Instance.poolingObjectQueue.Count > 0)
         {
-            Bullet obj = Instance.poolingBulletQueue.Dequeue();
+            Bullet obj = Instance.poolingObjectQueue.Dequeue();
             obj.gameObject.SetActive(true);
             return obj;
         }
@@ -57,6 +57,6 @@ public class PoolManager : MonoBehaviour
     {
         Debug.Log(obj);
         obj.gameObject.SetActive(false);
-        Instance.poolingBulletQueue.Enqueue(obj);
+        Instance.poolingObjectQueue.Enqueue(obj);
     }
 }

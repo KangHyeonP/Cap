@@ -54,28 +54,33 @@ public class UIManager : MonoBehaviour
 		//OpenTab();
 		//OpenDict();
 
-<<<<<<< HEAD
-        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) && !IsDict) //IsDict Ãß°¡
-=======
         if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) && !IsDict)
->>>>>>> feature/TES-16_ë§ˆì•½_ëª¨ë“ _ê¸°ëŠ¥_êµ¬í˜„
         {
+			Debug.Log(IsPopup);
             OpenPause();
         }
 
         if (Input.GetKeyDown(KeyCode.Tab) && !IsTab)
         {
             OpenTab();
+            Debug.Log("Open");
         }
 
         if (Input.GetKeyUp(KeyCode.Tab) && IsTab)
         {
             OpenTab();
+            Debug.Log("Close");
         }
 
         if (Input.GetKeyDown(KeyCode.I) && IsPopup == 0)
         {
             OpenDict();
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Debug.Log("IsTab: " + IsTab);
+            Debug.Log("IsDict: " + IsDict);
         }
 
     }
@@ -104,11 +109,7 @@ public class UIManager : MonoBehaviour
 
 		if (!IsDict)
 		{
-<<<<<<< HEAD
-            IsDict = true; //ÀÌ»õ³¢µµ Ãß°¡
-=======
             IsDict = true;
->>>>>>> feature/TES-16_ë§ˆì•½_ëª¨ë“ _ê¸°ëŠ¥_êµ¬í˜„
 			DictUI.SetActive(true);
 			PauseTime(true);
 		}
@@ -137,6 +138,7 @@ public class UIManager : MonoBehaviour
 
     private void OpenPause() //ÀÏ½ÃÁ¤Áö
 	{
+		
         switch (IsPopup)
         {
             case 0:

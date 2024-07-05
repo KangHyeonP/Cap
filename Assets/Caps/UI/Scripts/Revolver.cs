@@ -7,7 +7,8 @@ public class Revolver : MonoBehaviour
 {
     public GameObject fireEffect;
 	public Transform fireEffectPos;
-    public Transform muzzle;
+    public Transform muzzle; 
+    public GameObject bullet;
 	public float fireSpeed = 10.0f;
     public float fireDelay = 3.0f;
     public float recoil = 0;
@@ -44,15 +45,6 @@ public class Revolver : MonoBehaviour
 		}
     }
 
-<<<<<<< HEAD
-    void ShotDelay()
-    {
-		if (fireTime >= fireDelay)
-		{
-			fireTime = 0;
-			StartCoroutine(Shot());
-		}
-=======
 	
 
     // ÀÏ´Ü ¶óÀÌÇÃÀÌ¶ó »ý°¢ÇÏ°í ÀÛ¾÷ Áß
@@ -64,7 +56,6 @@ public class Revolver : MonoBehaviour
         {
             StartCoroutine(Shot());
         }
->>>>>>> feature/TES-16_ë§ˆì•½_ëª¨ë“ _ê¸°ëŠ¥_êµ¬í˜„
 	}
 
     IEnumerator Shot()
@@ -73,13 +64,10 @@ public class Revolver : MonoBehaviour
 		fireEffect.transform.rotation = fireEffectPos.rotation;
 		fireEffect.SetActive(true);
 
-<<<<<<< HEAD
-=======
         if (recoil < InGameManager.Instance.Aim + DrugManager.Instance.aim)
             curRecoil = 0;
         else curRecoil = recoil - (InGameManager.Instance.Aim + DrugManager.Instance.aim);
 
->>>>>>> feature/TES-16_ë§ˆì•½_ëª¨ë“ _ê¸°ëŠ¥_êµ¬í˜„
 		for(int i=0;i<bulletCount; i++)
 		{
             muzzleRecoil[i] = Random.Range(-90.0f - curRecoil, -90.0f + curRecoil);
@@ -89,15 +77,6 @@ public class Revolver : MonoBehaviour
             muzzleTransform[i] = bullet.transform.position;
             muzzleUp[i] = muzzle.up;
 
-<<<<<<< HEAD
-			Bullet bullet = ObjectPool.Instance.GetObject();
-			bullet.transform.position = muzzle.position;
-			bullet.MoveBullet(muzzle.up * (fireSpeed + Random.Range(1, -1)));
-			//bullet.MoveBullet(muzzle.up * (fireSpeed + Random.Range(1, -1)));
-			//GameObject fireBullet = Instantiate(bullet, muzzle.position, transform.rotation);
-			//Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-			//rb.AddForce(muzzle.up * (fireSpeed + Random.Range(1, -1)), ForceMode2D.Impulse);
-=======
             // ÃÑ¾Ë °¢±â ¼Óµµµµ ¹Þ¾Æ¾ßÇÔ Random.Range(1, -1)) (·ç½Ã¾È¿¡¼­)
             bullet.MoveBullet(muzzle.up * (fireSpeed + Random.Range(1, -1)));
 
@@ -112,28 +91,15 @@ public class Revolver : MonoBehaviour
             /*GameObject fireBullet = Instantiate(bullet, muzzleTransform[i], muzzleRotation[i]);
 			Rigidbody2D rb = fireBullet.GetComponent<Rigidbody2D>();
 			rb.AddForce(muzzleUp[i] * powerSpeed[i], ForceMode2D.Impulse);*/
->>>>>>> feature/TES-16_ë§ˆì•½_ëª¨ë“ _ê¸°ëŠ¥_êµ¬í˜„
 		}
 
-		Debug.Log(ObjectPool.Instance.poolingBulletQueue.Count);
+        fireTime = 0;
 
-
-		if (DrugManager.Instance.lucianPassive)
+        if (DrugManager.Instance.lucianPassive)
         {
             yield return new WaitForSeconds(0.1f);
             for (int i = 0; i < bulletCount; i++)
             {
-<<<<<<< HEAD
-				//muzzle.localRotation = Quaternion.Euler(0, 0, Random.Range(-90 - recoil, -90 + recoil));
-				//muzzle.position, transform.rotation ÀÌ°É ÀúÀåÇÒ °ªÀÌ ÇÊ¿äÇÔ(·ç½Ã¾È ÆÐ½Ãºê ‹š¹®)
-				var bullet = ObjectPool.Instance.GetObject();
-				bullet.transform.position = muzzle.position;
-				//bullet.MoveBullet(muzzle.up * (fireSpeed + Random.Range(1, -1)));
-				//GameObject fireBullet = Instantiate(bullet, muzzle.position, transform.rotation);
-				//Rigidbody2D rb = fireBullet.GetComponent<Rigidbody2D>();
-				//rb.AddForce(muzzle.up * (fireSpeed + Random.Range(1, -1)), ForceMode2D.Impulse);
-			}
-=======
 
                 Bullet bullet = PoolManager.Instance.GetObject();
                 bullet.transform.position = muzzleTransform[i];
@@ -148,11 +114,8 @@ public class Revolver : MonoBehaviour
                 rb.AddForce(muzzleUp[i] * powerSpeed[i], ForceMode2D.Impulse);
                 */
             }
->>>>>>> feature/TES-16_ë§ˆì•½_ëª¨ë“ _ê¸°ëŠ¥_êµ¬í˜„
         }
 
-		yield return new WaitForSeconds(0.1f);
-
-		fireEffect.SetActive(false);
+        fireEffect.SetActive(false);
 	}
 }
