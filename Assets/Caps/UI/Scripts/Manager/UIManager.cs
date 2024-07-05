@@ -54,7 +54,7 @@ public class UIManager : MonoBehaviour
 		//OpenTab();
 		//OpenDict();
 
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) && !IsDict)
         {
 			Debug.Log(IsPopup);
             OpenPause();
@@ -109,6 +109,7 @@ public class UIManager : MonoBehaviour
 
 		if (!IsDict)
 		{
+            IsDict = true;
 			DictUI.SetActive(true);
 			PauseTime(true);
 		}

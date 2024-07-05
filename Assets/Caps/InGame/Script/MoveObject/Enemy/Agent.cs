@@ -411,7 +411,6 @@ public abstract class Agent : MonoBehaviour
         // 1. Bullet 테그별로 나누기(총알이 다 다를경우)
         if (collision.CompareTag("PlayerBullet"))
         {
-            Destroy(collision.gameObject);
             Damage(InGameManager.Instance.Power + DrugManager.Instance.power);
             
         }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Revolver : MonoBehaviour
 {
@@ -70,15 +71,26 @@ public class Revolver : MonoBehaviour
 		for(int i=0;i<bulletCount; i++)
 		{
             muzzleRecoil[i] = Random.Range(-90.0f - curRecoil, -90.0f + curRecoil);
+            
+            Bullet bullet = PoolManager.Instance.GetObject();
+            bullet.transform.position = muzzle.position;
+            muzzleTransform[i] = bullet.transform.position;
+            muzzleUp[i] = muzzle.up;
+
+            // 총알 각기 속도도 받아야함 Random.Range(1, -1)) (루시안에서)
+            bullet.MoveBullet(muzzle.up * (fireSpeed + Random.Range(1, -1)));
+
+            /*
             muzzle.localRotation = Quaternion.Euler(0, 0, muzzleRecoil[i]);
             muzzleTransform[i] = muzzle.position;
             muzzleRotation[i] = transform.rotation;
             muzzleUp[i] = muzzle.up;
             powerSpeed[i] = fireSpeed + Random.Range(1.0f, -1.0f);
+            */
 
-            GameObject fireBullet = Instantiate(bullet, muzzleTransform[i], muzzleRotation[i]);
+            /*GameObject fireBullet = Instantiate(bullet, muzzleTransform[i], muzzleRotation[i]);
 			Rigidbody2D rb = fireBullet.GetComponent<Rigidbody2D>();
-			rb.AddForce(muzzleUp[i] * powerSpeed[i], ForceMode2D.Impulse);
+			rb.AddForce(muzzleUp[i] * powerSpeed[i], ForceMode2D.Impulse);*/
 		}
 
         fireTime = 0;
@@ -88,11 +100,19 @@ public class Revolver : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             for (int i = 0; i < bulletCount; i++)
             {
+
+                Bullet bullet = PoolManager.Instance.GetObject();
+                bullet.transform.position = muzzleTransform[i];
+
+                bullet.MoveBullet(muzzleUp[i] * (fireSpeed + Random.Range(1, -1)));
+
+                /*
                 muzzle.localRotation = Quaternion.Euler(0, 0, muzzleRecoil[i]);
 
                 GameObject fireBullet = Instantiate(bullet, muzzleTransform[i], muzzleRotation[i]);
                 Rigidbody2D rb = fireBullet.GetComponent<Rigidbody2D>();
                 rb.AddForce(muzzleUp[i] * powerSpeed[i], ForceMode2D.Impulse);
+                */
             }
         }
 

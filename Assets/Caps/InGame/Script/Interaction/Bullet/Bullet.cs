@@ -6,35 +6,40 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float eraseSpeed;
-    public int hitCount = 0;
+    private Rigidbody2D rb;
 
-	private void Start()
-	{
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
         if (DrugManager.Instance.isBulletSizeUp) gameObject.transform.localScale *= 1.5f;
-
+    }
+    private void OnEnable()
+    {
         if (eraseSpeed > 0)
         {
             StartCoroutine(Erase());
         }
-	}
+    }
 
-	IEnumerator Erase()
+    public void MoveBullet(Vector2 dir)
+    {
+        rb.AddForce(dir, ForceMode2D.Impulse);
+    }
+
+    IEnumerator Erase()
     {
         yield return new WaitForSeconds(eraseSpeed + DrugManager.Instance.playerAttackRange);
-        Destroy(gameObject);
+        PoolManager.Instance.ReturnObject(this);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Agent")
         {
-            hitCount++;
-            if (DrugManager.Instance.isBulletPass)
-            {
-                if (hitCount == 2) Destroy(gameObject);
-            }
-            else Destroy(gameObject);
+            if (DrugManager.Instance.isBulletPass) return;
+            
+            PoolManager.Instance.ReturnObject(this);
         }
-        else if (collision.tag == "Wall") Destroy(gameObject);
+        else if (collision.tag == "Wall") PoolManager.Instance.ReturnObject(this);
     }
 }
