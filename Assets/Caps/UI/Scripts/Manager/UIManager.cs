@@ -54,33 +54,24 @@ public class UIManager : MonoBehaviour
 		//OpenTab();
 		//OpenDict();
 
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) && !IsDict) //IsDict 추가
         {
-			Debug.Log(IsPopup);
             OpenPause();
         }
 
         if (Input.GetKeyDown(KeyCode.Tab) && !IsTab)
         {
             OpenTab();
-            Debug.Log("Open");
         }
 
         if (Input.GetKeyUp(KeyCode.Tab) && IsTab)
         {
             OpenTab();
-            Debug.Log("Close");
         }
 
         if (Input.GetKeyDown(KeyCode.I) && IsPopup == 0)
         {
             OpenDict();
-        }
-
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            Debug.Log("IsTab: " + IsTab);
-            Debug.Log("IsDict: " + IsDict);
         }
 
     }
@@ -109,6 +100,7 @@ public class UIManager : MonoBehaviour
 
 		if (!IsDict)
 		{
+            IsDict = true; //이새끼도 추가
 			DictUI.SetActive(true);
 			PauseTime(true);
 		}
@@ -137,7 +129,6 @@ public class UIManager : MonoBehaviour
 
     private void OpenPause() //일시정지
 	{
-		
         switch (IsPopup)
         {
             case 0:

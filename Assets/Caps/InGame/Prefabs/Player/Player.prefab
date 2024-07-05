@@ -102,7 +102,6 @@ MonoBehaviour:
   fireEffect: {fileID: 7302751013044986120}
   fireEffectPos: {fileID: 6277288580957594013}
   muzzle: {fileID: 1130705018076850720}
-  bullet: {fileID: 1549065888667674428, guid: 11f3a2b7588c9144db1368b298716f50, type: 3}
   fireSpeed: 10
   fireDelay: 0.5
   recoil: 5
@@ -472,7 +471,6 @@ MonoBehaviour:
   fireEffect: {fileID: 7302751013044986120}
   fireEffectPos: {fileID: 457906096318024}
   muzzle: {fileID: 2693226136484830093}
-  bullet: {fileID: 1549065888667674428, guid: 11f3a2b7588c9144db1368b298716f50, type: 3}
   fireSpeed: 8
   fireDelay: 1
   recoil: 15
@@ -579,7 +577,6 @@ MonoBehaviour:
   fireEffect: {fileID: 7302751013044986120}
   fireEffectPos: {fileID: 8632312112390639586}
   muzzle: {fileID: 8973046306544488883}
-  bullet: {fileID: 8932677877250943145, guid: 3b556d67335895a49847d382d9b8832b, type: 3}
   fireSpeed: 17.5
   fireDelay: 1.5
   recoil: 0
@@ -888,7 +885,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: b903492db4e935f42b0048b5be61efca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

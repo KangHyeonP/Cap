@@ -24,9 +24,4 @@ public class DictionaryUI : MonoBehaviour
 		UIManager.Instance.IsDict = false;
 		gameObject.SetActive(false);
 	}
-
-	public void DictOn()
-	{
-		UIManager.Instance.IsDict = true;
-	}
 }

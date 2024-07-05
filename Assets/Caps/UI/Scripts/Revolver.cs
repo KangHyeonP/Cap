@@ -6,8 +6,7 @@ public class Revolver : MonoBehaviour
 {
     public GameObject fireEffect;
 	public Transform fireEffectPos;
-    public Transform muzzle; 
-    public GameObject bullet;
+    public Transform muzzle;
 	public float fireSpeed = 10.0f;
     public float fireDelay = 3.0f;
     public int recoil = 0;
@@ -33,13 +32,12 @@ public class Revolver : MonoBehaviour
 		}
     }
 
-	
-
     void ShotDelay()
     {
 		if (fireTime >= fireDelay)
 		{
-            StartCoroutine(Shot());
+			fireTime = 0;
+			StartCoroutine(Shot());
 		}
 	}
 
@@ -49,31 +47,40 @@ public class Revolver : MonoBehaviour
 		fireEffect.transform.rotation = fireEffectPos.rotation;
 		fireEffect.SetActive(true);
 
-
 		for(int i=0;i<bulletCount; i++)
 		{
 			muzzle.localRotation = Quaternion.Euler(0, 0, Random.Range(-90 - recoil, -90 + recoil));
 
-			GameObject fireBullet = Instantiate(bullet, muzzle.position, transform.rotation);
-			Rigidbody2D rb = fireBullet.GetComponent<Rigidbody2D>();
-			rb.AddForce(muzzle.up * (fireSpeed+Random.Range(1,-1)), ForceMode2D.Impulse);
+			Bullet bullet = ObjectPool.Instance.GetObject();
+			bullet.transform.position = muzzle.position;
+			bullet.MoveBullet(muzzle.up * (fireSpeed + Random.Range(1, -1)));
+			//bullet.MoveBullet(muzzle.up * (fireSpeed + Random.Range(1, -1)));
+			//GameObject fireBullet = Instantiate(bullet, muzzle.position, transform.rotation);
+			//Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+			//rb.AddForce(muzzle.up * (fireSpeed + Random.Range(1, -1)), ForceMode2D.Impulse);
 		}
 
-        fireTime = 0;
+		Debug.Log(ObjectPool.Instance.poolingBulletQueue.Count);
 
-        if (DrugManager.Instance.lucianPassive)
+
+		if (DrugManager.Instance.lucianPassive)
         {
             yield return new WaitForSeconds(0.1f);
             for (int i = 0; i < bulletCount; i++)
             {
-                //muzzle.localRotation = Quaternion.Euler(0, 0, Random.Range(-90 - recoil, -90 + recoil));
-                //muzzle.position, transform.rotation 이걸 저장할 값이 필요함(루시안 패시브 떄문)
-                GameObject fireBullet = Instantiate(bullet, muzzle.position, transform.rotation);
-                Rigidbody2D rb = fireBullet.GetComponent<Rigidbody2D>();
-                rb.AddForce(muzzle.up * (fireSpeed + Random.Range(1, -1)), ForceMode2D.Impulse);
-            }
+				//muzzle.localRotation = Quaternion.Euler(0, 0, Random.Range(-90 - recoil, -90 + recoil));
+				//muzzle.position, transform.rotation 이걸 저장할 값이 필요함(루시안 패시브 떄문)
+				var bullet = ObjectPool.Instance.GetObject();
+				bullet.transform.position = muzzle.position;
+				//bullet.MoveBullet(muzzle.up * (fireSpeed + Random.Range(1, -1)));
+				//GameObject fireBullet = Instantiate(bullet, muzzle.position, transform.rotation);
+				//Rigidbody2D rb = fireBullet.GetComponent<Rigidbody2D>();
+				//rb.AddForce(muzzle.up * (fireSpeed + Random.Range(1, -1)), ForceMode2D.Impulse);
+			}
         }
 
-        fireEffect.SetActive(false);
+		yield return new WaitForSeconds(0.1f);
+
+		fireEffect.SetActive(false);
 	}
 }
