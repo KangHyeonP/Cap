@@ -8,7 +8,6 @@ public class Revolver : MonoBehaviour
     public GameObject fireEffect;
 	public Transform fireEffectPos;
     public Transform muzzle; 
-    public GameObject bullet;
 	public float fireSpeed = 10.0f;
     public float fireDelay = 3.0f;
     public float recoil = 0;

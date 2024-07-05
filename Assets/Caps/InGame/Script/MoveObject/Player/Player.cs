@@ -384,7 +384,7 @@ public abstract class Player : MonoBehaviour
         if (collision.tag == "EnemyBullet") //수정
         {
             if (avoidCheck || isHit) return;
-            Destroy(collision.gameObject);
+            Destroy(collision.gameObject); // 이건 추 후 총알 기능 수정하면서 같이 하기
             Damage(1); // 데미지 로직 나중에 수정
         }
     }

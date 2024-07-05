@@ -12,6 +12,7 @@ public class PoolManager : MonoBehaviour
     [SerializeField]
     private int initCount;
 
+    // 얘도 늘려야함
     public Queue<Bullet> poolingObjectQueue = new Queue<Bullet>();
 
     private void Awake()
@@ -29,9 +30,11 @@ public class PoolManager : MonoBehaviour
         Debug.Log(poolingObjectQueue.Count);
     }
 
+    // PlayerBullet, EnemyBullet = 둘다 Bullet 상속, 단 Bullet은 사용안함(생성에서 문제가 생겨서)
     private Bullet CreateNewObject()
     {
         Bullet newObj = Instantiate(poolingObj).GetComponent<Bullet>();
+        Debug.Log("디버그 생성 총알 : "+newObj.name);
         newObj.gameObject.SetActive(false);
         newObj.transform.SetParent(transform);
         return newObj;
