@@ -192,7 +192,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: bc3a580fd2b047a4798b6712992ad1f6, type: 3}
   - {fileID: 21300000, guid: 4e4df6efc719384498748b551273467a, type: 3}
   muzzle: {fileID: 2237362050529186703}
-  hp: 5
+  hp: 100
   curStatus: 0
   isDetect: 0
   attackDelay: 1.5

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 277895999952338303}
   - component: {fileID: 7803980753285482548}
   - component: {fileID: 23722230745059470}
-  - component: {fileID: 5108361628976806806}
+  - component: {fileID: 7566668088225030713}
   m_Layer: 0
   m_Name: Drug_Red
   m_TagString: Untagged
@@ -76,12 +76,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8d04c1555ccb63e4a821345e0061a19b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1ef512965d6a8684ea9ba86f8b363686, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.7534246, y: 1.7534246}
+  m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -149,7 +149,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 1}
   m_Direction: 0
---- !u!114 &5108361628976806806
+--- !u!114 &7566668088225030713
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,7 +158,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3964539118240093673}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c698d80df413e56409aeac13eb97dce9, type: 3}
+  m_Script: {fileID: 11500000, guid: 21645291cc635244980352514e19ed94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   drugGuage: 0

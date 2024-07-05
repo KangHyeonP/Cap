@@ -54,7 +54,11 @@ public class UIManager : MonoBehaviour
 		//OpenTab();
 		//OpenDict();
 
+<<<<<<< HEAD
         if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) && !IsDict) //IsDict Ãß°¡
+=======
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) && !IsDict)
+>>>>>>> feature/TES-16_ë§ˆì•½_ëª¨ë“ _ê¸°ëŠ¥_êµ¬í˜„
         {
             OpenPause();
         }
@@ -100,7 +104,11 @@ public class UIManager : MonoBehaviour
 
 		if (!IsDict)
 		{
+<<<<<<< HEAD
             IsDict = true; //ÀÌ»õ³¢µµ Ãß°¡
+=======
+            IsDict = true;
+>>>>>>> feature/TES-16_ë§ˆì•½_ëª¨ë“ _ê¸°ëŠ¥_êµ¬í˜„
 			DictUI.SetActive(true);
 			PauseTime(true);
 		}
@@ -147,9 +155,14 @@ public class UIManager : MonoBehaviour
 
     }
 
-    private void hpInit()
+    public void hpInit()
     {
         int hp = InGameManager.Instance.MaxHp;
+
+        for(int i = 0; i < heartImages.Length; i++)
+        {
+            heartImages[i].gameObject.SetActive(true);
+        }
 
         for (int i = hp / 2; i < heartImages.Length; i++)
         {

@@ -24,7 +24,7 @@ public class OrangeDrug : Drug
     protected override void DrugAbility()
     {
         base.DrugAbility();
-        DrugManager.Instance.playerAttackCorrectness += 5;
+        DrugManager.Instance.aim += 1;
     }
 
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -16,9 +17,10 @@ public class DrugManager : MonoBehaviour
     public EDrugColor[] buffSteps= {EDrugColor.red,EDrugColor.red,EDrugColor.red};
     public ColorBuff[] colorBuffs;
     public bool[] isBuffStepActive = { false, false, false};
-    public int[] stackDrug = { 0, 0, 0, 0, 0 };// red, orange, yellow, green, blue 순
     public int[] tempStackDrug = { 0, 0, 0, 0, 0 }; // 현재 락에서 먹은 마약 개수 체크
-    public int fullStackDrug = 0; // 마약 총 누적량
+    public int[] stackDrug = { 0, 0, 0, 0, 0 };// red, orange, yellow, green, blue 순, 현재 락 전까지 먹은 마약 개수 
+    public int fullStackDrug = 0; // 이전 락까지의 마약 총 누적량
+    public int curStackDrug = 0; // 현재 락의 마약 개수
 
     private int duffIndex = -1;
 
@@ -35,17 +37,18 @@ public class DrugManager : MonoBehaviour
     public bool red2;
     public bool red3;
 
-    public bool MaxHPUp;   
-    public int playerAttackDamage;
-    public int redBuffAttackDamagePivot;
+    public bool MaxHPUp;
+    public int power;
+    public int powerUpValue;
 
     //Orange
     public bool orange1;
     public bool orange2;
     public bool orange3;
 
-    public float playerAttackCorrectness;
-    public bool isBulletSizeUp = false; //추후 락 시스템에서 재구현(지)
+    public float aim;
+    public bool isBulletSizeUp = false;
+    public bool isBulletPass = false;
 
     //Yellow
     public bool yellow1;    
@@ -61,7 +64,7 @@ public class DrugManager : MonoBehaviour
     public bool green2;
     public bool green3;
 
-    public float playerAttackSpeed;
+    public float playerAttackDelay;
     public int firstGreenBuffMoveSpeed;
 
     //Blue
@@ -70,7 +73,7 @@ public class DrugManager : MonoBehaviour
     public bool blue3;
 
     public bool lucianPassive;
-    public float playerMoveSpeed;
+    public float speed;
     public float reloadSpeed;
     public int maxBullet;
 
@@ -94,7 +97,8 @@ public class DrugManager : MonoBehaviour
 
     void Start()
     {
-        
+        Debug.Log("1 / 2.0f 값 : " + (1 / 2.0f)); // 변수 테스트
+        Debug.Log("1 * 0.5f 값 : " + (1 * 0.5f)); // 변수 테스트
     }
 
     // Update is called once per frame
@@ -129,8 +133,7 @@ public class DrugManager : MonoBehaviour
 
             for (int i=0; i<tempStackDrug.Length; i++)
             {
-                stackDrug[i] += tempStackDrug[i];
-                fullStackDrug += stackDrug[i];
+                curStackDrug += tempStackDrug[i];   
             }
 
             LockActive();
@@ -142,14 +145,17 @@ public class DrugManager : MonoBehaviour
     {
         float curGauge = 0;// 시작 게이지 값
         float stackGauge = 0; // 현재 누적된 게이지 양
-        float value = Random.Range(0.1f, 100.0f);
+        float value = Random.Range(0.1f, 99.9f);
 
         Debug.Log("현재 랜덤 값 : " + value);
 
         for (int i=0; i<stackDrug.Length; i++)
         {
-            stackGauge += 100 * (stackDrug[i] / (float)fullStackDrug);
+            stackGauge += 100 * ((tempStackDrug[i] + stackDrug[i] * 0.5f) / (curStackDrug + fullStackDrug * 0.5f));
             Debug.Log(i + " 인덱스의 범위 값 :  " + stackGauge);
+            Debug.Log("curStackDrug + fullStackDrug * 0.5f : " + (curStackDrug + fullStackDrug * 0.5f));
+            Debug.Log("tempStackDrug[i] + stackDrug[i] * 0.5f : " + (tempStackDrug[i] + stackDrug[i] * 0.5f));
+ 
             if (curGauge <= value && value <= stackGauge)
             {
                 buffSteps[duffIndex] = (EDrugColor)i;
@@ -159,7 +165,18 @@ public class DrugManager : MonoBehaviour
             }
             curGauge = stackGauge;
         }
+
+        for(int i=0; i<stackDrug.Length; i++)
+        {
+            stackDrug[i] += tempStackDrug[i];
+            tempStackDrug[i] = 0;
+        }
+
+        fullStackDrug += curStackDrug;
+        curStackDrug = 0;
     }
+    
+    // 락 해제기능 나올 시 UnBuff기능도 만들어야함
 
     // redbuffs (if문 추가 해야됨)
     public void RunRedBuff1()
@@ -173,18 +190,18 @@ public class DrugManager : MonoBehaviour
         switch (InGameManager.Instance.Hp)
         {
             case 4:
-                redBuffAttackDamagePivot = 5;
+                powerUpValue = 5;
                 break;
             case 3:
-                redBuffAttackDamagePivot = 15;
+                powerUpValue = 15;
                 break;
             case 2:
-                redBuffAttackDamagePivot = 30;
+                powerUpValue = 30;
                 break;
             case 1:
-                redBuffAttackDamagePivot = 50;
+                powerUpValue = 50;
                 break;
-            default: redBuffAttackDamagePivot = 0;
+            default: powerUpValue = 0;
                 break;
         }
     }
@@ -203,7 +220,7 @@ public class DrugManager : MonoBehaviour
 
     public void RunOrangeBuff2()
     {
-
+        if (orange2) isBulletPass = true;
     }
 
     public void RunOrangeBuff3()

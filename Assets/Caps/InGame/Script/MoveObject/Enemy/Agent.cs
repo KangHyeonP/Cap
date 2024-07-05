@@ -283,6 +283,11 @@ public abstract class Agent : MonoBehaviour
     {
         Debug.Log("맞았어");
 
+        if(DrugManager.Instance.red2)
+        {
+            damage = damage + damage * DrugManager.Instance.powerUpValue / 100;
+        }
+
         hp -= damage;
         Debug.Log("몬스터 남은 체력: " + hp);
 
@@ -392,19 +397,9 @@ public abstract class Agent : MonoBehaviour
     }
 
 
-    /*private void UpdateLean()
-    {
-        if (!isMoveLean) return;
-        transform.localPosition = Vector3.MoveTowards(transform.position, moveVec, 1.0f);
-    }*/
-
-
     // 나중에 죽었을때 기능 구현
     private void Die()
     {
-        //if (isDetect) isDetect = false;
-        //agent.enabled = false;
-
         isDie = true;
         isDetect = false;
         cirCollider2D.enabled = false;
@@ -413,10 +408,10 @@ public abstract class Agent : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // 1. Bullet 테그별로 나누기(총알이 다 다를경우)
         if (collision.CompareTag("PlayerBullet"))
         {
-            Destroy(collision.gameObject);
-            Damage(1);
+            Damage(InGameManager.Instance.Power + DrugManager.Instance.power);
             
         }
     }

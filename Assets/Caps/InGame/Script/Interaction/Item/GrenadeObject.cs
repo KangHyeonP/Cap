@@ -25,7 +25,6 @@ public class GrenadeObject : MonoBehaviour
     void Update()
     {
         lastVec = rigid.velocity;
-        Debug.Log(lastVec);
     }
 
     private IEnumerator Explode()

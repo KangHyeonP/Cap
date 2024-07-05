@@ -40,7 +40,7 @@ public class Drug : Item
         }
 
         InGameManager.Instance.drugInven = this;
-        InGameManager.Instance.UpdateDrugType(drugSprite.sprite); //이거 UI연동하려고 추가한거임 (지)
+        UIManager.Instance.inGameUI.DrugInven(drugSprite.sprite);
         InGameManager.Instance.tempDrug = null;
 
         base.GetItem();
@@ -81,7 +81,7 @@ public class Drug : Item
 
     protected void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && InGameManager.Instance.tempItem == null)
         {
             InGameManager.Instance.tempItem = this;
             InGameManager.Instance.tempDrug = this;
@@ -91,7 +91,7 @@ public class Drug : Item
 
     protected void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && InGameManager.Instance.tempItem != null)
         {
             InGameManager.Instance.tempItem = null;
             InGameManager.Instance.tempDrug = null;

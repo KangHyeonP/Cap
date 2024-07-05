@@ -24,4 +24,8 @@ public class DictionaryUI : MonoBehaviour
 		UIManager.Instance.IsDict = false;
 		gameObject.SetActive(false);
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature/TES-16_마약_모든_기능_구현
 }

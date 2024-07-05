@@ -327,6 +327,9 @@ MonoBehaviour:
   playerSpeed: 0
   playerAimAccuracy: 0
   playerAttackPower: 0
+  playerAttackDelay: 0
+  selectCharacter: 0
+  playerCheck: 0
 --- !u!4 &106019976
 Transform:
   m_ObjectHideFlags: 0

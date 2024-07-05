@@ -23,8 +23,7 @@ public class GreenDrug : Drug
 
     protected override void DrugAbility()
     {
-        base.DrugAbility();
-        DrugManager.Instance.playerMoveSpeed += 5;
+        DrugManager.Instance.speed += 0.25f;
     }
 
 

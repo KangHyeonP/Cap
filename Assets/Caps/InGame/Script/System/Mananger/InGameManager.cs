@@ -30,6 +30,21 @@ public class InGameManager : MonoBehaviour
     private int maxHp;
     public int MaxHp => maxHp;
 
+    private float speed;
+    public float Speed => speed;
+
+    private int power;
+    public int Power => power;
+
+    public int[] weaponDamage; // 라이플, 샷건, 스나, 권총 순
+    public int weaponIndex = 0; // 스왑 및 데미지 적용으로 사용 예정 변수들
+
+    private float aim;
+    public float Aim => aim;
+
+    private float attackDelay;
+    public float AttackDelay => attackDelay;
+
     private bool isDead;
     public bool IsDead => isDead;
 
@@ -76,6 +91,11 @@ public class InGameManager : MonoBehaviour
         }
 
         maxHp = GameManager.Instance.PlayerHp;
+        hp = maxHp;
+        speed = GameManager.Instance.PlayerSpeed;
+        power = GameManager.Instance.PlayerAttackPower;
+        aim = GameManager.Instance.PlayerAimAccuracy;
+        attackDelay = GameManager.Instance.PlayerAttackDelay;
     }
 
     private void GeneratePlayer()
@@ -149,19 +169,17 @@ public class InGameManager : MonoBehaviour
         }
     }
     
-    public void UpdateDrugType(Sprite s)
+    /*public void UpdateDrugType(Sprite s)
     {
         UIManager.Instance.inGameUI.DrugInven(s);
         // 이것도 UI
         //drugTypeUI.sprite = drugInven.drugSprite.sprite;
-    }
+    }*/
     public void MaxHPUpdate()
     {
-        if (DrugManager.Instance.MaxHPUp)
-        {
-            maxHp += 2;
-            DrugManager.Instance.red1 = false;
-        }
+        // 만약 락 해제 기능 나오면 로직 수정해야함
+        maxHp += 2;
+        UIManager.Instance.hpInit();
     }
     public void HealHp(int value)
     {

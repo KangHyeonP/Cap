@@ -22,7 +22,7 @@ public class YellowBuff : ColorBuff
     public override void FirstBuff()
     {
         DrugManager.Instance.yellow1 = true;
-
+        //DrugManager.Instance.RunYellowBuff1();
     }
 
     public override void SecondBuff()
