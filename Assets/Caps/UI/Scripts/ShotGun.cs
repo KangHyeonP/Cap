@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Revolver : Gun
+public class ShotGun : Gun
 {
     protected override void ShotDelay()
     {
         if (fireTime >= fireMaximumDelay &&
-            fireDelay <= fireTime + InGameManager.Instance.AttackDelay / 10.0f + DrugManager.Instance.playerAttackDelay / 8.0f)
+            fireDelay <= fireTime + InGameManager.Instance.AttackDelay / 5.0f + DrugManager.Instance.playerAttackDelay)
         {
-            base.StartCoroutine(Shot());
+            StartCoroutine(Shot());
         }
     }
 }

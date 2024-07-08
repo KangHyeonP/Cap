@@ -79,6 +79,8 @@ public abstract class Player : MonoBehaviour
     public string[] weapon;
     [SerializeField]
     private GameObject weaponPivot;
+    [SerializeField]
+    public GameObject fireEffect;
 
     protected virtual void Awake()
     {
