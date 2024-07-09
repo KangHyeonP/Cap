@@ -3,18 +3,31 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public enum EUsers
+{
+    Player, Enemy
+}
+public enum EBullets
+{
+    Rifle, Shotgun, Sniper, Revolver
+}
+
 // 분류하기
-public class Bullet : MonoBehaviour
+public abstract class Bullet : MonoBehaviour
 {
     public float eraseSpeed;
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
+    [SerializeField]
+    protected EUsers eUsers;
+    [SerializeField]
+    protected EBullets eBullets;
 
-    private void Awake()
+    protected void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         if (DrugManager.Instance.isBulletSizeUp) gameObject.transform.localScale *= 1.5f;
     }
-    private void OnEnable()
+    protected void OnEnable()
     {
         if (eraseSpeed > 0)
         {
@@ -27,20 +40,20 @@ public class Bullet : MonoBehaviour
         rb.AddForce(dir, ForceMode2D.Impulse);
     }
 
-    IEnumerator Erase()
+    protected IEnumerator Erase()
     {
         yield return new WaitForSeconds(eraseSpeed + DrugManager.Instance.playerAttackRange);
-        PoolManager.Instance.ReturnObject(this);
+        PoolManager.Instance.ReturnBullet(this, eUsers, eBullets);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Agent")
         {
             if (DrugManager.Instance.isBulletPass) return;
             
-            PoolManager.Instance.ReturnObject(this);
+            PoolManager.Instance.ReturnBullet(this, eUsers, eBullets);
         }
-        else if (collision.tag == "Wall") PoolManager.Instance.ReturnObject(this);
+        else if (collision.tag == "Wall") PoolManager.Instance.ReturnBullet(this, eUsers, eBullets);
     }
 }

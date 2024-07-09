@@ -237,9 +237,9 @@ public abstract class Agent : MonoBehaviour
             return;
         }
         
-        agent.SetDestination(target.position);
         float distance = Vector3.Distance(target.position, transform.position);
         if ((distance <= attackDistance) && (attackDelay <= curAttackDelay)) curStatus = EnemyStatus.Attack;
+        agent.SetDestination(target.position);
     }
 
     protected void Attack()
@@ -257,10 +257,10 @@ public abstract class Agent : MonoBehaviour
 
     protected virtual IEnumerator IAttack()
     {
-        yield return new WaitForSeconds(attackMoveDelay);
+        AttackLogic();
+        yield return new WaitForSeconds(attackDelay);
         // yield return new WaitForSeconds(0.5f); // ½î±âÀü Àá±ñ Á¦µ¿
 
-        AttackLogic();
 
         //yield return new WaitForSeconds(attackMoveDelay);
 

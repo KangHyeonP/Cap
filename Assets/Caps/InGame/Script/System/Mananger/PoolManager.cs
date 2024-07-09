@@ -13,7 +13,7 @@ public class PoolManager : MonoBehaviour
     private int initCount;
 
     // 얘도 늘려야함
-    public Queue<Bullet> poolingObjectQueue = new Queue<Bullet>();
+    public Queue<Bullet> poolingPlayerBullet = new Queue<Bullet>();
 
     private void Awake()
     {
@@ -25,13 +25,13 @@ public class PoolManager : MonoBehaviour
     {
         for (int i = 0; i < initCount; i++)
         {
-            poolingObjectQueue.Enqueue(CreateNewObject());
+            poolingPlayerBullet.Enqueue(CreateNewBullet());
         }
-        Debug.Log(poolingObjectQueue.Count);
+        Debug.Log(poolingPlayerBullet.Count);
     }
 
     // PlayerBullet, EnemyBullet = 둘다 Bullet 상속, 단 Bullet은 사용안함(생성에서 문제가 생겨서)
-    private Bullet CreateNewObject()
+    private Bullet CreateNewBullet()
     {
         Bullet newObj = Instantiate(poolingObj).GetComponent<Bullet>();
         Debug.Log("디버그 생성 총알 : "+newObj.name);
@@ -40,26 +40,26 @@ public class PoolManager : MonoBehaviour
         return newObj;
     }
 
-    public Bullet GetObject()
+    public Bullet GetBullet(EUsers eUser, EBullets eBullet)
     {
-        if (Instance.poolingObjectQueue.Count > 0)
+        if (Instance.poolingPlayerBullet.Count > 0)
         {
-            Bullet obj = Instance.poolingObjectQueue.Dequeue();
+            Bullet obj = Instance.poolingPlayerBullet.Dequeue();
             obj.gameObject.SetActive(true);
             return obj;
         }
         else
         {
-            Bullet newObj = Instance.CreateNewObject();
+            Bullet newObj = Instance.CreateNewBullet();
             newObj.gameObject.SetActive(true);
             return newObj;
         }
     }
 
-    public void ReturnObject(Bullet obj)
+    public void ReturnBullet(Bullet obj, EUsers eUser, EBullets eBullet)
     {
         Debug.Log(obj);
         obj.gameObject.SetActive(false);
-        Instance.poolingObjectQueue.Enqueue(obj);
+        Instance.poolingPlayerBullet.Enqueue(obj);
     }
 }

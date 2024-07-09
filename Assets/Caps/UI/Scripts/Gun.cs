@@ -12,6 +12,8 @@ public abstract class Gun : MonoBehaviour
 {
     [SerializeField]
     protected EWeapons wepons;
+    [SerializeField]
+    protected EUsers users;
     
     public Transform fireEffectPos;
     public Transform muzzle; 
@@ -30,6 +32,7 @@ public abstract class Gun : MonoBehaviour
     protected Quaternion[] muzzleRotation;
     protected Vector3[] muzzleUp;
     protected float[] powerSpeed;
+    protected float[] bulletSpeed;
 
     // Start is called before the first frame update
     protected void Start()
@@ -40,10 +43,11 @@ public abstract class Gun : MonoBehaviour
         muzzleRotation = new Quaternion[bulletCount];
         muzzleUp = new Vector3[bulletCount];
         powerSpeed = new float[bulletCount];
+        bulletSpeed = new float[bulletCount];
     }
 
     // Update is called once per frame
-    protected void Update()
+    protected virtual void Update()
     {
 		fireTime += Time.deltaTime;
 
@@ -58,7 +62,7 @@ public abstract class Gun : MonoBehaviour
     // 일단 라이플이라 생각하고 작업 중
     protected abstract void ShotDelay();
 
-    protected IEnumerator Shot()
+    protected virtual IEnumerator Shot()
     {
 		InGameManager.Instance.player.fireEffect.transform.position = fireEffectPos.position;
         InGameManager.Instance.player.fireEffect.transform.rotation = fireEffectPos.rotation;
@@ -75,13 +79,14 @@ public abstract class Gun : MonoBehaviour
             muzzle.localRotation = Quaternion.Euler(0, 0, muzzleRecoil[i]);
             muzzleRotation[i] = transform.rotation;
 
-            Bullet bullet = PoolManager.Instance.GetObject();
+            Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)wepons);
             bullet.transform.position = muzzle.position;
             muzzleTransform[i] = bullet.transform.position;
             muzzleUp[i] = muzzle.up;
+            bulletSpeed[i] = Random.Range(1, -1);
 
             // 총알 각기 속도도 받아야함 Random.Range(1, -1)) (루시안에서)
-            bullet.MoveBullet(muzzle.up * (fireSpeed + Random.Range(1, -1)));
+            bullet.MoveBullet(muzzle.up * (fireSpeed + bulletSpeed[i]));
 
             /*
             muzzle.localRotation = Quaternion.Euler(0, 0, muzzleRecoil[i]);
@@ -104,10 +109,10 @@ public abstract class Gun : MonoBehaviour
             {
                 muzzle.localRotation = muzzleRotation[i];
 
-                Bullet bullet = PoolManager.Instance.GetObject();
+                Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)wepons);
                 bullet.transform.position = muzzleTransform[i];
 
-                bullet.MoveBullet(muzzleUp[i] * (fireSpeed + Random.Range(1, -1)));
+                bullet.MoveBullet(muzzleUp[i] * (fireSpeed + bulletSpeed[i]));
 
                 /*
                 muzzle.localRotation = Quaternion.Euler(0, 0, muzzleRecoil[i]);

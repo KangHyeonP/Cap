@@ -6,6 +6,8 @@ public class GunGangSter : Agent
 {
     [SerializeField]
     private GameObject bullet;
+    [SerializeField]
+    private EnemyGun gun;
 
     protected override void Awake()
     {
@@ -28,12 +30,13 @@ public class GunGangSter : Agent
 
     protected override void AttackLogic()
     {
-
+        /*
         Vector2 bulletDir = (target.position - muzzle.position).normalized;
         muzzle.up = bulletDir;
         muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z + Random.Range(-attackRecoil, attackRecoil + 1));
 
         GameObject bulletcopy = Instantiate(bullet, muzzle.position, muzzle.rotation);
-        bulletcopy.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
+        bulletcopy.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;*/
+        gun.ShotReady();
     }
 }
