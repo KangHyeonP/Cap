@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class EnemyGun : Gun
 {
-    
+    protected override void Update()
+    {
+        
+    }
+
     public void ShotReady()
     {
         ShotDelay();
