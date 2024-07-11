@@ -35,6 +35,7 @@ public abstract class Player : MonoBehaviour
 
     // 무기 구현이후 attackDelay알맞게 수정
     protected bool avoidCheck;
+    public bool AvoidCheck => avoidCheck;
 
     [SerializeField]
     protected float skillDelay = 15f;
@@ -58,6 +59,7 @@ public abstract class Player : MonoBehaviour
 
     // Status - curStatus
     protected bool isHit = false; // 피격당함
+    public bool IsHit => isHit;
     protected bool isDead;
     protected bool isRoll = false;
     protected bool rollReverse = false; // 애니메이션 대칭
@@ -386,7 +388,7 @@ public abstract class Player : MonoBehaviour
         if (collision.tag == "EnemyBullet") //수정
         {
             if (avoidCheck || isHit) return;
-            Destroy(collision.gameObject); // 이건 추 후 총알 기능 수정하면서 같이 하기
+           
             Damage(1); // 데미지 로직 나중에 수정
         }
     }

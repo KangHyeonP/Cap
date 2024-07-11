@@ -49,6 +49,7 @@ public class DrugManager : MonoBehaviour
     public float aim;
     public bool isBulletSizeUp = false;
     public bool isBulletPass = false;
+    public bool isBulletChase = false;
 
     //Yellow
     public bool yellow1;    
@@ -225,7 +226,7 @@ public class DrugManager : MonoBehaviour
 
     public void RunOrangeBuff3()
     {
-
+        if (orange3) isBulletChase = true;
     }
 
     //yellowBuff

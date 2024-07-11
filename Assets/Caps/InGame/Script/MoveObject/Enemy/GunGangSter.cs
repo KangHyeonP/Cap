@@ -5,8 +5,6 @@ using UnityEngine;
 public class GunGangSter : Agent
 {
     [SerializeField]
-    private GameObject bullet;
-    [SerializeField]
     private EnemyGun gun;
 
     protected override void Awake()

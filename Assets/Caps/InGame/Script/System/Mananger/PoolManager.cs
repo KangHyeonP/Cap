@@ -10,9 +10,13 @@ public class PoolManager : MonoBehaviour
 
     [SerializeField]
     private GameObject[] playerBullet;
+    [SerializeField]
+    private GameObject agentBullet;
 
     [SerializeField]
-    private Transform[] bulletPos;
+    private Transform[] playerBulletPos;
+    [SerializeField]
+    private Transform agentBulletPos;
 
 
     [SerializeField]
@@ -54,18 +58,22 @@ public class PoolManager : MonoBehaviour
 
     private void CreateNewBullet(EUsers eUser, EBullets eBullet)
     {
-        Bullet newObj = Instantiate(playerBullet[(int)eBullet]).GetComponent<Bullet>();
-        Debug.Log("디버그 생성 총알 : " + newObj.name);
-        newObj.gameObject.SetActive(false);
-        newObj.transform.SetParent(bulletPos[(int)eBullet]);
-        newObj.name = eBullet.ToString();
-
         if(eUser == EUsers.Enemy)
         {
+            Bullet newObj = Instantiate(agentBullet).GetComponent<Bullet>();
+            Debug.Log("디버그 생성 총알 : " + newObj.name);
+            newObj.gameObject.SetActive(false);
+            newObj.transform.SetParent(agentBulletPos);
+            newObj.name = eBullet.ToString();
             poolingEnemyBullet.Enqueue(newObj);
         }
         else
         {
+            Bullet newObj = Instantiate(playerBullet[(int)eBullet]).GetComponent<Bullet>();
+            Debug.Log("디버그 생성 총알 : " + newObj.name);
+            newObj.gameObject.SetActive(false);
+            newObj.transform.SetParent(playerBulletPos[(int)eBullet]);
+            newObj.name = eBullet.ToString();
             poolingPlayerBullet[(int)eBullet].Enqueue(newObj);
         }
     }
@@ -74,7 +82,7 @@ public class PoolManager : MonoBehaviour
     {
         if(eUser == EUsers.Player)
         {
-            if(poolingPlayerBullet[(int)eUser].Count < 0)
+            if(poolingPlayerBullet[(int)eUser].Count <= 0)
             {
                 CreateNewBullet(eUser, eBullet);
             }
@@ -85,7 +93,7 @@ public class PoolManager : MonoBehaviour
         }
         else
         {
-            if (poolingEnemyBullet.Count < 0)
+            if (poolingEnemyBullet.Count <= 0)
             {
                 CreateNewBullet(eUser, eBullet);
             }

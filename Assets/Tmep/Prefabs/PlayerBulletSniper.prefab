@@ -113,7 +113,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &3525714006059315628
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -174,3 +174,5 @@ MonoBehaviour:
   eraseSpeed: 0.3
   eUsers: 0
   eBullets: 2
+  target: {fileID: 0}
+  triggerCount: 0
