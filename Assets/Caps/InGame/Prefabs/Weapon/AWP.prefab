@@ -75,11 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-<<<<<<< HEAD:Assets/Caps/InGame/Prefabs/Weapon/Sniper.prefab
-  m_SortingOrder: 0
-=======
   m_SortingOrder: 2
->>>>>>> feature/TES-16_마약_기능_구현:Assets/Caps/InGame/Prefabs/Weapon/AWP.prefab
   m_Sprite: {fileID: 21300000, guid: ea7bbfb01d5bdeb4d8dd3cc6bf08b590, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
