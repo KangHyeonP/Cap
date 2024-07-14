@@ -169,7 +169,7 @@ public abstract class Agent : MonoBehaviour
     }
 
     // 방향별 스프라이트 수정, 추후 애니메이션을 적용할 거라서 코드 수정필요함
-    protected void ChangeSprite()
+    /*protected void ChangeSprite()
     {
         //if (agentAngleIndex == 3) agentAngleIndex = 2;
         // spritesRenderer.sprite = basicSprites[agentAngleIndex];
@@ -186,7 +186,7 @@ public abstract class Agent : MonoBehaviour
             anim.SetBool(curVec.ToString(), true);
             anim.SetBool("Chase", true);
         }
-    }
+    }*/
 
     // 플레이어의 방향 계산
     protected void AgentAngle()
@@ -247,7 +247,17 @@ public abstract class Agent : MonoBehaviour
         else isReverse = false;
 
         //return index;
-        ChangeSprite(); // 추가2
+
+        if (isDetect && curStatus != EnemyStatus.Lean)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                EnemyVetor a = (EnemyVetor)i;
+                anim.SetBool(a.ToString(), false);
+            }
+
+            anim.SetBool(curVec.ToString(), true);
+        }
     }
 
     protected void Idle()

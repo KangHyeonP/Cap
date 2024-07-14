@@ -61,7 +61,7 @@ public class PoolManager : MonoBehaviour
         if(eUser == EUsers.Enemy)
         {
             Bullet newObj = Instantiate(agentBullet).GetComponent<Bullet>();
-            Debug.Log("디버그 생성 총알 : " + newObj.name);
+            //Debug.Log("디버그 생성 총알 : " + newObj.name);
             newObj.gameObject.SetActive(false);
             newObj.transform.SetParent(agentBulletPos);
             newObj.name = eBullet.ToString();
@@ -70,7 +70,7 @@ public class PoolManager : MonoBehaviour
         else
         {
             Bullet newObj = Instantiate(playerBullet[(int)eBullet]).GetComponent<Bullet>();
-            Debug.Log("디버그 생성 총알 : " + newObj.name);
+            //Debug.Log("디버그 생성 총알 : " + newObj.name);
             newObj.gameObject.SetActive(false);
             newObj.transform.SetParent(playerBulletPos[(int)eBullet]);
             newObj.name = eBullet.ToString();
@@ -78,7 +78,7 @@ public class PoolManager : MonoBehaviour
         }
     }
 
-    public Bullet GetBullet(EUsers eUser, EBullets eBullet)
+    public Bullet GetBullet(EUsers eUser, EBullets eBullet, Quaternion q)
     {
         if(eUser == EUsers.Player)
         {
@@ -87,6 +87,7 @@ public class PoolManager : MonoBehaviour
                 CreateNewBullet(eUser, eBullet);
             }
             Bullet obj = poolingPlayerBullet[(int)eBullet].Dequeue();
+            obj.gameObject.transform.rotation = q;
 
             obj.gameObject.SetActive(true);
             return obj;

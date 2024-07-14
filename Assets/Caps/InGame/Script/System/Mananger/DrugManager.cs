@@ -98,8 +98,8 @@ public class DrugManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("1 / 2.0f 값 : " + (1 / 2.0f)); // 변수 테스트
-        Debug.Log("1 * 0.5f 값 : " + (1 * 0.5f)); // 변수 테스트
+        //Debug.Log("1 / 2.0f 값 : " + (1 / 2.0f)); // 변수 테스트
+        //Debug.Log("1 * 0.5f 값 : " + (1 * 0.5f)); // 변수 테스트
     }
 
     // Update is called once per frame

@@ -79,7 +79,7 @@ public abstract class Gun : MonoBehaviour
             muzzle.localRotation = Quaternion.Euler(0, 0, muzzleRecoil[i]);
             muzzleRotation[i] = transform.rotation;
 
-            Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)wepons);
+            Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)wepons, muzzleRotation[i]);
             bullet.transform.position = muzzle.position;
             muzzleTransform[i] = bullet.transform.position;
             muzzleUp[i] = muzzle.up;
@@ -109,7 +109,7 @@ public abstract class Gun : MonoBehaviour
             {
                 muzzle.localRotation = muzzleRotation[i];
 
-                Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)wepons);
+                Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)wepons, muzzleRotation[i]);
                 bullet.transform.position = muzzleTransform[i];
 
                 bullet.MoveBullet(muzzleUp[i] * (fireSpeed + bulletSpeed[i]));
