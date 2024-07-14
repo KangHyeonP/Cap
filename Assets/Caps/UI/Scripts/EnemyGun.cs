@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyGun : Gun
 {
+    // Enemy는 Update를 쓰지 않음
+    // 추 후 Gun의 하위 PlayerGun으로 분리해야 할 수 도 있음
     protected override void Update()
     {
         
@@ -34,7 +36,7 @@ public class EnemyGun : Gun
             muzzle.localRotation = Quaternion.Euler(0, 0, muzzleRecoil[i]);
             muzzleRotation[i] = transform.rotation;
 
-            Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)wepons);
+            Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)wepons, muzzleRotation[i]);
             bullet.transform.position = muzzle.position;
             muzzleTransform[i] = bullet.transform.position;
             muzzleUp[i] = muzzle.up;

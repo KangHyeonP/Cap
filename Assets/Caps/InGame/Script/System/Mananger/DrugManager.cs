@@ -49,6 +49,7 @@ public class DrugManager : MonoBehaviour
     public float aim;
     public bool isBulletSizeUp = false;
     public bool isBulletPass = false;
+    public bool isBulletChase = false;
 
     //Yellow
     public bool yellow1;    
@@ -97,8 +98,8 @@ public class DrugManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("1 / 2.0f 값 : " + (1 / 2.0f)); // 변수 테스트
-        Debug.Log("1 * 0.5f 값 : " + (1 * 0.5f)); // 변수 테스트
+        //Debug.Log("1 / 2.0f 값 : " + (1 / 2.0f)); // 변수 테스트
+        //Debug.Log("1 * 0.5f 값 : " + (1 * 0.5f)); // 변수 테스트
     }
 
     // Update is called once per frame
@@ -225,7 +226,7 @@ public class DrugManager : MonoBehaviour
 
     public void RunOrangeBuff3()
     {
-
+        if (orange3) isBulletChase = true;
     }
 
     //yellowBuff

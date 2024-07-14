@@ -75,7 +75,11 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
+<<<<<<< HEAD
   m_SortingOrder: 0
+=======
+  m_SortingOrder: 2
+>>>>>>> feature/TES-16_마약_기능_구현
   m_Sprite: {fileID: 21300000, guid: e731cc784b0446346930b452f79cc7cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

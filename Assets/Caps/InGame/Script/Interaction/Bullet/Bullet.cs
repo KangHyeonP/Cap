@@ -16,18 +16,20 @@ public enum EBullets
 public abstract class Bullet : MonoBehaviour
 {
     public float eraseSpeed;
-    protected Rigidbody2D rb;
+    protected Rigidbody2D rigid;
     [SerializeField]
     protected EUsers eUsers;
     [SerializeField]
     protected EBullets eBullets;
+    [SerializeField] // 유도탄 확인용
+    protected GameObject target;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rigid = GetComponent<Rigidbody2D>();
         if (DrugManager.Instance.isBulletSizeUp) gameObject.transform.localScale *= 1.5f;
     }
-    protected void OnEnable()
+    protected virtual void OnEnable()
     {
         if (eraseSpeed > 0)
         {
@@ -35,25 +37,38 @@ public abstract class Bullet : MonoBehaviour
         }
     }
 
-    public void MoveBullet(Vector2 dir)
+    // 추가 1
+    protected Vector2 moveDir;
+
+    protected virtual void FixedUpdate()
     {
-        rb.AddForce(dir, ForceMode2D.Impulse);
+        rigid.MovePosition(rigid.position + moveDir * Time.fixedDeltaTime);
     }
 
-    protected IEnumerator Erase()
+    public void MoveBullet(Vector2 dir)
+    {
+        moveDir = dir;
+        //rigid.AddForce(dir, ForceMode2D.Impulse);
+    }
+
+    protected virtual IEnumerator Erase()
     {
         yield return new WaitForSeconds(eraseSpeed + DrugManager.Instance.playerAttackRange);
+        TrrigerLogic();
+    }
+
+    protected void TrrigerLogic()
+    {
+        target = null;
         PoolManager.Instance.ReturnBullet(this, eUsers, eBullets);
     }
 
-    protected void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Agent")
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {   
+        if (collision.tag == "Wall")
         {
-            if (DrugManager.Instance.isBulletPass) return;
-            
-            PoolManager.Instance.ReturnBullet(this, eUsers, eBullets);
+            TrrigerLogic();
         }
-        else if (collision.tag == "Wall") PoolManager.Instance.ReturnBullet(this, eUsers, eBullets);
+
     }
 }

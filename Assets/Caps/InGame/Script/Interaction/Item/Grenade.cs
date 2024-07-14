@@ -53,13 +53,13 @@ public class Grenade : Item
         InGameManager.Instance.UpdateGrenade();
     }
 
-    private IEnumerator Explode()
+    /*private IEnumerator Explode()
     {
         yield return null;
         GameObject grenade = Instantiate(InGameManager.Instance.grenadeObj
             , InGameManager.Instance.player.transform.position, InGameManager.Instance.player.transform.rotation);
         //yield return new WaitForSeconds(1.5f);
-    }
+    }*/
 
     // 콜라이더 추가
     private void OnTriggerEnter2D(Collider2D collision)

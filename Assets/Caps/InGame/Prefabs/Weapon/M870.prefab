@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4719020349991424892}
   - component: {fileID: 833486324543106871}
   m_Layer: 3
-  m_Name: Shotgun
+  m_Name: M870
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7f1f138616f8f4e4d99248c8a2001e68, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: e4eb4fcc88155504490344d580c73636, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

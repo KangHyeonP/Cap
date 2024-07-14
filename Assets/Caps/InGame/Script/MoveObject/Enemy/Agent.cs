@@ -14,6 +14,11 @@ public enum EnemyStatus
     Die
 }
 
+public enum EnemyVetor
+{
+    Front, Cross, Side, Back
+}
+
 public abstract class Agent : MonoBehaviour
 {
     // 추후 gameManager의 player를 받아올것
@@ -46,6 +51,7 @@ public abstract class Agent : MonoBehaviour
     [SerializeField]
     protected EnemyStatus curStatus;
     public EnemyStatus CurStatus => curStatus;
+    protected EnemyVetor curVec = EnemyVetor.Front; // 추가1
 
     protected bool isDie = false;
     [SerializeField]
@@ -86,6 +92,7 @@ public abstract class Agent : MonoBehaviour
 
     protected virtual  void Awake()
     {
+        anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
@@ -127,8 +134,10 @@ public abstract class Agent : MonoBehaviour
 
         AgentAngle();
 
+        /*
         // 추후 애니메이션으로 수정할거임
         if (isDetect && enemy != EnemyStatus.Lean) ChangeSprite();
+        */
 
         if (isReverse) transform.localScale = new Vector3(-1, 1, 1);
         else transform.localScale = new Vector3(1, 1, 1);
@@ -160,17 +169,31 @@ public abstract class Agent : MonoBehaviour
     }
 
     // 방향별 스프라이트 수정, 추후 애니메이션을 적용할 거라서 코드 수정필요함
-    protected void ChangeSprite()
+    /*protected void ChangeSprite()
     {
-        if (agentAngleIndex == 3) agentAngleIndex = 2;
-        spritesRenderer.sprite = basicSprites[agentAngleIndex];
-    }
+        //if (agentAngleIndex == 3) agentAngleIndex = 2;
+        // spritesRenderer.sprite = basicSprites[agentAngleIndex];
+
+        // 아마 기대거나, 총을 쏘고 대기중일 땐 애니메이션 그대로 냅둬야하는 조건 필요할듯
+        if (isDetect && curStatus != EnemyStatus.Lean)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                EnemyVetor a = (EnemyVetor)i;
+                anim.SetBool(a.ToString(), false);
+            }
+
+            anim.SetBool(curVec.ToString(), true);
+            anim.SetBool("Chase", true);
+        }
+    }*/
 
     // 플레이어의 방향 계산
     protected void AgentAngle()
     {
         agentAngleValue = AgentVector();
-        agentAngleIndex = AngleCalculate(agentAngleValue); // up(후면), down(정면), left(왼쪽), right(오른쪽)
+        //agentAngleIndex = AngleCalculate(agentAngleValue); // up(후면), down(정면), left(왼쪽), right(오른쪽)
+        AngleCalculate(agentAngleValue);
     }
 
     protected float AgentVector()
@@ -183,11 +206,12 @@ public abstract class Agent : MonoBehaviour
         return angle;
     }
 
-    protected int AngleCalculate(float angleValue)
+    protected void AngleCalculate(float angleValue)
     {
         // 아마 해당 이미지를 넣어봐야지 알듯
 
-        int Index = -1;
+        //int Index = -1;
+        /*
         // 1사분면, 왼 윗 대각까진 우선순위
         if (angleValue <= 135f && angleValue > 45f) Index = 0; // up
         // 2사분면, 오른 윗 대각까진 우선순위
@@ -196,11 +220,44 @@ public abstract class Agent : MonoBehaviour
         else if (angleValue <= -45f && angleValue > -135f) Index = 1; // down 
         // 4사분면, 왼쪽 아랫대각까진 우선
         else if (angleValue <= -135f || angleValue > 135f) Index = 2; // left
+        */
+
+
+        // 각도 수정필요
+        // 후면(윗 방향)
+        if (angleValue < 120 && angleValue > 60)
+            curVec = EnemyVetor.Back;
+        // 오른 대각
+        else if (angleValue <= 60 && angleValue >= 10)
+            curVec = EnemyVetor.Cross;
+        // 오른
+        else if (angleValue < 10 && angleValue >= -60)
+            curVec = EnemyVetor.Side;
+        // 정면(아랫 방향)
+        else if (angleValue < -60 && angleValue > -120)
+            curVec = EnemyVetor.Front;
+        // 왼쪽(오른쪽에서 뒤집기)
+        else if (angleValue <= -120 || angleValue > 170)
+            curVec = EnemyVetor.Side;
+        // 왼쪽 대각(오른쪽에서 뒤집기)
+        else if (angleValue <= 170 || angleValue >= 120)
+            curVec = EnemyVetor.Cross;
 
         if (angleValue <= -90 || angleValue > 90) isReverse = true;
         else isReverse = false;
 
-        return Index;
+        //return index;
+
+        if (isDetect && curStatus != EnemyStatus.Lean)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                EnemyVetor a = (EnemyVetor)i;
+                anim.SetBool(a.ToString(), false);
+            }
+
+            anim.SetBool(curVec.ToString(), true);
+        }
     }
 
     protected void Idle()
@@ -236,9 +293,17 @@ public abstract class Agent : MonoBehaviour
             curStatus = EnemyStatus.Idle;
             return;
         }
-        
+        Debug.Log("추격 실행");
+
+        anim.SetBool("Chase", true);
+
         float distance = Vector3.Distance(target.position, transform.position);
-        if ((distance <= attackDistance) && (attackDelay <= curAttackDelay)) curStatus = EnemyStatus.Attack;
+        if ((distance <= attackDistance) && (attackDelay <= curAttackDelay))
+        {
+            curStatus = EnemyStatus.Attack;
+            anim.SetBool("Chase", false);
+            Debug.Log("추격 종료");
+        }
         agent.SetDestination(target.position);
     }
 
@@ -257,12 +322,14 @@ public abstract class Agent : MonoBehaviour
 
     protected virtual IEnumerator IAttack()
     {
+        Debug.Log("공격 실행");
         AttackLogic();
         yield return new WaitForSeconds(attackDelay);
         // yield return new WaitForSeconds(0.5f); // 쏘기전 잠깐 제동
 
 
         //yield return new WaitForSeconds(attackMoveDelay);
+        Debug.Log("공격 끝");
 
         isAttack = false;
         agent.isStopped = false;
