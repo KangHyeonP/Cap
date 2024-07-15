@@ -57,8 +57,9 @@ public class DrugManager : MonoBehaviour
     public bool yellow3;
     
     public float playerAttackRange;
-    public float firstYellowBuffDamage;
-    float yellowDist;
+    public bool isDistanceDamage = false;
+    public bool isBleeding = false;
+    public bool isBomb = false;
 
     //Green
     public bool green1;
@@ -230,40 +231,19 @@ public class DrugManager : MonoBehaviour
     }
 
     //yellowBuff
-    public void RunYellowBuff1(Vector3 enemyPos)
+    public void RunYellowBuff1()
     {
-        if(yellow1)
-        {
-            yellowDist = Vector3.Distance(InGameManager.Instance.player.transform.position, enemyPos);
-            if (yellowDist >= 10)
-            {
-                firstYellowBuffDamage = 15;
-            }
-
-            else if (yellowDist < 10 && yellowDist >= 7)
-            {
-                firstYellowBuffDamage = 10;
-            }
-
-            else if (yellowDist < 7 && yellowDist >= 4)
-            {
-                firstYellowBuffDamage = 5;
-            }
-            else
-            {
-                firstYellowBuffDamage= 0;
-            }
-        }
-        
+        if (yellow1) isDistanceDamage = true;
+   
     }
 
     public void RunYellowBuff2()
     {
-
+        if (yellow2) isBleeding = true;
     }
     public void RunYellowBuff3()
     {
-
+        if (yellow3) isBomb = true;
     }
 
     //greenBuff

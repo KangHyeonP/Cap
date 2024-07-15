@@ -7,7 +7,9 @@ public class PlayerBullet : Bullet
 {
     public int triggerCount = 0;
     protected Vector2 startPos;
-    protected float distanceDamage;
+    protected int distanceDamage = 0;
+    [SerializeField]
+    protected int bulletPower;
 
     protected float rotateSpeed = 3.0f;
     //protected Vector2 moveDir;
@@ -22,6 +24,7 @@ public class PlayerBullet : Bullet
     {
         base.OnEnable();
         if (DrugManager.Instance.isBulletChase) DetectAgent();
+        startPos = transform.localPosition;
     } // 만약 유도탄일때는 맞추기 전까지 안사라진다고 하면, 로직 수정(유도탄에서 적 찾을 시 추격 값 무한으로 올리기)
 
     protected override void FixedUpdate()
@@ -67,12 +70,34 @@ public class PlayerBullet : Bullet
         }
     }
 
+    private void DistancePower()
+    {
+        float distance = Vector3.Distance((Vector2)transform.localPosition, startPos);
+
+        if (distance < 5) distanceDamage = 0;
+        else if (distance < 10) distanceDamage = 5;
+        else if (distance < 15) distanceDamage = 10;
+        else distanceDamage = 20;
+
+        Debug.Log("start : " + startPos + " / cur : " + transform.position);
+        Debug.Log("거리 : " + distance + " / 데미지 : " + distanceDamage);
+    }
+
+    private void BombBullet() // 처음 맞은 적은 데미지 안들어 오게 할거면 따로 변수로 체크
+    {
+        RoomController.Instance.BombLogic(transform.localPosition);
+    }
+
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
 
         if (collision.tag == "Agent")
         {
+            if (DrugManager.Instance.isDistanceDamage) DistancePower();
+            if (DrugManager.Instance.isBomb) BombBullet();
+            InGameManager.Instance.bulletPower = this.bulletPower + distanceDamage;
+
             triggerCount++;
             if (DrugManager.Instance.isBulletPass && triggerCount < 2) return;
 

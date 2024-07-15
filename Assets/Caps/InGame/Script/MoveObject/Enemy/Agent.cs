@@ -46,6 +46,8 @@ public abstract class Agent : MonoBehaviour
     // AI Stats
     [SerializeField]
     private int hp = 100;
+    [SerializeField]
+    private int maxHp = 100;
 
     // AI State
     [SerializeField]
@@ -106,6 +108,7 @@ public abstract class Agent : MonoBehaviour
     protected virtual void Start()
     {
         target = InGameManager.Instance.player.transform;
+        hp = maxHp;
     }
 
     protected virtual void Update()
@@ -133,11 +136,6 @@ public abstract class Agent : MonoBehaviour
         if (isDie) return;
 
         AgentAngle();
-
-        /*
-        // 추후 애니메이션으로 수정할거임
-        if (isDetect && enemy != EnemyStatus.Lean) ChangeSprite();
-        */
 
         if (isReverse) transform.localScale = new Vector3(-1, 1, 1);
         else transform.localScale = new Vector3(1, 1, 1);
@@ -168,31 +166,10 @@ public abstract class Agent : MonoBehaviour
         }
     }
 
-    // 방향별 스프라이트 수정, 추후 애니메이션을 적용할 거라서 코드 수정필요함
-    /*protected void ChangeSprite()
-    {
-        //if (agentAngleIndex == 3) agentAngleIndex = 2;
-        // spritesRenderer.sprite = basicSprites[agentAngleIndex];
-
-        // 아마 기대거나, 총을 쏘고 대기중일 땐 애니메이션 그대로 냅둬야하는 조건 필요할듯
-        if (isDetect && curStatus != EnemyStatus.Lean)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                EnemyVetor a = (EnemyVetor)i;
-                anim.SetBool(a.ToString(), false);
-            }
-
-            anim.SetBool(curVec.ToString(), true);
-            anim.SetBool("Chase", true);
-        }
-    }*/
-
     // 플레이어의 방향 계산
     protected void AgentAngle()
     {
         agentAngleValue = AgentVector();
-        //agentAngleIndex = AngleCalculate(agentAngleValue); // up(후면), down(정면), left(왼쪽), right(오른쪽)
         AngleCalculate(agentAngleValue);
     }
 
@@ -208,22 +185,6 @@ public abstract class Agent : MonoBehaviour
 
     protected void AngleCalculate(float angleValue)
     {
-        // 아마 해당 이미지를 넣어봐야지 알듯
-
-        //int Index = -1;
-        /*
-        // 1사분면, 왼 윗 대각까진 우선순위
-        if (angleValue <= 135f && angleValue > 45f) Index = 0; // up
-        // 2사분면, 오른 윗 대각까진 우선순위
-        else if (angleValue <= 45f && angleValue > -45f) Index = 3; // right
-        // 3사분면, 오른 아랫대각까진 우선
-        else if (angleValue <= -45f && angleValue > -135f) Index = 1; // down 
-        // 4사분면, 왼쪽 아랫대각까진 우선
-        else if (angleValue <= -135f || angleValue > 135f) Index = 2; // left
-        */
-
-
-        // 각도 수정필요
         // 후면(윗 방향)
         if (angleValue < 120 && angleValue > 60)
             curVec = EnemyVetor.Back;
@@ -262,20 +223,11 @@ public abstract class Agent : MonoBehaviour
 
     protected void Idle()
     {
-       /* if (!activeRoom)
-        {
-            isDetect = false;
-        }*/ //다 안죽이곤 못나가서 필요 없을듯?
-
         if (isDetect)
         {
             curStatus = EnemyStatus.Chase;
             return;
         }
-
-
-        // 재자리 애니메이션 적용
-        
     }
 
     // 플레이어가 들어온지 탐지
@@ -322,14 +274,12 @@ public abstract class Agent : MonoBehaviour
 
     protected virtual IEnumerator IAttack()
     {
-        Debug.Log("공격 실행");
+        //Debug.Log("공격 실행");
         AttackLogic();
         yield return new WaitForSeconds(attackDelay);
-        // yield return new WaitForSeconds(0.5f); // 쏘기전 잠깐 제동
 
 
-        //yield return new WaitForSeconds(attackMoveDelay);
-        Debug.Log("공격 끝");
+        //Debug.Log("공격 끝");
 
         isAttack = false;
         agent.isStopped = false;
@@ -350,9 +300,15 @@ public abstract class Agent : MonoBehaviour
     {
         Debug.Log("맞았어");
 
+        damage += InGameManager.Instance.bulletPower;
+
         if(DrugManager.Instance.red2)
         {
             damage = damage + damage * DrugManager.Instance.powerUpValue / 100;
+        }
+        else if(DrugManager.Instance.isBleeding && damage >= maxHp * 0.3f)
+        {
+            StartCoroutine(Bleed());
         }
 
         hp -= damage;
@@ -362,6 +318,25 @@ public abstract class Agent : MonoBehaviour
         {
             RoomController.Instance.ClearRoomCount();
             Destroy(gameObject);
+        }
+    }
+
+    public IEnumerator Bleed()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        for(int i=0; i<5; i++)
+        {
+            hp -= maxHp/100;
+            Debug.Log("출혈 중, 몬스터 남은 체력: " + hp);
+            yield return new WaitForSeconds(1f);
+
+            if (hp <= 0)
+            {
+                RoomController.Instance.ClearRoomCount();
+                Destroy(gameObject);
+                break;
+            }
         }
     }
     
@@ -392,6 +367,7 @@ public abstract class Agent : MonoBehaviour
     private IEnumerator LeanCount()
     {
         Debug.Log("기대다.");
+        anim.SetTrigger("Lean");
 
         Vector3 playerVec = InGameManager.Instance.player.transform.position - transform.position;
 
@@ -479,7 +455,6 @@ public abstract class Agent : MonoBehaviour
         if (collision.CompareTag("PlayerBullet"))
         {
             Damage(InGameManager.Instance.Power + DrugManager.Instance.power);
-            
         }
     }
 }

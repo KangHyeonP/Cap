@@ -35,6 +35,8 @@ public abstract class Bullet : MonoBehaviour
         {
             StartCoroutine(Erase());
         }
+        if (InGameManager.Instance.player.isReverse) transform.localScale = new Vector3(-1f * transform.localScale.x, transform.localScale.y, 1);
+        else transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, 1);
     }
 
     // Ãß°¡ 1

@@ -131,6 +131,7 @@ MonoBehaviour:
   eBullets: 2
   target: {fileID: 0}
   triggerCount: 0
+  bulletPower: 15
 --- !u!58 &6650015330313863310
 CircleCollider2D:
   m_ObjectHideFlags: 0

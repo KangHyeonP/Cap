@@ -46,22 +46,11 @@ public class PoolManager : MonoBehaviour
         }
     }
 
-    // PlayerBullet, EnemyBullet = 둘다 Bullet 상속, 단 Bullet은 사용안함(생성에서 문제가 생겨서)
-    /*private Bullet CreateNewBullet(EUsers eUser, EBullets eBullet)
-    {
-        Bullet newObj = Instantiate(poolingObj).GetComponent<Bullet>();
-        Debug.Log("디버그 생성 총알 : "+newObj.name);
-        newObj.gameObject.SetActive(false);
-        newObj.transform.SetParent(transform);
-        return newObj;
-    }*/
-
     private void CreateNewBullet(EUsers eUser, EBullets eBullet)
     {
         if(eUser == EUsers.Enemy)
         {
             Bullet newObj = Instantiate(agentBullet).GetComponent<Bullet>();
-            //Debug.Log("디버그 생성 총알 : " + newObj.name);
             newObj.gameObject.SetActive(false);
             newObj.transform.SetParent(agentBulletPos);
             newObj.name = eBullet.ToString();
@@ -70,7 +59,6 @@ public class PoolManager : MonoBehaviour
         else
         {
             Bullet newObj = Instantiate(playerBullet[(int)eBullet]).GetComponent<Bullet>();
-            //Debug.Log("디버그 생성 총알 : " + newObj.name);
             newObj.gameObject.SetActive(false);
             newObj.transform.SetParent(playerBulletPos[(int)eBullet]);
             newObj.name = eBullet.ToString();
@@ -104,23 +92,10 @@ public class PoolManager : MonoBehaviour
             return obj;
         }
 
-        /*if (Instance.poolingPlayerBullet.Count > 0)
-        {
-            Bullet obj = Instance.poolingPlayerBullet.Dequeue();
-            obj.gameObject.SetActive(true);
-            return obj;
-        }
-        else
-        {
-            Bullet newObj = Instance.CreateNewBullet();
-            newObj.gameObject.SetActive(true);
-            return newObj;
-        }*/
     }
 
     public void ReturnBullet(Bullet obj, EUsers eUser, EBullets eBullet)
     {
-        Debug.Log(obj);
         obj.gameObject.SetActive(false);
 
         if (eUser == EUsers.Enemy)
@@ -131,10 +106,5 @@ public class PoolManager : MonoBehaviour
         {
             poolingPlayerBullet[(int)eBullet].Enqueue(obj);
         }
-
-        /*
-        Debug.Log(obj);
-        obj.gameObject.SetActive(false);
-        Instance.poolingPlayerBullet.Enqueue(obj);*/
     }
 }

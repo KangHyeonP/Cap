@@ -45,6 +45,8 @@ public class InGameManager : MonoBehaviour
     private float attackDelay;
     public float AttackDelay => attackDelay;
 
+    public int bulletPower;
+
     private bool isDead;
     public bool IsDead => isDead;
 
@@ -124,11 +126,6 @@ public class InGameManager : MonoBehaviour
 
         playerObj = Instantiate(prefabs[index], transform.position, transform.rotation);
         player = playerObj.GetComponent<Player>();
-    }
-
-    private void PlayerVector()
-    {
-
     }
 
     public void Pause(bool check)

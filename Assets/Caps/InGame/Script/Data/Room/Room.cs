@@ -13,7 +13,8 @@ public class Room : MonoBehaviour
 {
     // Agents
     [SerializeField]
-    private List<Agent> agetns;
+    private List<Agent> agents;
+    public List<Agent> Agents => agents;
     private bool isPlayerRoom = false;
 
     // Room Index
@@ -47,7 +48,7 @@ public class Room : MonoBehaviour
 
     private void InitRoom()
     {
-        fullEnemyCnt = agetns.Count;
+        fullEnemyCnt = agents.Count;
 
         foreach (GameObject g in door) g.SetActive(false);
     }
@@ -70,16 +71,16 @@ public class Room : MonoBehaviour
     // 현재 방에 있는 몬스터들을 활성화 시키는 로직, 추 후 몬스터의 자동 움직임으로 구현을 변경
     public void AgentActive(bool check)
     {
-        if (!clearCheck && check && agetns.Count != 0)
+        if (!clearCheck && check && agents.Count != 0)
         {
-            foreach (Agent a in agetns)
+            foreach (Agent a in agents)
                 a.PlayerRoom();
         }
     }
 
     public void RoomAgent()
     {
-        CameraController.Instance.UpdateAgent(agetns);
+        CameraController.Instance.UpdateAgent(agents);
     }
 
     public void ClearCheckRoom()
