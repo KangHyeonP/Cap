@@ -66,16 +66,16 @@ public class DrugManager : MonoBehaviour
     public bool green2;
     public bool green3;
 
-    public float playerAttackDelay;
-    public int firstGreenBuffMoveSpeed;
+    public float speed;
+    public bool isRollSpeedUp;
 
     //Blue
     public bool blue1;
     public bool blue2;
     public bool blue3;
 
+    public float playerAttackDelay;
     public bool lucianPassive;
-    public float speed;
     public float reloadSpeed;
     public int maxBullet;
 
@@ -249,19 +249,7 @@ public class DrugManager : MonoBehaviour
     //greenBuff
     public void RunGreenBuff1()
     {
-        if(green1)
-        {
-            if(firstGreenBuffMoveSpeed == 0)
-            {
-                firstGreenBuffMoveSpeed = 5;
-                Invoke("RunGreenBuff1", 3);
-            }
-            else
-            {
-                firstGreenBuffMoveSpeed= 0;                
-            }            
-        }
-        
+        if (green1) isRollSpeedUp = true;
     }
 
     public void RunGreenBuff2()

@@ -24,6 +24,7 @@ public class GreenDrug : Drug
     protected override void DrugAbility()
     {
         DrugManager.Instance.speed += 0.25f;
+        InGameManager.Instance.player.speedApply = DrugManager.Instance.speed + InGameManager.Instance.Speed;
     }
 
 

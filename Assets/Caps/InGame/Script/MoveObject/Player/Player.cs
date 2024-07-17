@@ -53,6 +53,11 @@ public abstract class Player : MonoBehaviour
     protected bool isWalk = false;
 
     // Status - curStatus
+    public float speedApply; // 실제 스피드
+    public float speed;
+    public bool rollCnt = false; // 구른후 빨라지는 버프 체크
+    // 지금 초록 버프 먹어도 구르기 전 까진 마약 버프 적요이안됨 이거 수정해야함
+
     protected bool isHit = false; // 피격당함
     public bool IsHit => isHit;
     protected bool isDead;
@@ -91,6 +96,9 @@ public abstract class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+
+        speedApply = InGameManager.Instance.Speed;
+        speed = speedApply;
     }
 
 
@@ -146,7 +154,7 @@ public abstract class Player : MonoBehaviour
         {
             isWalk = moveVec != Vector2.zero ? true : false;
             nextVec = moveVec.normalized * Time.fixedDeltaTime *
-                (InGameManager.Instance.Speed + DrugManager.Instance.speed);
+                (speed);
             anim.SetBool("Walk", isWalk);
         }
 
@@ -197,7 +205,7 @@ public abstract class Player : MonoBehaviour
         anim.SetTrigger(rollStatus);
 
         avoidCheck = true;
-
+      
         yield return new WaitForSeconds(0.7f);
 
         avoidCheck = false;
@@ -208,6 +216,15 @@ public abstract class Player : MonoBehaviour
         weaponPivot.SetActive(true);
         isRoll = false;
         rollingSpeed *= 0.5f;
+
+        if (!rollCnt && DrugManager.Instance.isRollSpeedUp)
+        {
+            speed *= 1.5f;
+            rollCnt = true;
+            yield return new WaitForSeconds(2.5f);
+            speed = speedApply;
+            rollCnt = false;
+        }
     }
 
     protected void Damage(int power)
