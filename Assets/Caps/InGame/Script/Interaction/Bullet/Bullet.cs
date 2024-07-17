@@ -24,18 +24,22 @@ public abstract class Bullet : MonoBehaviour
     [SerializeField] // 유도탄 확인용
     protected GameObject target;
 
+    [SerializeField]
+    protected float[] bulletSize;
+
     protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        bulletSize = new float[] { transform.localScale.x, transform.localScale.y, 1 };
     }
     protected virtual void OnEnable()
     {
         if (eraseSpeed > 0)
         {
             StartCoroutine(Erase());
+            transform.localScale = new Vector3(bulletSize[0], bulletSize[1], bulletSize[2]);
         }
-        if (InGameManager.Instance.player.isReverse) transform.localScale = new Vector3(-1f * transform.localScale.x, transform.localScale.y, 1);
-        else transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, 1);
+        
     }
 
     // 추가 1

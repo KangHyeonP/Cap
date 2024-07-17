@@ -25,8 +25,16 @@ public class PlayerBullet : Bullet
     protected override void OnEnable()
     {
         base.OnEnable();
+
+        if (InGameManager.Instance.player.isReverse)
+        {
+            transform.localScale = new Vector3(-1f * bulletSize[0], bulletSize[1], bulletSize[2]);
+        }
+
         if (!sizeCheck && DrugManager.Instance.isBulletSizeUp) {
-            gameObject.transform.localScale *= 1.5f;
+            bulletSize[0] *= 1.5f;
+            bulletSize[1] *= 1.5f;
+            gameObject.transform.localScale = new Vector3(bulletSize[0], bulletSize[1], bulletSize[2]);
             sizeCheck = true;
         }
         if (DrugManager.Instance.isBulletChase) DetectAgent();

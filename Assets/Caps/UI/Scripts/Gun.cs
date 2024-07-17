@@ -64,6 +64,8 @@ public abstract class Gun : MonoBehaviour
 
     protected virtual IEnumerator Shot()
     {
+        Debug.Log("ม๖ฑÝ รั : " + gameObject.name);
+
 		InGameManager.Instance.player.fireEffect.transform.position = fireEffectPos.position;
         InGameManager.Instance.player.fireEffect.transform.rotation = fireEffectPos.rotation;
         InGameManager.Instance.player.fireEffect.SetActive(true);

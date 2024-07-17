@@ -178,6 +178,10 @@ MonoBehaviour:
   rollingSpeed: 2.5
   skillDelay: 2
   isReverse: 0
+  avoidChance: 0
+  speedApply: 0
+  speed: 0
+  rollCnt: 0
   weapon: []
   weaponPivot: {fileID: 9197894793384565284}
   fireEffect: {fileID: 7302751013044986120}
