@@ -43,7 +43,7 @@ public class PauseUI : MonoBehaviour
 	{
         GameManager.Instance.SaveData();
         SceneManager.LoadScene(0);
-		Time.timeScale = 1;
+		Time.timeScale = 1f;
 	}
 
 	public void Close()

@@ -67,7 +67,9 @@ public class DrugManager : MonoBehaviour
     public bool green3;
 
     public float speed;
-    public bool isRollSpeedUp;
+    public bool isRollSpeedUp = false;
+    public bool isBulletAvoid = false;
+    public float timeValue = 1.0f;
 
     //Blue
     public bool blue1;
@@ -254,20 +256,19 @@ public class DrugManager : MonoBehaviour
 
     public void RunGreenBuff2()
     {
-        if (green2)
-        {
-            int avoidChance = Random.Range(1, 101);
-            if (avoidChance <= 15)
-            {
-                Debug.Log("È¸ÇÇ");
-            }
-        }
+        if (green2) isBulletAvoid = true;
 
     }
 
     public void RunGreenBuff3()
     {
-
+        if (green3)
+        {
+            Time.timeScale = 0.8f;
+            //InGameManager.Instance.player.rollingSpeed *= 1.25f;
+            //InGameManager.Instance.player.speedApply *= 1.25f;
+            //InGameManager.Instance.player.speed = InGameManager.Instance.player.speedApply;
+        }
     }
 
     public void RunBlueBuff1()

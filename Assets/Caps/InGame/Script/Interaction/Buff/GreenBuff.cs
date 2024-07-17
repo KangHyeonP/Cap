@@ -20,15 +20,18 @@ public class GreenBuff : ColorBuff
     public override void FirstBuff()
     {
         DrugManager.Instance.green1 = true;
+        DrugManager.Instance.RunGreenBuff1();
     }
 
     public override void SecondBuff()
     {
         DrugManager.Instance.green2 = true;
+        DrugManager.Instance.RunGreenBuff2();
     }
 
     public override void ThirdBuff()
     {
-        
+        DrugManager.Instance.green3 = true;
+        DrugManager.Instance.RunGreenBuff3();
     }
 }

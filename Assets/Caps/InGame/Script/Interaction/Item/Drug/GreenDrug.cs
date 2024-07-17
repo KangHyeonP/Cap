@@ -25,6 +25,8 @@ public class GreenDrug : Drug
     {
         DrugManager.Instance.speed += 0.25f;
         InGameManager.Instance.player.speedApply = DrugManager.Instance.speed + InGameManager.Instance.Speed;
+        if (!InGameManager.Instance.player.rollCnt)
+            InGameManager.Instance.player.speed = InGameManager.Instance.player.speedApply;
     }
 
 

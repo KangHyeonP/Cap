@@ -27,7 +27,6 @@ public abstract class Bullet : MonoBehaviour
     protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        if (DrugManager.Instance.isBulletSizeUp) gameObject.transform.localScale *= 1.5f;
     }
     protected virtual void OnEnable()
     {

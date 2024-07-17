@@ -14,6 +14,8 @@ public class PlayerBullet : Bullet
     protected float rotateSpeed = 3.0f;
     //protected Vector2 moveDir;
 
+    private bool sizeCheck = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -23,6 +25,10 @@ public class PlayerBullet : Bullet
     protected override void OnEnable()
     {
         base.OnEnable();
+        if (!sizeCheck && DrugManager.Instance.isBulletSizeUp) {
+            gameObject.transform.localScale *= 1.5f;
+            sizeCheck = true;
+        }
         if (DrugManager.Instance.isBulletChase) DetectAgent();
         startPos = transform.localPosition;
     } // 만약 유도탄일때는 맞추기 전까지 안사라진다고 하면, 로직 수정(유도탄에서 적 찾을 시 추격 값 무한으로 올리기)
@@ -45,7 +51,11 @@ public class PlayerBullet : Bullet
             // 유도탄 이동
             rigid.velocity = transform.up * 3.0f;
         }*/
-        base.FixedUpdate();
+        if(DrugManager.Instance.green3)
+        {
+            rigid.MovePosition(rigid.position + moveDir * Time.fixedUnscaledDeltaTime);
+        }
+        else rigid.MovePosition(rigid.position + moveDir * Time.fixedDeltaTime);
     }
 
     private void DetectAgent()

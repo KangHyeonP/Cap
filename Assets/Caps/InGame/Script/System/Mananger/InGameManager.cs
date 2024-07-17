@@ -133,7 +133,7 @@ public class InGameManager : MonoBehaviour
         isPause = check;
 
         if (isPause) Time.timeScale = 0f;
-        else Time.timeScale = 1f;
+        else Time.timeScale = DrugManager.Instance.timeValue;
     }
 
     public void UpdateDrug(int value)

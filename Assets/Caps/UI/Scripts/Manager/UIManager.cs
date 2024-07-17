@@ -205,7 +205,7 @@ public class UIManager : MonoBehaviour
 		else
 		{
             InGameManager.Instance.Pause(false);
-            Time.timeScale = 1f;
+            Time.timeScale = DrugManager.Instance.timeValue;
 		}
 		//Time.fixedDeltaTime = 0.02f * Time.timeScale;
 	}

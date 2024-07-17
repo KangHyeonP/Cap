@@ -25,12 +25,7 @@ public abstract class Player : MonoBehaviour
 
     // Status
     // Status - Basic
-    [SerializeField]
-    protected float rollingSpeed = 2.5f;
-
-    // 무기 구현이후 attackDelay알맞게 수정
-    protected bool avoidCheck;
-    public bool AvoidCheck => avoidCheck;
+    public float rollingSpeed = 2.5f;
 
     [SerializeField]
     protected float skillDelay = 15f;
@@ -53,6 +48,10 @@ public abstract class Player : MonoBehaviour
     protected bool isWalk = false;
 
     // Status - curStatus
+    protected bool avoidCheck;
+    public bool AvoidCheck => avoidCheck;
+    public int avoidChance;
+
     public float speedApply; // 실제 스피드
     public float speed;
     public bool rollCnt = false; // 구른후 빨라지는 버프 체크
@@ -148,12 +147,12 @@ public abstract class Player : MonoBehaviour
 
         if (isRoll)
         {
-            nextVec = rollVec.normalized * rollingSpeed * Time.fixedDeltaTime;
+            nextVec = rollVec.normalized * rollingSpeed * Time.fixedUnscaledDeltaTime;
         }
         else
         {
             isWalk = moveVec != Vector2.zero ? true : false;
-            nextVec = moveVec.normalized * Time.fixedDeltaTime *
+            nextVec = moveVec.normalized * Time.fixedUnscaledDeltaTime *
                 (speed);
             anim.SetBool("Walk", isWalk);
         }
@@ -230,12 +229,16 @@ public abstract class Player : MonoBehaviour
     protected void Damage(int power)
     {
         if (avoidCheck || isHit) return;
-
-        // 회피 여부 체크
-        if (DrugManager.Instance.green2)
+        else if(DrugManager.Instance.isBulletAvoid)
         {
-            DrugManager.Instance.RunGreenBuff2();
-            return; // 상태관련해서 수정할게 있으면 수정하고 리턴
+            Debug.Log("로직 실행");
+
+            avoidChance = Random.Range(1, 101);
+            if (avoidChance <= 25)
+            {
+                Debug.Log("회피 적용");
+                return;
+            }
         }
 
         InGameManager.Instance.Hit(power);
