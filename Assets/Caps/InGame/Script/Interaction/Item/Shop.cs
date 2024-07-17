@@ -25,7 +25,7 @@ public class Shop : MonoBehaviour
 
         for (int i = 0; i < drugs.Length; i++)
         {
-            Instantiate(drugs[i], drugPos[i].position, Quaternion.identity);
+            Instantiate(drugs[i], drugPos[i].position, Quaternion.identity, transform);
         }
     }
 
@@ -40,21 +40,21 @@ public class Shop : MonoBehaviour
         Debug.Log("·£´ý½Ãµå: " + isGunSpawn);
         if (isGunSpawn == 3)
         {
-            Instantiate(glocks[Random.Range(0, glocks.Length)], itemPos[curIndex++].position, Quaternion.identity);
+            Instantiate(glocks[Random.Range(0, glocks.Length)], itemPos[curIndex++].position, Quaternion.identity, transform);
         }
         if (isGunSpawn == 4)
         {
-            Instantiate(guns[Random.Range(0, guns.Length)], itemPos[curIndex++].position, Quaternion.identity);
+            Instantiate(guns[Random.Range(0, guns.Length)], itemPos[curIndex++].position, Quaternion.identity, transform);
         }
         if (isGunSpawn == 5)
         {
-            Instantiate(glocks[Random.Range(0, glocks.Length)], itemPos[curIndex++].position, Quaternion.identity);
-            Instantiate(guns[Random.Range(0, guns.Length)], itemPos[curIndex++].position, Quaternion.identity);
+            Instantiate(glocks[Random.Range(0, glocks.Length)], itemPos[curIndex++].position, Quaternion.identity, transform);
+            Instantiate(guns[Random.Range(0, guns.Length)], itemPos[curIndex++].position, Quaternion.identity, transform);
         }
         for (int i = curIndex; i < itemPos.Length; i++)
         {
             int itemRand = Random.Range(0, items.Length);
-            Instantiate(items[itemRand], itemPos[curIndex++].position, Quaternion.identity);
+            Instantiate(items[itemRand], itemPos[curIndex++].position, Quaternion.identity, transform);
         }
     }
 
