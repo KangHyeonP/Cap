@@ -61,7 +61,7 @@ public class RoomController : MonoBehaviour
         {
             if (Vector3.Distance(pos, a.gameObject.transform.localPosition) < 4f)
             {
-                a.Damage(InGameManager.Instance.Power + DrugManager.Instance.power);
+                a.Damage(InGameManager.Instance.Power + DrugManager.Instance.power, WeaponValue.Knife);
                 Debug.Log("Æø¹ßÅº : " + a.gameObject.name);
             }
         }

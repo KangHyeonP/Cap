@@ -46,6 +46,7 @@ public abstract class Player : MonoBehaviour
     public bool isReverse = false; // 캐릭터를 뒤집는 상태, 추후에 변경못하게 수정
     public bool IsReverse => isReverse;
     protected bool isWalk = false;
+    public bool isAttack = false;
 
     // Status - curStatus
     protected bool avoidCheck;
@@ -65,6 +66,7 @@ public abstract class Player : MonoBehaviour
 
     // InputKey
     protected bool attackKey;
+    public bool AttackKey => attackKey;
     protected bool skillKey;
     protected bool rollKey;
     protected bool swapKey1;
@@ -76,7 +78,10 @@ public abstract class Player : MonoBehaviour
     protected bool shiftKey;
 
     // Weapon
-    protected int weaponIndex = 0;
+    [SerializeField] // 확인용
+    protected int weaponIndex = 2;
+    protected int tempWeaponIndex = 2;
+
     public string[] weapon;
     [SerializeField]
     private GameObject weaponPivot;
@@ -92,10 +97,6 @@ public abstract class Player : MonoBehaviour
 
     protected virtual void Start()
     {
-        rigid = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
-
         speedApply = InGameManager.Instance.Speed;
         speed = speedApply;
     }
@@ -103,25 +104,22 @@ public abstract class Player : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (!InGameManager.Instance.IsPause && !isDead)
-        {
-            InputKey();
-            VectorStatus(curVec);
-            Roll();
-            Skill();
-            // 추후 게임 매니저로 변경될 가능성 있음
-            Interaction();
-            EatDrug();
-            UserGenade();
-        }
+        if (InGameManager.Instance.IsPause || isDead) return;
+
+        InputKey();
+        VectorStatus(curVec);
+        Roll();
+        Skill();
+        Interaction();
+        EatDrug();
+        UserGenade();
     }
 
     protected virtual void FixedUpdate()
     {
-        if (!InGameManager.Instance.IsPause && !isDead)
-        {
-            Move();
-        }
+        if (InGameManager.Instance.IsPause || isDead) return;
+
+        Move();
     }
 
     protected void InputKey()
@@ -141,9 +139,11 @@ public abstract class Player : MonoBehaviour
     }
 
     protected void Move()
-    {
+    { 
         // 만약 inputVec 0이면 Idle, 아니면 Run으로 체인지
         moveVec = inputVec.normalized;
+
+        if(isAttack) InGameManager.Instance.knifeEffect.transform.position = weaponPivot.transform.position;
 
         if (isRoll)
         {
@@ -162,9 +162,9 @@ public abstract class Player : MonoBehaviour
 
     protected void Roll()
     {
-        if (!isRoll && InputVec != Vector2.zero && rollKey)
+        if (!isRoll && InputVec != Vector2.zero && rollKey && !isAttack)
         {
-            rollVec = moveVec;
+            rollVec = InputVec;
             StartCoroutine(IRoll());
         }
     }
@@ -226,6 +226,7 @@ public abstract class Player : MonoBehaviour
         }
     }
 
+
     protected void Damage(int power)
     {
         if (avoidCheck || isHit) return;
@@ -277,25 +278,62 @@ public abstract class Player : MonoBehaviour
         isHit = false;
     }
 
+    public void KnifeAttack(bool check)
+    {
+        InGameManager.Instance.knifePivot.transform.localScale = new Vector3(1, 1, 1);
+
+        if (isReverse)
+        {
+            InGameManager.Instance.knifePivot.transform.localScale = new Vector3(-1, 1, 1);
+        }
+
+        if (check)
+        {
+            InGameManager.Instance.knifeEffect.transform.position = weaponPivot.transform.position;
+            InGameManager.Instance.knifeEffect.transform.rotation = weaponPivot.transform.rotation;
+            InGameManager.Instance.knifeEffect.SetActive(true);
+        }
+        else InGameManager.Instance.knifeEffect.SetActive(false);
+    }
+
+    // 일단 근접무기는 아직 미구현이므로 잠시 대기
     protected void Swap()
     {
-        int curIndex = -1;
+        if (isRoll || isAttack) return;
 
-        if (!swapKey1 && !swapKey2 && !swapKey3) return;
+        if (!swapKey1 && !swapKey2 && !swapKey4) return;
+
 
         if (swapKey1)
-            curIndex = 0;
+            tempWeaponIndex = 0;
+        else if (swapKey2)
+            tempWeaponIndex = 1;
+        else if (swapKey4)
+            tempWeaponIndex = 3;
 
-        if (swapKey2)
-            curIndex = 1;
-
-        if (swapKey3)
-            curIndex = 2;
-
-        if (curIndex != weaponIndex)
+        switch(tempWeaponIndex)
         {
-            weaponIndex = curIndex;
-            Debug.Log(weapon[weaponIndex]);
+            case 0: case 1:
+                WeaponSwap(tempWeaponIndex);
+                break;
+            case 3:
+                break;
+            default:
+                Debug.Log("인덱스 오류 : " + tempWeaponIndex);
+                break;
+        }
+    }
+
+    protected void WeaponSwap(int idx)
+    {
+        if(idx == 0)
+        {
+            /*if(DrugManager.Instance.isManyWeapon)
+            {
+
+            }*/
+
+
         }
     }
 
@@ -335,6 +373,8 @@ public abstract class Player : MonoBehaviour
     // 방향 전환
     public void ChangeVector(PlayerVetor pVec, bool checkReverse)
     {
+        if (isAttack) return;
+
         isReverse = checkReverse;
         VectorStatus(pVec);
     }

@@ -296,11 +296,14 @@ public abstract class Agent : MonoBehaviour
 
     }
 
-    public void Damage(int damage)
+    public void Damage(int damage, WeaponValue value)
     {
-        Debug.Log("맞았어");
+        Debug.Log("맞았어" + value);
 
-        damage += InGameManager.Instance.bulletPower;
+        if(value == WeaponValue.Gun)
+        { 
+            damage += InGameManager.Instance.bulletPower;
+        }
 
         if(DrugManager.Instance.red2)
         {
@@ -454,7 +457,11 @@ public abstract class Agent : MonoBehaviour
         // 1. Bullet 테그별로 나누기(총알이 다 다를경우)
         if (collision.CompareTag("PlayerBullet"))
         {
-            Damage(InGameManager.Instance.Power + DrugManager.Instance.power);
+            Damage(InGameManager.Instance.Power + DrugManager.Instance.power, WeaponValue.Gun);
+        }
+        else if(collision.CompareTag("Knife"))
+        {
+            Damage(InGameManager.Instance.Power + DrugManager.Instance.power, WeaponValue.Knife);
         }
     }
 }

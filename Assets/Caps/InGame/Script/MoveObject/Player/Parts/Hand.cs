@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -20,6 +21,8 @@ public class Hand : MonoBehaviour
 
 	void LookMouse()
 	{
+		if (InGameManager.Instance.player.isAttack) return;
+		
 		mouse = CameraController.Instance.Pointer;
 		angle = CameraController.Instance.PlayerAngle;
 		if (InGameManager.Instance.player.IsReverse)

@@ -77,7 +77,8 @@ public class DrugManager : MonoBehaviour
     public bool blue3;
 
     public float playerAttackDelay;
-    public bool lucianPassive;
+    public bool islucianPassive = false;
+    public bool isManyWeapon = false;
     public float reloadSpeed;
     public int maxBullet;
 
@@ -265,9 +266,6 @@ public class DrugManager : MonoBehaviour
         if (green3)
         {
             Time.timeScale = 0.8f;
-            //InGameManager.Instance.player.rollingSpeed *= 1.25f;
-            //InGameManager.Instance.player.speedApply *= 1.25f;
-            //InGameManager.Instance.player.speed = InGameManager.Instance.player.speedApply;
         }
     }
 
@@ -275,12 +273,15 @@ public class DrugManager : MonoBehaviour
     {
         if(blue1)
         {
-            lucianPassive = true;
+            islucianPassive = true;
         }
     }
     public void RunBlueBuff2()
     {
-
+        if(blue2)
+        {
+            isManyWeapon = true;
+        }
     }
     public void RunBlueBuff3()
     {

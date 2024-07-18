@@ -38,7 +38,7 @@ public class GrenadeObject : MonoBehaviour
 
         foreach(Collider2D c in colliders)
         {
-            c.GetComponent<Agent>()?.Damage(damage);
+            c.GetComponent<Agent>()?.Damage(damage, WeaponValue.Knife);
         }
 
         Destroy(gameObject);

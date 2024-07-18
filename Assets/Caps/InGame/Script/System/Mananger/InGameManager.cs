@@ -4,6 +4,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum WeaponValue
+{
+    Knife, Gun
+}
+
 public class InGameManager : MonoBehaviour
 {
     private static InGameManager instance;
@@ -67,6 +72,9 @@ public class InGameManager : MonoBehaviour
     public Stack<Item> grenades = new Stack<Item>();
     public GameObject grenadeObj;
 
+    // Effect
+    public GameObject knifePivot;
+    public GameObject knifeEffect;
 
     private void Awake()
     {

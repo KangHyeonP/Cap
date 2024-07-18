@@ -65,7 +65,7 @@ public class MainPlayer : Player
 
         foreach(Agent a in agents)
         {
-            a.Damage(SkillDamage / agentCnt);
+            a.Damage(SkillDamage / agentCnt, WeaponValue.Knife);
         }
     }
 }

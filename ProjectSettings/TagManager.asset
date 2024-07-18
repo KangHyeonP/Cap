@@ -9,6 +9,7 @@ TagManager:
   - EnemyBullet
   - PlayerBullet
   - Wall
+  - Knife
   layers:
   - Default
   - TransparentFX

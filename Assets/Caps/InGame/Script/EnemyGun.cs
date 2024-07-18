@@ -42,7 +42,6 @@ public class EnemyGun : Gun
             muzzleUp[i] = muzzle.up;
             bulletSpeed[i] = Random.Range(1, -1);
 
-            // 총알 각기 속도도 받아야함 Random.Range(1, -1)) (루시안에서)
             bullet.MoveBullet(muzzle.up * (fireSpeed + bulletSpeed[i]));
         }
 

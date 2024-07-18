@@ -51,7 +51,7 @@ public abstract class Gun : MonoBehaviour
     {
 		fireTime += Time.deltaTime;
 
-		if (Input.GetMouseButton(0))
+		if (InGameManager.Instance.player.AttackKey)
         {
 			ShotDelay();
 		}
@@ -64,6 +64,8 @@ public abstract class Gun : MonoBehaviour
 
     protected virtual IEnumerator Shot()
     {
+        InGameManager.Instance.player.isAttack = true;
+
         Debug.Log("ม๖ฑÝ รั : " + gameObject.name);
 
 		InGameManager.Instance.player.fireEffect.transform.position = fireEffectPos.position;
@@ -104,8 +106,9 @@ public abstract class Gun : MonoBehaviour
 		}
 
         fireTime = 0;
+        InGameManager.Instance.player.isAttack = false;
 
-        if (DrugManager.Instance.lucianPassive)
+        if (DrugManager.Instance.islucianPassive)
         {
             for (int i = 0; i < bulletCount; i++)
             {
