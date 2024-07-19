@@ -7,6 +7,10 @@ public class InGameUI : MonoBehaviour
 {
     public SkillUI skillUI;
     public Image DrugUI;
+    public Image WeaponUI;
+
+    public Sprite[] weaponSprites;
+
     private void Awake()
     {
         
@@ -15,6 +19,7 @@ public class InGameUI : MonoBehaviour
     void Start()
     {
         InitUI();
+        WeaponInven(5); // 추후 캐릭터마다 칼이 다르다면 player에서 초기화를 시키도록 수정
     }
 
     // Update is called once per frame
@@ -32,5 +37,10 @@ public class InGameUI : MonoBehaviour
     public void DrugInven(Sprite s)
     {
         DrugUI.sprite = s;
+    }
+
+    public void WeaponInven(int index)
+    {
+        WeaponUI.sprite = weaponSprites[index];
     }
 }

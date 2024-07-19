@@ -50,12 +50,12 @@ MonoBehaviour:
   items:
   - {fileID: 777992016230090388, guid: 2e6c5bdb3d5eed04ab591defa3368e5c, type: 3}
   guns:
-  - {fileID: 277980493279965441, guid: 546ed738bc63b7944ba0377915cf88aa, type: 3}
-  - {fileID: 5470499631243267014, guid: 483484bae9bbb7346b0355cd1a93b8ac, type: 3}
-  - {fileID: 1431617503122005096, guid: e984fdd29609e8e44b89307c1a283462, type: 3}
+  - {fileID: 3384921576716885909, guid: ef8d08093ebcd624aaa616084c0ef1f3, type: 3}
+  - {fileID: 8663426778517033680, guid: 6d16fbe784bb6a742b7eee769fa57780, type: 3}
+  - {fileID: 6585772551381937688, guid: 461ae697df1d5d948896aaac45dd28a8, type: 3}
   glocks:
-  - {fileID: 277980493279965441, guid: 8b974ea6238b63245b465ad1975cf264, type: 3}
-  - {fileID: 277980493279965441, guid: 2148c9e9651c6a745aa5c1a33aeaf49d, type: 3}
+  - {fileID: 717991853405504391, guid: 7afac1cc3b0692c4e93eebcad985fe57, type: 3}
+  - {fileID: 185652488920191024, guid: 8f04db9eebad70a4a88573703b443714, type: 3}
   drugs:
   - {fileID: 3964539118240093673, guid: a0bfdce3d3c0c4b438f6b03404c8c9da, type: 3}
   - {fileID: 3964539118240093673, guid: 9d8020664c5887d429719e2a0954e74d, type: 3}

@@ -52,6 +52,11 @@ public class InGameManager : MonoBehaviour
 
     public int bulletPower;
 
+    public Weapons gunInven = null;
+    public Weapons blueGunInven = null; // 파랑 마약 활성화 전용 인벤
+
+    public Weapons pistolInven = null;
+
     private bool isDead;
     public bool IsDead => isDead;
 
@@ -152,6 +157,39 @@ public class InGameManager : MonoBehaviour
 
         DrugManager.Instance.LockCheck(DrugGague);
     }
+
+    public void UpdateWeapon(EWeapons value, Weapons weapon)
+    {
+        int idx = 0;
+
+        if(value == EWeapons.Revolver)
+        {
+            if(pistolInven != null)
+            {
+                pistolInven.PutWeapon();
+            }
+            pistolInven = weapon;
+            idx = 1;
+        }
+        else
+        {
+            if (gunInven != null)
+            {
+                gunInven.PutWeapon();
+            }
+            gunInven = weapon;
+            idx = 0;
+        }
+
+        player.tempWeaponIndex = (int)weapon.index;
+        player.WeaponSwap(idx);
+    }
+
+    public void AddWeapon()
+    {
+
+    }
+
     public void UpdateKey()
     {
         // 이것도 UI

@@ -34,7 +34,13 @@ public abstract class Gun : MonoBehaviour
     protected float[] powerSpeed;
     protected float[] bulletSpeed;
 
-    // Start is called before the first frame update
+
+    protected virtual void OnEnable()
+    {
+        fireTime = 0;
+    }
+
+
     protected void Start()
     {
         fireTime = fireDelay;

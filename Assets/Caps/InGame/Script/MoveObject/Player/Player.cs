@@ -78,11 +78,13 @@ public abstract class Player : MonoBehaviour
     protected bool shiftKey;
 
     // Weapon
-    [SerializeField] // 확인용
-    protected int weaponIndex = 2;
-    protected int tempWeaponIndex = 2;
+    //[SerializeField] // 확인용
+    //protected int weaponIndex = 2;
+    public int tempWeaponIndex = 2;
 
-    public string[] weapon;
+    public GameObject[] mainWeapon; // 라이플, 샷건, 스나 순 -> 추후 무기가 추가된다면 권총처럼 총기별로 분류하거나 그대로 추가
+    public GameObject[] subWeapon; // 이글, 아나콘다 순
+    public GameObject knife;
     [SerializeField]
     private GameObject weaponPivot;
     [SerializeField]
@@ -109,6 +111,7 @@ public abstract class Player : MonoBehaviour
         InputKey();
         VectorStatus(curVec);
         Roll();
+        Swap();
         Skill();
         Interaction();
         EatDrug();
@@ -301,39 +304,42 @@ public abstract class Player : MonoBehaviour
     {
         if (isRoll || isAttack) return;
 
-        if (!swapKey1 && !swapKey2 && !swapKey4) return;
+        if (!swapKey1 && !swapKey2 && !swapKey3) return;
 
-
-        if (swapKey1)
+        if (swapKey1 && InGameManager.Instance.gunInven != null)
             tempWeaponIndex = 0;
-        else if (swapKey2)
+        else if (swapKey2 && InGameManager.Instance.pistolInven != null)
             tempWeaponIndex = 1;
-        else if (swapKey4)
-            tempWeaponIndex = 3;
+        else if (swapKey3)
+            tempWeaponIndex = 2;
 
-        switch(tempWeaponIndex)
-        {
-            case 0: case 1:
-                WeaponSwap(tempWeaponIndex);
-                break;
-            case 3:
-                break;
-            default:
-                Debug.Log("인덱스 오류 : " + tempWeaponIndex);
-                break;
-        }
+        WeaponSwap(tempWeaponIndex);
     }
 
-    protected void WeaponSwap(int idx)
+    public void WeaponSwap(int idx)
     {
-        if(idx == 0)
+        // 무기를 전부 비활성화, 비용이 많이 든다면 추후 활성화 무기만 체크하여 비활성화로 돌리는 로직으로 수정
+        foreach (GameObject g in mainWeapon)
+            g.SetActive(false);
+        foreach (GameObject g in subWeapon)
+            g.SetActive(false);
+        knife.SetActive(false);
+
+        // 해당 무기만 활성화
+        if (idx == 0)
         {
-            /*if(DrugManager.Instance.isManyWeapon)
-            {
-
-            }*/
-
-
+            mainWeapon[InGameManager.Instance.gunInven.index].SetActive(true);
+            UIManager.Instance.inGameUI.WeaponInven(InGameManager.Instance.gunInven.index);
+        }
+        else if(idx == 1)
+        {
+            subWeapon[InGameManager.Instance.pistolInven.index].SetActive(true);
+            UIManager.Instance.inGameUI.WeaponInven(InGameManager.Instance.pistolInven.index + 3);
+        }
+        else
+        {
+            knife.SetActive(true);
+            UIManager.Instance.inGameUI.WeaponInven(5);
         }
     }
 
