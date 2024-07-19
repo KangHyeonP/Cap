@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
 
     public Image[] heartImages;
     public Sprite[] heartSprites;
+    public Image bulletProof;
+    public bool isBulletProof = false;
     private int hp;
 
     [HideInInspector]
@@ -189,6 +191,15 @@ public class UIManager : MonoBehaviour
         {
             heartImages[hp / 2].sprite = heartSprites[1];
         }
+    }
+
+    public void BulletproofUpdate(bool isActive)
+    {
+        isBulletProof = isActive;
+
+        Color c = bulletProof.color;
+        c.a = isActive ? 1 : 0;
+        bulletProof.color = c;
     }
 
     public void PauseTime(bool IsPause)

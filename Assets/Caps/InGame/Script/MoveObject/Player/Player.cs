@@ -81,8 +81,12 @@ public abstract class Player : MonoBehaviour
     //[SerializeField] // 확인용
     //protected int weaponIndex = 2;
     public int tempWeaponIndex = 2;
+    public int gunCnt = 0; // 파랑 마약 전용 인덱스 카운팅
+    public bool gunCheck = false;
 
     public GameObject[] mainWeapon; // 라이플, 샷건, 스나 순 -> 추후 무기가 추가된다면 권총처럼 총기별로 분류하거나 그대로 추가
+    public Weapons tempGun; // 교체용 변수
+
     public GameObject[] subWeapon; // 이글, 아나콘다 순
     public GameObject knife;
     [SerializeField]
@@ -244,6 +248,12 @@ public abstract class Player : MonoBehaviour
                 return;
             }
         }
+        else if(UIManager.Instance.isBulletProof)
+        {
+            UIManager.Instance.BulletproofUpdate(false);
+
+            return;
+        }
 
         InGameManager.Instance.Hit(power);
         UIManager.Instance.hpUpdate();
@@ -307,7 +317,10 @@ public abstract class Player : MonoBehaviour
         if (!swapKey1 && !swapKey2 && !swapKey3) return;
 
         if (swapKey1 && InGameManager.Instance.gunInven != null)
+        {
+            if(DrugManager.Instance.isManyWeapon && tempWeaponIndex == 0) gunCheck = true;
             tempWeaponIndex = 0;
+        }
         else if (swapKey2 && InGameManager.Instance.pistolInven != null)
             tempWeaponIndex = 1;
         else if (swapKey3)
@@ -327,7 +340,15 @@ public abstract class Player : MonoBehaviour
 
         // 해당 무기만 활성화
         if (idx == 0)
-        {
+        {   
+            if(gunCheck)
+            {
+                tempGun = InGameManager.Instance.gunInven;
+                InGameManager.Instance.gunInven = InGameManager.Instance.blueGunInven;
+                InGameManager.Instance.blueGunInven = tempGun;
+                gunCheck = false;
+            }
+
             mainWeapon[InGameManager.Instance.gunInven.index].SetActive(true);
             UIManager.Instance.inGameUI.WeaponInven(InGameManager.Instance.gunInven.index);
         }

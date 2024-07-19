@@ -38,8 +38,11 @@ public class Weapons : Item
         }
         else if(InGameManager.Instance.gunInven != null)
         {
-            InGameManager.Instance.gunInven.gameObject.SetActive(true);
-            InGameManager.Instance.gunInven.PutWeapon();
+            if(!DrugManager.Instance.isManyWeapon || InGameManager.Instance.blueGunInven != null)
+            {
+                InGameManager.Instance.gunInven.gameObject.SetActive(true);
+                InGameManager.Instance.gunInven.PutWeapon();
+            }
         }
         
         UseItem();

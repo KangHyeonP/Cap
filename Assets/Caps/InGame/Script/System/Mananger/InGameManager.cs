@@ -173,7 +173,11 @@ public class InGameManager : MonoBehaviour
         }
         else
         {
-            if (gunInven != null)
+            if (blueGunInven == null && DrugManager.Instance.isManyWeapon) // 1회용 로직
+            {
+                blueGunInven = gunInven;
+            }
+            else if (gunInven != null)
             {
                 gunInven.PutWeapon();
             }
@@ -183,11 +187,6 @@ public class InGameManager : MonoBehaviour
 
         player.tempWeaponIndex = (int)weapon.index;
         player.WeaponSwap(idx);
-    }
-
-    public void AddWeapon()
-    {
-
     }
 
     public void UpdateKey()
@@ -231,6 +230,8 @@ public class InGameManager : MonoBehaviour
             hp = maxHp;
         }
         else hp += value;
+
+        UIManager.Instance.hpUpdate();
     }
 
     public void Hit(int value)

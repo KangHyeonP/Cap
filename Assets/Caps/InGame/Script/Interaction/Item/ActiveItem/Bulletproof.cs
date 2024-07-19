@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bandage : Item
+public class Bulletproof : Item
 {
-    
-
     protected void Awake()
     {
         base.Awake();
@@ -25,30 +23,28 @@ public class Bandage : Item
 
     public override void GetItem()
     {
-            UseItem();
+        UseItem();
     }
 
     public override void UseItem()
     {
-        UseBandage();
+        if (UIManager.Instance.isBulletProof) return;
         
+        UseBulletproof();
+
         Destroy(this.gameObject);
     }
 
-    public void UseBandage()
+    public void UseBulletproof()
     {
-        // 로직 수정
-        if (DrugManager.Instance.bandageNerf)
-        {
-            int infect = Random.Range(1, 11);
-            if (infect == 1)
-                Debug.Log("붕대 사용 못함");
-            return;
-        }
+        int index = (InGameManager.Instance.Hp - 1) / 2;
+        UIManager.Instance.bulletProof.rectTransform.anchoredPosition
+            = new Vector2(index * 57, -5);
 
 
-        //if (InGameManager.Instance.health < InGameManager.Instance.maxHealth)
-        //   InGameManager.Instance.health++; 
+            //= UIManager.Instance.heartImages[index].rectTransform.position;
+
+        UIManager.Instance.BulletproofUpdate(true);
     }
     // 콜라이더 추가
     private void OnTriggerEnter2D(Collider2D collision)
@@ -71,5 +67,5 @@ public class Bandage : Item
         }
     }
 
-    
+
 }

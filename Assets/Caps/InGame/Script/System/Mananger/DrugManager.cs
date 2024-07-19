@@ -82,7 +82,7 @@ public class DrugManager : MonoBehaviour
     public float reloadSpeed;
     public int maxBullet;
 
-    // 보류
+    // 보류 (단계별로 변수를 나누고 함수에서 활성화)
     public bool hostHateCheck;
     public bool isBandage;
     public bool bandageNerf;
