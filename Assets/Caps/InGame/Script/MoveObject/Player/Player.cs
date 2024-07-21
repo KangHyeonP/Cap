@@ -341,7 +341,7 @@ public abstract class Player : MonoBehaviour
         // 해당 무기만 활성화
         if (idx == 0)
         {   
-            if(gunCheck)
+            if(gunCheck && InGameManager.Instance.blueGunInven != null)
             {
                 tempGun = InGameManager.Instance.gunInven;
                 InGameManager.Instance.gunInven = InGameManager.Instance.blueGunInven;

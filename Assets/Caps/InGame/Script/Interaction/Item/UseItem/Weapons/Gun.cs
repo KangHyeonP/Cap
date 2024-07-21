@@ -113,6 +113,7 @@ public abstract class Gun : MonoBehaviour
 
         fireTime = 0;
         InGameManager.Instance.player.isAttack = false;
+        yield return new WaitForSeconds(0.1f);
 
         if (DrugManager.Instance.islucianPassive)
         {

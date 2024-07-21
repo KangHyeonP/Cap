@@ -104,7 +104,7 @@ MonoBehaviour:
   fireEffectPos: {fileID: 9066211471674234271}
   muzzle: {fileID: 8546476937090517966}
   fireSpeed: 15
-  fireDelay: 7
+  fireDelay: 3
   fireMaximumDelay: 0.75
   recoil: 10
   bulletCount: 1

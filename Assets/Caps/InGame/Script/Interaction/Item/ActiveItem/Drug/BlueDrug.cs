@@ -23,7 +23,8 @@ public class BlueDrug : Drug
 
     protected override void DrugAbility()
     {
-        DrugManager.Instance.playerAttackDelay += 0.5f;
+        DrugManager.Instance.playerAttackDelay += 0.3f;
+        //DrugManager.Instance.playerAttackDelay += 0.5f;
     }
 
 
