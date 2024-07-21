@@ -70,7 +70,9 @@ public class PoolManager : MonoBehaviour
     {
         if(eUser == EUsers.Player)
         {
-            if(poolingPlayerBullet[(int)eUser].Count <= 0)
+            //Debug.Log("poolingPlayerBullet : " + )
+
+            if(poolingPlayerBullet[(int)eBullet].Count <= 0)
             {
                 CreateNewBullet(eUser, eBullet);
             }
