@@ -24,6 +24,8 @@ public class PlayerBullet : Bullet
 
     protected override void OnEnable()
     {
+        rigid.velocity = Vector2.zero;
+
         base.OnEnable();
 
         if (InGameManager.Instance.player.isReverse)
