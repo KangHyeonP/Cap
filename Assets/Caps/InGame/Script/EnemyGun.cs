@@ -23,11 +23,6 @@ public class EnemyGun : Gun
 
     protected override IEnumerator Shot()
     {
-        /* 이 부분은 적에서 해결해야할듯함
-        InGameManager.Instance.player.fireEffect.transform.position = fireEffectPos.position;
-        InGameManager.Instance.player.fireEffect.transform.rotation = fireEffectPos.rotation;
-        InGameManager.Instance.player.fireEffect.SetActive(true);
-        */
 
         for (int i = 0; i < bulletCount; i++)
         {
