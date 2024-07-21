@@ -8,7 +8,7 @@ public class MainPlayer : Player
     [SerializeField]
     private int SkillDamage = 300;
 
-    private List<Agent> agents = new List<Agent>();
+    private List<AI> agents = new List<AI>();
 
     protected override void Awake()
     {
@@ -48,7 +48,7 @@ public class MainPlayer : Player
         Vector3 rangeVec = Vector3.zero;
         
 
-        foreach(Agent a in CameraController.Instance.Agents)
+        foreach(AI a in CameraController.Instance.Agents)
         {
             rangeVec = CameraController.Instance.Cam.WorldToViewportPoint(a.transform.position);
             if (rangeVec.x + (Mathf.Abs(a.transform.localScale.x) / (2 * 6.2f)) < 0 ||
@@ -63,7 +63,7 @@ public class MainPlayer : Player
             Debug.Log("y /  : " + a.transform.localScale.y / (2 * 5));
         }
 
-        foreach(Agent a in agents)
+        foreach(AI a in agents)
         {
             a.Damage(SkillDamage / agentCnt, WeaponValue.Knife);
         }

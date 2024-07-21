@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyHand : MonoBehaviour
 {
 	[SerializeField]
-	private Agent enemy;
+	private AI enemy;
 	private Transform enemyTransform;
 
 	Vector2 playerVec2;

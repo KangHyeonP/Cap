@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
 using UnityEngine.AI;
-
 public enum EnemyStatus
-{ 
+{
     Idle,
     Chase,
     Attack,
@@ -19,7 +17,7 @@ public enum EnemyVetor
     Front, Cross, Side, Back
 }
 
-public abstract class Agent : MonoBehaviour
+public abstract class AI : MonoBehaviour
 {
     // 추후 gameManager의 player를 받아올것
     [SerializeField]
@@ -44,9 +42,9 @@ public abstract class Agent : MonoBehaviour
 
     // AI Stats
     [SerializeField]
-    private int hp = 100;
+    protected int hp = 100;
     [SerializeField]
-    private int maxHp = 100;
+    protected int maxHp = 100;
 
     // AI State
     [SerializeField]
@@ -91,7 +89,7 @@ public abstract class Agent : MonoBehaviour
     // AI 임시 삭제용
     public bool TestAgent = false;
 
-    protected virtual  void Awake()
+    protected virtual void Awake()
     {
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
@@ -130,39 +128,9 @@ public abstract class Agent : MonoBehaviour
         }
     }
 
-    protected void UpdateState(EnemyStatus enemy)
+    protected virtual void UpdateState(EnemyStatus enemy)
     {
-        if (isDie) return;
-
-        AgentAngle();
-
-        if (isReverse) transform.localScale = new Vector3(-1, 1, 1);
-        else transform.localScale = new Vector3(1, 1, 1);
-
-        curAttackDelay += Time.deltaTime;
-
-        switch (enemy)
-        {
-            case EnemyStatus.Idle:
-                Idle();
-                break;
-            case EnemyStatus.Chase:
-                Chase();
-                break;
-            case EnemyStatus.Attack:
-                Attack();
-                break;
-            case EnemyStatus.Lean:
-                UpLean();
-                //UpdateLean();
-                break;
-            case EnemyStatus.Die:
-                Die();
-                break;
-            default:
-                Debug.Log("미구현 기능");
-                break;
-        }
+        
     }
 
     // 플레이어의 방향 계산
@@ -260,7 +228,7 @@ public abstract class Agent : MonoBehaviour
 
     protected void Attack()
     {
-        if(IsAttack) return;
+        if (IsAttack) return;
 
         //Debug.Log("코루틴 시작 1");
         isAttack = true;
@@ -299,16 +267,16 @@ public abstract class Agent : MonoBehaviour
     {
         Debug.Log("맞았어" + value);
 
-        if(value == WeaponValue.Gun)
-        { 
+        if (value == WeaponValue.Gun)
+        {
             damage += InGameManager.Instance.bulletPower;
         }
 
-        if(DrugManager.Instance.red2)
+        if (DrugManager.Instance.red2)
         {
             damage = damage + damage * DrugManager.Instance.powerUpValue / 100;
         }
-        else if(DrugManager.Instance.isBleeding && damage >= maxHp * 0.3f)
+        else if (DrugManager.Instance.isBleeding && damage >= maxHp * 0.3f)
         {
             StartCoroutine(Bleed());
         }
@@ -327,9 +295,9 @@ public abstract class Agent : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
-        for(int i=0; i<5; i++)
+        for (int i = 0; i < 5; i++)
         {
-            hp -= maxHp/100;
+            hp -= maxHp / 100;
             Debug.Log("출혈 중, 몬스터 남은 체력: " + hp);
             yield return new WaitForSeconds(1f);
 
@@ -341,109 +309,10 @@ public abstract class Agent : MonoBehaviour
             }
         }
     }
-    
-    public void UpLean() // 테이블 이동 및 저격까지
-    {
-        // 기대기
-        if (curTableArrow != TableArrow.none && isLean)
-            transform.position = Vector3.MoveTowards(transform.position, tableVec, 1.5f * Time.deltaTime);
-        // 조준
-        else
-        {
-            LeanAiming();
-        }
-        
-    }
-
-    public void TableValue(Vector3 vec, TableArrow arrow)
-    {
-        tableVec = vec;
-        curTableArrow = arrow;
-        curStatus = EnemyStatus.Lean;
-        isLean = true;
-
-        agent.isStopped = true;
-        StartCoroutine(LeanCount());
-    }
-
-    private IEnumerator LeanCount()
-    {
-        Debug.Log("기대다.");
-        anim.SetTrigger("Lean");
-
-        Vector3 playerVec = InGameManager.Instance.player.transform.position - transform.position;
-
-        int index = -1; // 애니메이션 방향
-        moveVec = Vector3.zero; // 움직일 방향
-
-        switch (curTableArrow)
-        {
-            case TableArrow.up:
-                if (playerVec.x <= 0)
-                {
-                    index = 0;
-                    moveVec = new Vector3(-5, 0);
-                }
-                else
-                {
-                    index = 1;
-                    moveVec = new Vector3(5, 0);
-                }
-                break;
-            case TableArrow.down:
-                if (playerVec.x <= 0)
-                {
-                    index = 2;
-                    moveVec = new Vector3(-5, 0);
-                }
-                else
-                {
-                    index = 3;
-                    moveVec = new Vector3(5, 0);
-                }
-                break;
-            case TableArrow.left:
-                if (playerVec.y <= 0)
-                {
-                    index = 4;
-                    moveVec = new Vector3(0, -5);
-                }
-                else
-                {
-                    index = 5;
-                    moveVec = new Vector3(0, 5);
-                }
-                break;
-            case TableArrow.right:
-                if (playerVec.y <= 0)
-                {
-                    index = 6;
-                    moveVec = new Vector3(0, -5);
-                }
-                else
-                {
-                    index = 7;
-                    moveVec = new Vector3(0, 5);
-                }
-                break;
-        }
-
-        yield return new WaitForSeconds(1.0f);
-
-        isLean = false;
-
-        yield return new WaitForSeconds(0.75f); // 조준까지 걸어가는 시간
-        agent.isStopped = false;
-        curStatus = EnemyStatus.Chase;
-    }
-    private void LeanAiming()
-    {
-        transform.localPosition = Vector3.MoveTowards(transform.position, moveVec, 3.0f * Time.deltaTime);
-    }
 
 
     // 나중에 죽었을때 기능 구현
-    private void Die()
+    protected void Die()
     {
         isDie = true;
         isDetect = false;
@@ -451,14 +320,14 @@ public abstract class Agent : MonoBehaviour
         agent.enabled = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         // 1. Bullet 테그별로 나누기(총알이 다 다를경우)
         if (collision.CompareTag("PlayerBullet"))
         {
             Damage(InGameManager.Instance.Power + DrugManager.Instance.power, WeaponValue.Gun);
         }
-        else if(collision.CompareTag("Knife"))
+        else if (collision.CompareTag("Knife"))
         {
             Damage(InGameManager.Instance.Power + DrugManager.Instance.power, WeaponValue.Knife);
         }

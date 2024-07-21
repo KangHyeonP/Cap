@@ -36,6 +36,8 @@ public abstract class Bullet : MonoBehaviour
     {
         if (eraseSpeed > 0)
         {
+            rigid.velocity = Vector2.zero;
+
             StartCoroutine(Erase());
             transform.localScale = new Vector3(bulletSize[0], bulletSize[1], bulletSize[2]);
         }

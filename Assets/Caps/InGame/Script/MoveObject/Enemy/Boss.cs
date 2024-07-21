@@ -1,118 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class Boss : MonoBehaviour
+public abstract class Boss : AI
 {
-    // 추후 gameManager의 player를 받아올것
     [SerializeField]
-    protected Transform target;
+    private EnemyGun gun;
 
-    // Component
-    protected NavMeshAgent agent;
-    protected Rigidbody2D rigid;
-    protected CircleCollider2D cirCollider2D;
-    protected SpriteRenderer spritesRenderer;
-    protected Animator anim;
+    public bool bossKey;
+    public int selectPivot = 0;
 
-    // 추후 애니메이션으로 변경
-    [SerializeField]
-    protected Transform muzzle;
-
-    // 현재 AI 활성화 상태인지 고려, 랜덤생성 or 다음 칸 배치 같은 문제에서 적용함
-    protected bool activeRoom = false;
-    public bool ActiveRoom => activeRoom;
-
-    // AI Stats
-    [SerializeField]
-    private int hp = 100;
-    [SerializeField]
-    private int maxHp = 100;
-
-    // AI State
-    [SerializeField]
-    protected EnemyStatus curStatus;
-    public EnemyStatus CurStatus => curStatus;
-    protected EnemyVetor curVec = EnemyVetor.Front; // 추가1
-
-    protected bool isDie = false;
-    [SerializeField]
-    protected bool isDetect = false;
-    protected bool isMoveLean = false;
-    protected bool isLean = false;
-    protected bool isAttack = false;
-    public bool IsAttack => isAttack;
-
-    // AI Attack
-    [SerializeField]
-    protected float attackDelay; // 공격 딜레이
-    [SerializeField]
-    protected float curAttackDelay; // 현재 공격 딜레이 시간
-    [SerializeField]
-    protected float attackMoveDelay; // 공격 전 제동 시간
-    [SerializeField]
-    protected float attackSpeed; // 총알 속도
-    [SerializeField]
-    protected float attackDistance; // 공격 사거리
-    [SerializeField]
-    protected float attackRecoil; // 공격 반동
-
-    // Object Interaction
-    protected bool tableMove;
-    protected TableArrow curTableArrow;
-
-    // Agent Vector;
-    protected float agentAngleValue;
-    protected int agentAngleIndex;
-    protected bool isReverse = false;
-
-    protected Vector3 moveVec; // lean상태에서 움직일 방향
-    protected Vector3 tableVec; // table 위치
-
-    // AI 임시 삭제용
-    public bool TestAgent = false;
-
-    protected virtual void Awake()
+    protected override void Awake()
     {
-        anim = GetComponent<Animator>();
-        agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
-        rigid = GetComponent<Rigidbody2D>();
-        curStatus = EnemyStatus.Idle;
-        cirCollider2D = GetComponent<CircleCollider2D>();
-        spritesRenderer = GetComponent<SpriteRenderer>();
-        // anim = GetComponent<Animator>(); AI 그림 나오면 적용할거임
+        base.Awake();
     }
 
-    protected virtual void Start()
+    protected override void Start()
     {
-        target = InGameManager.Instance.player.transform;
-        hp = maxHp;
+        base.Start();
     }
 
-    protected virtual void Update()
+    protected override void Update()
     {
-        if (!InGameManager.Instance.IsPause)
-        {
-            UpdateState(curStatus);
-        }
-        // AI 삭제 임시용
-        if (TestAgent) Destroy(this.gameObject);
+        base.Update();
+        BossInputKey();
+        SelectBP();
     }
+    public void BossInputKey()
+    {
+        bossKey = Input.GetKeyDown(KeyCode.B);
+    }
+
 
     // 떨림 방지
-    protected virtual void FixedUpdate()
+    protected override void FixedUpdate()
     {
-        if (!InGameManager.Instance.IsPause)
-        {
-            rigid.velocity = Vector2.zero;
-        }
+        base.FixedUpdate();
     }
 
-    protected void UpdateState(EnemyStatus enemy)
+    protected override void UpdateState(EnemyStatus enemy)
     {
         if (isDie) return;
 
@@ -143,113 +72,7 @@ public abstract class Boss : MonoBehaviour
         }
     }
 
-    // 플레이어의 방향 계산
-    protected void AgentAngle()
-    {
-        agentAngleValue = AgentVector();
-        AngleCalculate(agentAngleValue);
-    }
-
-    protected float AgentVector()
-    {
-        Vector3 value = InGameManager.Instance.player.transform.position - transform.position;
-        // 현재 자기 자신을 기점으로 플레이어의 위치를 계산하여 어느 방향을 바라봐야하는지 보여줌
-        float angle;
-        angle = Mathf.Atan2(value.y, value.x) * Mathf.Rad2Deg; // 범위가 180 ~ -180
-
-        return angle;
-    }
-
-    protected void AngleCalculate(float angleValue)
-    {
-        // 후면(윗 방향)
-        if (angleValue < 120 && angleValue > 60)
-            curVec = EnemyVetor.Back;
-        // 오른 대각
-        else if (angleValue <= 60 && angleValue >= 10)
-            curVec = EnemyVetor.Cross;
-        // 오른
-        else if (angleValue < 10 && angleValue >= -60)
-            curVec = EnemyVetor.Side;
-        // 정면(아랫 방향)
-        else if (angleValue < -60 && angleValue > -120)
-            curVec = EnemyVetor.Front;
-        // 왼쪽(오른쪽에서 뒤집기)
-        else if (angleValue <= -120 || angleValue > 170)
-            curVec = EnemyVetor.Side;
-        // 왼쪽 대각(오른쪽에서 뒤집기)
-        else if (angleValue <= 170 || angleValue >= 120)
-            curVec = EnemyVetor.Cross;
-
-        if (angleValue <= -90 || angleValue > 90) isReverse = true;
-        else isReverse = false;
-
-        //return index;
-
-        if (isDetect && curStatus != EnemyStatus.Lean)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                EnemyVetor a = (EnemyVetor)i;
-                anim.SetBool(a.ToString(), false);
-            }
-
-            anim.SetBool(curVec.ToString(), true);
-        }
-    }
-
-    protected void Idle()
-    {
-        if (isDetect)
-        {
-            curStatus = EnemyStatus.Chase;
-            return;
-        }
-    }
-
-    // 플레이어가 들어온지 탐지
-    public void PlayerRoom()
-    {
-        isDetect = true;
-    }
-
-    protected void Chase()
-    {
-        //if (!isDetect) return;
-
-        if (!isDetect)
-        {
-            curStatus = EnemyStatus.Idle;
-            return;
-        }
-        Debug.Log("추격 실행");
-
-        anim.SetBool("Chase", true);
-
-        float distance = Vector3.Distance(target.position, transform.position);
-        if ((distance <= attackDistance) && (attackDelay <= curAttackDelay))
-        {
-            curStatus = EnemyStatus.Attack;
-            anim.SetBool("Chase", false);
-            Debug.Log("추격 종료");
-        }
-        agent.SetDestination(target.position);
-    }
-
-    protected void Attack()
-    {
-        if (IsAttack) return;
-
-        //Debug.Log("코루틴 시작 1");
-        isAttack = true;
-        isDetect = false;
-        agent.isStopped = true;
-        curAttackDelay = 0;
-
-        StartCoroutine(IAttack());
-    }
-
-    protected virtual IEnumerator IAttack()
+    protected override IEnumerator IAttack()
     {
         //Debug.Log("공격 실행");
         AttackLogic();
@@ -264,82 +87,188 @@ public abstract class Boss : MonoBehaviour
         curStatus = EnemyStatus.Idle;
     }
 
-    protected abstract void AttackLogic();
-
-    // 연호가 해당 프레임까지 그려주기 힘들면 다른 방면 생각
-    // 그려준다면 방향별로 고개만 빙글빙글 3프레임정도
-    protected void Stun()
+    protected override void AttackLogic()
     {
+        //SelectBP();
+    }
+
+    protected virtual void SelectBP()
+    {
+        
+    }
+
+    public void BP1() // 중간보스, 최종보스
+    {
+        Debug.Log("BP1");
+
+        for (int i = 0; i < 36; i++)
+        {
+            gun.ShotReady(transform.position, 10 * i);
+
+            /*
+            Vector2 BP1bulletDir = (target.position - muzzle.position).normalized;
+            muzzle.up = BP1bulletDir;
+            muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z + (10 * i));
+
+            GameObject BP1bulletcopy = Instantiate(bullet, muzzle.position, muzzle.rotation);
+            //BP1bulletcopy.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
+            */
+        }
 
     }
 
-    public void Damage(int damage, WeaponValue value)
+    public void BP2() // 좆밥보스, 최종보스
     {
-        Debug.Log("맞았어" + value);
-
-        if (value == WeaponValue.Gun)
-        {
-            damage += InGameManager.Instance.bulletPower;
-        }
-
-        if (DrugManager.Instance.red2)
-        {
-            damage = damage + damage * DrugManager.Instance.powerUpValue / 100;
-        }
-        else if (DrugManager.Instance.isBleeding && damage >= maxHp * 0.3f)
-        {
-            StartCoroutine(Bleed());
-        }
-
-        hp -= damage;
-        Debug.Log("몬스터 남은 체력: " + hp);
-
-        if (hp <= 0)
-        {
-            RoomController.Instance.ClearRoomCount();
-            Destroy(gameObject);
-        }
+        //경로는 미리 안나옴
+        gun.ShotReady();
+        Debug.Log("BP2");
     }
 
-    public IEnumerator Bleed()
+    /*
+    public void BP3() // 중간보스
     {
-        yield return new WaitForSeconds(0.5f);
-
-        for (int i = 0; i < 5; i++)
-        {
-            hp -= maxHp / 100;
-            Debug.Log("출혈 중, 몬스터 남은 체력: " + hp);
-            yield return new WaitForSeconds(1f);
-
-            if (hp <= 0)
-            {
-                RoomController.Instance.ClearRoomCount();
-                Destroy(gameObject);
-                break;
-            }
-        }
+        Debug.Log("BP3");
     }
 
-
-    // 나중에 죽었을때 기능 구현
-    private void Die()
+    public void BP4() // 최종보스
     {
-        isDie = true;
-        isDetect = false;
-        cirCollider2D.enabled = false;
-        agent.enabled = false;
+        Debug.Log("BP4");
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void BP5() // 중간보스, 최종보스
     {
-        // 1. Bullet 테그별로 나누기(총알이 다 다를경우)
-        if (collision.CompareTag("PlayerBullet"))
+        //일단 되긴했는데 뭔가 애매
+
+        Debug.Log("BP5");
+
+        transform.position = Vector2.MoveTowards(boss.transform.position, target.position, 800f * Time.deltaTime);
+    }
+
+    public void BP6() // 최종보스
+    {
+        //위치 조정 필요할 듯
+        Instantiate(load, new Vector2(boss.transform.position.x - 5, boss.transform.position.y), boss.transform.rotation);
+        Instantiate(load, new Vector2(boss.transform.position.x, boss.transform.position.y + 5), boss.transform.rotation);
+        Instantiate(load, new Vector2(boss.transform.position.x, boss.transform.position.y - 5), boss.transform.rotation);
+        Debug.Log("BP6");
+    }
+
+    public void BP7() // 중간보스
+    {
+        //수류탄 받아오기
+
+        Debug.Log("BP7");
+    }
+
+    public void BP8() // 최종보스
+    {
+        //총알들이 일직선이 아닌 동시에 나감
+
+        Debug.Log("BP8");
+
+        for (int i = 0; i < 4; i++)
         {
-            Damage(InGameManager.Instance.Power + DrugManager.Instance.power, WeaponValue.Gun);
+            Vector2 BP1bulletDir_1 = (target.position - muzzle.position).normalized;
+            muzzle.up = BP1bulletDir_1;
+            muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z);
+
+            GameObject BP1bulletcopy_1 = Instantiate(bullet, muzzle.position, muzzle.rotation);
+            BP1bulletcopy_1.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
+
+            Vector2 BP1bulletDir_2 = (target.position - muzzle.position).normalized;
+            muzzle.up = BP1bulletDir_2;
+            muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z + 60);
+
+            GameObject BP1bulletcopy_2 = Instantiate(bullet, muzzle.position, muzzle.rotation);
+            BP1bulletcopy_2.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
+
+            Vector2 BP1bulletDir_3 = (target.position - muzzle.position).normalized;
+            muzzle.up = BP1bulletDir_3;
+            muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z + 120);
+
+            GameObject BP1bulletcopy_3 = Instantiate(bullet, muzzle.position, muzzle.rotation);
+            BP1bulletcopy_3.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
+
+            Vector2 BP1bulletDir_4 = (target.position - muzzle.position).normalized;
+            muzzle.up = BP1bulletDir_4;
+            muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z + 180);
+
+            GameObject BP1bulletcopy_4 = Instantiate(bullet, muzzle.position, muzzle.rotation);
+            BP1bulletcopy_4.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
+
+            Vector2 BP1bulletDir_5 = (target.position - muzzle.position).normalized;
+            muzzle.up = BP1bulletDir_5;
+            muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z + 240);
+
+            GameObject BP1bulletcopy_5 = Instantiate(bullet, muzzle.position, muzzle.rotation);
+            BP1bulletcopy_5.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
+
+            Vector2 BP1bulletDir_6 = (target.position - muzzle.position).normalized;
+            muzzle.up = BP1bulletDir_6;
+            muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z + 300);
+
+            GameObject BP1bulletcopy_6 = Instantiate(bullet, muzzle.position, muzzle.rotation);
+            BP1bulletcopy_6.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
+
+            i++;
+            Debug.Log("for문 돌아감");
         }
-        else if (collision.CompareTag("Knife"))
-        {
-            Damage(InGameManager.Instance.Power + DrugManager.Instance.power, WeaponValue.Knife);
-        }
+
+
+
+    }
+
+    public void BP9() // 좆밥보스
+    {
+        Debug.Log("BP9");
+
+        Vector2 BP9bulletDir_1 = (target.position - muzzle.position).normalized;
+        muzzle.up = BP9bulletDir_1;
+        muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z + 0);
+
+        GameObject BP9bulletcopy_1 = Instantiate(bullet, muzzle.position, muzzle.rotation);
+        BP9bulletcopy_1.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
+
+        Vector2 BP9bulletDir_2 = (target.position - muzzle.position).normalized;
+        muzzle.up = BP9bulletDir_2;
+        muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z + 10);
+
+        GameObject BP9bulletcopy_2 = Instantiate(bullet, muzzle.position, muzzle.rotation);
+        BP9bulletcopy_2.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
+
+        Vector2 BP9bulletDir_3 = (target.position - muzzle.position).normalized;
+        muzzle.up = BP9bulletDir_3;
+        muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z - 10);
+
+        GameObject BP9bulletcopy_3 = Instantiate(bullet, muzzle.position, muzzle.rotation);
+        BP9bulletcopy_3.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
+
+        Vector2 BP9bulletDir_4 = (target.position - muzzle.position).normalized;
+        muzzle.up = BP9bulletDir_4;
+        muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z - 30);
+
+        GameObject BP9bulletcopy_4 = Instantiate(bullet, muzzle.position, muzzle.rotation);
+        BP9bulletcopy_4.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
+
+    }
+    */
+    public void BP10() // 최종보스
+    {
+        Debug.Log("BP10");
+    }
+
+    public void BP11() // 최종보스
+    {
+        Debug.Log("BP11");
+    }
+
+    public void BP12() // 최종보스
+    {
+        Debug.Log("BP12");
+    }
+
+    public void BP13() // 최종보스
+    {
+        Debug.Log("BP13");
     }
 }

@@ -41,8 +41,8 @@ public class CameraController : MonoBehaviour
     bool isReverse = false;
 
     // 현재 방에 있는 agents
-    private List<Agent> agents;
-    public List<Agent> Agents => agents;
+    private List<AI> agents;
+    public List<AI> Agents => agents;
 
 
     private void Awake()
@@ -56,7 +56,7 @@ public class CameraController : MonoBehaviour
     {
         targetPos = InGameManager.Instance.player.transform.position;
         zOffset = transform.position.z;
-        agents = new List<Agent>();
+        agents = new List<AI>();
     }
 
     // Update is called once per frame
@@ -171,12 +171,12 @@ public class CameraController : MonoBehaviour
         transform.position = new Vector3(x, y, ZOffset);
     }
 
-    public void UpdateAgent(List<Agent> a)
+    public void UpdateAgent(List<AI> a)
     {
         //agents = new List<Agent>(); //리스트 초기화, list.Capacity
         agents.Clear();
         
-        foreach(Agent value in a)
+        foreach(AI value in a)
         {
             if (value != null) agents.Add(value);
         }

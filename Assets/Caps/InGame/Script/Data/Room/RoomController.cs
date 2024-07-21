@@ -57,7 +57,7 @@ public class RoomController : MonoBehaviour
 
     public void BombLogic(Vector3 pos) // getcomponent를 안 쓰고 적에게 폭발 데미지를 못줘서 여기다 구현
     {
-        foreach (Agent a in rooms[curIndex].Agents)
+        foreach (AI a in rooms[curIndex].Agents)
         {
             if (Vector3.Distance(pos, a.gameObject.transform.localPosition) < 4f)
             {

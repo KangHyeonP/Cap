@@ -16,6 +16,11 @@ public class EnemyGun : Gun
         ShotDelay();
     }
 
+    public void ShotReady(Vector2 pos, float angle)
+    {
+        StartCoroutine(Shot(pos, angle));
+    }
+
     protected override void ShotDelay()
     {
         StartCoroutine(Shot());
@@ -44,5 +49,16 @@ public class EnemyGun : Gun
 
         yield return new WaitForSeconds(0.1f);
         //InGameManager.Instance.player.fireEffect.SetActive(false);
+    }
+
+    protected virtual IEnumerator Shot(Vector2 pos, float angle)
+    {
+        yield return null;
+
+        muzzle.localRotation = Quaternion.Euler(0, 0, angle);
+
+        Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)wepons, muzzle.localRotation);
+        bullet.transform.position = pos;
+        bullet.MoveBullet(muzzle.up * fireSpeed);
     }
 }

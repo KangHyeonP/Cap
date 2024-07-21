@@ -13,8 +13,8 @@ public class Room : MonoBehaviour
 {
     // Agents
     [SerializeField]
-    private List<Agent> agents;
-    public List<Agent> Agents => agents;
+    private List<AI> agents;
+    public List<AI> Agents => agents;
     private bool isPlayerRoom = false;
 
     // Room Index
@@ -73,7 +73,7 @@ public class Room : MonoBehaviour
     {
         if (!clearCheck && check && agents.Count != 0)
         {
-            foreach (Agent a in agents)
+            foreach (AI a in agents)
                 a.PlayerRoom();
         }
     }
