@@ -929,6 +929,8 @@ MonoBehaviour:
   MaxHPUp: 0
   power: 0
   powerUpValue: 0
+  isAnger: 0
+  angerPower: 0
   orange1: 0
   orange2: 0
   orange3: 0
@@ -9287,8 +9289,7 @@ MonoBehaviour:
   blueGunInven: {fileID: 0}
   pistolInven: {fileID: 0}
   magazines: 0000000000000000
-  bulletMagazine: 1e0000000c0000000a0000000f000000
-  magazineInven: 00000000000000000000000000000000
+  bulletMagazine: 1e0000000c0000000a0000000a000000
   curBullet: 00000000000000000000000000000000
   isItem: 0
   drugInven: {fileID: 0}
@@ -23834,7 +23835,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -50, y: 50}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 150, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2282530708736354066
 MonoBehaviour:
@@ -31078,12 +31079,12 @@ MonoBehaviour:
   DrugUI: {fileID: 6406147216733410047}
   WeaponUI: {fileID: 2719148126291660723}
   weaponSprites:
-  - {fileID: 21300000, guid: 23c2468600631984baee9b6ed05045a9, type: 3}
-  - {fileID: 21300000, guid: 23e80ed0c431a6642b3f55e5b25c4d16, type: 3}
-  - {fileID: 21300000, guid: 7cb99a6f1138ec74e9947a5fd887e282, type: 3}
-  - {fileID: 21300000, guid: 639054ef2e35ae14b819cea268247799, type: 3}
-  - {fileID: 21300000, guid: 92f8a7decc880384ab496c9ad77282dc, type: 3}
-  - {fileID: 21300000, guid: 35ab199fc974361419f1a740599f4ff9, type: 3}
+  - {fileID: 266720685, guid: c9f394e72c2210c4a8ee3b9cb7cbfcdd, type: 3}
+  - {fileID: -1194123546, guid: e0afafda7b98df74a89a52221f938540, type: 3}
+  - {fileID: -2024680881, guid: 28234379c6dde7940a418301215bb7ab, type: 3}
+  - {fileID: -1418466666, guid: 9bed31c7db7cdb641b3882e9a57982ba, type: 3}
+  - {fileID: 58791510, guid: d18bef1aa7d440647ad39ea50125b73f, type: 3}
+  - {fileID: 133776751, guid: ccb6a36c348cdf647b03560620129119, type: 3}
 --- !u!224 &9066218870136208287
 RectTransform:
   m_ObjectHideFlags: 0

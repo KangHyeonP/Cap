@@ -7,7 +7,7 @@ public class Weapons : Item
     public EWeapons eWeapons;
     public int index; //각 무기의 인덱스 값
     public bool checkMagazine = false; // 무기 첫 획득 판단
-    public int bulletCount = 0; // 각 무기 탄창에 필요한 총알 개수
+    public int bulletCount = 0; // 각 무기의 탄창의 탄알 개수
 
     protected override void Awake()
     {
@@ -36,6 +36,8 @@ public class Weapons : Item
             if (InGameManager.Instance.pistolInven != null)
             {
                 InGameManager.Instance.pistolInven.gameObject.SetActive(true);
+                // 추가한 부분
+                InGameManager.Instance.PutBullet(eWeapons);
                 InGameManager.Instance.pistolInven.PutWeapon();
             }
         }
@@ -44,6 +46,8 @@ public class Weapons : Item
             if(!DrugManager.Instance.isManyWeapon || InGameManager.Instance.blueGunInven != null)
             {
                 InGameManager.Instance.gunInven.gameObject.SetActive(true);
+                InGameManager.Instance.PutBullet(eWeapons);
+                //추가한부분
                 InGameManager.Instance.gunInven.PutWeapon();
             }
         }
@@ -60,20 +64,16 @@ public class Weapons : Item
 
     public void GetWepaon()
     {
-        /*
-        InGameManager.Instance.drugInven = this;
-        UIManager.Instance.inGameUI.DrugInven(drugSprite.sprite);
-        InGameManager.Instance.tempDrug = null;
-        */
+        if (!checkMagazine)
+        {
+            checkMagazine = true;
+            
+            if(DrugManager.Instance.blue3) bulletCount *= 2;
+        }
 
         InGameManager.Instance.UpdateWeapon(eWeapons, this);
-        if(!checkMagazine)
-        {
-            InGameManager.Instance.GetBullet(eWeapons);
-            InGameManager.Instance.RequestReloadBullet(eWeapons, bulletCount);
-            checkMagazine = true;
-        }
-        InGameManager.Instance.ChangeGun(eWeapons, bulletCount);
+        InGameManager.Instance.GetBullet(eWeapons, bulletCount);
+       
     }
    
     public void PutWeapon()

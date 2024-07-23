@@ -332,7 +332,7 @@ public abstract class Player : MonoBehaviour
     {
         if (!gunCheck || isSkill || isRoll || isReload) return;
         if (!reLoadKey) return;
-        if (InGameManager.Instance.CheckReload(gunValue)) return;
+        if (!InGameManager.Instance.CheckReload(gunValue)) return;
 
         StartCoroutine(IReload());
     }
@@ -342,16 +342,8 @@ public abstract class Player : MonoBehaviour
         isReload = true;
         Debug.Log("장전 진행 체크!");
 
-        if(gunValue == 0)
-        {
-            InGameManager.Instance.RequestReloadBullet(InGameManager.Instance.gunInven.eWeapons,
-                InGameManager.Instance.gunInven.bulletCount);
-        }
-        else if(gunValue == 1)
-        {
-            InGameManager.Instance.RequestReloadBullet(InGameManager.Instance.pistolInven.eWeapons,
-                InGameManager.Instance.pistolInven.bulletCount);
-        }
+        InGameManager.Instance.ReloadBullet(gunValue);
+
 
         // 총마다 다르면 수정해야함
         yield return new WaitForSeconds(DrugManager.Instance.reloadSpeed * reloadTime);

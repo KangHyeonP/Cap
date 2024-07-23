@@ -37,7 +37,7 @@ public class Magazine : Item
 
     public void UseMagazine()
     {
-        InGameManager.Instance.GetBullet((EWeapons)value);
+        InGameManager.Instance.GetMagazine((EWeapons)value);
     }
     // 콜라이더 추가
     private void OnTriggerEnter2D(Collider2D collision)

@@ -114,7 +114,7 @@ public abstract class Gun : MonoBehaviour
 		}
 
         fireTime = 0;
-        InGameManager.Instance.curBullet[(int)wepons]--;
+        InGameManager.Instance.curBullet[(int)wepons]--; // UI수정로직도 필요함
         
         yield return new WaitForSeconds(0.1f);
 

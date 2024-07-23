@@ -293,8 +293,7 @@ public class DrugManager : MonoBehaviour
 
             for(int i=0; i<4;i++)
             {
-                InGameManager.Instance.magazineInven[i] *= 2;
-                InGameManager.Instance.curBullet[i] *= 2;
+                //InGameManager.Instance.magazineInven[i] *= 2;
                 InGameManager.Instance.bulletMagazine[i] *= 2;
             }
         }

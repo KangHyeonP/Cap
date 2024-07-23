@@ -164,4 +164,4 @@ MonoBehaviour:
   eWeapons: 3
   index: 1
   checkMagazine: 0
-  bulletCount: 6
+  bulletCount: 10
