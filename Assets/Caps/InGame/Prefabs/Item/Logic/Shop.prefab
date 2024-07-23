@@ -49,6 +49,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - {fileID: 777992016230090388, guid: 2e6c5bdb3d5eed04ab591defa3368e5c, type: 3}
+  - {fileID: 7929057473614019156, guid: 2309eb229a1d91d4e938e660f86ec057, type: 3}
+  - {fileID: 136104835808682763, guid: d653caaa76ce5e04f92358c75951c9cc, type: 3}
+  - {fileID: 477389037943749927, guid: 48f74cd10724a224fab7638ac401d5ce, type: 3}
+  - {fileID: 8259828410039650145, guid: 312302c4ed63d0149b4a96b76301e19f, type: 3}
   guns:
   - {fileID: 3384921576716885909, guid: ef8d08093ebcd624aaa616084c0ef1f3, type: 3}
   - {fileID: 8663426778517033680, guid: 6d16fbe784bb6a742b7eee769fa57780, type: 3}

@@ -59,6 +59,8 @@ public abstract class Gun : MonoBehaviour
 
 		if (InGameManager.Instance.player.AttackKey)
         {
+            if (InGameManager.Instance.curBullet[(int)wepons] <= 0) return;
+
 			ShotDelay();
 		}
     }
@@ -74,9 +76,9 @@ public abstract class Gun : MonoBehaviour
 
         Debug.Log("Áö±Ý ÃÑ : " + gameObject.name);
 
-		InGameManager.Instance.player.fireEffect.transform.position = fireEffectPos.position;
-        InGameManager.Instance.player.fireEffect.transform.rotation = fireEffectPos.rotation;
-        InGameManager.Instance.player.fireEffect.SetActive(true);
+		//InGameManager.Instance.player.fireEffect.transform.position = fireEffectPos.position;
+        //InGameManager.Instance.player.fireEffect.transform.rotation = fireEffectPos.rotation;
+        //InGameManager.Instance.player.fireEffect.SetActive(true);
 
         if (recoil < InGameManager.Instance.Aim + DrugManager.Instance.aim)
             curRecoil = 0;
@@ -112,7 +114,8 @@ public abstract class Gun : MonoBehaviour
 		}
 
         fireTime = 0;
-        InGameManager.Instance.player.isAttack = false;
+        InGameManager.Instance.curBullet[(int)wepons]--;
+        
         yield return new WaitForSeconds(0.1f);
 
         if (DrugManager.Instance.islucianPassive)
@@ -136,6 +139,7 @@ public abstract class Gun : MonoBehaviour
             }
         }
 
+        InGameManager.Instance.player.isAttack = false;
         yield return new WaitForSeconds(0.1f);
         InGameManager.Instance.player.fireEffect.SetActive(false);
 	}

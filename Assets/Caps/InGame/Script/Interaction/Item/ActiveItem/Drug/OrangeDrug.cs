@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class OrangeDrug : Drug
 {
-    protected void Awake()
+    protected override void Awake()
     {
         base.Awake();
     }
 
-    protected void Start()
+    protected override void Start()
     {
         base.Start();
 
     }
 
-    protected void Update()
+    protected override void Update()
     {
         base.Update();
 
@@ -25,16 +25,5 @@ public class OrangeDrug : Drug
     {
         base.DrugAbility();
         DrugManager.Instance.aim += 1;
-    }
-
-
-    protected void OnTriggerEnter2D(Collider2D collision)
-    {
-        base.OnTriggerEnter2D(collision);
-    }
-
-    protected void OnTriggerExit2D(Collider2D collision)
-    {
-        base.OnTriggerExit2D(collision);
     }
 }

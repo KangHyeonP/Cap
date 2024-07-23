@@ -148,7 +148,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.7
+  m_Radius: 1
 --- !u!114 &-4394175300519433874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,3 +163,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eWeapons: 2
   index: 2
+  checkMagazine: 0
+  bulletCount: 10

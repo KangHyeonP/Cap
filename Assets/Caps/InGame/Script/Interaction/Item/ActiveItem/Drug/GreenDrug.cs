@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class GreenDrug : Drug
 {
-    protected void Awake()
+    protected override void Awake()
     {
         base.Awake();
     }
 
-    protected void Start()
+    protected override void Start()
     {
         base.Start();
 
     }
 
-    protected void Update()
+    protected override void Update()
     {
         base.Update();
 
@@ -27,16 +27,5 @@ public class GreenDrug : Drug
         InGameManager.Instance.player.speedApply = DrugManager.Instance.speed + InGameManager.Instance.Speed;
         if (!InGameManager.Instance.player.rollCnt)
             InGameManager.Instance.player.speed = InGameManager.Instance.player.speedApply;
-    }
-
-
-    protected void OnTriggerEnter2D(Collider2D collision)
-    {
-        base.OnTriggerEnter2D(collision);
-    }
-
-    protected void OnTriggerExit2D(Collider2D collision)
-    {
-        base.OnTriggerExit2D(collision);
     }
 }

@@ -24,6 +24,7 @@ public class InGameManager : MonoBehaviour
     private Slider drugBar;
     public float DrugGague => drugBar.value;
 
+    [SerializeField]
     private bool isPause = false; //일단 현재는 인게임 상태이므로 일시정지 해제
     public bool IsPause => isPause;
 
@@ -56,6 +57,12 @@ public class InGameManager : MonoBehaviour
     public Weapons blueGunInven = null; // 파랑 마약 활성화 전용 인벤
 
     public Weapons pistolInven = null;
+
+    public int[] magazines = { 0, 0 }; // 주무기, 보조무기 탄창
+
+    public int[] bulletMagazine = { 30, 12, 10, 15 }; // 고정된 탄창
+    public int[] magazineInven = { 0, 0, 0, 0 }; // Rifle, Shotgun, Sniper, Revolver순 / 변호나 후 남은 탄창
+    public int[] curBullet = { 0, 0, 0, 0 }; // 현재 총에 있는 탄창
 
     private bool isDead;
     public bool IsDead => isDead;
@@ -211,12 +218,87 @@ public class InGameManager : MonoBehaviour
         }
     }
     
-    /*public void UpdateDrugType(Sprite s)
+    public void GetBullet(EWeapons value)
     {
-        UIManager.Instance.inGameUI.DrugInven(s);
-        // 이것도 UI
-        //drugTypeUI.sprite = drugInven.drugSprite.sprite;
-    }*/
+        if(value == EWeapons.Revolver)
+        {
+            magazines[1]++;
+            Debug.Log("보조무기 탄 얻음 : " + magazines[0]);
+        }
+        else
+        {
+            magazines[0]++;
+
+            Debug.Log("주무기 탄 얻음 : " + magazines[0]); 
+        }
+    }
+
+    public bool CheckReload(int a)
+    {
+        if (a == 0) return (magazines[a] <= 0 && magazineInven[(int)gunInven.eWeapons] <= 0);
+        else return (magazines[a] <= 0 && magazineInven[3] <= 0);
+    }
+
+    public void RequestReloadBullet(EWeapons value, int count)
+    {
+        if (DrugManager.Instance.blue3) count *= 2;
+
+        int gunIndex = (int)value;
+
+        if (count > curBullet[gunIndex])
+        {
+            Debug.Log("총알 부족");
+            int magazineType = gunIndex == 3 ? 1 : 0;
+
+            if (magazines[magazineType] <= 0) // 탄창 없음
+            {
+                if(magazineInven[gunIndex] + curBullet[gunIndex] < count)
+                {
+                    Debug.Log("탄창 없음");
+                    curBullet[gunIndex] += magazineInven[gunIndex];
+                    magazineInven[gunIndex] = 0;
+                }
+                else ReLoadBullet(gunIndex, count);
+            }
+            else // 탄창 있음
+            {
+                if (magazineInven[gunIndex] + curBullet[gunIndex] < count)
+                {
+                    Debug.Log("탄창 있음");
+                    magazines[magazineType]--;
+                    magazineInven[gunIndex] += bulletMagazine[gunIndex];
+                    ReLoadBullet(gunIndex, count);
+                }
+                else
+                {
+                    ReLoadBullet(gunIndex, count);
+                }
+            }
+
+        }
+    }
+
+    public void ReLoadBullet(int gunIndex, int count)
+    {
+        magazineInven[gunIndex] -= count - curBullet[gunIndex];
+        curBullet[gunIndex] = count;
+
+        Debug.Log("장전 : " + magazineInven[gunIndex]);
+    }
+
+    public void ChangeGun(EWeapons value, int count)//총을 교체할 때 총알 다른부분을 수정
+    {
+        if (DrugManager.Instance.blue3) count *= 2;
+
+        int gunIndex = (int)value;
+
+        if (count < curBullet[gunIndex])
+        {
+            magazineInven[gunIndex] += curBullet[gunIndex] - count;
+            curBullet[gunIndex] = count;
+        }
+    }
+
     public void MaxHPUpdate()
     {
         // 만약 락 해제 기능 나오면 로직 수정해야함

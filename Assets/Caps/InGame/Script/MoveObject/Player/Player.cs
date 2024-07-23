@@ -22,6 +22,8 @@ public abstract class Player : MonoBehaviour
     protected Animator anim;
     [SerializeField]
     protected SpriteRenderer silhouette;//피격 전용 실루엣
+    [SerializeField]
+    protected Animator playerSkillAnim;
 
     // Status
     // Status - Basic
@@ -47,11 +49,15 @@ public abstract class Player : MonoBehaviour
     public bool IsReverse => isReverse;
     protected bool isWalk = false;
     public bool isAttack = false;
+    public bool isSkill = false;
+    public bool isReload = false;
 
     // Status - curStatus
     protected bool avoidCheck;
     public bool AvoidCheck => avoidCheck;
     public int avoidChance;
+
+    public float reloadTime = 3.0f;
 
     public float speedApply; // 실제 스피드
     public float speed;
@@ -76,13 +82,16 @@ public abstract class Player : MonoBehaviour
     protected bool interaction;
     protected bool qKey;
     protected bool shiftKey;
+    protected bool reLoadKey;
 
     // Weapon
     //[SerializeField] // 확인용
     //protected int weaponIndex = 2;
     public int tempWeaponIndex = 2;
     public int gunCnt = 0; // 파랑 마약 전용 인덱스 카운팅
-    public bool gunCheck = false;
+    public bool mainGunCheck = false; // 주무기 총 보유 여부 체크
+    public int gunValue = -1; // 0은 주무기, 1은 보조무기
+    public bool gunCheck = false; // 현재 총을들었는지 체크
 
     public GameObject[] mainWeapon; // 라이플, 샷건, 스나 순 -> 추후 무기가 추가된다면 권총처럼 총기별로 분류하거나 그대로 추가
     public Weapons tempGun; // 교체용 변수
@@ -117,6 +126,7 @@ public abstract class Player : MonoBehaviour
         Roll();
         Swap();
         Skill();
+        Reload();
         Interaction();
         EatDrug();
         UserGenade();
@@ -131,6 +141,8 @@ public abstract class Player : MonoBehaviour
 
     protected void InputKey()
     {
+        if (isSkill) return;
+
         inputVec.x = Input.GetAxisRaw("Horizontal");
         inputVec.y = Input.GetAxisRaw("Vertical");
         attackKey = Input.GetButton("Fire1");
@@ -141,34 +153,39 @@ public abstract class Player : MonoBehaviour
         swapKey3 = Input.GetButtonDown("Swap3");
         swapKey4 = Input.GetButtonDown("Swap4");
         interaction = Input.GetButtonDown("Interaction");
+        reLoadKey = Input.GetButtonDown("Reload");
         qKey = Input.GetKeyDown(KeyCode.Q);
         shiftKey = Input.GetKey(KeyCode.LeftShift);
     }
 
     protected void Move()
-    { 
+    {
         // 만약 inputVec 0이면 Idle, 아니면 Run으로 체인지
+        if (isSkill) return;
+
         moveVec = inputVec.normalized;
 
-        if(isAttack) InGameManager.Instance.knifeEffect.transform.position = weaponPivot.transform.position;
+        if(isAttack) InGameManager.Instance.knifePivot.transform.position = weaponPivot.transform.position;
 
         if (isRoll)
         {
-            nextVec = rollVec.normalized * rollingSpeed * Time.fixedUnscaledDeltaTime;
+            nextVec = rollVec.normalized * rollingSpeed * Time.fixedDeltaTime;
         }
         else
         {
             isWalk = moveVec != Vector2.zero ? true : false;
-            nextVec = moveVec.normalized * Time.fixedUnscaledDeltaTime *
-                (speed);
+            nextVec = moveVec.normalized * Time.fixedDeltaTime * speed;
             anim.SetBool("Walk", isWalk);
         }
 
+        if (DrugManager.Instance.green3) nextVec *= 1.25f;
         rigid.MovePosition(rigid.position + nextVec);
     }
 
     protected void Roll()
     {
+        if (isSkill) return;
+
         if (!isRoll && InputVec != Vector2.zero && rollKey && !isAttack)
         {
             rollVec = InputVec;
@@ -302,23 +319,55 @@ public abstract class Player : MonoBehaviour
 
         if (check)
         {
-            InGameManager.Instance.knifeEffect.transform.position = weaponPivot.transform.position;
-            InGameManager.Instance.knifeEffect.transform.rotation = weaponPivot.transform.rotation;
+            InGameManager.Instance.knifePivot.transform.position = weaponPivot.transform.position;
+            InGameManager.Instance.knifePivot.transform.rotation = weaponPivot.transform.rotation;
+            //InGameManager.Instance.knifeEffect.transform.rotation = weaponPivot.transform.rotation;
             InGameManager.Instance.knifeEffect.SetActive(true);
         }
         else InGameManager.Instance.knifeEffect.SetActive(false);
     }
 
-    // 일단 근접무기는 아직 미구현이므로 잠시 대기
+    
+    protected void Reload()
+    {
+        if (!gunCheck || isSkill || isRoll || isReload) return;
+        if (!reLoadKey) return;
+        if (InGameManager.Instance.CheckReload(gunValue)) return;
+
+        StartCoroutine(IReload());
+    }
+
+    protected IEnumerator IReload()
+    {
+        isReload = true;
+        Debug.Log("장전 진행");
+
+        if(gunValue == 0)
+        {
+            InGameManager.Instance.RequestReloadBullet(InGameManager.Instance.gunInven.eWeapons,
+                InGameManager.Instance.gunInven.bulletCount);
+        }
+        else if(gunValue == 1)
+        {
+            InGameManager.Instance.RequestReloadBullet(InGameManager.Instance.pistolInven.eWeapons,
+                InGameManager.Instance.pistolInven.bulletCount);
+        }
+
+        // 총마다 다르면 수정해야함
+        yield return new WaitForSeconds(DrugManager.Instance.reloadSpeed * reloadTime);
+
+        isReload = false;
+    }
+
     protected void Swap()
     {
-        if (isRoll || isAttack) return;
+        if (isSkill || isRoll || isAttack) return;
 
         if (!swapKey1 && !swapKey2 && !swapKey3) return;
 
         if (swapKey1 && InGameManager.Instance.gunInven != null)
         {
-            if(DrugManager.Instance.isManyWeapon && tempWeaponIndex == 0) gunCheck = true;
+            if(DrugManager.Instance.isManyWeapon && tempWeaponIndex == 0) mainGunCheck = true;
             tempWeaponIndex = 0;
         }
         else if (swapKey2 && InGameManager.Instance.pistolInven != null)
@@ -341,26 +390,31 @@ public abstract class Player : MonoBehaviour
         // 해당 무기만 활성화
         if (idx == 0)
         {   
-            if(gunCheck && InGameManager.Instance.blueGunInven != null)
+            if(mainGunCheck && InGameManager.Instance.blueGunInven != null)
             {
                 tempGun = InGameManager.Instance.gunInven;
                 InGameManager.Instance.gunInven = InGameManager.Instance.blueGunInven;
                 InGameManager.Instance.blueGunInven = tempGun;
-                gunCheck = false;
+                mainGunCheck = false;
             }
 
             mainWeapon[InGameManager.Instance.gunInven.index].SetActive(true);
             UIManager.Instance.inGameUI.WeaponInven(InGameManager.Instance.gunInven.index);
+            gunValue = 0;
+            gunCheck = true;
         }
         else if(idx == 1)
         {
             subWeapon[InGameManager.Instance.pistolInven.index].SetActive(true);
             UIManager.Instance.inGameUI.WeaponInven(InGameManager.Instance.pistolInven.index + 3);
+            gunValue = 1;
+            gunCheck = true;
         }
         else
         {
             knife.SetActive(true);
             UIManager.Instance.inGameUI.WeaponInven(5);
+            gunCheck = false;
         }
     }
 
@@ -438,8 +492,9 @@ public abstract class Player : MonoBehaviour
 
     protected void Skill()
     {
-        if (!skillKey || !UIManager.Instance.inGameUI.skillUI.CanUseSkill || isRoll) return;
+        if (isSkill || !skillKey || !UIManager.Instance.inGameUI.skillUI.CanUseSkill || isRoll) return;
 
+        isSkill = true;
         StartCoroutine(ESkill());
     }
     
@@ -450,7 +505,9 @@ public abstract class Player : MonoBehaviour
         // 카메라 고정 및 위치 이동
         CameraController.Instance.CameraActive(false);
         CameraController.Instance.CameraPos(transform.position.x, transform.position.y);
-        anim.SetTrigger("Skill");
+        playerSkillAnim.SetTrigger("Skill");
+        spriteRenderer.enabled = false;
+        weaponPivot.SetActive(false);
 
         // 일시 동작 정지
         InGameManager.Instance.Pause(true);
@@ -461,6 +518,9 @@ public abstract class Player : MonoBehaviour
         yield return new WaitForSecondsRealtime(1.0f); // 타임스케일 영향 x
         InGameManager.Instance.Pause(false);
         CameraController.Instance.CameraActive(true);
+        spriteRenderer.enabled = true;
+        weaponPivot.SetActive(true);
+        isSkill = false;
     }
 
     protected abstract void PlayerSkill();

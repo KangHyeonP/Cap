@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyBullet : Bullet
 {
-    bool triggerCheck = false;
 
     protected override IEnumerator Erase()
     {

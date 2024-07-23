@@ -10,17 +10,17 @@ public abstract class Item : MonoBehaviour
 
     protected Rigidbody2D itemRigid;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         itemRigid = GetComponent<Rigidbody2D>();
     }
 
-    protected void Start()
+    protected virtual void Start()
     {
 
     }
 
-    protected void Update()
+    protected virtual void Update()
     {
 
     }

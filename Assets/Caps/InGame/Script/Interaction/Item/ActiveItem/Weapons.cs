@@ -6,20 +6,23 @@ public class Weapons : Item
 {
     public EWeapons eWeapons;
     public int index; //각 무기의 인덱스 값
+    public bool checkMagazine = false; // 무기 첫 획득 판단
+    public int bulletCount = 0; // 각 무기 탄창에 필요한 총알 개수
 
-    protected void Awake()
+    protected override void Awake()
     {
         base.Awake();
     }
 
-    protected void Start()
+
+    protected override void Start()
     {
         base.Start();
 
     }
 
     // Update is called once per frame
-    protected void Update()
+    protected override void Update()
     {
         base.Update();
     }
@@ -64,6 +67,13 @@ public class Weapons : Item
         */
 
         InGameManager.Instance.UpdateWeapon(eWeapons, this);
+        if(!checkMagazine)
+        {
+            InGameManager.Instance.GetBullet(eWeapons);
+            InGameManager.Instance.RequestReloadBullet(eWeapons, bulletCount);
+            checkMagazine = true;
+        }
+        InGameManager.Instance.ChangeGun(eWeapons, bulletCount);
     }
    
     public void PutWeapon()

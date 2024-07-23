@@ -20,10 +20,7 @@ public class Table : MonoBehaviour
 
     private SpriteRenderer tableSprite;
 
-    float curDelay = 0;
-    float delay = 0.5f;
     bool playerCheck = false;
-    bool isMove = false;
     Vector3 moveVec;
     Rigidbody2D rigid;
     bool enemyCheck = false;

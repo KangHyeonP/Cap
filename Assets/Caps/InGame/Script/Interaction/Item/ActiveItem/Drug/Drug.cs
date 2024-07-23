@@ -10,20 +10,20 @@ public class Drug : Item
     [SerializeField]
     protected EDrugColor value;
 
-    protected void Awake()
+    protected override void Awake()
     {
         base.Awake();
         drugSprite = GetComponent<SpriteRenderer>();
     }
 
-    protected void Start()
+    protected override void Start()
     {
         base.Start();
 
     }
 
     // Update is called once per frame
-    protected void Update()
+    protected override void Update()
     {
         base.Update();
     }

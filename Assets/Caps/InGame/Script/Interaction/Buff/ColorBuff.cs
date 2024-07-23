@@ -4,17 +4,17 @@ using UnityEngine;
 
 public abstract class ColorBuff : MonoBehaviour
 {
-    protected void Awake()
+    protected virtual void Awake()
     {
         
     }
-    protected void Start()
+    protected virtual void Start()
     {
         
     }
 
     // Update is called once per frame
-    protected void Update()
+    protected virtual void Update()
     {
         
     }

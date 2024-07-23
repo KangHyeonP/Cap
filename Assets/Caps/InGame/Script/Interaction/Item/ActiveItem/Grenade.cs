@@ -4,22 +4,20 @@ using UnityEngine;
 
 public class Grenade : Item
 {
-    [SerializeField]
-    private float delay = 3.0f;
-    private float countDown;
-    protected void Awake()
+
+    protected override void Awake()
     {
         base.Awake();
     }
 
-    protected void Start()
+    protected override void Start()
     {
         base.Start();
 
     }
 
     // Update is called once per frame
-    protected void Update()
+    protected override void Update()
     {
         base.Update();
     }

@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class YellowDrugDrug : Drug
 {
-    protected void Awake()
+    protected override void Awake()
     {
         base.Awake();
     }
 
-    protected void Start()
+    protected override void Start()
     {
         base.Start();
 
     }
 
-    protected void Update()
+    protected override void Update()
     {
         base.Update();
 
@@ -25,14 +25,4 @@ public class YellowDrugDrug : Drug
         DrugManager.Instance.playerAttackRange += 0.1f;
     }
 
-
-    protected void OnTriggerEnter2D(Collider2D collision)
-    {
-        base.OnTriggerEnter2D(collision);
-    }
-
-    protected void OnTriggerExit2D(Collider2D collision)
-    {
-        base.OnTriggerExit2D(collision);
-    }
 }

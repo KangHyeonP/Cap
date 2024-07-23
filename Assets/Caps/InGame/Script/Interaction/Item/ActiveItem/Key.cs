@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class Key : Item
 {
-    protected void Awake()
+    protected override void Awake()
     {
         base.Awake();
     }
 
-    protected void Start()
+    protected override void Start()
     {
         base.Start();
 
     }
 
     // Update is called once per frame
-    protected void Update()
+    protected override void Update()
     {
         base.Update();
     }

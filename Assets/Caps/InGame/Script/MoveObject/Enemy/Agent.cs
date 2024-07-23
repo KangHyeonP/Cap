@@ -115,7 +115,6 @@ public class Agent : AI
 
         Vector3 playerVec = InGameManager.Instance.player.transform.position - transform.position;
 
-        int index = -1; // 局聪皋捞记 规氢
         moveVec = Vector3.zero; // 框流老 规氢
 
         switch (curTableArrow)
@@ -123,48 +122,40 @@ public class Agent : AI
             case TableArrow.up:
                 if (playerVec.x <= 0)
                 {
-                    index = 0;
                     moveVec = new Vector3(-5, 0);
                 }
                 else
                 {
-                    index = 1;
                     moveVec = new Vector3(5, 0);
                 }
                 break;
             case TableArrow.down:
                 if (playerVec.x <= 0)
                 {
-                    index = 2;
                     moveVec = new Vector3(-5, 0);
                 }
                 else
                 {
-                    index = 3;
                     moveVec = new Vector3(5, 0);
                 }
                 break;
             case TableArrow.left:
                 if (playerVec.y <= 0)
                 {
-                    index = 4;
                     moveVec = new Vector3(0, -5);
                 }
                 else
                 {
-                    index = 5;
                     moveVec = new Vector3(0, 5);
                 }
                 break;
             case TableArrow.right:
                 if (playerVec.y <= 0)
                 {
-                    index = 6;
                     moveVec = new Vector3(0, -5);
                 }
                 else
                 {
-                    index = 7;
                     moveVec = new Vector3(0, 5);
                 }
                 break;
@@ -180,6 +171,6 @@ public class Agent : AI
     }
     protected void LeanAiming()
     {
-        transform.localPosition = Vector3.MoveTowards(transform.position, moveVec, 3.0f * Time.deltaTime);
+        transform.localPosition = Vector3.MoveTowards(transform.position, moveVec, 10.0f * Time.deltaTime);
     }
 }
