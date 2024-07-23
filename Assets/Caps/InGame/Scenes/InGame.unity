@@ -956,7 +956,7 @@ MonoBehaviour:
   playerAttackDelay: 0
   islucianPassive: 0
   isManyWeapon: 0
-  reloadSpeed: 0
+  reloadSpeed: 1
   maxBullet: 0
   hostHateCheck: 0
   isBandage: 0

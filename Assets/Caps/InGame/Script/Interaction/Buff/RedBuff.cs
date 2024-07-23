@@ -31,7 +31,8 @@ public class RedBuff : ColorBuff
 
     public override void ThirdBuff()
     {
-
+        DrugManager.Instance.red3 = true;
+        DrugManager.Instance.RunRedBuff3();
     }
 
 }

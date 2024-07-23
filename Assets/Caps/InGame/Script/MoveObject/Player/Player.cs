@@ -340,7 +340,7 @@ public abstract class Player : MonoBehaviour
     protected IEnumerator IReload()
     {
         isReload = true;
-        Debug.Log("장전 진행");
+        Debug.Log("장전 진행 체크!");
 
         if(gunValue == 0)
         {

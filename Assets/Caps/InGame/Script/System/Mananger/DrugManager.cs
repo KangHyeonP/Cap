@@ -40,6 +40,8 @@ public class DrugManager : MonoBehaviour
     public bool MaxHPUp;
     public int power;
     public int powerUpValue;
+    public bool isAnger = false;
+    public int angerPower = 0;
 
     //Orange
     public bool orange1;
@@ -213,7 +215,7 @@ public class DrugManager : MonoBehaviour
 
     public void RunRedBuff3()
     {
-
+        if (red3) isAnger = true;
     }
 
     // orangeBuff
