@@ -74,12 +74,6 @@ public abstract class Gun : MonoBehaviour
     {
         InGameManager.Instance.player.isAttack = true;
 
-        Debug.Log("지금 총 : " + gameObject.name);
-
-		//InGameManager.Instance.player.fireEffect.transform.position = fireEffectPos.position;
-        //InGameManager.Instance.player.fireEffect.transform.rotation = fireEffectPos.rotation;
-        //InGameManager.Instance.player.fireEffect.SetActive(true);
-
         if (recoil < InGameManager.Instance.Aim + DrugManager.Instance.aim)
             curRecoil = 0;
         else curRecoil = recoil - (InGameManager.Instance.Aim + DrugManager.Instance.aim);
@@ -97,24 +91,12 @@ public abstract class Gun : MonoBehaviour
             muzzleUp[i] = muzzle.up;
             bulletSpeed[i] = Random.Range(1, -1);
 
-            // 총알 각기 속도도 받아야함 Random.Range(1, -1)) (루시안에서)
             bullet.MoveBullet(muzzle.up * (fireSpeed + bulletSpeed[i]));
-
-            /*
-            muzzle.localRotation = Quaternion.Euler(0, 0, muzzleRecoil[i]);
-            muzzleTransform[i] = muzzle.position;
-            muzzleRotation[i] = transform.rotation;
-            muzzleUp[i] = muzzle.up;
-            powerSpeed[i] = fireSpeed + Random.Range(1.0f, -1.0f);
-            */
-
-            /*GameObject fireBullet = Instantiate(bullet, muzzleTransform[i], muzzleRotation[i]);
-			Rigidbody2D rb = fireBullet.GetComponent<Rigidbody2D>();
-			rb.AddForce(muzzleUp[i] * powerSpeed[i], ForceMode2D.Impulse);*/
 		}
 
         fireTime = 0;
-        InGameManager.Instance.curBullet[(int)wepons]--; // UI수정로직도 필요함
+        UIManager.Instance.inGameUI.BulletTextUpdate(--InGameManager.Instance.curBullet[(int)wepons]);
+        // UI수정
         
         yield return new WaitForSeconds(0.1f);
 

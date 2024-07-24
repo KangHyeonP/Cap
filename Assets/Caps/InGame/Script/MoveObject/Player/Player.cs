@@ -344,9 +344,16 @@ public abstract class Player : MonoBehaviour
 
         InGameManager.Instance.ReloadBullet(gunValue);
 
-
         // 총마다 다르면 수정해야함
         yield return new WaitForSeconds(DrugManager.Instance.reloadSpeed * reloadTime);
+
+        if(gunValue == 1)
+        UIManager.Instance.inGameUI.BulletTextInput(InGameManager.Instance.bulletMagazine[3],
+                InGameManager.Instance.bulletMagazine[3]);
+        else
+            UIManager.Instance.inGameUI.BulletTextInput(
+                InGameManager.Instance.bulletMagazine[InGameManager.Instance.curWeaponIndex],
+                InGameManager.Instance.bulletMagazine[InGameManager.Instance.curWeaponIndex]);
 
         isReload = false;
     }
@@ -355,29 +362,59 @@ public abstract class Player : MonoBehaviour
     {
         if (isSkill || isRoll || isAttack) return;
 
-        if (!swapKey1 && !swapKey2 && !swapKey3) return;
+        if (!swapKey1 && !swapKey2 && !swapKey3 && attackKey) return;
 
         if (swapKey1 && InGameManager.Instance.gunInven != null)
         {
-            if(DrugManager.Instance.isManyWeapon && tempWeaponIndex == 0) mainGunCheck = true;
+            if (DrugManager.Instance.isManyWeapon && tempWeaponIndex == 0) mainGunCheck = true;
+            else if (tempWeaponIndex == 0) return;
             tempWeaponIndex = 0;
         }
-        else if (swapKey2 && InGameManager.Instance.pistolInven != null)
+        else if (swapKey2 && InGameManager.Instance.pistolInven != null && tempWeaponIndex != 1)
             tempWeaponIndex = 1;
-        else if (swapKey3)
+        else if (swapKey3 && tempWeaponIndex != 2)
             tempWeaponIndex = 2;
+        else return;
+
+
+        Debug.Log("장전 실행, 실행 키 : " + tempWeaponIndex);
+        //int temp;
+        //temp = InGameManager.Instance.lastWeaponIndex;
+        InGameManager.Instance.lastWeaponIndex = InGameManager.Instance.curWeaponIndex;
+        InGameManager.Instance.lastPistolIndex = InGameManager.Instance.curPistolIndex;
 
         WeaponSwap(tempWeaponIndex);
     }
 
     public void WeaponSwap(int idx)
     {
+        Debug.Log("idx : " + idx);
+
         // 무기를 전부 비활성화, 비용이 많이 든다면 추후 활성화 무기만 체크하여 비활성화로 돌리는 로직으로 수정
-        foreach (GameObject g in mainWeapon)
-            g.SetActive(false);
-        foreach (GameObject g in subWeapon)
-            g.SetActive(false);
-        knife.SetActive(false);
+        if(InGameManager.Instance.lastWeaponIndex == 4)
+        {
+            knife.SetActive(false);
+        }
+        else if(InGameManager.Instance.lastWeaponIndex ==3)
+        {
+            if (tempWeaponIndex != 1)
+            {
+                InGameManager.Instance.PutBullet(EWeapons.Revolver);
+                InGameManager.Instance.pistolInven.gameObject.SetActive(false);
+            }
+            subWeapon[InGameManager.Instance.lastPistolIndex].SetActive(false);
+        }
+        else
+        {
+            if (tempWeaponIndex != 0 || (tempWeaponIndex == 0 && InGameManager.Instance.blueGunInven != null))
+            {
+                InGameManager.Instance.PutBullet((EWeapons)InGameManager.Instance.lastWeaponIndex);
+                InGameManager.Instance.gunInven.gameObject.SetActive(false);
+            }
+            mainWeapon[InGameManager.Instance.lastWeaponIndex].SetActive(false);
+        }
+
+        int temp;
 
         // 해당 무기만 활성화
         if (idx == 0)
@@ -388,26 +425,57 @@ public abstract class Player : MonoBehaviour
                 InGameManager.Instance.gunInven = InGameManager.Instance.blueGunInven;
                 InGameManager.Instance.blueGunInven = tempGun;
                 mainGunCheck = false;
+
+                Debug.Log("주무기 교체 여부 : ");
+
+                // 여기도 위처럼 1, 1스왑할 때 총알 저장해야해서 수정해야할듯함
             }
 
-            mainWeapon[InGameManager.Instance.gunInven.index].SetActive(true);
-            UIManager.Instance.inGameUI.WeaponInven(InGameManager.Instance.gunInven.index);
+            InGameManager.Instance.GetBullet(InGameManager.Instance.gunInven.eWeapons,
+                    InGameManager.Instance.gunInven.bulletCount); // 교체 후 현재 총알 등록
+
+            temp = InGameManager.Instance.gunInven.index;
+            Debug.Log("주무기 temp : " + temp);
+
+            mainWeapon[temp].SetActive(true);
+            UIManager.Instance.inGameUI.WeaponInven(temp);
+            UIManager.Instance.inGameUI.BulletTextInput(InGameManager.Instance.gunInven.bulletCount,
+                InGameManager.Instance.bulletMagazine[temp]);
+            InGameManager.Instance.curWeaponIndex = temp;
+
             gunValue = 0;
             gunCheck = true;
         }
         else if(idx == 1)
         {
-            subWeapon[InGameManager.Instance.pistolInven.index].SetActive(true);
-            UIManager.Instance.inGameUI.WeaponInven(InGameManager.Instance.pistolInven.index + 3);
+            InGameManager.Instance.GetBullet(InGameManager.Instance.pistolInven.eWeapons,
+                    InGameManager.Instance.pistolInven.bulletCount); // 교체 후 현재 총알 등록
+
+            temp = InGameManager.Instance.pistolInven.index;
+            Debug.Log("보조무기 temp : " + temp);
+
+            subWeapon[temp].SetActive(true);
+            UIManager.Instance.inGameUI.WeaponInven(temp + 3);
+            UIManager.Instance.inGameUI.BulletTextInput(InGameManager.Instance.pistolInven.bulletCount,
+                InGameManager.Instance.bulletMagazine[3]);
+            InGameManager.Instance.curWeaponIndex = 3;
+            InGameManager.Instance.curPistolIndex = temp;
+
             gunValue = 1;
             gunCheck = true;
         }
         else
         {
+            InGameManager.Instance.lastWeaponIndex = InGameManager.Instance.curWeaponIndex;
+            InGameManager.Instance.curWeaponIndex = 4;
+
             knife.SetActive(true);
             UIManager.Instance.inGameUI.WeaponInven(5);
+            UIManager.Instance.inGameUI.KnifeTextUpdate();
             gunCheck = false;
         }
+
+        tempWeaponIndex = idx;
     }
 
     protected void Interaction()

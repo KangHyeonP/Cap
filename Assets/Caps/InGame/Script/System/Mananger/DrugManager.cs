@@ -296,6 +296,10 @@ public class DrugManager : MonoBehaviour
                 //InGameManager.Instance.magazineInven[i] *= 2;
                 InGameManager.Instance.bulletMagazine[i] *= 2;
             }
+
+            UIManager.Instance.inGameUI.BulletTextInput(
+                InGameManager.Instance.curBullet[InGameManager.Instance.curWeaponIndex],
+                InGameManager.Instance.bulletMagazine[InGameManager.Instance.curWeaponIndex]);
         }
     }
 

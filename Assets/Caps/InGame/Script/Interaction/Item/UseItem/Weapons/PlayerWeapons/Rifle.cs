@@ -9,7 +9,7 @@ public class Rifle : Gun
         if (fireTime >= fireMaximumDelay &&
             fireDelay <= fireTime + InGameManager.Instance.AttackDelay / 10.0f + DrugManager.Instance.playerAttackDelay / 8)
         {
-            Debug.Log("DrugManager.Instance.playerAttackDelay / 8 : " + DrugManager.Instance.playerAttackDelay / 8);
+            //Debug.Log("DrugManager.Instance.playerAttackDelay / 8 : " + DrugManager.Instance.playerAttackDelay / 8);
 
             StartCoroutine(Shot());
         }

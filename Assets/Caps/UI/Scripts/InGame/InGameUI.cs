@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,10 @@ public class InGameUI : MonoBehaviour
     public Image WeaponUI;
 
     public Sprite[] weaponSprites;
+    public TextMeshProUGUI bulletText;
+    public int curBulletCount;
+    public int maxBulletCount;
+    protected readonly string kinfeSing = "∞"; // 총알 개수 표시 문자
 
     private void Awake()
     {
@@ -20,6 +25,7 @@ public class InGameUI : MonoBehaviour
     {
         InitUI();
         WeaponInven(5); // 추후 캐릭터마다 칼이 다르다면 player에서 초기화를 시키도록 수정
+        KnifeTextUpdate();
     }
 
     // Update is called once per frame
@@ -42,5 +48,22 @@ public class InGameUI : MonoBehaviour
     public void WeaponInven(int index)
     {
         WeaponUI.sprite = weaponSprites[index];
+    }
+
+    public void BulletTextUpdate(int bulletCunt)
+    {
+        bulletText.text = bulletCunt + " / " + maxBulletCount;
+    }
+
+    public void BulletTextInput(int curBulletCnt, int maxBulletCnt)
+    {
+        maxBulletCount = maxBulletCnt;
+
+        BulletTextUpdate(curBulletCnt);
+    }
+
+    public void KnifeTextUpdate()
+    {
+        bulletText.text = kinfeSing;
     }
 }

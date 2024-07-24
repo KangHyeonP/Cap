@@ -35,8 +35,10 @@ public class Weapons : Item
         {
             if (InGameManager.Instance.pistolInven != null)
             {
-                InGameManager.Instance.pistolInven.gameObject.SetActive(true);
                 // 추가한 부분
+                //InGameManager.Instance.pistolInven.gameObject.SetActive(true);
+                Debug.Log("권총 획득했으나 인벤 가득참");
+
                 InGameManager.Instance.PutBullet(eWeapons);
                 InGameManager.Instance.pistolInven.PutWeapon();
             }
@@ -45,9 +47,9 @@ public class Weapons : Item
         {
             if(!DrugManager.Instance.isManyWeapon || InGameManager.Instance.blueGunInven != null)
             {
-                InGameManager.Instance.gunInven.gameObject.SetActive(true);
-                InGameManager.Instance.PutBullet(eWeapons);
                 //추가한부분
+                //InGameManager.Instance.gunInven.gameObject.SetActive(true);
+                InGameManager.Instance.PutBullet(eWeapons);
                 InGameManager.Instance.gunInven.PutWeapon();
             }
         }
@@ -69,11 +71,13 @@ public class Weapons : Item
             checkMagazine = true;
             
             if(DrugManager.Instance.blue3) bulletCount *= 2;
+            Debug.Log("지금 총알 카운트 : " + bulletCount);
         }
 
         InGameManager.Instance.UpdateWeapon(eWeapons, this);
-        InGameManager.Instance.GetBullet(eWeapons, bulletCount);
-       
+        //InGameManager.Instance.GetBullet(eWeapons, bulletCount);
+        UIManager.Instance.inGameUI.BulletTextInput(bulletCount, InGameManager.Instance.bulletMagazine[(int)eWeapons]);
+        // UI수정 추가
     }
    
     public void PutWeapon()

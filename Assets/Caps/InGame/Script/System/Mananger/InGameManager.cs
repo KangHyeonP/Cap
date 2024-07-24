@@ -43,7 +43,7 @@ public class InGameManager : MonoBehaviour
     public int Power => power;
 
     public int[] weaponDamage; // 라이플, 샷건, 스나, 권총 순
-    public int weaponIndex = 0; // 스왑 및 데미지 적용으로 사용 예정 변수들
+    //public int weaponIndex = 0; // 스왑 및 데미지 적용으로 사용 예정 변수들
 
     private float aim;
     public float Aim => aim;
@@ -57,6 +57,11 @@ public class InGameManager : MonoBehaviour
     public Weapons blueGunInven = null; // 파랑 마약 활성화 전용 인벤
 
     public Weapons pistolInven = null;
+
+    public int curWeaponIndex = 4; // 현재 무기 인덱스
+    public int lastWeaponIndex = 4; // 이전 무기 인덱스
+    public int lastPistolIndex = -1; // 이전 권총 인덱스
+    public int curPistolIndex = -1; // 현재 권총 인덱스
 
     public int[] magazines = { 0, 0 }; // 주무기, 보조무기 탄창
 
@@ -167,32 +172,52 @@ public class InGameManager : MonoBehaviour
 
     public void UpdateWeapon(EWeapons value, Weapons weapon)
     {
-        int idx = 0;
+        int idx;
+        lastWeaponIndex = curWeaponIndex;
+        lastPistolIndex = curPistolIndex;
 
         if(value == EWeapons.Revolver)
         {
-            if(pistolInven != null)
-            {
-                pistolInven.PutWeapon();
-            }
-            pistolInven = weapon;
             idx = 1;
+            player.tempWeaponIndex = idx;
+            pistolInven = weapon;
+            curWeaponIndex = 3;
+            curPistolIndex = pistolInven.index;
         }
         else
         {
+            Debug.Log("주무기 획득 진입");
             if (blueGunInven == null && DrugManager.Instance.isManyWeapon) // 1회용 로직
             {
+                PutBullet(gunInven.eWeapons);
                 blueGunInven = gunInven;
+                gunInven.gameObject.SetActive(false);
+                blueGunInven.gameObject.SetActive(false);
+
+                idx = 0;
+                player.tempWeaponIndex = idx;
+                gunInven = weapon;
+
+                GetBullet(gunInven.eWeapons, weapon.bulletCount); // 일단 혹시 몰라 추가함 이따 오류 생기면 다시 주석
+                player.mainWeapon[gunInven.index].SetActive(true);
+                UIManager.Instance.inGameUI.WeaponInven(gunInven.index);
+                UIManager.Instance.inGameUI.BulletTextInput(gunInven.bulletCount, bulletMagazine[gunInven.index]);
+                curWeaponIndex = gunInven.index;
+
+                player.gunValue = 0;
+                player.gunCheck = true;
+
+                return;
             }
-            else if (gunInven != null)
-            {
-                gunInven.PutWeapon();
-            }
-            gunInven = weapon;
+  
             idx = 0;
+            player.tempWeaponIndex = idx;
+            gunInven = weapon;
+            curWeaponIndex = (int)value;
         }
 
-        player.tempWeaponIndex = (int)weapon.index;
+
+        GetBullet(value, weapon.bulletCount);
         player.WeaponSwap(idx);
     }
 
@@ -242,9 +267,20 @@ public class InGameManager : MonoBehaviour
     {
         if (value == EWeapons.Revolver)
         {
+            Debug.Log("현재 총알 개수 : " + curBullet[3]);
+
+            pistolInven.gameObject.SetActive(true);
             pistolInven.bulletCount = curBullet[3];
+            Debug.Log("권총 총알 등록 : " + curBullet[3]);
+            curBullet[3] = 0;
         }
-        else gunInven.bulletCount = curBullet[(int)gunInven.eWeapons];
+        else
+        {
+            gunInven.gameObject.SetActive(true);
+            gunInven.bulletCount = curBullet[(int)gunInven.eWeapons];
+            Debug.Log("주무기 총알 등록 : " + curBullet[(int)gunInven.eWeapons]);
+            curBullet[(int)gunInven.eWeapons] = 0;
+        }
     }    
 
 
