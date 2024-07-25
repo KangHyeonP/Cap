@@ -33,7 +33,7 @@ public class Knife : MonoBehaviour
     protected virtual void AttackDelay()
     {
         if (fireTime >= fireMaximumDelay &&
-            fireDelay <= fireTime + InGameManager.Instance.AttackDelay / 10.0f + DrugManager.Instance.playerAttackDelay / 8.0f)
+            fireDelay <= fireTime + InGameManager.Instance.AttackDelay / 10.0f + DrugManager.Instance.playerAttackDelay / 6.0f)
         {
             StartCoroutine(Attack());
         }

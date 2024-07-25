@@ -42,6 +42,8 @@ public class DrugManager : MonoBehaviour
     public int powerUpValue;
     public bool isAnger = false;
     public int angerPower = 0;
+    public float curAngryTimer = 0;
+    public float angrtTimer = 2.5f;
 
     //Orange
     public bool orange1;
@@ -111,7 +113,12 @@ public class DrugManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(isAnger)
+        {
+            curAngryTimer += Time.deltaTime; // 퀵실버와 같은 3단계이므로 언스케일 칠 필요x
+
+            if (curAngryTimer >= angrtTimer) angerPower = 0;
+        }
     }
 
     // DrugGague Check
@@ -208,7 +215,8 @@ public class DrugManager : MonoBehaviour
             case 1:
                 powerUpValue = 50;
                 break;
-            default: powerUpValue = 0;
+            default: 
+                powerUpValue = 0;
                 break;
         }
     }
@@ -216,6 +224,12 @@ public class DrugManager : MonoBehaviour
     public void RunRedBuff3()
     {
         if (red3) isAnger = true;
+    }
+
+    public void AngryCount()
+    {
+        if (angerPower < 5) angerPower++;
+        curAngryTimer = 0;
     }
 
     // orangeBuff

@@ -37,7 +37,8 @@ public abstract class Gun : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        fireTime = 0;
+        if(!InGameManager.Instance.player.IsRoll)
+            fireTime = 0; // 롤 할때도 이렇게되니 그걸 체크할 방법이 필요함
     }
 
 
@@ -57,7 +58,7 @@ public abstract class Gun : MonoBehaviour
     {
 		fireTime += Time.deltaTime;
 
-		if (InGameManager.Instance.player.AttackKey)
+		if (InGameManager.Instance.player.AttackCheck())
         {
             if (InGameManager.Instance.curBullet[(int)wepons] <= 0) return;
 

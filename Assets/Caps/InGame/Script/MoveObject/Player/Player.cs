@@ -68,6 +68,7 @@ public abstract class Player : MonoBehaviour
     public bool IsHit => isHit;
     protected bool isDead;
     protected bool isRoll = false;
+    public bool IsRoll => isRoll;
     protected bool rollReverse = false; // 애니메이션 대칭
 
     // InputKey
@@ -248,6 +249,11 @@ public abstract class Player : MonoBehaviour
             speed = speedApply;
             rollCnt = false;
         }
+    }
+
+    public bool AttackCheck()
+    {
+        return attackKey && !isAttack && !isRoll && !isSkill && !isReload;
     }
 
 

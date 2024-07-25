@@ -6,6 +6,11 @@ public class EnemyGun : Gun
 {
     // Enemy는 Update를 쓰지 않음
     // 추 후 Gun의 하위 PlayerGun으로 분리해야 할 수 도 있음
+    protected override void OnEnable()
+    {
+       
+    }
+
     protected override void Update()
     {
         

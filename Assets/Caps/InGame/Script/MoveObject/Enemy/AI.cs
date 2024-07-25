@@ -212,7 +212,7 @@ public abstract class AI : MonoBehaviour
             curStatus = EnemyStatus.Idle;
             return;
         }
-        Debug.Log("추격 실행");
+        //Debug.Log("추격 실행");
 
         anim.SetBool("Chase", true);
 
@@ -221,7 +221,7 @@ public abstract class AI : MonoBehaviour
         {
             curStatus = EnemyStatus.Attack;
             anim.SetBool("Chase", false);
-            Debug.Log("추격 종료");
+            //Debug.Log("추격 종료");
         }
         agent.SetDestination(target.position);
     }
@@ -265,23 +265,37 @@ public abstract class AI : MonoBehaviour
 
     public void Damage(int damage, WeaponValue value)
     {
-        Debug.Log("맞았어" + value);
+       // Debug.Log("맞았어" + value);
 
         if (value == WeaponValue.Gun)
         {
             damage += InGameManager.Instance.bulletPower;
+
+            Debug.Log("총알 포함 데미지 : " + damage);
         }
 
         if (DrugManager.Instance.red2)
         {
             damage = damage + damage * DrugManager.Instance.powerUpValue / 100;
+
+            Debug.Log("광전사 포함 데미지 : " + damage);
         }
         else if (DrugManager.Instance.isBleeding && damage >= maxHp * 0.3f)
         {
             StartCoroutine(Bleed());
         }
 
+        if (DrugManager.Instance.isAnger)
+        {
+            // 데미지를 주고 카운팅, 첫 타격일 땐 분노가 없으니 0으로 카운팅 되어 계산
+            damage += (int)(damage * DrugManager.Instance.angerPower * 0.4f);
+            DrugManager.Instance.AngryCount();
+
+            Debug.Log("분노 포함 데미지 : " + damage);
+        }
+
         hp -= damage;
+        Debug.Log("들어온 데미지 : " + damage);
         Debug.Log("몬스터 남은 체력: " + hp);
 
         if (hp <= 0)

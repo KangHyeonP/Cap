@@ -1055,6 +1055,8 @@ MonoBehaviour:
   powerUpValue: 0
   isAnger: 0
   angerPower: 0
+  curAngryTimer: 0
+  angrtTimer: 2.5
   orange1: 0
   orange2: 0
   orange3: 0
