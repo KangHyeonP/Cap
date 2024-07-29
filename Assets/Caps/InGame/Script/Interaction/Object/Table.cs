@@ -11,20 +11,16 @@ public enum TableArrow
 
 public class Table : MonoBehaviour
 {
-    [SerializeField]
-    private Sprite[] sprites;
-    public Sprite[] Sprites => sprites;
+    private Animator anim;
 
     [SerializeField]
-    private GameObject[] lineObj;
-
-    private SpriteRenderer tableSprite;
+    private SpriteRenderer[] lineObj;
 
     bool playerCheck = false;
     Vector3 moveVec;
     Rigidbody2D rigid;
     bool enemyCheck = false;
-    
+    public bool tableActive = false;
     
     TableArrow curArrow;
     TableArrow agentArrow; // agent가 기댈 수 있는 방향
@@ -36,7 +32,7 @@ public class Table : MonoBehaviour
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        tableSprite = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
 
         curArrow = TableArrow.none;
 
@@ -52,7 +48,7 @@ public class Table : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (curArrow == TableArrow.none && collision.gameObject.tag.Equals("Player"))
+        if (!tableActive && curArrow == TableArrow.none && collision.gameObject.tag.Equals("Player"))
         {
             playerCheck = true;
 
@@ -85,8 +81,10 @@ public class Table : MonoBehaviour
     // 위치 계산
     private void CurPos()
     {
-        if (!playerCheck) return; 
-        
+        if (tableActive || !playerCheck) return;
+
+        if (!Input.GetKeyDown(KeyCode.E)) return;
+
         moveVec = InGameManager.Instance.player.transform.localPosition;
         moveVec -= transform.position;
 
@@ -95,37 +93,38 @@ public class Table : MonoBehaviour
         lineIndex = AngleCalculate(tableAngle);
         if(lineIndex != -1) ActiveLine(true);
 
-        if (Input.GetKeyDown(KeyCode.E))
+
+        switch ((TableArrow)lineIndex)
         {
-            switch((TableArrow)lineIndex)
-            {
-                case TableArrow.up:
-                    agentArrow = TableArrow.down;
-                    break;
+            case TableArrow.up:
+                agentArrow = TableArrow.down;
+                break;
 
-                case TableArrow.down:
-                    agentArrow = TableArrow.up;
-                    break;
+            case TableArrow.down:
+                agentArrow = TableArrow.up;
+                break;
 
-                case TableArrow.left:
-                    agentArrow = TableArrow.right;
-                    break;
+            case TableArrow.left:
+                agentArrow = TableArrow.right;
+                break;
 
-                case TableArrow.right:
-                    agentArrow = TableArrow.left;
-                    break;
-            }
-            
-            
-            curArrow = (TableArrow)lineIndex;
-
-            // 애니메이션 대신 일단 스프라이트 변경
-            tableSprite.sprite = Sprites[(int)curArrow];
-            //playerCheck = false; //이건 테스트 반드시 끝나면 활성화
-
-            // 테이블 크기 변경
-
+            case TableArrow.right:
+                agentArrow = TableArrow.left;
+                break;
         }
+
+
+        curArrow = (TableArrow)lineIndex;
+
+        // 애니메이션 대신 일단 스프라이트 변경
+        //tableSprite.sprite = Sprites[(int)curArrow];
+        anim.SetTrigger(agentArrow.ToString());
+
+        tableActive = true;
+        lineObj[lineIndex].enabled = false;
+        //playerCheck = false; //이건 테스트 반드시 끝나면 활성화
+
+        // 테이블 크기 변경
     }
 
     // 각도 계산
@@ -172,10 +171,12 @@ public class Table : MonoBehaviour
     // 현재 테이블 방향 표시 용도
     private void ActiveLine(bool activeTrue)
     {
-        foreach (GameObject g in lineObj)
-            g.SetActive(false);
+        if (tableActive) return;
 
-        if(activeTrue) lineObj[lineIndex].SetActive(true);
+        foreach (SpriteRenderer g in lineObj)
+            g.enabled = false;
+
+        if (activeTrue) lineObj[lineIndex].enabled = true;
     }
 
     // AI 테이블 기대기 여부 계산
@@ -206,91 +207,4 @@ public class Table : MonoBehaviour
 
         agentObj.GetComponent<Agent>().TableValue(distance[(int)agentArrow] ,agentArrow);
     }
-
-
-
-    /*
-    private IEnumerator CheckKey()
-    {
-        while(!playerCheck)
-        {
-            yield return null;
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                playerCheck = true;
-                ChangeTable();
-            }
-        }
-    }
-
-    
-    private void ChangeTable()
-    {
-       
-
-
-        
-        float minDis = 999.0f;
-        float curDis = 0f;
-
-        for(int i=0; i < tablePos.Length; i++)
-        {
-            curDis = Vector3.Distance(tablePos[i], moveVec);
-            if (curDis < minDis)
-            {
-                curArrow = (TableArrow)i;
-                minDis = curDis;
-            }
-        }
-
-        // 애니메이션 대신 일단 스프라이트 변경
-        //tableSprite.sprite = Sprites[(int)curArrow];
-
-
-        // 추후 콜라이더도 변경
-    }*/
-
-    /*
-    private void MoveTable()
-    {
-        if(isMove)
-        {
-            curDelay += Time.deltaTime;
-        }
-
-        if (delay <= curDelay) VectorMove(GameManager.Instance.player.InputVec);
-    }
-
-    private void VectorMove(Vector2 vec)
-    {
-        // right
-        if(vec.x == 1 && GameManager.Instance.player.gameObject.transform.position.x < transform.position.x)
-        {
-            moveVec = new Vector2(1, 0);
-            rigid.MovePosition(rigid.position + moveVec);
-        }
-        // left
-        else if (vec.x == -1 && GameManager.Instance.player.gameObject.transform.position.x > transform.position.x)
-        {
-            moveVec = new Vector2(-1, 0);
-            rigid.MovePosition(rigid.position + moveVec);
-        }
-        // up
-        else if (vec.y == 1 && GameManager.Instance.player.gameObject.transform.position.y < transform.position.y)
-        {
-            moveVec = new Vector2(0, 1);
-            rigid.MovePosition(rigid.position + moveVec);
-        }
-        // down
-        else if (vec.y == -1 && GameManager.Instance.player.gameObject.transform.position.y > transform.position.x)
-        {
-            moveVec = new Vector2(0, -1);
-            rigid.MovePosition(rigid.position + moveVec);
-        }
-
-        curDelay = 0f;
-        isMove = false;
-
-    }*/
 }
