@@ -25,6 +25,8 @@ public class Table : MonoBehaviour
     TableArrow curArrow;
     TableArrow agentArrow; // agent가 기댈 수 있는 방향
     int lineIndex = -1;
+    private bool isMove = false;
+    private Vector2 mVec; // 움직일 방향
 
     private Vector3[] distance = new Vector3[4];
 
@@ -35,7 +37,6 @@ public class Table : MonoBehaviour
         anim = GetComponent<Animator>();
 
         curArrow = TableArrow.none;
-
     }
 
     // Update is called once per frame
@@ -44,6 +45,17 @@ public class Table : MonoBehaviour
         //MoveTable();
         CurPos();
         
+    }
+
+    private void FixedUpdate()
+    {
+        if (isMove) rigid.MovePosition(rigid.position + mVec * Time.fixedDeltaTime * 1.5f);
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("플레이어 들어옴");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -83,7 +95,6 @@ public class Table : MonoBehaviour
     {
         if (tableActive || !playerCheck) return;
 
-        if (!Input.GetKeyDown(KeyCode.E)) return;
 
         moveVec = InGameManager.Instance.player.transform.localPosition;
         moveVec -= transform.position;
@@ -94,22 +105,28 @@ public class Table : MonoBehaviour
         if(lineIndex != -1) ActiveLine(true);
 
 
+        if (!Input.GetKeyDown(KeyCode.E)) return;
+
         switch ((TableArrow)lineIndex)
         {
             case TableArrow.up:
                 agentArrow = TableArrow.down;
+                mVec = Vector2.down;
                 break;
 
             case TableArrow.down:
                 agentArrow = TableArrow.up;
+                mVec = Vector2.up;
                 break;
 
             case TableArrow.left:
                 agentArrow = TableArrow.right;
+                mVec = Vector2.right;
                 break;
 
             case TableArrow.right:
                 agentArrow = TableArrow.left;
+                mVec = Vector2.left;
                 break;
         }
 
@@ -122,9 +139,17 @@ public class Table : MonoBehaviour
 
         tableActive = true;
         lineObj[lineIndex].enabled = false;
+        StartCoroutine(MoveTable());
         //playerCheck = false; //이건 테스트 반드시 끝나면 활성화
 
         // 테이블 크기 변경
+    }
+
+    private IEnumerator MoveTable()
+    {
+        isMove = true;
+        yield return new WaitForSeconds(0.5f);
+        isMove = false;
     }
 
     // 각도 계산
