@@ -6,10 +6,8 @@ public enum ESecondNerf
     GuageIncrease, BlackDrug, AimMiss
 }
 
-public class SecondNerf : MonoBehaviour
+public class SecondNerf : Nerf
 {
-    private bool isActive = false;
-    private ESecondNerf secondNerfValue;
 
     private void Awake()
     {
@@ -17,12 +15,34 @@ public class SecondNerf : MonoBehaviour
     }
     private void Start()
     {
-        
+        nerfCount = 3;
     }
     private void Update()
     {
         
     }
+    protected override void ActiveLogic(int value)
+    {
+        if (isActive) return;
+        //firstNerfValue = (EFirstNerf)Random.Range(0, System.Enum.GetValues(typeof(EFirstNerf)).Length);
+
+        switch (value)
+        {
+            case 0:
+                GuageIncrease();
+                break;
+            case 1:
+                BlackDrug();
+                break;
+            case 2:
+                AimMiss();
+                break;
+        }
+
+        isActive = true;
+    }
+
+    /*
     public void RunFirstNerf()
     {
         if (!isActive) return;
@@ -42,7 +62,7 @@ public class SecondNerf : MonoBehaviour
         }
 
         isActive = true;
-    }
+    }*/
 
     public  void GuageIncrease() // 마약 게이지 증가
     {

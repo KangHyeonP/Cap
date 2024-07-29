@@ -163,3 +163,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drugGuage: 0
   value: 4
+  blackDrugSprite: {fileID: 21300000, guid: 14aea88c445e4d842a8a5eaae1d02230, type: 3}

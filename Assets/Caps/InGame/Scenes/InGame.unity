@@ -1040,13 +1040,14 @@ MonoBehaviour:
   - {fileID: 314632703}
   - {fileID: 1832936478}
   isBuffStepActive: 000000
+  nerfs:
+  - {fileID: 853278071}
+  - {fileID: 54093109}
+  - {fileID: 583582503}
   tempStackDrug: 0000000000000000000000000000000000000000
   stackDrug: 0000000000000000000000000000000000000000
   fullStackDrug: 0
   curStackDrug: 0
-  firstNerf: {fileID: 853278071}
-  secondNerf: {fileID: 54093109}
-  thirdNerf: {fileID: 583582503}
   red1: 0
   red2: 0
   red3: 0
@@ -1087,15 +1088,14 @@ MonoBehaviour:
   reloadSpeed: 1
   maxBullet: 0
   hostHateCheck: 0
-  isBandage: 0
-  bandageNerf: 0
+  bandNerf: 0
   bombMissCheck: 0
   gaugeUp: 0
   colorBlindCheck: 0
   aimMissCheck: 0
   isRollBan: 0
   itemBanCheck: 0
-  doubleDamagePivot: 0
+  doubleDamageCheck: 0
 --- !u!4 &105032742
 Transform:
   m_ObjectHideFlags: 0

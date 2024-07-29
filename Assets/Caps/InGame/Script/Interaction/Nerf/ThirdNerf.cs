@@ -9,10 +9,8 @@ public enum EThirdNerf
     RollBan, ItemBan, DoubleDamage
 }
 
-public class ThirdNerf : MonoBehaviour
+public class ThirdNerf : Nerf
 {
-    private bool isActive = false;
-    private EThirdNerf thirdNerfValue;
 
     private void Awake()
     {
@@ -20,12 +18,35 @@ public class ThirdNerf : MonoBehaviour
     }
     private void Start()
     {
-        
+        nerfCount = 3;
     }
     private void Update()
     {
         
     }
+
+    protected override void ActiveLogic(int value)
+    {
+        if (isActive) return;
+        //firstNerfValue = (EFirstNerf)Random.Range(0, System.Enum.GetValues(typeof(EFirstNerf)).Length);
+
+        switch (value)
+        {
+            case 0:
+                RollBan();
+                break;
+            case 1:
+                ItemBan();
+                break;
+            case 2:
+                DoubleDamage();
+                break;
+        }
+
+        isActive = true;
+    }
+
+    /*
     public void RunThirdNerf()
     {
         if (!isActive) return;
@@ -46,7 +67,7 @@ public class ThirdNerf : MonoBehaviour
         }
 
         isActive = true;
-    }
+    }*/
 
     public void RollBan() // 구르기 금지
     {
@@ -62,7 +83,7 @@ public class ThirdNerf : MonoBehaviour
 
     public void DoubleDamage() // 데미지 2배
     {
-        DrugManager.Instance.doubleDamagePivot = 2;
+        DrugManager.Instance.doubleDamageCheck = true;
         Debug.Log("데미지 2배 활성화");
     }
 }

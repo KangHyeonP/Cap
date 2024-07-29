@@ -8,6 +8,10 @@ public class RedDrug : Drug
     {
         base.Awake();
     }
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+    }
 
     protected override void Start()
     {

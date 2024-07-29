@@ -187,7 +187,11 @@ public class InGameManager : MonoBehaviour
         else
         {
             Debug.Log("주무기 획득 진입");
-            if (blueGunInven == null && DrugManager.Instance.isManyWeapon) // 1회용 로직
+            if(gunInven == null)
+            {
+                Debug.Log("첫 무기 획득"); // 해당 코드가 없다면 무기가 없는 상태에서 블루 버프 3단계 터질 때 문제가 발생
+            }
+            else if (blueGunInven == null && DrugManager.Instance.isManyWeapon) // 1회용 로직
             {
                 PutBullet(gunInven.eWeapons);
                 blueGunInven = gunInven;

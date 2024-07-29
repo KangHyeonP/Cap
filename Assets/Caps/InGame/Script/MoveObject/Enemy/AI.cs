@@ -267,6 +267,17 @@ public abstract class AI : MonoBehaviour
     {
        // Debug.Log("맞았어" + value);
 
+        if(DrugManager.Instance.aimMissCheck)
+        {
+            int a = Random.Range(0, 100);
+            Debug.Log("값 : " + a);
+            if(a < 15)
+            {
+                Debug.Log("조준 미스");
+                return;
+            }
+        }
+
         if (value == WeaponValue.Gun)
         {
             damage += InGameManager.Instance.bulletPower;
@@ -293,6 +304,8 @@ public abstract class AI : MonoBehaviour
 
             Debug.Log("분노 포함 데미지 : " + damage);
         }
+
+        if (DrugManager.Instance.islucianPassive) damage = damage * 8 / 10;
 
         hp -= damage;
         Debug.Log("들어온 데미지 : " + damage);

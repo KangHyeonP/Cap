@@ -24,6 +24,8 @@ public class Grenade : Item
 
     public override void GetItem()
     {
+        if (DrugManager.Instance.itemBanCheck) return;
+
         InGameManager.Instance.tempItem = null;
         InGameManager.Instance.isItem = false;
         InGameManager.Instance.grenadeCount++;

@@ -185,7 +185,7 @@ public abstract class Player : MonoBehaviour
 
     protected void Roll()
     {
-        if (isSkill) return;
+        if (isSkill || DrugManager.Instance.isRollBan) return;
 
         if (!isRoll && InputVec != Vector2.zero && rollKey && !isAttack)
         {
@@ -277,6 +277,8 @@ public abstract class Player : MonoBehaviour
 
             return;
         }
+
+        if (DrugManager.Instance.doubleDamageCheck) power *= 2;
 
         InGameManager.Instance.Hit(power);
         UIManager.Instance.hpUpdate();

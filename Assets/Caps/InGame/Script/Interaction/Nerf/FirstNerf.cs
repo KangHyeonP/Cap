@@ -6,24 +6,44 @@ public enum EFirstNerf
     HostHate, InfectedBandage, BombMiss
 }
 
-public class FirstNerf : MonoBehaviour
+public class FirstNerf : Nerf
 {
-    private bool isActive = false;
-    private EFirstNerf firstNerfValue;
 
-    private void Awake()
+    protected void Awake()
     {
         
     }
-    private void Start()
+    protected void Start()
     {
-       
+        nerfCount = 3;
     }
-    private void Update()
+    protected void Update()
     {
         
     }
 
+    protected override void ActiveLogic(int value)
+    {
+        if (isActive) return;
+        //firstNerfValue = (EFirstNerf)Random.Range(0, System.Enum.GetValues(typeof(EFirstNerf)).Length);
+
+        switch (value)
+        {
+            case 0:
+                HostHate();
+                break;
+            case 1:
+                InfectedBand();
+                break;
+            case 2:
+                BombMiss();
+                break;
+        }
+
+        isActive = true;
+    }
+
+    /*
     public void RunFirstNerf()
     {
         if (!isActive) return;
@@ -44,6 +64,8 @@ public class FirstNerf : MonoBehaviour
 
         isActive = true;
     }
+    */
+
 
     public void HostHate() // 상점 비용증가
     {
@@ -51,9 +73,9 @@ public class FirstNerf : MonoBehaviour
         Debug.Log("상점가격증가");
     }
 
-    public void InfectedBandage() // 오염된 붕대
+    public void InfectedBand() // 오염된 붕대
     {
-        DrugManager.Instance.bandageNerf = true;
+        DrugManager.Instance.bandNerf = true;
         Debug.Log("붕대 오염 활성화");
     }
 
@@ -61,12 +83,5 @@ public class FirstNerf : MonoBehaviour
     {      
         DrugManager.Instance.bombMissCheck = true;
         Debug.Log("불발 수류탄 활성화");
-
-        // 수류탄 만들고 거기에 집어넣기
-        int bombMissCheck = Random.Range(1, 11);
-        if (bombMissCheck == 1)
-        {
-            Debug.Log("수류탄 불발");
-        }
     }
 }

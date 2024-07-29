@@ -25,6 +25,10 @@ public class Band : Item
 
     public override void GetItem()
     {
+        if (DrugManager.Instance.itemBanCheck) return;
+
+        InGameManager.Instance.tempItem = null;
+        InGameManager.Instance.isItem = false;
         UseItem();
     }
 
@@ -38,9 +42,10 @@ public class Band : Item
     public void UseBand()
     {
         // 로직 수정
-        if (DrugManager.Instance.bandageNerf)
+        if (DrugManager.Instance.bandNerf)
         {
             int infect = Random.Range(1, 11);
+            Debug.Log("값 : " + infect);
             if (infect == 1)
                 Debug.Log("붕대 사용 못함");
             return;

@@ -9,11 +9,20 @@ public class Drug : Item
     private SpriteRenderer drugSprite;
     [SerializeField]
     protected EDrugColor value;
+    public Sprite blackDrugSprite;
+    public Sprite curDrugSprite;
 
     protected override void Awake()
     {
         base.Awake();
         drugSprite = GetComponent<SpriteRenderer>();
+        curDrugSprite = drugSprite.sprite;
+    }
+
+    protected virtual void OnEnable()
+    {
+        if (DrugManager.Instance == null) return;
+        else if (DrugManager.Instance.colorBlindCheck) drugSprite.sprite = blackDrugSprite;
     }
 
     protected override void Start()
@@ -68,6 +77,7 @@ public class Drug : Item
 
     public void PutDrug()
     {
+        drugSprite.sprite = curDrugSprite;
         transform.position = InGameManager.Instance.player.transform.position;
 
         itemRigid.AddForce(CameraController.Instance.MouseVecValue.normalized, ForceMode2D.Impulse);

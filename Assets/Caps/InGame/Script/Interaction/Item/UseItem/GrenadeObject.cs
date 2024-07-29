@@ -13,19 +13,31 @@ public class GrenadeObject : MonoBehaviour
     public Vector2 moveVec;
     private Vector2 lastVec;
         
-    void Start()
+    private void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
         moveVec = new Vector2(transform.localPosition.x, transform.localPosition.y);
-        StartCoroutine(Explode());
         if (DrugManager.Instance.green3)
             rigid.AddForce(CameraController.Instance.MouseVecValue.normalized * 5f * 1.25f, ForceMode2D.Impulse);
         else
             rigid.AddForce(CameraController.Instance.MouseVecValue.normalized * 5f, ForceMode2D.Impulse);
+        
+        if(DrugManager.Instance.bombMissCheck)
+        {
+            int bombMissCheck = Random.Range(1, 11);
+            Debug.Log("값 : " + bombMissCheck);
+            if (bombMissCheck == 1)
+            {
+                Debug.Log("수류탄 불발");
+                Destroy(gameObject);
+                return;
+            }
+        }
+        StartCoroutine(Explode());
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         lastVec = rigid.velocity;
     }

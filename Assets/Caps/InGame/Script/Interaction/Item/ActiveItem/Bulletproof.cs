@@ -23,13 +23,17 @@ public class Bulletproof : Item
 
     public override void GetItem()
     {
+        if (DrugManager.Instance.itemBanCheck) return;
+
+        InGameManager.Instance.tempItem = null;
+        InGameManager.Instance.isItem = false;
         UseItem();
     }
 
     public override void UseItem()
     {
         if (UIManager.Instance.isBulletProof) return;
-        
+
         UseBulletproof();
 
         Destroy(this.gameObject);

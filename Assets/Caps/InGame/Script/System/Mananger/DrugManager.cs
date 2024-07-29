@@ -14,9 +14,14 @@ public class DrugManager : MonoBehaviour
     private static DrugManager instance;
     public static DrugManager Instance => instance;
 
+    // buff
     public EDrugColor[] buffSteps= {EDrugColor.red,EDrugColor.red,EDrugColor.red};
     public ColorBuff[] colorBuffs;
     public bool[] isBuffStepActive = { false, false, false};
+
+    // nerf
+    public Nerf[] nerfs;
+
     public int[] tempStackDrug = { 0, 0, 0, 0, 0 }; // 현재 락에서 먹은 마약 개수 체크
     public int[] stackDrug = { 0, 0, 0, 0, 0 };// red, orange, yellow, green, blue 순, 현재 락 전까지 먹은 마약 개수 
     public int fullStackDrug = 0; // 이전 락까지의 마약 총 누적량
@@ -24,12 +29,6 @@ public class DrugManager : MonoBehaviour
 
     private int duffIndex = -1;
 
-    [SerializeField]
-    private FirstNerf firstNerf;
-    [SerializeField]
-    private SecondNerf secondNerf;
-    [SerializeField]
-    private ThirdNerf thirdNerf;
 
     // 추후에 redLevel로 묶고 BuffSteps와 연동
     //Red 
@@ -87,16 +86,15 @@ public class DrugManager : MonoBehaviour
     public int maxBullet;
 
     // 보류 (단계별로 변수를 나누고 함수에서 활성화)
-    public bool hostHateCheck;
-    public bool isBandage;
-    public bool bandageNerf;
-    public bool bombMissCheck;
-    public bool gaugeUp;
-    public bool colorBlindCheck;
-    public bool aimMissCheck;
-    public bool isRollBan;
-    public bool itemBanCheck;
-    public float doubleDamagePivot;
+    public bool hostHateCheck = false;
+    public bool bandNerf = false;
+    public bool bombMissCheck = false;
+    public bool gaugeUp= false;
+    public bool colorBlindCheck = false;
+    public bool aimMissCheck = false;
+    public bool isRollBan = false;
+    public bool itemBanCheck = false;
+    public bool doubleDamageCheck = false;
 
 
     private void Awake()
@@ -175,6 +173,7 @@ public class DrugManager : MonoBehaviour
                 buffSteps[duffIndex] = (EDrugColor)i;
                 colorBuffs[i].ExcuteBuff(duffIndex);
                 Debug.Log("실행한 마약 :  " + (EDrugColor)i);
+                nerfs[duffIndex].NerfOn();
                 break;
             }
             curGauge = stackGauge;
@@ -311,11 +310,11 @@ public class DrugManager : MonoBehaviour
                 InGameManager.Instance.bulletMagazine[i] *= 2;
             }
 
+            if (InGameManager.Instance.curWeaponIndex == 4) return;
+
             UIManager.Instance.inGameUI.BulletTextInput(
                 InGameManager.Instance.curBullet[InGameManager.Instance.curWeaponIndex],
                 InGameManager.Instance.bulletMagazine[InGameManager.Instance.curWeaponIndex]);
         }
     }
-
-
 }
