@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LowBoss : Boss
 {
-
+    //nt cnt = 0;
     protected override void Awake()
     {
         base.Awake();
@@ -28,10 +28,11 @@ public class LowBoss : Boss
     {
         if (bossKey)
         {
-
+            int[] numbers = { 13 }; // 6, 7, 11해야함
             //selectPivot = Random.Range(1, 14);
-            selectPivot = Random.Range(1, 3);
+            selectPivot = numbers[Random.Range(0, numbers.Length)];
             Debug.Log("보스 스킬 사용");
+            muzzle.localRotation = Quaternion.Euler(0, 0, -90);
             switch (selectPivot)
             {
                 case 1:
@@ -39,39 +40,41 @@ public class LowBoss : Boss
                     break;
 
                 case 2:
-                    BP2();
+                    StartCoroutine("BP2");
                     break;
-                    /*
+
                 case 3:
                     BP3();
                     break;
 
                 case 4:
-                    BP4();
+                    StartCoroutine("BP4");
                     break;
 
                 case 5:
-                    BP5();
+                    StartCoroutine("BP5");
                     break;
+                /*
+            case 6:
+                BP6();
+                break;
 
-                case 6:
-                    BP6();
-                    break;
-
-                case 7:
-                    BP7();
-                    break;
-
+            case 7:
+                BP7();
+                break;
+                */
                 case 8:
-                    BP8();
+                    StartCoroutine("BP8");
                     break;
+
 
                 case 9:
-                    BP9();
+                    StartCoroutine("BP9");
                     break;
 
+
                 case 10:
-                    BP10();
+                    StartCoroutine("BP10");
                     break;
 
                 case 11:
@@ -79,17 +82,15 @@ public class LowBoss : Boss
                     break;
 
                 case 12:
-                    BP12();
+                    StartCoroutine("BP12");
                     break;
 
                 case 13:
-                    BP13();
+                    StartCoroutine("BP13");
                     break;
-                    */
 
             }
-            
+
         }
     }
-    
 }

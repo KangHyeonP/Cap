@@ -6010,6 +6010,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agents:
   - {fileID: 1075438251}
+  - {fileID: 1853347963}
   roomIndex: 1
   door:
   - {fileID: 861092907}
@@ -17855,7 +17856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1530444416697801524, guid: 6b2d990e4c90a9746b4854b383af6f64, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2177387348873276753, guid: 6b2d990e4c90a9746b4854b383af6f64, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17907,6 +17908,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2177387348873276753, guid: 6b2d990e4c90a9746b4854b383af6f64, type: 3}
   m_PrefabInstance: {fileID: 1853347961}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1853347963 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8158822825472559459, guid: 6b2d990e4c90a9746b4854b383af6f64, type: 3}
+  m_PrefabInstance: {fileID: 1853347961}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeac271d34af9394d9b881e86f943e31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1863625193
 GameObject:
   m_ObjectHideFlags: 0

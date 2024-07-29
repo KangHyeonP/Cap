@@ -11,7 +11,7 @@ public enum EWeapons
 public abstract class Gun : MonoBehaviour
 {
     [SerializeField]
-    protected EWeapons wepons;
+    protected EWeapons weapons;
     [SerializeField]
     protected EUsers users;
     
@@ -60,7 +60,7 @@ public abstract class Gun : MonoBehaviour
 
 		if (InGameManager.Instance.player.AttackCheck())
         {
-            if (InGameManager.Instance.curBullet[(int)wepons] <= 0) return;
+            if (InGameManager.Instance.curBullet[(int)weapons] <= 0) return;
 
 			ShotDelay();
 		}
@@ -86,7 +86,7 @@ public abstract class Gun : MonoBehaviour
             muzzle.localRotation = Quaternion.Euler(0, 0, muzzleRecoil[i]);
             muzzleRotation[i] = transform.rotation;
 
-            Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)wepons, muzzleRotation[i]);
+            Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)weapons, muzzleRotation[i]);
             bullet.transform.position = muzzle.position;
             muzzleTransform[i] = bullet.transform.position;
             muzzleUp[i] = muzzle.up;
@@ -96,7 +96,7 @@ public abstract class Gun : MonoBehaviour
 		}
 
         fireTime = 0;
-        UIManager.Instance.inGameUI.BulletTextUpdate(--InGameManager.Instance.curBullet[(int)wepons]);
+        UIManager.Instance.inGameUI.BulletTextUpdate(--InGameManager.Instance.curBullet[(int)weapons]);
         // UI¼öÁ¤
         
         yield return new WaitForSeconds(0.1f);
@@ -107,7 +107,7 @@ public abstract class Gun : MonoBehaviour
             {
                 muzzle.localRotation = muzzleRotation[i];
 
-                Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)wepons, muzzleRotation[i]);
+                Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)weapons, muzzleRotation[i]);
                 bullet.transform.position = muzzleTransform[i];
 
                 bullet.MoveBullet(muzzleUp[i] * (fireSpeed + bulletSpeed[i]));
