@@ -42,7 +42,7 @@ public class Grenade : Item
     public void UseGrenade()
     {
         // 로직 수정
-        InGameManager.Instance.grenadeCount++;
+        InGameManager.Instance.UpdateGrenade();
         //InGameManager.Instance.numKey++;
         //StartCoroutine(Explode());
         /*

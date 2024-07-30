@@ -16,6 +16,10 @@ public class InGameUI : MonoBehaviour
     public int maxBulletCount;
     protected readonly string kinfeSing = "∞"; // 총알 개수 표시 문자
 
+    public TextMeshProUGUI grenadeText;
+    public TextMeshProUGUI[] magazinesText;
+    public TextMeshProUGUI moneyText;
+
     private void Awake()
     {
         
@@ -38,6 +42,11 @@ public class InGameUI : MonoBehaviour
     private void InitUI()
     {
         skillUI.coolTime = InGameManager.Instance.player.SkillDelay;
+
+        MoneyUpdate(0);
+        GrenadeUpdate(0);
+        MagazineUpdate(0, 0);
+        MagazineUpdate(1, 0);
     }
 
     public void DrugInven(Sprite s)
@@ -65,5 +74,20 @@ public class InGameUI : MonoBehaviour
     public void KnifeTextUpdate()
     {
         bulletText.text = kinfeSing;
+    }
+
+    public void GrenadeUpdate(int a)
+    {
+        grenadeText.text = a.ToString();
+    }
+
+    public void MagazineUpdate(int value, int cnt)
+    {
+        magazinesText[value].text = cnt.ToString();
+    }
+
+    public void MoneyUpdate(int cnt)
+    {
+        moneyText.text = cnt.ToString();
     }
 }

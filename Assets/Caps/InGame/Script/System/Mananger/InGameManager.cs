@@ -228,7 +228,8 @@ public class InGameManager : MonoBehaviour
 
     public void UpdateMoney()
     {
-
+        money++;
+        UIManager.Instance.inGameUI.MoneyUpdate(money);
     }
 
     public void UpdateKey()
@@ -239,7 +240,8 @@ public class InGameManager : MonoBehaviour
 
     public void UpdateGrenade()
     {
-        // 이것도 UI
+        grenadeCount++;
+        UIManager.Instance.inGameUI.GrenadeUpdate(grenadeCount);
         //numBombUI.text = "Bomb: " + numBomb;
     }
 
@@ -253,22 +255,27 @@ public class InGameManager : MonoBehaviour
             PoolManager.Instance.GetGrenadeObject();
             //Instantiate(grenadeObj, player.transform.position, player.transform.rotation);
             UpdateGrenade();
+            UIManager.Instance.inGameUI.GrenadeUpdate(grenadeCount);
         }
     }
     
     public void GetMagazine(int value)
     {
-        if(value == 1)
+        /*if(value == 1)
         {
             magazines[1]++;
             Debug.Log("보조무기 탄 얻음 : " + magazines[0]);
+            
         }
         else
         {
             magazines[0]++;
 
             Debug.Log("주무기 탄 얻음 : " + magazines[0]); 
-        }
+        }*/
+
+        magazines[value]++;
+        UIManager.Instance.inGameUI.MagazineUpdate(value, magazines[value]);
     }
 
     public void GetBullet(EWeapons value, int count) // UI 탄알 갯수 수정 로직 포함해야함
@@ -317,6 +324,7 @@ public class InGameManager : MonoBehaviour
         else GetBullet(EWeapons.Revolver, bulletMagazine[3]);
 
         magazines[a]--;
+        UIManager.Instance.inGameUI.MagazineUpdate(a, magazines[a]);
     }
 
     public void MaxHPUpdate()
