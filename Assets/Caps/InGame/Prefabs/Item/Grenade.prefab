@@ -161,3 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 574dd9a6ba5248242b4f8ec5d6c9f8ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemValues: 3
+  price: 0
+  isProduct: 0

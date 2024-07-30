@@ -35,7 +35,7 @@ public class Key : Item
     {
         UseKey();
 
-        Destroy(this.gameObject);
+        PoolManager.Instance.ReturnActiveItem(this, itemValues);
     }
 
     public void UseKey()

@@ -23,6 +23,7 @@ public class Drug : Item
     {
         if (DrugManager.Instance == null) return;
         else if (DrugManager.Instance.colorBlindCheck) drugSprite.sprite = blackDrugSprite;
+        else drugSprite.sprite = curDrugSprite;
     }
 
     protected override void Start()

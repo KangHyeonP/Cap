@@ -10,26 +10,34 @@ public class GrenadeObject : MonoBehaviour
     public float distance = 1.5f;
     public int damage = 100;
 
-    public Vector2 moveVec;
+    //public Vector2 moveVec;
     private Vector2 lastVec;
-        
-    private void Start()
+
+    private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        moveVec = new Vector2(transform.localPosition.x, transform.localPosition.y);
+    }
+
+    private void OnEnable()
+    {
+        //moveVec = new Vector2(transform.localPosition.x, transform.localPosition.y);
+
+        transform.position = InGameManager.Instance.player.transform.position;
+        transform.rotation = InGameManager.Instance.player.transform.rotation;
+
         if (DrugManager.Instance.green3)
             rigid.AddForce(CameraController.Instance.MouseVecValue.normalized * 5f * 1.25f, ForceMode2D.Impulse);
         else
             rigid.AddForce(CameraController.Instance.MouseVecValue.normalized * 5f, ForceMode2D.Impulse);
-        
-        if(DrugManager.Instance.bombMissCheck)
+
+        if (DrugManager.Instance.bombMissCheck)
         {
             int bombMissCheck = Random.Range(1, 11);
             Debug.Log("값 : " + bombMissCheck);
             if (bombMissCheck == 1)
             {
                 Debug.Log("수류탄 불발");
-                Destroy(gameObject);
+                PoolManager.Instance.ReturnGrenadeObject(this);
                 return;
             }
         }
@@ -53,7 +61,7 @@ public class GrenadeObject : MonoBehaviour
             c.GetComponent<AI>()?.Damage(damage, WeaponValue.Knife);
         }
 
-        Destroy(gameObject);
+        PoolManager.Instance.ReturnGrenadeObject(this);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

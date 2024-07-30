@@ -161,6 +161,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22ccdd3168cebe441b6f3be829f63af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemValues: 5
+  price: 0
+  isProduct: 0
   eWeapons: 3
   index: 1
   checkMagazine: 0

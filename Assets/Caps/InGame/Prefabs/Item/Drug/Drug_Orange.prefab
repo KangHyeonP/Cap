@@ -161,6 +161,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e0894ed253aaed4591c9b635848cf4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemValues: 5
+  price: 10
+  isProduct: 0
   drugGuage: 0
   value: 1
   blackDrugSprite: {fileID: 21300000, guid: 14aea88c445e4d842a8a5eaae1d02230, type: 3}
+  curDrugSprite: {fileID: 0}

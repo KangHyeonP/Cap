@@ -35,8 +35,8 @@ public class Band : Item
     public override void UseItem()
     {
         UseBand();
-        
-        Destroy(this.gameObject);
+
+        PoolManager.Instance.ReturnActiveItem(this, itemValues);
     }
 
     public void UseBand()

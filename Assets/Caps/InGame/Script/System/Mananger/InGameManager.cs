@@ -63,10 +63,13 @@ public class InGameManager : MonoBehaviour
     public int lastPistolIndex = -1; // 이전 권총 인덱스
     public int curPistolIndex = -1; // 현재 권총 인덱스
 
+
+    // Items;
+    public int money = 0;
+    public int grenadeCount = 0;
     public int[] magazines = { 0, 0 }; // 주무기, 보조무기 탄창
 
     public int[] bulletMagazine = { 30, 12, 10, 15 }; // 고정된 탄창
-   // public int[] magazineInven = { 0, 0, 0, 0 }; // Rifle, Shotgun, Sniper, Revolver순 / 변호나 후 남은 탄창
     public int[] curBullet = { 0, 0, 0, 0 }; // 현재 총에 있는 탄창
 
     private bool isDead;
@@ -85,8 +88,6 @@ public class InGameManager : MonoBehaviour
 
     public int drugGuage;
 
-    public int grenadeCount;
-    public Stack<Item> grenades = new Stack<Item>();
     public GameObject grenadeObj;
 
     // Effect
@@ -225,6 +226,11 @@ public class InGameManager : MonoBehaviour
         player.WeaponSwap(idx);
     }
 
+    public void UpdateMoney()
+    {
+
+    }
+
     public void UpdateKey()
     {
         // 이것도 UI
@@ -239,17 +245,20 @@ public class InGameManager : MonoBehaviour
 
     public void UseGrenade()
     {
-        if(grenadeCount > 0)
+        // UI연동 필요
+        if (grenadeCount > 0)
         {
             grenadeCount--;
-            grenades.Pop().UseItem();
-            //grenades[grenadeCount].UseItem();
+
+            PoolManager.Instance.GetGrenadeObject();
+            //Instantiate(grenadeObj, player.transform.position, player.transform.rotation);
+            UpdateGrenade();
         }
     }
     
-    public void GetMagazine(EWeapons value)
+    public void GetMagazine(int value)
     {
-        if(value == EWeapons.Revolver)
+        if(value == 1)
         {
             magazines[1]++;
             Debug.Log("보조무기 탄 얻음 : " + magazines[0]);

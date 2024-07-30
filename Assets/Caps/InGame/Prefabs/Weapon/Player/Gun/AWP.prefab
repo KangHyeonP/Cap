@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9963d5297246c7d40ab38d461923f916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wepons: 2
+  weapons: 2
   users: 0
   fireEffectPos: {fileID: 9066211471674234271}
   muzzle: {fileID: 8546476937090517966}

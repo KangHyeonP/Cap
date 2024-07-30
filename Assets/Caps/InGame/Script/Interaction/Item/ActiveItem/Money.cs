@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grenade : Item
+public class Money : Item
 {
-
     protected override void Awake()
     {
         base.Awake();
@@ -28,35 +27,25 @@ public class Grenade : Item
 
         InGameManager.Instance.tempItem = null;
         InGameManager.Instance.isItem = false;
-
         UseItem();
     }
 
     public override void UseItem()
     {
-        UseGrenade();
+        GetMoney();
 
         PoolManager.Instance.ReturnActiveItem(this, itemValues);
     }
 
-    public void UseGrenade()
+    public void GetMoney()
     {
         // 로직 수정
-        InGameManager.Instance.grenadeCount++;
-        //InGameManager.Instance.numKey++;
-        //StartCoroutine(Explode());
-        /*
-        GameObject grenade = Instantiate(InGameManager.Instance.grenadeObj
-            , InGameManager.Instance.player.transform.position, InGameManager.Instance.player.transform.rotation);
-
-        InGameManager.Instance.UpdateGrenade();*/
+        InGameManager.Instance.UpdateMoney();
     }
-
-
     // 콜라이더 추가
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && InGameManager.Instance.tempItem == null)
+        if (collision.tag == "Player")
         {
             //itemCol = collision.gameObject;
             InGameManager.Instance.tempItem = this;
@@ -66,7 +55,7 @@ public class Grenade : Item
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && InGameManager.Instance.tempItem != null)
+        if (collision.tag == "Player")
         {
             //itemCol = null;
             InGameManager.Instance.tempItem = null;

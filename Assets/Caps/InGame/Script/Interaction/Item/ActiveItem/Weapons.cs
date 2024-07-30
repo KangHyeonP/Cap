@@ -77,7 +77,7 @@ public class Weapons : Item
         InGameManager.Instance.UpdateWeapon(eWeapons, this);
         //InGameManager.Instance.GetBullet(eWeapons, bulletCount);
         UIManager.Instance.inGameUI.BulletTextInput(bulletCount, InGameManager.Instance.bulletMagazine[(int)eWeapons]);
-        // UI수정 추가
+
     }
    
     public void PutWeapon()

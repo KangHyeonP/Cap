@@ -36,7 +36,7 @@ public class Bulletproof : Item
 
         UseBulletproof();
 
-        Destroy(this.gameObject);
+        PoolManager.Instance.ReturnActiveItem(this, itemValues);
     }
 
     public void UseBulletproof()

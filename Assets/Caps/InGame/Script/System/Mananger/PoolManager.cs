@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,11 @@ using UnityEngine.Pool;
 public class PoolManager : MonoBehaviour
 {
     public static PoolManager Instance;
+
+    [SerializeField]
+    private GameObject[] drug;
+    [SerializeField]
+    private Transform[] drugPos;
 
 
     [SerializeField]
@@ -18,13 +24,42 @@ public class PoolManager : MonoBehaviour
     [SerializeField]
     private Transform agentBulletPos;
 
+    [SerializeField]
+    private GameObject[] activeItem;
+    [SerializeField]
+    private Transform[] activeItemPos;
+
+    [SerializeField]
+    private GameObject grenadeObjects;
+    [SerializeField]
+    private Transform grenadeObjectsPos;
+
+    [SerializeField]
+    private GameObject[] magazine;
+    [SerializeField]
+    private Transform[] magazinePos;
+
+    [SerializeField]
+    private GameObject[] weapon;
+    [SerializeField]
+    private Transform[] weaponPos;
 
     [SerializeField]
     private int initCount;
 
-    // 얘도 늘려야함
+    public Queue<Drug>[] poolingDrug = { new Queue<Drug>(), new Queue<Drug>(), new Queue<Drug>(), new Queue<Drug>(), new Queue<Drug>() };
     public Queue<Bullet>[] poolingPlayerBullet = { new Queue<Bullet>(), new Queue<Bullet>(), new Queue<Bullet>(), new Queue<Bullet>() };
     public Queue<Bullet> poolingEnemyBullet = new Queue<Bullet>();
+
+    // 즉시 엑티브 전용 아이템
+    public Queue<Item>[] poolingActiveItem = { new Queue<Item>(), new Queue<Item>(), new Queue<Item>(),
+            new Queue<Item>(), new Queue<Item>()}; 
+    // 붕대, 열쇠, 방탄, 수류탄, 돈 존재
+
+    public Queue<GrenadeObject> poolingGrenadeObject = new Queue<GrenadeObject>(); // 날라가는 수류탄
+    public Queue<Magazine>[] poolingMagazine = { new Queue<Magazine>(), new Queue<Magazine>() };
+
+    // 총은 각각 자신의 총알을 가지므로 사용하기 안좋음
 
     private void Awake()
     {
@@ -36,7 +71,36 @@ public class PoolManager : MonoBehaviour
 
     private void Initialize(int initCount)
     {
-        for (int i = 0; i < initCount; i++)
+        int i = 0;
+
+        for (i = 0; i < initCount; i++)
+        {
+            CreateDrug(EDrugColor.red);
+            CreateDrug(EDrugColor.orange);
+            CreateDrug(EDrugColor.yellow);
+            CreateDrug(EDrugColor.green);
+            CreateDrug(EDrugColor.blue);
+
+            CreateNewBullet(EUsers.Player, EBullets.Rifle);
+            CreateNewBullet(EUsers.Player, EBullets.Shotgun);
+            CreateNewBullet(EUsers.Player, EBullets.Sniper);
+            CreateNewBullet(EUsers.Player, EBullets.Revolver);
+            CreateNewBullet(EUsers.Enemy, EBullets.Revolver);
+
+            CreateActiveItem(EActiveItems.Band);
+            CreateActiveItem(EActiveItems.Key);
+            CreateActiveItem(EActiveItems.Bulletproof);
+            CreateActiveItem(EActiveItems.Grenade);
+            CreateActiveItem(EActiveItems.Money);
+
+            CreateGrenadeObject();
+
+            CreateMagzine(0);
+            CreateMagzine(1);
+        }
+
+        /*
+        for (i = 0; i < initCount; i++)
         {
             CreateNewBullet(EUsers.Player, EBullets.Rifle);
             CreateNewBullet(EUsers.Player, EBullets.Shotgun);
@@ -44,7 +108,63 @@ public class PoolManager : MonoBehaviour
             CreateNewBullet(EUsers.Player, EBullets.Revolver);
             CreateNewBullet(EUsers.Enemy, EBullets.Revolver);
         }
+
+        for (i = 0; i < initCount; i++)
+        {
+            CreateActiveItem(EActiveItems.Band);
+            CreateActiveItem(EActiveItems.Key);
+            CreateActiveItem(EActiveItems.Bulletproof);
+            CreateActiveItem(EActiveItems.Grenade);
+            CreateActiveItem(EActiveItems.Money);
+        }*/
+
+        // 예시
+        /*
+        for (i = 0; i < initCount; i++)
+        {
+            GetActiveItem(EActiveItems.Band);
+            GetActiveItem(EActiveItems.Key);
+            GetActiveItem(EActiveItems.Bulletproof);
+            GetActiveItem(EActiveItems.Grenade);
+            GetActiveItem(EActiveItems.Money);
+
+            GetDrug(EDrugColor.red);
+            GetDrug(EDrugColor.orange);
+            GetDrug(EDrugColor.yellow);
+            GetDrug(EDrugColor.green);
+            GetDrug(EDrugColor.blue);
+        }*/
     }
+
+    private void CreateDrug(EDrugColor value)
+    {
+        int a = (int)value;
+
+        Drug d = Instantiate(drug[a]).GetComponent<Drug>();
+        d.transform.SetParent(drugPos[a]);
+        d.name = value.ToString() + "Drug";
+        d.gameObject.SetActive(false);
+        poolingDrug[a].Enqueue(d);
+    }
+
+    public Drug GetDrug(EDrugColor value)
+    {
+        int index = (int)value;
+        if (poolingDrug[index].Count <= 0)
+        {
+            CreateDrug(value);
+        }
+        Drug d = poolingDrug[index].Dequeue();
+        d.gameObject.SetActive(true);
+        return d;
+    }
+    public void ReturnDrug(Drug d, EDrugColor value)
+    {
+        d.gameObject.SetActive(false);
+
+        poolingDrug[(int)value].Enqueue(d);
+    }
+
 
     private void CreateNewBullet(EUsers eUser, EBullets eBullet)
     {
@@ -106,7 +226,91 @@ public class PoolManager : MonoBehaviour
         }
         else
         {
+            //테스트용 코드
+            //obj.transform.SetParent(playerBulletPos[(int)eBullet]);
             poolingPlayerBullet[(int)eBullet].Enqueue(obj);
         }
+        //테스트 2
+        //obj.gameObject.SetActive(false);
+    }
+
+    private void CreateActiveItem(EActiveItems value)
+    {
+        int a = (int)value;
+
+        Item i = Instantiate(activeItem[a]).GetComponent<Item>();
+        i.transform.SetParent(activeItemPos[a]);
+        i.name = value.ToString() + "Item";
+        i.gameObject.SetActive(false);
+        poolingActiveItem[a].Enqueue(i);
+    }
+
+    public Item GetActiveItem(EActiveItems value)
+    {
+        int index = (int)value;
+        if (poolingDrug[index].Count <= 0)
+        {
+            CreateActiveItem(value);
+        }
+        Item i = poolingActiveItem[index].Dequeue();
+        i.gameObject.SetActive(true);
+        return i;
+    }
+    public void ReturnActiveItem(Item i, EActiveItems value)
+    {
+        i.gameObject.SetActive(false);
+        poolingActiveItem[(int)value].Enqueue(i);
+    }
+
+    private void CreateGrenadeObject()
+    {
+        GrenadeObject g = Instantiate(grenadeObjects).GetComponent<GrenadeObject>();
+        g.transform.SetParent(grenadeObjectsPos);
+        g.name += "Item";
+        g.gameObject.SetActive(false);
+        poolingGrenadeObject.Enqueue(g);
+    }
+
+    public GrenadeObject GetGrenadeObject()
+    {
+        if(poolingGrenadeObject.Count <= 0)
+        {
+            CreateGrenadeObject();
+        }
+
+        GrenadeObject g = poolingGrenadeObject.Dequeue();
+        g.gameObject.SetActive(true);
+        return g;
+    }
+    public void ReturnGrenadeObject(GrenadeObject g)
+    {
+        g.gameObject.SetActive(false);
+        poolingGrenadeObject.Enqueue(g);
+    }
+
+    private void CreateMagzine(int value)
+    {
+        Magazine m = Instantiate(magazine[value]).GetComponent<Magazine>();
+
+        m.transform.SetParent(magazinePos[value]);
+        m.name =  (value == 1 ? "Sub" : "Main") + value.ToString();
+        m.gameObject.SetActive(false);
+        poolingMagazine[value].Enqueue(m);
+    }
+
+    public Magazine GetMagzine(int value)
+    {
+        if (poolingMagazine[value].Count <= 0)
+        {
+            CreateMagzine(value);
+        }
+        Magazine m = poolingMagazine[value].Dequeue();
+        m.gameObject.SetActive(true);
+        return m;
+    }
+    public void ReturnMagzine(Magazine m, int value)
+    {
+        m.gameObject.SetActive(false);
+        poolingMagazine[value].Enqueue(m);
     }
 }
