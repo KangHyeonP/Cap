@@ -25,6 +25,15 @@ public class Key : Item
     {
         if (DrugManager.Instance.itemBanCheck) return;
 
+        if (isProduct)
+        {
+            if (InGameManager.Instance.money < curPrice) return;
+
+            InGameManager.Instance.Buy(curPrice);
+            ItemUIPlay(false);
+            isProduct = false;
+        }
+
         InGameManager.Instance.tempItem = null;
         InGameManager.Instance.isItem = false;
 
@@ -34,7 +43,6 @@ public class Key : Item
     public override void UseItem()
     {
         UseKey();
-
         PoolManager.Instance.ReturnActiveItem(this, itemValues);
     }
 
@@ -43,7 +51,7 @@ public class Key : Item
         // 로직 수정
         //InGameManager.Instance.numKey++;
         Debug.Log("열쇠 먹음");
-        InGameManager.Instance.UpdateKey();
+        InGameManager.Instance.UpdateKey(1);
     }
     // 콜라이더 추가
     private void OnTriggerEnter2D(Collider2D collision)
@@ -53,6 +61,7 @@ public class Key : Item
             //itemCol = collision.gameObject;
             InGameManager.Instance.tempItem = this;
             InGameManager.Instance.isItem = true;
+            if (isProduct) ItemUIPlay(true);
         }
     }
 
@@ -63,6 +72,7 @@ public class Key : Item
             //itemCol = null;
             InGameManager.Instance.tempItem = null;
             InGameManager.Instance.isItem = false;
+            if (isProduct) ItemUIPlay(false);
         }
     }
 

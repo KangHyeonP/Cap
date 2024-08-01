@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Magazine : Item
 {
-    public int value = -1; // 0~2은 주무기 탄창, 3은 보조무기 탄창
+    public int value = -1; // 0은 주무기 탄창, 1은 보조무기 탄창
 
     protected override void Awake()
     {
@@ -27,6 +27,15 @@ public class Magazine : Item
     {
         if (DrugManager.Instance.itemBanCheck) return;
 
+        if (isProduct)
+        {
+            if (InGameManager.Instance.money < curPrice) return;
+
+            InGameManager.Instance.Buy(curPrice);
+            ItemUIPlay(false);
+            isProduct = false;
+        }
+
         InGameManager.Instance.tempItem = null;
         InGameManager.Instance.isItem = false;
 
@@ -36,8 +45,7 @@ public class Magazine : Item
     public override void UseItem()
     {
         UseMagazine();
-
-        Destroy(this.gameObject);
+        PoolManager.Instance.ReturnMagzine(this, value);
     }
 
     public void UseMagazine()
@@ -52,6 +60,7 @@ public class Magazine : Item
             //itemCol = collision.gameObject;
             InGameManager.Instance.tempItem = this;
             InGameManager.Instance.isItem = true;
+            if (isProduct) ItemUIPlay(true);
         }
     }
 
@@ -62,6 +71,7 @@ public class Magazine : Item
             //itemCol = null;
             InGameManager.Instance.tempItem = null;
             InGameManager.Instance.isItem = false;
+            if (isProduct) ItemUIPlay(false);
         }
     }
 }

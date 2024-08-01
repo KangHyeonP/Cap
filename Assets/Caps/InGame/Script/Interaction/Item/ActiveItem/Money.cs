@@ -34,13 +34,13 @@ public class Money : Item
     {
         GetMoney();
 
-        PoolManager.Instance.ReturnActiveItem(this, itemValues);
+        PoolManager.Instance.ReturnMoney(this);
     }
 
     public void GetMoney()
     {
         // 로직 수정
-        InGameManager.Instance.UpdateMoney();
+        InGameManager.Instance.UpdateMoney(1);
     }
     // 콜라이더 추가
     private void OnTriggerEnter2D(Collider2D collision)

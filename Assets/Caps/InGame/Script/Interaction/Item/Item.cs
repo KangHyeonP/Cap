@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
 public enum EActiveItems
 {
-    Band, Key, Bulletproof, Grenade, Money,
+    Band, Key, Bulletproof, Grenade,
     None
 }
 // 순서 중요
@@ -19,17 +20,23 @@ public abstract class Item : MonoBehaviour
     protected EActiveItems itemValues;
     public int price = 0;
     public bool isProduct = false;
+    public int curPrice = 0;
+
+    public TextMeshPro priceText;
+    public SpriteRenderer eIconRenderer;
+    public SpriteRenderer moneyRenderer;
 
     protected Rigidbody2D itemRigid;
 
     protected virtual void Awake()
     {
         itemRigid = GetComponent<Rigidbody2D>();
+        curPrice = price;
     }
-    
+
     protected virtual void Start()
     {
-
+        ItemUIPlay(false);
     }
 
     protected virtual void Update()
@@ -45,4 +52,22 @@ public abstract class Item : MonoBehaviour
 
     public abstract void UseItem();
 
+    public void ShopItem(Vector2 pos)
+    {
+        isProduct = true;
+
+        transform.position = pos;
+
+        if (DrugManager.Instance.hostHateCheck) curPrice = (price * 6) / 5; // 가격 20프로향상, 1.2배 증가
+        else curPrice = price;
+
+        priceText.text = curPrice.ToString();
+    }
+
+    public void ItemUIPlay(bool check)
+    {
+        priceText.enabled = check;
+        eIconRenderer.enabled = check;
+        moneyRenderer.enabled = check;
+    }
 }

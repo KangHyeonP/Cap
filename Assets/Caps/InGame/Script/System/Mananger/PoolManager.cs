@@ -30,6 +30,11 @@ public class PoolManager : MonoBehaviour
     private Transform[] activeItemPos;
 
     [SerializeField]
+    private GameObject money;
+    [SerializeField]
+    private Transform moneyPos;
+
+    [SerializeField]
     private GameObject grenadeObjects;
     [SerializeField]
     private Transform grenadeObjectsPos;
@@ -53,8 +58,10 @@ public class PoolManager : MonoBehaviour
 
     // Áï½Ã ¿¢Æ¼ºê Àü¿ë ¾ÆÀÌÅÛ
     public Queue<Item>[] poolingActiveItem = { new Queue<Item>(), new Queue<Item>(), new Queue<Item>(),
-            new Queue<Item>(), new Queue<Item>()}; 
-    // ºØ´ë, ¿­¼è, ¹æÅº, ¼ö·ùÅº, µ· Á¸Àç
+            new Queue<Item>()};
+    // ºØ´ë, ¿­¼è, ¹æÅº, ¼ö·ùÅº Á¸Àç
+
+    public Queue<Item> poolingMoney = new Queue<Item>();
 
     public Queue<GrenadeObject> poolingGrenadeObject = new Queue<GrenadeObject>(); // ³¯¶ó°¡´Â ¼ö·ùÅº
     public Queue<Magazine>[] poolingMagazine = { new Queue<Magazine>(), new Queue<Magazine>() };
@@ -91,7 +98,8 @@ public class PoolManager : MonoBehaviour
             CreateActiveItem(EActiveItems.Key);
             CreateActiveItem(EActiveItems.Bulletproof);
             CreateActiveItem(EActiveItems.Grenade);
-            CreateActiveItem(EActiveItems.Money);
+
+            CreateMoney();
 
             CreateGrenadeObject();
 
@@ -248,10 +256,11 @@ public class PoolManager : MonoBehaviour
     public Item GetActiveItem(EActiveItems value)
     {
         int index = (int)value;
-        if (poolingDrug[index].Count <= 0)
+        if (poolingActiveItem[index].Count <= 0)
         {
             CreateActiveItem(value);
         }
+
         Item i = poolingActiveItem[index].Dequeue();
         i.gameObject.SetActive(true);
         return i;
@@ -260,6 +269,31 @@ public class PoolManager : MonoBehaviour
     {
         i.gameObject.SetActive(false);
         poolingActiveItem[(int)value].Enqueue(i);
+    }
+
+    private void CreateMoney()
+    {
+        Item i = Instantiate(money).GetComponent<Item>();
+        i.transform.SetParent(moneyPos);
+        i.gameObject.SetActive(false);
+        poolingMoney.Enqueue(i);
+    }
+
+    public Item GetMoney()
+    {
+        if (poolingMoney.Count <= 0)
+        {
+            CreateMoney();
+        }
+
+        Item i = poolingMoney.Dequeue();
+        i.gameObject.SetActive(true);
+        return i;
+    }
+    public void ReturnMoney(Item i)
+    {
+        i.gameObject.SetActive(false);
+        poolingMoney.Enqueue(i);
     }
 
     private void CreateGrenadeObject()

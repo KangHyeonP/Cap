@@ -26,6 +26,15 @@ public class Grenade : Item
     {
         if (DrugManager.Instance.itemBanCheck) return;
 
+        if (isProduct)
+        {
+            if (InGameManager.Instance.money < curPrice) return;
+
+            InGameManager.Instance.Buy(curPrice);
+            ItemUIPlay(false);
+            isProduct = false;
+        }
+
         InGameManager.Instance.tempItem = null;
         InGameManager.Instance.isItem = false;
 
@@ -35,14 +44,13 @@ public class Grenade : Item
     public override void UseItem()
     {
         UseGrenade();
-
         PoolManager.Instance.ReturnActiveItem(this, itemValues);
     }
 
     public void UseGrenade()
     {
         // 로직 수정
-        InGameManager.Instance.UpdateGrenade();
+        InGameManager.Instance.UpdateGrenade(1);
         //InGameManager.Instance.numKey++;
         //StartCoroutine(Explode());
         /*
@@ -61,6 +69,7 @@ public class Grenade : Item
             //itemCol = collision.gameObject;
             InGameManager.Instance.tempItem = this;
             InGameManager.Instance.isItem = true;
+            if (isProduct) ItemUIPlay(true);
         }
     }
 
@@ -71,6 +80,7 @@ public class Grenade : Item
             //itemCol = null;
             InGameManager.Instance.tempItem = null;
             InGameManager.Instance.isItem = false;
+            if (isProduct) ItemUIPlay(false);
         }
     }
 }

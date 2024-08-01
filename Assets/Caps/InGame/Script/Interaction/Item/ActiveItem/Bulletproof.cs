@@ -23,7 +23,18 @@ public class Bulletproof : Item
 
     public override void GetItem()
     {
+        if (UIManager.Instance.isBulletProof) return;
+
         if (DrugManager.Instance.itemBanCheck) return;
+
+        if (isProduct)
+        {
+            if (InGameManager.Instance.money < curPrice) return;
+
+            InGameManager.Instance.Buy(curPrice);
+            ItemUIPlay(false);
+            isProduct = false;
+        }
 
         InGameManager.Instance.tempItem = null;
         InGameManager.Instance.isItem = false;
@@ -35,7 +46,6 @@ public class Bulletproof : Item
         if (UIManager.Instance.isBulletProof) return;
 
         UseBulletproof();
-
         PoolManager.Instance.ReturnActiveItem(this, itemValues);
     }
 
@@ -58,6 +68,7 @@ public class Bulletproof : Item
             //itemCol = collision.gameObject;
             InGameManager.Instance.tempItem = this;
             InGameManager.Instance.isItem = true;
+            if (isProduct) ItemUIPlay(true);
         }
     }
 
@@ -68,6 +79,7 @@ public class Bulletproof : Item
             //itemCol = null;
             InGameManager.Instance.tempItem = null;
             InGameManager.Instance.isItem = false;
+            if (isProduct) ItemUIPlay(false);
         }
     }
 

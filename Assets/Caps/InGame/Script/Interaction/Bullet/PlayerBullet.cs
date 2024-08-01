@@ -26,10 +26,6 @@ public class PlayerBullet : Bullet
     {
         base.OnEnable();
 
-        if (InGameManager.Instance.player.isReverse)
-        {
-            transform.localScale = new Vector3(-1f * bulletSize[0], bulletSize[1], bulletSize[2]);
-        }
 
         if (!sizeCheck && DrugManager.Instance.isBulletSizeUp) {
             bulletSize[0] *= 1.5f;
@@ -37,6 +33,12 @@ public class PlayerBullet : Bullet
             gameObject.transform.localScale = new Vector3(bulletSize[0], bulletSize[1], bulletSize[2]);
             sizeCheck = true;
         }
+
+        if (InGameManager.Instance.player.isReverse)
+        {
+            transform.localScale = new Vector3(-1f * bulletSize[0], bulletSize[1], bulletSize[2]);
+        }
+
         if (DrugManager.Instance.isBulletChase) DetectAgent();
         startPos = transform.localPosition;
     } // 만약 유도탄일때는 맞추기 전까지 안사라진다고 하면, 로직 수정(유도탄에서 적 찾을 시 추격 값 무한으로 올리기)

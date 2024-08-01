@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -67,6 +69,7 @@ public class InGameManager : MonoBehaviour
     // Items;
     public int money = 0;
     public int grenadeCount = 0;
+    public int key = 0;
     public int[] magazines = { 0, 0 }; // 주무기, 보조무기 탄창
 
     public int[] bulletMagazine = { 30, 12, 10, 15 }; // 고정된 탄창
@@ -162,6 +165,17 @@ public class InGameManager : MonoBehaviour
         else Time.timeScale = DrugManager.Instance.timeValue;
     }
 
+    // 구매가 안될 때 상인이 못산다고 말해주는 함수
+    public void NonBuy()
+    {
+
+    }
+
+    public void Buy(int price)
+    {
+        UpdateMoney(-price);
+    }
+
     public void UpdateDrug(int value)
     {
         // UI 매니저에서 수정
@@ -171,76 +185,49 @@ public class InGameManager : MonoBehaviour
         DrugManager.Instance.LockCheck(DrugGague);
     }
 
+    // 수정 로직
+    // 총 획득 로직 후 교체 -> 이름 수정 해야할듯
     public void UpdateWeapon(EWeapons value, Weapons weapon)
     {
-        int idx;
-        lastWeaponIndex = curWeaponIndex;
-        lastPistolIndex = curPistolIndex;
+        int idx = -1; // 무기 종류 (0 : 주무기, 1 : 보조무기)
+        lastWeaponIndex = curWeaponIndex; // 장작 중이던 무기 인덱스를 전에 장작한 인덱스로 전환
+        lastPistolIndex = curPistolIndex; // 각 권총 종류별 인덱스 대입
 
-        if(value == EWeapons.Revolver)
+        if (value == EWeapons.Revolver) // 권총을 획득한다면
         {
             idx = 1;
-            player.tempWeaponIndex = idx;
-            pistolInven = weapon;
+            pistolInven = weapon; // 획득한 무기를 권총에 저장
             curWeaponIndex = 3;
             curPistolIndex = pistolInven.index;
         }
-        else
+        else // 주무기를 획득한다면
         {
-            Debug.Log("주무기 획득 진입");
-            if(gunInven == null)
-            {
-                Debug.Log("첫 무기 획득"); // 해당 코드가 없다면 무기가 없는 상태에서 블루 버프 3단계 터질 때 문제가 발생
-            }
-            else if (blueGunInven == null && DrugManager.Instance.isManyWeapon) // 1회용 로직
-            {
-                PutBullet(gunInven.eWeapons);
-                blueGunInven = gunInven;
-                gunInven.gameObject.SetActive(false);
-                blueGunInven.gameObject.SetActive(false);
-
-                idx = 0;
-                player.tempWeaponIndex = idx;
-                gunInven = weapon;
-
-                GetBullet(gunInven.eWeapons, weapon.bulletCount); // 일단 혹시 몰라 추가함 이따 오류 생기면 다시 주석
-                player.mainWeapon[gunInven.index].SetActive(true);
-                UIManager.Instance.inGameUI.WeaponInven(gunInven.index);
-                UIManager.Instance.inGameUI.BulletTextInput(gunInven.bulletCount, bulletMagazine[gunInven.index]);
-                curWeaponIndex = gunInven.index;
-
-                player.gunValue = 0;
-                player.gunCheck = true;
-
-                return;
-            }
-  
             idx = 0;
-            player.tempWeaponIndex = idx;
             gunInven = weapon;
             curWeaponIndex = (int)value;
         }
-
-
-        GetBullet(value, weapon.bulletCount);
+        GetBullet(value, weapon.bulletCount); // 교체한 무기의 총알 등록
         player.WeaponSwap(idx);
     }
 
-    public void UpdateMoney()
-    {
-        money++;
-        UIManager.Instance.inGameUI.MoneyUpdate(money);
-    }
 
-    public void UpdateKey()
+    public void UpdateMoney(int value)
     {
+        money += value;
+        UIManager.Instance.inGameUI.MoneyUpdate(money);
+    } 
+
+    public void UpdateKey(int value)
+    {
+        key += value;
+        UIManager.Instance.inGameUI.KeyUpdate(key);
         // 이것도 UI
         //numKeyUI.text = "Key: " + numKey;
     }
 
-    public void UpdateGrenade()
+    public void UpdateGrenade(int value)
     {
-        grenadeCount++;
+        grenadeCount += value;
         UIManager.Instance.inGameUI.GrenadeUpdate(grenadeCount);
         //numBombUI.text = "Bomb: " + numBomb;
     }
@@ -250,30 +237,15 @@ public class InGameManager : MonoBehaviour
         // UI연동 필요
         if (grenadeCount > 0)
         {
-            grenadeCount--;
-
             PoolManager.Instance.GetGrenadeObject();
             //Instantiate(grenadeObj, player.transform.position, player.transform.rotation);
-            UpdateGrenade();
+            UpdateGrenade(-1);
             UIManager.Instance.inGameUI.GrenadeUpdate(grenadeCount);
         }
     }
     
     public void GetMagazine(int value)
     {
-        /*if(value == 1)
-        {
-            magazines[1]++;
-            Debug.Log("보조무기 탄 얻음 : " + magazines[0]);
-            
-        }
-        else
-        {
-            magazines[0]++;
-
-            Debug.Log("주무기 탄 얻음 : " + magazines[0]); 
-        }*/
-
         magazines[value]++;
         UIManager.Instance.inGameUI.MagazineUpdate(value, magazines[value]);
     }
@@ -283,25 +255,37 @@ public class InGameManager : MonoBehaviour
         curBullet[(int)value] = count;
     }
 
+  
     public void PutBullet(EWeapons value)
     {
-        if (value == EWeapons.Revolver)
+        if (value == EWeapons.Revolver) // 권총일 경우
         {
-            Debug.Log("현재 총알 개수 : " + curBullet[3]);
-
-            pistolInven.gameObject.SetActive(true);
-            pistolInven.bulletCount = curBullet[3];
-            Debug.Log("권총 총알 등록 : " + curBullet[3]);
-            curBullet[3] = 0;
+            PutBulletLogic(1);
+            if (curWeaponIndex < 3) PutBulletLogic(0);
         }
         else
         {
-            gunInven.gameObject.SetActive(true);
-            gunInven.bulletCount = curBullet[(int)gunInven.eWeapons];
-            Debug.Log("주무기 총알 등록 : " + curBullet[(int)gunInven.eWeapons]);
-            curBullet[(int)gunInven.eWeapons] = 0;
+            PutBulletLogic(0);
+            if (curWeaponIndex == 3) PutBulletLogic(1);
         }
-    }    
+    }
+
+    public void PutBulletLogic(int value) // 0: 주무기 1: 보조무기
+    {
+        switch(value)
+        {
+            case 0:
+                //Debug.Log("현재 주무기 총알 개수 : " + curBullet[(int)gunInven.eWeapons]);
+                gunInven.gameObject.SetActive(true); // 주무기 오브젝트 활성화
+                gunInven.bulletCount = curBullet[(int)gunInven.eWeapons]; // 현재 주무기에 해당하는 총알을 저장
+                break;
+            case 1:
+                //Debug.Log("현재 권총 총알 개수 : " + curBullet[3]);
+                pistolInven.gameObject.SetActive(true); // 권총 오브젝트 활성화
+                pistolInven.bulletCount = curBullet[3]; // 현재 권총개수를 권총에 저장
+                break;
+        }
+    }
 
 
     public bool CheckReload(int a)

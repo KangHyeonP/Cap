@@ -29,34 +29,52 @@ public class Weapons : Item
 
     public override void GetItem()
     {
+        if (isProduct)
+        {
+            if (InGameManager.Instance.money < curPrice) return;
+
+            InGameManager.Instance.Buy(curPrice);
+            isProduct = false;
+            ItemUIPlay(false);
+        } // 상점 판매인지 체크
+
         InGameManager.Instance.isItem = false;
 
-        if (eWeapons == EWeapons.Revolver)
+        if (eWeapons == EWeapons.Revolver) // 현재 획득무기가 보조무기라면
         {
-            if (InGameManager.Instance.pistolInven != null)
+            if (InGameManager.Instance.pistolInven != null) // 현재 보조무기를 보유 중인지 확인
             {
-                // 추가한 부분
-                //InGameManager.Instance.pistolInven.gameObject.SetActive(true);
-                Debug.Log("권총 획득했으나 인벤 가득참");
-
-                InGameManager.Instance.PutBullet(eWeapons);
-                InGameManager.Instance.pistolInven.PutWeapon();
+                // 수정 로직
+                InGameManager.Instance.PutBullet(eWeapons); // 현재 플레이어의 권총에 탄을 저장
+                InGameManager.Instance.pistolInven.PutWeapon(); // 보유 중인 권총을 밖으로 뺌
             }
         }
-        else if(InGameManager.Instance.gunInven != null)
+        else if(InGameManager.Instance.gunInven != null) // 현재 획득무기가 주무기라면
         {
-            if(!DrugManager.Instance.isManyWeapon || InGameManager.Instance.blueGunInven != null)
+            // 수정 로직
+            InGameManager.Instance.PutBullet(eWeapons); //  현재 플레이어의 주무기에 탄을 저장
+
+            // 마약 버프가 활성화 된 상태인지 확인
+            if (DrugManager.Instance.isManyWeapon)
             {
-                //추가한부분
-                //InGameManager.Instance.gunInven.gameObject.SetActive(true);
-                InGameManager.Instance.PutBullet(eWeapons);
-                InGameManager.Instance.gunInven.PutWeapon();
+                if(InGameManager.Instance.blueGunInven == null) // 마약 무기 인벤이 비어있다면
+                {
+                    InGameManager.Instance.blueGunInven = InGameManager.Instance.gunInven; // 현재 주 무기를 마약 인벤으로 저장
+                    InGameManager.Instance.blueGunInven.gameObject.SetActive(false); // 교체된 주무기 숨기기
+                }
+                else
+                {
+                    InGameManager.Instance.gunInven.PutWeapon(); // 현재 장착 무기 반환
+                }
+
+            }
+            else //마약 버프가 활성화 된 상태가 아니라면
+            {
+                InGameManager.Instance.gunInven.PutWeapon(); // 보유 주무기를 밖으로 뺌
             }
         }
         
         UseItem();
-
-        base.GetItem();
     }
 
     public override void UseItem()
@@ -75,13 +93,13 @@ public class Weapons : Item
         }
 
         InGameManager.Instance.UpdateWeapon(eWeapons, this);
-        //InGameManager.Instance.GetBullet(eWeapons, bulletCount);
-        UIManager.Instance.inGameUI.BulletTextInput(bulletCount, InGameManager.Instance.bulletMagazine[(int)eWeapons]);
-
+        gameObject.SetActive(false);
     }
    
     public void PutWeapon()
     {
+        gameObject.SetActive(true);
+
         transform.position = InGameManager.Instance.player.transform.position;
 
         itemRigid.AddForce(CameraController.Instance.MouseVecValue.normalized, ForceMode2D.Impulse);
@@ -93,6 +111,7 @@ public class Weapons : Item
         {
             InGameManager.Instance.tempItem = this;
             InGameManager.Instance.isItem = true;
+            if (isProduct) ItemUIPlay(true);
         }
     }
 
@@ -102,6 +121,7 @@ public class Weapons : Item
         {
             InGameManager.Instance.tempItem = null;
             InGameManager.Instance.isItem = false;
+            if (isProduct) ItemUIPlay(false);
         }
     }
 }

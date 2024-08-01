@@ -19,6 +19,7 @@ public class InGameUI : MonoBehaviour
     public TextMeshProUGUI grenadeText;
     public TextMeshProUGUI[] magazinesText;
     public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI keyText;
 
     private void Awake()
     {
@@ -47,6 +48,7 @@ public class InGameUI : MonoBehaviour
         GrenadeUpdate(0);
         MagazineUpdate(0, 0);
         MagazineUpdate(1, 0);
+        KeyUpdate(0);
     }
 
     public void DrugInven(Sprite s)
@@ -89,5 +91,10 @@ public class InGameUI : MonoBehaviour
     public void MoneyUpdate(int cnt)
     {
         moneyText.text = cnt.ToString();
+    }
+
+    public void KeyUpdate(int cnt)
+    {
+        keyText.text = cnt.ToString();
     }
 }
