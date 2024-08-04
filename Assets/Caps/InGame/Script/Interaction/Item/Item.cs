@@ -58,14 +58,19 @@ public abstract class Item : MonoBehaviour
 
         transform.position = pos;
 
-        if (DrugManager.Instance.hostHateCheck) curPrice = (price * 6) / 5; // 가격 20프로향상, 1.2배 증가
-        else curPrice = price;
+        curPrice = price;
 
         priceText.text = curPrice.ToString();
     }
 
     public void ItemUIPlay(bool check)
     {
+        if (DrugManager.Instance.hostHateCheck)
+        {
+            curPrice = (price * 6) / 5;
+            priceText.text = curPrice.ToString();
+        }
+
         priceText.enabled = check;
         eIconRenderer.enabled = check;
         moneyRenderer.enabled = check;
