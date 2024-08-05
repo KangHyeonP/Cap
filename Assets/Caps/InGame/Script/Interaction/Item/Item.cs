@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
 
 public enum EActiveItems
 {
@@ -51,6 +50,16 @@ public abstract class Item : MonoBehaviour
     }
 
     public abstract void UseItem();
+
+    public void ThrowItem(Vector2 pos) // 드랍 아이템 던질 방향 조절
+    {
+        transform.position = pos;
+
+        float angle = Random.Range(0, 2 * Mathf.PI);
+        Vector2 vec = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+
+        itemRigid.AddForce(vec.normalized, ForceMode2D.Impulse);
+    }
 
     public void ShopItem(Vector2 pos)
     {

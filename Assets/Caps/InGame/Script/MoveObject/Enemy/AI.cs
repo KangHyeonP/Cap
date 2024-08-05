@@ -265,7 +265,7 @@ public abstract class AI : MonoBehaviour
 
     public void Damage(int damage, WeaponValue value)
     {
-       // Debug.Log("¸Â¾Ò¾î" + value);
+        if (isDie) return;
 
         if(DrugManager.Instance.aimMissCheck)
         {
@@ -314,7 +314,7 @@ public abstract class AI : MonoBehaviour
         if (hp <= 0)
         {
             RoomController.Instance.ClearRoomCount();
-            Destroy(gameObject);
+            Die();
         }
     }
 
@@ -345,6 +345,62 @@ public abstract class AI : MonoBehaviour
         isDetect = false;
         cirCollider2D.enabled = false;
         agent.enabled = false;
+
+        DropItem();
+        gameObject.SetActive(false);
+    }
+
+    public void DropItem()
+    {
+        int value = Random.Range(1, 101);
+
+        Debug.Log("Money : " + value);
+        // Money
+        if (value <= 10) DropMoney(3);
+        else if (value <= 60) DropMoney(2);
+        else if (value <= 90) DropMoney(1);
+
+
+        value = Random.Range(1, 101);
+        Debug.Log("Drug : " + value);
+        // Drug (0~9:red / 10~19:orange / 20~29:yellow / 30~39: green / 40~49:blue)
+        if (value <= 50)
+        {
+            Drug drug = PoolManager.Instance.GetDrug((EDrugColor)((value - 1)/10));
+            drug.ThrowItem(transform.position);
+        }
+
+        value = Random.Range(1, 101);
+        Debug.Log("Magazine : " + value);
+        // Magazine
+        if (value <=15)
+        {
+            Magazine magazine = PoolManager.Instance.GetMagzine(0);
+            magazine.ThrowItem(transform.position);
+        }
+        else if(value <= 30)
+        {
+            Magazine magazine = PoolManager.Instance.GetMagzine(1);
+            magazine.ThrowItem(transform.position);
+        }
+
+        value = Random.Range(1, 101);
+        Debug.Log("ActiveItem : " + value);// ºØ´ë, ¿­¼è, ¹æÅº, ¼ö·ùÅº Á¸Àç
+        // ActiveItem (0~4:ºØ´ë / 5~9:¿­¼è / 10~14:¹æÅº / 15~19 : ¼ö·ùÅº)
+        if (value <= 20)
+        {
+            Item activeItem = PoolManager.Instance.GetActiveItem((EActiveItems)((value - 1) / 5));
+            activeItem.ThrowItem(transform.position);
+        }
+    }
+
+    public void DropMoney(int cnt)
+    {
+        for (int i = 0; i < cnt; i++)
+        {
+            Item money = PoolManager.Instance.GetMoney();
+            money.ThrowItem(transform.position);
+        }
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)

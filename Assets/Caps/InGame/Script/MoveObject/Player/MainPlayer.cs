@@ -37,7 +37,7 @@ public class MainPlayer : Player
 
     protected override void PlayerSkill()
     {
-        Debug.Log("기본 플레이어 스킬");
+        //Debug.Log("기본 플레이어 스킬");
         // 에이전트 초기화
         agents.Clear();
 
@@ -59,8 +59,8 @@ public class MainPlayer : Player
             agents.Add(a);
             agentCnt++;
 
-            Debug.Log("x :  " + a.transform.localScale.x);
-            Debug.Log("y /  : " + a.transform.localScale.y / (2 * 5));
+            //Debug.Log("x :  " + a.transform.localScale.x);
+            //Debug.Log("y /  : " + a.transform.localScale.y / (2 * 5));
         }
 
         foreach(AI a in agents)
