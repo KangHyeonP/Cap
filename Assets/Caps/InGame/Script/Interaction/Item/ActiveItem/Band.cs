@@ -35,9 +35,6 @@ public class Band : Item
             ItemUIPlay(false);
             isProduct = false;
         }
-
-        InGameManager.Instance.tempItem = null;
-        InGameManager.Instance.isItem = false;
         UseItem();
     }
 

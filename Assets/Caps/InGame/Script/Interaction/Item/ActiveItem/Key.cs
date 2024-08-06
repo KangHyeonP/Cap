@@ -34,9 +34,6 @@ public class Key : Item
             isProduct = false;
         }
 
-        InGameManager.Instance.tempItem = null;
-        InGameManager.Instance.isItem = false;
-
         UseItem();
     }
 

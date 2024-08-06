@@ -504,9 +504,10 @@ public abstract class Player : MonoBehaviour
                 UIManager.Instance.inGameUI.DrugInven(null);
             }
             // 땅에있는 마약
-            else if (InGameManager.Instance.tempDrug != null && !shiftKey)
+            else if (InGameManager.Instance.tempDrug.Count != 0 && !shiftKey)
             {
-                InGameManager.Instance.tempDrug.UseItem();
+                InGameManager.Instance.tempDrug
+                    [InGameManager.Instance.tempDrugIndex].UseItem();
             }
         }
     }

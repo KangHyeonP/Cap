@@ -79,17 +79,13 @@ public class InGameManager : MonoBehaviour
     public bool IsDead => isDead;
 
     // Item
-    public bool isItem;
-    public Item tempItem = null;
     public List<Item> tempItems = new List<Item>();
     public int tempItemIndex = -1; // 근처에 있는 아이템 인덱스
 
     // 수정해야함
     public Drug drugInven = null;
-
-
-    // 나중에 Stack형식으로 바꿔야할듯?
-    public Drug tempDrug = null;
+    public List<Drug> tempDrug = new List<Drug>();
+    public int tempDrugIndex = -1;
 
     public int drugGuage;
 
@@ -125,6 +121,21 @@ public class InGameManager : MonoBehaviour
                     minDistance = tempItems[i].distance;
                     tempItemIndex = i;
                     //Debug.Log("아이템 인덱스 :" + tempItemIndex);
+                }
+            }
+        }
+
+        if(tempDrug.Count != 0) // 근처에 마약이 있다면
+        {
+            float minDistance = 999f;
+            tempDrugIndex = -1;
+
+            for (int i = tempDrug.Count - 1; i >= 0; i--)
+            {
+                if (minDistance > tempDrug[i].distance)
+                {
+                    minDistance = tempDrug[i].distance;
+                    tempDrugIndex = i;
                 }
             }
         }

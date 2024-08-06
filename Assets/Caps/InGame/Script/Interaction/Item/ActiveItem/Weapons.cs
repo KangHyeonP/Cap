@@ -29,6 +29,8 @@ public class Weapons : Item
 
     public override void GetItem()
     {
+        InGameManager.Instance.player.isAttack = false; // 총을 입수하면서 공격중일때 버그남
+
         if (isProduct)
         {
             if (InGameManager.Instance.money < curPrice) return;
@@ -37,8 +39,6 @@ public class Weapons : Item
             isProduct = false;
             ItemUIPlay(false);
         } // 상점 판매인지 체크
-
-        InGameManager.Instance.isItem = false;
 
         if (eWeapons == EWeapons.Revolver) // 현재 획득무기가 보조무기라면
         {

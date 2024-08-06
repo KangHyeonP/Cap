@@ -58,9 +58,6 @@ public class Drug : Item
             ItemUIPlay(false);
         }
 
-        InGameManager.Instance.tempItem = null;
-        InGameManager.Instance.isItem = false; // 이부분 추가
-
         if (InGameManager.Instance.drugInven != null)
         {
             //InGameManager.Instance.drugInven.gameObject.SetActive(true);
@@ -69,7 +66,7 @@ public class Drug : Item
 
         InGameManager.Instance.drugInven = this;
         UIManager.Instance.inGameUI.DrugInven(drugSprite.sprite);
-        InGameManager.Instance.tempDrug = null;
+        //InGameManager.Instance.tempDrug = null;
 
         base.GetItem();
     }
@@ -116,12 +113,10 @@ public class Drug : Item
     {
         if (collision.tag == "Player")
         {
-            InGameManager.Instance.tempItem = this;
-            InGameManager.Instance.tempDrug = this;
-            InGameManager.Instance.isItem = true;
             if (isProduct) ItemUIPlay(true);
 
             InGameManager.Instance.tempItems.Add(this);
+            InGameManager.Instance.tempDrug.Add(this);
             playerCheck = true;
         }
     }
@@ -130,12 +125,10 @@ public class Drug : Item
     {
         if (collision.tag == "Player")
         {
-            InGameManager.Instance.tempItem = null;
-            InGameManager.Instance.tempDrug = null;
-            InGameManager.Instance.isItem = false;
             if (isProduct) ItemUIPlay(false);
 
             InGameManager.Instance.tempItems.Remove(this);
+            InGameManager.Instance.tempDrug.Remove(this);
             distance = 999f;
             playerCheck = false;
         }

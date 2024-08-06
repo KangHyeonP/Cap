@@ -94,9 +94,6 @@ public abstract class Item : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            //itemCol = collision.gameObject;
-            InGameManager.Instance.tempItem = this;
-            InGameManager.Instance.isItem = true;
             if (isProduct) ItemUIPlay(true);
 
             InGameManager.Instance.tempItems.Add(this);
@@ -109,9 +106,6 @@ public abstract class Item : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            //itemCol = null;
-            InGameManager.Instance.tempItem = null;
-            InGameManager.Instance.isItem = false;
             if (isProduct) ItemUIPlay(false);
 
             InGameManager.Instance.tempItems.Remove(this);
