@@ -112,25 +112,32 @@ public class Drug : Item
 
     // 콜라이더 추가
 
-    protected void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && InGameManager.Instance.tempItem == null)
+        if (collision.tag == "Player")
         {
             InGameManager.Instance.tempItem = this;
             InGameManager.Instance.tempDrug = this;
             InGameManager.Instance.isItem = true;
             if (isProduct) ItemUIPlay(true);
+
+            InGameManager.Instance.tempItems.Add(this);
+            playerCheck = true;
         }
     }
 
-    protected void OnTriggerExit2D(Collider2D collision)
+    protected override void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && InGameManager.Instance.tempItem != null)
+        if (collision.tag == "Player")
         {
             InGameManager.Instance.tempItem = null;
             InGameManager.Instance.tempDrug = null;
             InGameManager.Instance.isItem = false;
             if (isProduct) ItemUIPlay(false);
+
+            InGameManager.Instance.tempItems.Remove(this);
+            distance = 999f;
+            playerCheck = false;
         }
     }
 

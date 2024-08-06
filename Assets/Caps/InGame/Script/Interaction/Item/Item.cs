@@ -13,13 +13,13 @@ public enum EActiveItems
 
 public abstract class Item : MonoBehaviour
 {
-    //선언해야할 변수들!!
-    //붕대, 마약(랜덤 마약과 색깔이 보이는 마약들 ), 무기들(얘들은 고민 중), 스포이드, 수류탄
     [SerializeField]
     protected EActiveItems itemValues;
     public int price = 0;
     public bool isProduct = false;
     public int curPrice = 0;
+    public bool playerCheck = false; // 플레이어와 충돌여부 체크
+    public float distance = 999f; // 플레이어와 아이템의 거리
 
     public TextMeshPro priceText;
     public SpriteRenderer eIconRenderer;
@@ -40,7 +40,11 @@ public abstract class Item : MonoBehaviour
 
     protected virtual void Update()
     {
-
+        if(playerCheck)
+        {
+            distance = Vector2.Distance
+                (transform.position, InGameManager.Instance.player.transform.position);
+        }
     }
 
 
@@ -83,5 +87,37 @@ public abstract class Item : MonoBehaviour
         priceText.enabled = check;
         eIconRenderer.enabled = check;
         moneyRenderer.enabled = check;
+    }
+
+
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            //itemCol = collision.gameObject;
+            InGameManager.Instance.tempItem = this;
+            InGameManager.Instance.isItem = true;
+            if (isProduct) ItemUIPlay(true);
+
+            InGameManager.Instance.tempItems.Add(this);
+            playerCheck = true;
+            //Debug.Log("리스트 체크(추가) : " + InGameManager.Instance.tempItems.Count);
+        }
+    }
+
+    protected virtual void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            //itemCol = null;
+            InGameManager.Instance.tempItem = null;
+            InGameManager.Instance.isItem = false;
+            if (isProduct) ItemUIPlay(false);
+
+            InGameManager.Instance.tempItems.Remove(this);
+            distance = 999f;
+            playerCheck = false;
+            //Debug.Log("리스트 체크(삭제) : " + InGameManager.Instance.tempItems.Count);
+        }
     }
 }

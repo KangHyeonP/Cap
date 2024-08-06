@@ -43,23 +43,13 @@ public class Money : Item
         InGameManager.Instance.UpdateMoney(1);
     }
     // 콜라이더 추가
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
-        {
-            //itemCol = collision.gameObject;
-            InGameManager.Instance.tempItem = this;
-            InGameManager.Instance.isItem = true;
-        }
+        base.OnTriggerEnter2D(collision);
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    protected override void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
-        {
-            //itemCol = null;
-            InGameManager.Instance.tempItem = null;
-            InGameManager.Instance.isItem = false;
-        }
+        base.OnTriggerExit2D(collision);
     }
 }

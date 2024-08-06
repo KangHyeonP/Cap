@@ -105,23 +105,13 @@ public class Weapons : Item
         itemRigid.AddForce(CameraController.Instance.MouseVecValue.normalized, ForceMode2D.Impulse);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
-        {
-            InGameManager.Instance.tempItem = this;
-            InGameManager.Instance.isItem = true;
-            if (isProduct) ItemUIPlay(true);
-        }
+        base.OnTriggerEnter2D(collision);
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    protected override void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
-        {
-            InGameManager.Instance.tempItem = null;
-            InGameManager.Instance.isItem = false;
-            if (isProduct) ItemUIPlay(false);
-        }
+        base.OnTriggerExit2D(collision);
     }
 }

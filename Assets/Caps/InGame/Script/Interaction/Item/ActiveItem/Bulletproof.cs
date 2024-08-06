@@ -61,27 +61,13 @@ public class Bulletproof : Item
         UIManager.Instance.BulletproofUpdate(true);
     }
     // 콜라이더 추가
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
-        {
-            //itemCol = collision.gameObject;
-            InGameManager.Instance.tempItem = this;
-            InGameManager.Instance.isItem = true;
-            if (isProduct) ItemUIPlay(true);
-        }
+        base.OnTriggerEnter2D(collision);
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    protected override void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
-        {
-            //itemCol = null;
-            InGameManager.Instance.tempItem = null;
-            InGameManager.Instance.isItem = false;
-            if (isProduct) ItemUIPlay(false);
-        }
+        base.OnTriggerExit2D(collision);
     }
-
-
 }

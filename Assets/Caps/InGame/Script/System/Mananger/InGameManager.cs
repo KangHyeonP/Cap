@@ -80,11 +80,13 @@ public class InGameManager : MonoBehaviour
 
     // Item
     public bool isItem;
+    public Item tempItem = null;
+    public List<Item> tempItems = new List<Item>();
+    public int tempItemIndex = -1; // 근처에 있는 아이템 인덱스
 
     // 수정해야함
     public Drug drugInven = null;
 
-    public Item tempItem = null;
 
     // 나중에 Stack형식으로 바꿔야할듯?
     public Drug tempDrug = null;
@@ -109,9 +111,23 @@ public class InGameManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if(tempItems.Count != 0) // 근처에 아이템이 존재한다면
+        {
+            float minDistance = 999f;
+            tempItemIndex = -1;
+
+            for(int i= tempItems.Count-1; i >= 0; i--)
+            {
+                if(minDistance > tempItems[i].distance)
+                {
+                    minDistance = tempItems[i].distance;
+                    tempItemIndex = i;
+                    //Debug.Log("아이템 인덱스 :" + tempItemIndex);
+                }
+            }
+        }
     }
 
     private void Init()
@@ -163,6 +179,13 @@ public class InGameManager : MonoBehaviour
 
         if (isPause) Time.timeScale = 0f;
         else Time.timeScale = DrugManager.Instance.timeValue;
+    }
+
+    public void ItemUse()
+    {
+        if (tempItems.Count == 0) return;
+
+        tempItems[tempItemIndex].GetItem();
     }
 
     // 구매가 안될 때 상인이 못산다고 말해주는 함수

@@ -483,9 +483,14 @@ public abstract class Player : MonoBehaviour
 
     protected void Interaction()
     {
-        if (interaction && InGameManager.Instance.isItem == true)
+        /*if (interaction && InGameManager.Instance.isItem == true)
         {
             InGameManager.Instance?.tempItem.GetItem();
+        }*/
+
+        if(interaction)
+        {
+            InGameManager.Instance.ItemUse();
         }
     }
     protected void EatDrug()
