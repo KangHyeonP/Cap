@@ -41,7 +41,9 @@ public class RoomController : MonoBehaviour
     // 미니맵 수정
     public void ChangePlayerRoom(int num)
     {
+        rooms[curIndex].RoomStateUpdate(RoomState.been);
         curIndex = num;
+        rooms[curIndex].RoomStateUpdate(RoomState.being);
     }
 
     public void ClearRoomCount() // 적을 처지할 때 마다 방이 클리어 상태인지 확인

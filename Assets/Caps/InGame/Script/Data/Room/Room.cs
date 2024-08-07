@@ -4,13 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.LowLevel;
 
-public enum RoomStatus // 현재 방의 상태
+public enum RoomState // 현재 방의 상태
 {
-    
+    being,
+    notBeen,
+    been
 }
 
 public class Room : MonoBehaviour
 {
+    // Fog
+    [SerializeField]
+    private SpriteRenderer fog;
+
     // Agents
     [SerializeField]
     private List<AI> agents;
@@ -49,8 +55,25 @@ public class Room : MonoBehaviour
     private void InitRoom()
     {
         fullEnemyCnt = agents.Count;
+        RoomStateUpdate(RoomState.notBeen);
 
         foreach (GameObject g in door) g.SetActive(false);
+    }
+
+    public void RoomStateUpdate(RoomState state)
+    {
+        switch (state)
+        {
+            case RoomState.notBeen:
+                fog.color = new Color(0, 0, 0, 1);
+                break;
+            case RoomState.being:
+                fog.color = new Color(0, 0, 0, 0);
+                break;
+            case RoomState.been:
+                fog.color = new Color(0, 0, 0, 0.8f);
+                break;
+        }
     }
 
     // 룸 활성화 로직
