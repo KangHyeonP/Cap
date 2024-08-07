@@ -60,6 +60,10 @@ public abstract class Gun : MonoBehaviour
 
 		if (InGameManager.Instance.player.AttackCheck())
         {
+            if(InGameManager.Instance.player.isReload)
+            {
+                InGameManager.Instance.player.CancleReload();
+            }      
             if (InGameManager.Instance.curBullet[(int)weapons] <= 0) return;
 
 			ShotDelay();

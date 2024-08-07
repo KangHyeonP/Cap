@@ -8,6 +8,7 @@ public class Knife : MonoBehaviour
     public float fireMaximumDelay = 0.15f;
     protected float fireTime = 0;
     protected SpriteRenderer spriteRenderer;
+    public Coroutine kinfeCoroutine;
 
     private void Awake()
     {
@@ -35,7 +36,7 @@ public class Knife : MonoBehaviour
         if (fireTime >= fireMaximumDelay &&
             fireDelay <= fireTime + InGameManager.Instance.AttackDelay / 10.0f + DrugManager.Instance.playerAttackDelay / 6.0f)
         {
-            StartCoroutine(Attack());
+            kinfeCoroutine = StartCoroutine(Attack());
         }
     }
 
@@ -43,7 +44,7 @@ public class Knife : MonoBehaviour
     {
         //InGameManager.Instance.knifeEffect.SetActive(true);
         //yield return new WaitForSeconds(0.1f);
-
+        InGameManager.Instance.knifeEffect.SetActive(true);
         InGameManager.Instance.player.KnifeAttack(true);
         spriteRenderer.enabled = false;
         InGameManager.Instance.player.isAttack = true;
@@ -51,11 +52,23 @@ public class Knife : MonoBehaviour
 
         yield return new WaitForSeconds(0.3f);
 
-        InGameManager.Instance.player.KnifeAttack(false);
+        InGameManager.Instance.knifeEffect.SetActive(false);
         spriteRenderer.enabled = true;
         InGameManager.Instance.player.isAttack = false;
 
         //yield return new WaitForSeconds(0.1f);
         //InGameManager.Instance.knifeEffect.SetActive(false);
+    }
+
+    public void CancleKnife()
+    {
+        gameObject.SetActive(false);
+        InGameManager.Instance.knifeEffect.SetActive(false);
+        if (kinfeCoroutine == null) return;
+
+        StopCoroutine(kinfeCoroutine);
+        spriteRenderer.enabled = true;
+        InGameManager.Instance.player.isAttack = false;
+        kinfeCoroutine = null;
     }
 }

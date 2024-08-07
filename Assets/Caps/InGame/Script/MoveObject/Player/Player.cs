@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // hp같은 정보는 어차피 싱글게임이라 게임매니저에서 관리해도 좋을듯
 
@@ -45,7 +46,7 @@ public abstract class Player : MonoBehaviour
     // Status - animation
     protected PlayerAnimator curAnim = PlayerAnimator.Idle;
 
-    public bool isReverse = false; // 캐릭터를 뒤집는 상태, 추후에 변경못하게 수정
+    private bool isReverse = false;
     public bool IsReverse => isReverse;
     protected bool isWalk = false;
     public bool isAttack = false;
@@ -98,9 +99,13 @@ public abstract class Player : MonoBehaviour
     public Weapons tempGun; // 교체용 변수
 
     public GameObject[] subWeapon; // 이글, 아나콘다 순
-    public GameObject knife;
+    public Knife knife;
     [SerializeField]
     private GameObject weaponPivot;
+    public RectTransform playerCanvas; // 추후 다른 UI도 추가되어야한다면 slider로 교체
+    public Slider reloadSlider;
+    public Coroutine reloadCoroutine;
+
     [SerializeField]
     public GameObject fireEffect;
 
@@ -253,7 +258,7 @@ public abstract class Player : MonoBehaviour
 
     public bool AttackCheck()
     {
-        return attackKey && !isAttack && !isRoll && !isSkill && !isReload;
+        return attackKey && !isAttack && !isRoll && !isSkill;
     }
 
 
@@ -330,9 +335,7 @@ public abstract class Player : MonoBehaviour
             InGameManager.Instance.knifePivot.transform.position = weaponPivot.transform.position;
             InGameManager.Instance.knifePivot.transform.rotation = weaponPivot.transform.rotation;
             //InGameManager.Instance.knifeEffect.transform.rotation = weaponPivot.transform.rotation;
-            InGameManager.Instance.knifeEffect.SetActive(true);
         }
-        else InGameManager.Instance.knifeEffect.SetActive(false);
     }
 
     
@@ -342,7 +345,7 @@ public abstract class Player : MonoBehaviour
         if (!reLoadKey) return;
         if (!InGameManager.Instance.CheckReload(gunValue)) return;
 
-        StartCoroutine(IReload());
+        reloadCoroutine = StartCoroutine(IReload());
     }
 
     protected IEnumerator IReload()
@@ -350,10 +353,22 @@ public abstract class Player : MonoBehaviour
         isReload = true;
         Debug.Log("장전 진행 체크!");
 
-        InGameManager.Instance.ReloadBullet(gunValue);
+        reloadSlider.value = 0f;
+        float elapsed = 0f;
+        float curReloadTime = DrugManager.Instance.reloadSpeed * reloadTime;
+        reloadSlider.gameObject.SetActive(true);
 
-        // 총마다 다르면 수정해야함
-        yield return new WaitForSeconds(DrugManager.Instance.reloadSpeed * reloadTime);
+        while (elapsed < curReloadTime)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            reloadSlider.value = Mathf.Clamp01(elapsed / curReloadTime);
+            yield return null;
+        }
+
+        reloadSlider.value = 1f;
+        reloadSlider.gameObject.SetActive(false);
+
+        InGameManager.Instance.ReloadBullet(gunValue);
 
         if(gunValue == 1)
         UIManager.Instance.inGameUI.BulletTextInput(InGameManager.Instance.bulletMagazine[3],
@@ -365,6 +380,17 @@ public abstract class Player : MonoBehaviour
 
         isReload = false;
     }
+
+    public void CancleReload()
+    {
+        StopCoroutine(reloadCoroutine);
+        reloadSlider.value = 0f;
+        reloadSlider.gameObject.SetActive(false);
+        isReload = false;
+
+        reloadCoroutine = null;
+    }
+
 
     protected void Swap()
     {
@@ -401,7 +427,7 @@ public abstract class Player : MonoBehaviour
         // 무기를 전부 비활성화, 비용이 많이 든다면 추후 활성화 무기만 체크하여 비활성화로 돌리는 로직으로 수정
         if (InGameManager.Instance.lastWeaponIndex == 4)
         {
-            knife.SetActive(false);
+            knife.CancleKnife();
         }
         else if (InGameManager.Instance.lastWeaponIndex == 3)
         {
@@ -446,6 +472,7 @@ public abstract class Player : MonoBehaviour
                 InGameManager.Instance.bulletMagazine[temp]);
             InGameManager.Instance.curWeaponIndex = temp;
 
+            reloadTime = InGameManager.Instance.gunInven.reloadSpeed;
             gunValue = 0;
             gunCheck = true;
         }
@@ -464,6 +491,7 @@ public abstract class Player : MonoBehaviour
             InGameManager.Instance.curWeaponIndex = 3;
             InGameManager.Instance.curPistolIndex = temp;
 
+            reloadTime = InGameManager.Instance.pistolInven.reloadSpeed;
             gunValue = 1;
             gunCheck = true;
         }
@@ -472,7 +500,7 @@ public abstract class Player : MonoBehaviour
             InGameManager.Instance.lastWeaponIndex = InGameManager.Instance.curWeaponIndex;
             InGameManager.Instance.curWeaponIndex = 4;
 
-            knife.SetActive(true);
+            knife.gameObject.SetActive(true);
             UIManager.Instance.inGameUI.WeaponInven(5);
             UIManager.Instance.inGameUI.KnifeTextUpdate();
             gunCheck = false;
@@ -533,8 +561,16 @@ public abstract class Player : MonoBehaviour
     {
         if (isRoll) return;
 
-        if (isReverse) transform.localScale = new Vector3(-1, 1, 1);
-        else transform.localScale = new Vector3(1, 1, 1);
+        if (isReverse)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+            playerCanvas.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            playerCanvas.localScale = new Vector3(1, 1, 1);
+        }
 
         if (pVec != curVec)
             AnimationChange(pVec);

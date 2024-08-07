@@ -166,6 +166,8 @@ MonoBehaviour:
   price: 15
   isProduct: 0
   curPrice: 0
+  playerCheck: 0
+  distance: 999
   priceText: {fileID: 7173669585267492958}
   eIconRenderer: {fileID: 7444803244613325286}
   moneyRenderer: {fileID: 6751184410264841346}
@@ -173,6 +175,7 @@ MonoBehaviour:
   index: 0
   checkMagazine: 0
   bulletCount: 10
+  reloadSpeed: 1
 --- !u!1 &1608449062880192169
 GameObject:
   m_ObjectHideFlags: 0

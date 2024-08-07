@@ -34,7 +34,7 @@ public class PlayerBullet : Bullet
             sizeCheck = true;
         }
 
-        if (InGameManager.Instance.player.isReverse)
+        if (InGameManager.Instance.player.IsReverse)
         {
             transform.localScale = new Vector3(-1f * bulletSize[0], bulletSize[1], bulletSize[2]);
         }

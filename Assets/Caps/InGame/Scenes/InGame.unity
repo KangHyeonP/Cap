@@ -10406,8 +10406,6 @@ MonoBehaviour:
   magazines: 0000000000000000
   bulletMagazine: 1e0000000c0000000a0000000a000000
   curBullet: 00000000000000000000000000000000
-  isItem: 0
-  tempItem: {fileID: 0}
   tempItems: []
   tempItemIndex: -1
   drugInven: {fileID: 0}

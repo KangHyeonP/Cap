@@ -8,6 +8,7 @@ public class Weapons : Item
     public int index; //각 무기의 인덱스 값
     public bool checkMagazine = false; // 무기 첫 획득 판단
     public int bulletCount = 0; // 각 무기의 탄창의 탄알 개수
+    public float reloadSpeed = -1;
 
     protected override void Awake()
     {
@@ -29,7 +30,12 @@ public class Weapons : Item
 
     public override void GetItem()
     {
-        InGameManager.Instance.player.isAttack = false; // 총을 입수하면서 공격중일때 버그남
+        InGameManager.Instance.player.isAttack = false;
+        if (InGameManager.Instance.player.isReload)
+        {
+            InGameManager.Instance.player.CancleReload();
+        }
+
 
         if (isProduct)
         {
