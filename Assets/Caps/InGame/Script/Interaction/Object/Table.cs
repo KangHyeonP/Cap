@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Unity.VisualScripting.FlowStateWidget;
 
 public enum TableArrow
 {
@@ -31,6 +32,11 @@ public class Table : MonoBehaviour
     private Vector3[] distance = new Vector3[4];
 
     public Agent curAgent = null;
+
+    int playerLine = -1;
+    int agentLine = -1;
+    float playerVec = 0;
+    float agentVec = 0;
 
     // Start is called before the first frame update
     private void Awake()
@@ -93,6 +99,7 @@ public class Table : MonoBehaviour
         {
             enemyCheck = false;
             curAgent = null;
+            Debug.Log("테이블 탈출");
         }
     }
 
@@ -211,33 +218,44 @@ public class Table : MonoBehaviour
 
     // AI 테이블 기대기 여부 계산
     //private void LeanAgent(Vector3 vec, GameObject agentObj)
-    private void LeanAgent(Vector3 vec)
+    public void LeanAgent(Vector3 vec)
     {
         moveVec = InGameManager.Instance.player.transform.localPosition;
 
-        int playerLine = -1;
-        int agentLine = -1;
+        playerLine = -1;
+        agentLine = -1;
 
-        float playerVec = VectorValue(moveVec - transform.position);
-        float agentVec = VectorValue(vec - transform.position);
-        Debug.Log("agentVec : " + agentVec);
+        playerVec = VectorValue(moveVec - transform.position);
+        agentVec = VectorValue(vec - transform.position);
+        //Debug.Log("agentVec : " + agentVec);
 
         playerLine = AngleCalculate(playerVec);
         agentLine = AngleCalculate(agentVec);
 
-       // Debug.Log("계산 체크");
-       // Debug.Log("playerLine : " + playerLine);
-       // Debug.Log("agentLine : " + agentLine);
+        // Debug.Log("계산 체크");
+        // Debug.Log("playerLine : " + playerLine);
+        // Debug.Log("agentLine : " + agentLine);
 
         //Debug.Log("agentArrow : " + agentArrow);
         //Debug.Log("curagentArrow : " + (TableArrow)agentLine);
 
-        if (playerLine == agentLine || agentArrow != (TableArrow)agentLine) return;
+        if (StateCheck())
+        {
+            curAgent = null;
+            enemyCheck = false;
+
+            return;
+        }
         //Debug.Log("문제 체크");
 
-        curAgent.TableValue(distance[(int)agentArrow], agentArrow);
+        curAgent.TableValue(distance[(int)agentArrow], agentArrow, this);
 
         // 기존 코드
         //agentObj.GetComponent<Agent>().TableValue(distance[(int)agentArrow] ,agentArrow);
+    }
+
+    public bool StateCheck()
+    {
+        return (playerLine == agentLine || agentArrow != (TableArrow)agentLine);
     }
 }

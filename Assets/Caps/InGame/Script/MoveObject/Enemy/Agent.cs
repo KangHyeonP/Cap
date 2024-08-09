@@ -9,6 +9,7 @@ public class Agent : AI
 {
     public float[] tableValue = { 0, 0 };
 
+    public Table table = null;
 
     protected override  void Awake()
     {
@@ -100,12 +101,13 @@ public class Agent : AI
         
     }
 
-    public void TableValue(Vector3 vec, TableArrow arrow)
+    public void TableValue(Vector3 vec, TableArrow arrow, Table t)
     {
         tableVec = vec;
         curTableArrow = arrow;
         curStatus = EnemyStatus.Lean;
         isLean = true;
+        table = t;
 
         isDetect = false; //추가함
         agent.isStopped = true;
@@ -168,20 +170,26 @@ public class Agent : AI
         yield return new WaitForSeconds(1.0f);
         isLean = false;
 
-        yield return new WaitForSeconds(0.75f); // 조준까지 걸어가는 시간
-        isDetect = true; //추가함
-        agent.isStopped = false;
-        curStatus = EnemyStatus.Chase;
+        yield return new WaitForSeconds(0.5f); // 조준까지 걸어가는 시간
+
+        if(table.curAgent == null)
+        {
+            isDetect = true;
+            agent.isStopped = false;
+            curStatus = EnemyStatus.Chase;
+            table = null;
+        }
+        else
+        {
+            table.LeanAgent(transform.position);
+        }
+
     }
     protected void LeanAiming()
     {
-        //transform.Translate(moveVec * Time.unscaledDeltaTime);
-        /*if(isDetect) return;
-        transform.position += moveVec;
-        isDetect = true;*/
         transform.position = Vector3.MoveTowards(transform.position, (transform.position + moveVec), 5.0f * Time.unscaledDeltaTime);
-        Debug.Log("나가는 방향 moveVec" + moveVec);
-        Debug.Log("계산 방향 :" + (transform.position + moveVec));
-        Debug.Log("현재 좌표 :" + transform.position);
+        //Debug.Log("나가는 방향 moveVec" + moveVec);
+        //Debug.Log("계산 방향 :" + (transform.position + moveVec));
+        //Debug.Log("현재 좌표 :" + transform.position);
     }
 }

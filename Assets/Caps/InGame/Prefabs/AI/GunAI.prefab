@@ -202,6 +202,7 @@ MonoBehaviour:
   tableValue:
   - 2
   - 2
+  table: {fileID: 0}
   gun: {fileID: 3363599335819604270}
 --- !u!95 &2620492821735618530
 Animator:
