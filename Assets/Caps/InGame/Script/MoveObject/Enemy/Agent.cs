@@ -7,7 +7,9 @@ using UnityEngine.AI;
 
 public class Agent : AI
 {
-    
+    public float[] tableValue = { 0, 0 };
+
+
     protected override  void Awake()
     {
         base.Awake();
@@ -36,6 +38,7 @@ public class Agent : AI
         AgentAngle();
 
         if (isReverse) transform.localScale = new Vector3(-1, 1, 1);
+
         else transform.localScale = new Vector3(1, 1, 1);
 
         curAttackDelay += Time.deltaTime;
@@ -104,13 +107,14 @@ public class Agent : AI
         curStatus = EnemyStatus.Lean;
         isLean = true;
 
+        isDetect = false; //추가함
         agent.isStopped = true;
         StartCoroutine(LeanCount());
     }
 
     protected IEnumerator LeanCount()
     {
-        Debug.Log("기대다.");
+        //Debug.Log("기대다.");
         anim.SetTrigger("Lean");
 
         Vector3 playerVec = InGameManager.Instance.player.transform.position - transform.position;
@@ -122,55 +126,62 @@ public class Agent : AI
             case TableArrow.up:
                 if (playerVec.x <= 0)
                 {
-                    moveVec = new Vector3(-5, 0);
+                    moveVec = new Vector3(-tableValue[0], 0,1);
                 }
                 else
                 {
-                    moveVec = new Vector3(5, 0);
+                    moveVec = new Vector3(tableValue[0], 0,1);
                 }
                 break;
             case TableArrow.down:
                 if (playerVec.x <= 0)
                 {
-                    moveVec = new Vector3(-5, 0);
+                    moveVec = new Vector3(-tableValue[0], 0,1);
                 }
                 else
                 {
-                    moveVec = new Vector3(5, 0);
+                    moveVec = new Vector3(tableValue[0], 0,1);
                 }
                 break;
             case TableArrow.left:
                 if (playerVec.y <= 0)
                 {
-                    moveVec = new Vector3(0, -5);
+                    moveVec = new Vector3(0, -tableValue[1],1);
                 }
                 else
                 {
-                    moveVec = new Vector3(0, 5);
+                    moveVec = new Vector3(0, tableValue[1],1);
                 }
                 break;
             case TableArrow.right:
                 if (playerVec.y <= 0)
                 {
-                    moveVec = new Vector3(0, -5);
+                    moveVec = new Vector3(0, -tableValue[1],1);
                 }
                 else
                 {
-                    moveVec = new Vector3(0, 5);
+                    moveVec = new Vector3(0, tableValue[1],1);
                 }
                 break;
         }
 
         yield return new WaitForSeconds(1.0f);
-
         isLean = false;
 
         yield return new WaitForSeconds(0.75f); // 조준까지 걸어가는 시간
+        isDetect = true; //추가함
         agent.isStopped = false;
         curStatus = EnemyStatus.Chase;
     }
     protected void LeanAiming()
     {
-        transform.localPosition = Vector3.MoveTowards(transform.position, moveVec, 10.0f * Time.deltaTime);
+        //transform.Translate(moveVec * Time.unscaledDeltaTime);
+        /*if(isDetect) return;
+        transform.position += moveVec;
+        isDetect = true;*/
+        transform.position = Vector3.MoveTowards(transform.position, (transform.position + moveVec), 5.0f * Time.unscaledDeltaTime);
+        Debug.Log("나가는 방향 moveVec" + moveVec);
+        Debug.Log("계산 방향 :" + (transform.position + moveVec));
+        Debug.Log("현재 좌표 :" + transform.position);
     }
 }

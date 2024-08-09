@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 8158822825472559459}
   m_Layer: 0
   m_Name: LowBossAI
-  m_TagString: Agent
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

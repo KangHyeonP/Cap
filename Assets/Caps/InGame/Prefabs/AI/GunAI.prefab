@@ -187,12 +187,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  basicSprites:
-  - {fileID: 21300000, guid: f8496aba575f06f46a84107c0504e165, type: 3}
-  - {fileID: 21300000, guid: bc3a580fd2b047a4798b6712992ad1f6, type: 3}
-  - {fileID: 21300000, guid: 4e4df6efc719384498748b551273467a, type: 3}
   muzzle: {fileID: 5659313000866956243}
   hp: 100
+  maxHp: 100
   curStatus: 0
   isDetect: 0
   attackDelay: 1
@@ -202,6 +199,9 @@ MonoBehaviour:
   attackDistance: 7
   attackRecoil: 10
   TestAgent: 0
+  tableValue:
+  - 2
+  - 2
   gun: {fileID: 3363599335819604270}
 --- !u!95 &2620492821735618530
 Animator:

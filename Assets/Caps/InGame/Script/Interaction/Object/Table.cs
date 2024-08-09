@@ -30,6 +30,8 @@ public class Table : MonoBehaviour
 
     private Vector3[] distance = new Vector3[4];
 
+    public Agent curAgent = null;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -42,7 +44,7 @@ public class Table : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //MoveTable();
+        MoveTable();
         CurPos();
         
     }
@@ -67,11 +69,14 @@ public class Table : MonoBehaviour
             //Debug.Log("들어옴");
         }
 
-        if(!enemyCheck && curArrow != TableArrow.none && collision.gameObject.tag.Equals("Agent"))
+        if(!enemyCheck && curArrow != TableArrow.none && collision.gameObject.tag.Equals("Agent") && curAgent == null)
         {
             enemyCheck = true;
-            GameObject agentObj = collision.gameObject;
-            LeanAgent(agentObj.transform.position, agentObj);
+            curAgent = collision.gameObject.GetComponent<Agent>();
+            LeanAgent(curAgent.gameObject.transform.position);
+            // 기존코드
+            ///GameObject agentObj = collision.gameObject;
+            //LeanAgent(agentObj.transform.position, agentObj);
         }
 
     }
@@ -84,20 +89,20 @@ public class Table : MonoBehaviour
             //Debug.Log("나옴");
         }
 
-        if (enemyCheck && curArrow != TableArrow.none && collision.gameObject.tag.Equals("Agent"))
+        if (enemyCheck && curArrow != TableArrow.none && collision.gameObject.tag.Equals("Agent") && curAgent != null)
         {
             enemyCheck = false;
+            curAgent = null;
         }
     }
 
-    // 위치 계산
+    // 위치 계산(1회성 로직)
     private void CurPos()
     {
         if (tableActive || !playerCheck) return;
 
 
-        moveVec = InGameManager.Instance.player.transform.localPosition;
-        moveVec -= transform.position;
+        moveVec = InGameManager.Instance.player.transform.position - transform.position;
 
         float tableAngle = VectorValue(moveVec);
 
@@ -139,7 +144,7 @@ public class Table : MonoBehaviour
 
         tableActive = true;
         lineObj[lineIndex].enabled = false;
-        StartCoroutine(MoveTable());
+        //StartCoroutine(MoveTable());
         //playerCheck = false; //이건 테스트 반드시 끝나면 활성화
 
         // 테이블 크기 변경
@@ -175,7 +180,7 @@ public class Table : MonoBehaviour
         else if (angleValue <= 45f && angleValue > -45f)
         {
             Index = 3; // right
-            distance[Index] = transform.position + new Vector3(0.5f, 0, 0);
+            distance[Index] = transform.position + new Vector3(1, 0, 0);
         }
         // 3사분면, 오른 아랫대각까진 우선
         else if (angleValue <= -45f && angleValue > -135f)
@@ -187,7 +192,7 @@ public class Table : MonoBehaviour
         else if (angleValue <= -135f || angleValue > 135f)
         {
             Index = 2; // left
-            distance[Index] = transform.position + new Vector3(-0.5f, 0, 0);
+            distance[Index] = transform.position + new Vector3(-1, 0, 0);
         }
 
         return Index;
@@ -205,7 +210,8 @@ public class Table : MonoBehaviour
     }
 
     // AI 테이블 기대기 여부 계산
-    private void LeanAgent(Vector3 vec, GameObject agentObj)
+    //private void LeanAgent(Vector3 vec, GameObject agentObj)
+    private void LeanAgent(Vector3 vec)
     {
         moveVec = InGameManager.Instance.player.transform.localPosition;
 
@@ -214,22 +220,24 @@ public class Table : MonoBehaviour
 
         float playerVec = VectorValue(moveVec - transform.position);
         float agentVec = VectorValue(vec - transform.position);
+        Debug.Log("agentVec : " + agentVec);
 
         playerLine = AngleCalculate(playerVec);
         agentLine = AngleCalculate(agentVec);
 
-        Debug.Log("계산 체크");
-        Debug.Log("playerLine : " + playerLine);
-        Debug.Log("agentLine : " + agentLine);
+       // Debug.Log("계산 체크");
+       // Debug.Log("playerLine : " + playerLine);
+       // Debug.Log("agentLine : " + agentLine);
 
-        Debug.Log("agentArrow : " + agentArrow);
-        Debug.Log("curagentArrow : " + (TableArrow)agentLine);
+        //Debug.Log("agentArrow : " + agentArrow);
+        //Debug.Log("curagentArrow : " + (TableArrow)agentLine);
 
         if (playerLine == agentLine || agentArrow != (TableArrow)agentLine) return;
-        Debug.Log("문제 체크");
+        //Debug.Log("문제 체크");
 
-        //agentObj.GetComponent<Agent>().Lean(agentArrow); // 잠시 주석
+        curAgent.TableValue(distance[(int)agentArrow], agentArrow);
 
-        agentObj.GetComponent<Agent>().TableValue(distance[(int)agentArrow] ,agentArrow);
+        // 기존 코드
+        //agentObj.GetComponent<Agent>().TableValue(distance[(int)agentArrow] ,agentArrow);
     }
 }

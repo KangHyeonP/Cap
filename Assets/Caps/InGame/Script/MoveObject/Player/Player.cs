@@ -201,6 +201,8 @@ public abstract class Player : MonoBehaviour
 
     private IEnumerator IRoll()
     {
+        if (isReload) CancleReload();
+
         string rollStatus = null;
         rollReverse = false;
         weaponPivot.SetActive(false);
