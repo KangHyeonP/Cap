@@ -50,9 +50,7 @@ public class Table : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveTable();
-        CurPos();
-        
+        CurPos(); 
     }
 
     private void FixedUpdate()
@@ -151,7 +149,7 @@ public class Table : MonoBehaviour
 
         tableActive = true;
         lineObj[lineIndex].enabled = false;
-        //StartCoroutine(MoveTable());
+        StartCoroutine(MoveTable());
         //playerCheck = false; //이건 테스트 반드시 끝나면 활성화
 
         // 테이블 크기 변경
