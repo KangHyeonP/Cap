@@ -305,11 +305,21 @@ public abstract class AI : MonoBehaviour
             Debug.Log("분노 포함 데미지 : " + damage);
         }
 
-        if (DrugManager.Instance.islucianPassive) damage = damage * 8 / 10;
+        if (DrugManager.Instance.islucianPassive) damage = damage * 7 / 10;
 
         hp -= damage;
         Debug.Log("들어온 데미지 : " + damage);
         Debug.Log("몬스터 남은 체력: " + hp);
+
+        if(DrugManager.Instance.isExecution)
+        {
+            if(maxHp * 0.2 >= hp) 
+            {
+                hp = 0;
+                Debug.Log("처형 발동 : " + maxHp * 0.2);
+                // 처형 발동
+            }
+        }
 
         if (hp <= 0)
         {

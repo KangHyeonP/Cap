@@ -25,10 +25,19 @@ public class Drug : Item
     protected virtual void OnEnable()
     {
         if (DrugManager.Instance == null) return;
-        else if (DrugManager.Instance.colorBlindCheck && !mapDrug) drugSprite.sprite = blackDrugSprite;
-        else drugSprite.sprite = curDrugSprite;
+        else if (DrugManager.Instance.colorBlindCheck && !mapDrug)
+        {
+            drugSprite.sprite = blackDrugSprite;
+            curDrugSprite = blackDrugSprite;
+            Debug.Log("색맹임");
+        }
+        else
+        {
+            drugSprite.sprite = curDrugSprite;
+            Debug.Log("색맹 실행안함");
+            mapDrug = true; // 생성 이후 맵 마약으로 등록
+        }
 
-        mapDrug = true; // 생성 이후 맵 마약으로 등록
         // 색맹은 나중에 몬스터 아이템 드랍 이후로 확인해봐야함
     }
 
@@ -46,6 +55,7 @@ public class Drug : Item
 
     public override void GetItem()
     {
+        Debug.Log("이 함수가 문제인가? 1");
         if (isProduct)
         {
             if (DrugManager.Instance.hostHateCheck) curPrice = (price * 6) / 5; // 가격 20프로향상, 1.2배 증가

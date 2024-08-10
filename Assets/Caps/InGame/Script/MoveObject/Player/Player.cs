@@ -521,6 +521,7 @@ public abstract class Player : MonoBehaviour
         if(interaction)
         {
             InGameManager.Instance.ItemUse();
+            Debug.Log("이 함수가 문제인가? 2");
         }
     }
     protected void EatDrug()

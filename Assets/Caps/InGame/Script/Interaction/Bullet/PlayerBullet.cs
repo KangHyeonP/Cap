@@ -39,7 +39,7 @@ public class PlayerBullet : Bullet
             transform.localScale = new Vector3(-1f * bulletSize[0], bulletSize[1], bulletSize[2]);
         }
 
-        if (DrugManager.Instance.isBulletChase) DetectAgent();
+        if (DrugManager.Instance.isExecution) DetectAgent();
         startPos = transform.localPosition;
     } // 만약 유도탄일때는 맞추기 전까지 안사라진다고 하면, 로직 수정(유도탄에서 적 찾을 시 추격 값 무한으로 올리기)
 
@@ -73,13 +73,13 @@ public class PlayerBullet : Bullet
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.localPosition, 7.0f);
         float nearTarget = 999;
 
-        Debug.Log("실행은 하니1?");
+        //Debug.Log("실행은 하니1?");
         foreach (Collider2D c in colliders)
         {
-                Debug.Log("실행은 하니2?");
+                //Debug.Log("실행은 하니2?");
             if (c.gameObject.CompareTag("Agent"))
             {
-                Debug.Log("실행은 하니3?");
+                //Debug.Log("실행은 하니3?");
                 float value = Vector2.Distance(c.gameObject.transform.position, transform.position);
                 if (value < nearTarget)
                 {

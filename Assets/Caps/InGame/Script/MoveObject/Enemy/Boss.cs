@@ -396,10 +396,11 @@ public abstract class Boss : AI
     }
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && !InGameManager.Instance.player.AvoidCheck
+        base.OnTriggerEnter2D(collision);
+        /*if (collision.tag == "Player" && !InGameManager.Instance.player.AvoidCheck
            && !InGameManager.Instance.player.IsHit && isRush)
         {
 
-        }
+        }*/
     }
 }

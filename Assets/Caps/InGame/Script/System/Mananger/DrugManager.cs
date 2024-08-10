@@ -52,7 +52,7 @@ public class DrugManager : MonoBehaviour
     public float aim;
     public bool isBulletSizeUp = false;
     public bool isBulletPass = false;
-    public bool isBulletChase = false;
+    public bool isExecution = false;
 
     //Yellow
     public bool yellow1;    
@@ -203,16 +203,16 @@ public class DrugManager : MonoBehaviour
         switch (InGameManager.Instance.Hp)
         {
             case 4:
-                powerUpValue = 5;
+                powerUpValue = 50;
                 break;
             case 3:
-                powerUpValue = 15;
+                powerUpValue = 100;
                 break;
             case 2:
-                powerUpValue = 30;
+                powerUpValue = 150;
                 break;
             case 1:
-                powerUpValue = 50;
+                powerUpValue = 250;
                 break;
             default: 
                 powerUpValue = 0;
@@ -245,7 +245,7 @@ public class DrugManager : MonoBehaviour
 
     public void RunOrangeBuff3()
     {
-        if (orange3) isBulletChase = true;
+        if (orange3) isExecution = true;
     }
 
     //yellowBuff
