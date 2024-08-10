@@ -513,16 +513,17 @@ public abstract class Player : MonoBehaviour
 
     protected void Interaction()
     {
-        /*if (interaction && InGameManager.Instance.isItem == true)
+        if (interaction)
         {
-            InGameManager.Instance?.tempItem.GetItem();
-        }*/
-
+            InGameManager.Instance.ItemUse();
+        }
+        // 수정 전
+        /*
         if(interaction)
         {
             InGameManager.Instance.ItemUse();
             Debug.Log("이 함수가 문제인가? 2");
-        }
+        }*/
     }
     protected void EatDrug()
     {
@@ -535,10 +536,14 @@ public abstract class Player : MonoBehaviour
                 UIManager.Instance.inGameUI.DrugInven(null);
             }
             // 땅에있는 마약
-            else if (InGameManager.Instance.tempDrug.Count != 0 && !shiftKey)
+            /*else if (InGameManager.Instance.tempDrug.Count != 0 && !shiftKey)
             {
                 InGameManager.Instance.tempDrug
                     [InGameManager.Instance.tempDrugIndex].UseItem();
+            }*/
+            else if (InGameManager.Instance.tempDrug.Count != 0 && !shiftKey)
+            {
+                InGameManager.Instance.DrugUse();
             }
         }
     }

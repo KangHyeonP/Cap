@@ -55,7 +55,6 @@ public class Drug : Item
 
     public override void GetItem()
     {
-        Debug.Log("이 함수가 문제인가? 1");
         if (isProduct)
         {
             if (DrugManager.Instance.hostHateCheck) curPrice = (price * 6) / 5; // 가격 20프로향상, 1.2배 증가

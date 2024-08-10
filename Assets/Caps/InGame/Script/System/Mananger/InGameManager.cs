@@ -109,6 +109,8 @@ public class InGameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        // 이전 로직
+        /*
         if(tempItems.Count != 0) // 근처에 아이템이 존재한다면
         {
             float minDistance = 999f;
@@ -138,7 +140,7 @@ public class InGameManager : MonoBehaviour
                     tempDrugIndex = i;
                 }
             }
-        }
+        }*/
     }
 
     private void Init()
@@ -196,7 +198,51 @@ public class InGameManager : MonoBehaviour
     {
         if (tempItems.Count == 0) return;
 
+        if (tempItems.Count != 0) // 근처에 아이템이 존재한다면
+        {
+            float minDistance = 999f;
+            tempItemIndex = -1;
+
+            for (int i = tempItems.Count - 1; i >= 0; i--)
+            {
+                Debug.Log(i + "번째 아이템 실행 문제 체크");
+                if (tempItems[i] == null) continue;
+
+                if (minDistance > tempItems[i].distance)
+                {
+                    minDistance = tempItems[i].distance;
+                    tempItemIndex = i;
+                    //Debug.Log("아이템 인덱스 :" + tempItemIndex);
+                }
+                Debug.Log(i + "번째 아이템 실행 통과");
+            }
+        }
+
         tempItems[tempItemIndex].GetItem();
+    }
+
+    public void DrugUse()
+    {
+        if (tempDrug.Count != 0) // 근처에 마약이 있다면
+        {
+            float minDistance = 999f;
+            tempDrugIndex = -1;
+
+            for (int i = tempDrug.Count - 1; i >= 0; i--)
+            {
+                Debug.Log(i + "번째 마약 실행 문제 체크");
+                if (tempDrug[i] == null) continue;
+
+                if (minDistance > tempDrug[i].distance)
+                {
+                    minDistance = tempDrug[i].distance;
+                    tempDrugIndex = i;
+                }
+                Debug.Log(i + "번째 마약 실행 통과");
+            }
+        }
+
+        tempDrug[tempDrugIndex].UseItem();
     }
 
     // 구매가 안될 때 상인이 못산다고 말해주는 함수
