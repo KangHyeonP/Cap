@@ -353,7 +353,8 @@ public abstract class Player : MonoBehaviour
     protected IEnumerator IReload()
     {
         isReload = true;
-        Debug.Log("장전 진행 체크!");
+        speed = speedApply * 0.5f; //장전중 이속 저하
+        //Debug.Log("장전 진행 체크!");
 
         reloadSlider.value = 0f;
         float elapsed = 0f;
@@ -381,6 +382,7 @@ public abstract class Player : MonoBehaviour
                 InGameManager.Instance.bulletMagazine[InGameManager.Instance.curWeaponIndex]);
 
         isReload = false;
+        speed = speedApply; // 스피드 원상 복귀
     }
 
     public void CancleReload()
@@ -389,6 +391,7 @@ public abstract class Player : MonoBehaviour
         reloadSlider.value = 0f;
         reloadSlider.gameObject.SetActive(false);
         isReload = false;
+        speed = speedApply;
 
         reloadCoroutine = null;
     }

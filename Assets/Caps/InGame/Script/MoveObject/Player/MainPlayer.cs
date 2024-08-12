@@ -41,6 +41,8 @@ public class MainPlayer : Player
         // 에이전트 초기화
         agents.Clear();
 
+        if (isReload) CancleReload();
+
         Room playerRoom = RoomController.Instance.CurRoom();
         playerRoom.RoomAgent();
 
