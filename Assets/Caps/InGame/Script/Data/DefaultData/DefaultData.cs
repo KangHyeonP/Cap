@@ -1,9 +1,9 @@
 
 public enum ECharacters
 {
-    main, 
-    sub, 
-    c1, 
+    Haeseong,
+    Eunha,
+    Black, 
     c2, 
     c3
 }

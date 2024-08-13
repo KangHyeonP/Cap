@@ -16,6 +16,7 @@ public enum PlayerAnimator
     Idle, Run, Roll
 }
 
+
 public abstract class Player : MonoBehaviour
 {
     protected Rigidbody2D rigid;
@@ -54,6 +55,7 @@ public abstract class Player : MonoBehaviour
     public bool isReload = false;
 
     // Status - curStatus
+    public int initPower = 0; // 고유 무기 공격력
     protected bool avoidCheck;
     public bool AvoidCheck => avoidCheck;
     public int avoidChance;
@@ -63,7 +65,6 @@ public abstract class Player : MonoBehaviour
     public float speedApply; // 실제 스피드
     public float speed;
     public bool rollCnt = false; // 구른후 빨라지는 버프 체크
-    // 지금 초록 버프 먹어도 구르기 전 까진 마약 버프 적요이안됨 이거 수정해야함
 
     protected bool isHit = false; // 피격당함
     public bool IsHit => isHit;
@@ -87,8 +88,6 @@ public abstract class Player : MonoBehaviour
     protected bool reLoadKey;
 
     // Weapon
-    //[SerializeField] // 확인용
-    //protected int weaponIndex = 2;
     public int tempWeaponIndex = 2;
     public int gunCnt = 0; // 파랑 마약 전용 인덱스 카운팅
     public bool mainGunCheck = false; // 주무기 총 보유 여부 체크
@@ -171,7 +170,7 @@ public abstract class Player : MonoBehaviour
 
         moveVec = inputVec.normalized;
 
-        if(isAttack) InGameManager.Instance.knifePivot.transform.position = weaponPivot.transform.position;
+        if(isAttack) InGameManager.Instance.basicWeaponPivot.transform.position = weaponPivot.transform.position;
 
         if (isRoll)
         {
@@ -325,17 +324,17 @@ public abstract class Player : MonoBehaviour
 
     public void KnifeAttack(bool check)
     {
-        InGameManager.Instance.knifePivot.transform.localScale = new Vector3(1, 1, 1);
+        InGameManager.Instance.basicWeaponPivot.transform.localScale = new Vector3(1, 1, 1);
 
         if (isReverse)
         {
-            InGameManager.Instance.knifePivot.transform.localScale = new Vector3(-1, 1, 1);
+            InGameManager.Instance.basicWeaponPivot.transform.localScale = new Vector3(-1, 1, 1);
         }
 
         if (check)
         {
-            InGameManager.Instance.knifePivot.transform.position = weaponPivot.transform.position;
-            InGameManager.Instance.knifePivot.transform.rotation = weaponPivot.transform.rotation;
+            InGameManager.Instance.basicWeaponPivot.transform.position = weaponPivot.transform.position;
+            InGameManager.Instance.basicWeaponPivot.transform.rotation = weaponPivot.transform.rotation;
             //InGameManager.Instance.knifeEffect.transform.rotation = weaponPivot.transform.rotation;
         }
     }

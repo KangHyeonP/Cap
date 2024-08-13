@@ -284,6 +284,10 @@ public abstract class AI : MonoBehaviour
 
             Debug.Log("총알 포함 데미지 : " + damage);
         }
+        else
+        {
+            damage += InGameManager.Instance.player.initPower;
+        }
 
         if (DrugManager.Instance.red2)
         {

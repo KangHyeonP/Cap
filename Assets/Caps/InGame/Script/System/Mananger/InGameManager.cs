@@ -16,6 +16,8 @@ public class InGameManager : MonoBehaviour
     private static InGameManager instance;
     public static InGameManager Instance => instance;
 
+    public int playerWeaponType; // 캐릭터 기본 무기
+
     [SerializeField]
     private GameObject[] prefabs;
 
@@ -92,7 +94,7 @@ public class InGameManager : MonoBehaviour
     public GameObject grenadeObj;
 
     // Effect
-    public GameObject knifePivot;
+    public GameObject basicWeaponPivot;
     public GameObject knifeEffect;
 
     private void Awake()
@@ -103,44 +105,13 @@ public class InGameManager : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     private void Update()
     {
-        // 이전 로직
-        /*
-        if(tempItems.Count != 0) // 근처에 아이템이 존재한다면
-        {
-            float minDistance = 999f;
-            tempItemIndex = -1;
 
-            for(int i= tempItems.Count-1; i >= 0; i--)
-            {
-                if(minDistance > tempItems[i].distance)
-                {
-                    minDistance = tempItems[i].distance;
-                    tempItemIndex = i;
-                    //Debug.Log("아이템 인덱스 :" + tempItemIndex);
-                }
-            }
-        }
-
-        if(tempDrug.Count != 0) // 근처에 마약이 있다면
-        {
-            float minDistance = 999f;
-            tempDrugIndex = -1;
-
-            for (int i = tempDrug.Count - 1; i >= 0; i--)
-            {
-                if (minDistance > tempDrug[i].distance)
-                {
-                    minDistance = tempDrug[i].distance;
-                    tempDrugIndex = i;
-                }
-            }
-        }*/
     }
 
     private void Init()
@@ -165,21 +136,25 @@ public class InGameManager : MonoBehaviour
 
         switch (GameManager.Instance.selectCharacter)
         {
-            case ECharacters.main:
-                index = (int)ECharacters.main;
+            case ECharacters.Haeseong:
+                index = (int)ECharacters.Haeseong;
+                playerWeaponType = index;
                 break;
-                /*case ECharacters.sub:
-
-                    break;
-                case ECharacters.c1:
-
-                    break;
+            case ECharacters.Eunha:
+                index = (int)ECharacters.Eunha;
+                playerWeaponType = index;
+                break;
+            case ECharacters.Black:
+                index = (int)ECharacters.Black;
+                playerWeaponType = index;
+                break;
+                /*
                 case ECharacters.c2:
 
                     break;
                 case ECharacters.c3:
 
-                    break;*/      
+                    break;*/
         }
 
         playerObj = Instantiate(prefabs[index], transform.position, transform.rotation);

@@ -1245,7 +1245,7 @@ MonoBehaviour:
   aim: 0
   isBulletSizeUp: 0
   isBulletPass: 0
-  isBulletChase: 0
+  isExecution: 0
   yellow1: 0
   yellow2: 0
   yellow3: 0
@@ -10473,8 +10473,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a8ff08e32c39f4f94cba276dbe0698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerWeaponType: 0
   prefabs:
   - {fileID: 1161679338188269459, guid: 4affcc39ab2f6534e97adc5409ca4b67, type: 3}
+  - {fileID: 1161679338188269459, guid: 01a07e3dd1ffb064794c338777264e51, type: 3}
+  - {fileID: 1161679338188269459, guid: 1f24dd744736abf41a820112cc84561f, type: 3}
   player: {fileID: 0}
   drugBar: {fileID: 4200997877550154230}
   isPause: 0
@@ -10501,7 +10504,7 @@ MonoBehaviour:
   tempDrugIndex: -1
   drugGuage: 0
   grenadeObj: {fileID: 5052371408824336673, guid: ef6d95ec1c30a7048b0e5d9974b1e981, type: 3}
-  knifePivot: {fileID: 1160348199}
+  basicWeaponPivot: {fileID: 1160348199}
   knifeEffect: {fileID: 1945024749}
 --- !u!1 &834928611
 GameObject:
@@ -13734,7 +13737,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1160348200}
   m_Layer: 0
-  m_Name: KnifePivot
+  m_Name: BasicWeaponPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 1863655681656279165}
   - component: {fileID: 7175629184101664539}
   m_Layer: 3
-  m_Name: Haeseong
+  m_Name: Black
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -285,7 +285,6 @@ MonoBehaviour:
   isAttack: 0
   isSkill: 0
   isReload: 0
-  initPower: 10
   avoidChance: 0
   reloadTime: 3
   speedApply: 0
