@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 1863655681656279165}
   - component: {fileID: 7175629184101664539}
   m_Layer: 3
-  m_Name: Player
+  m_Name: Haeseong 1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
