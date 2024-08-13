@@ -95,7 +95,7 @@ public class InGameManager : MonoBehaviour
 
     // Effect
     public GameObject basicWeaponPivot;
-    public GameObject knifeEffect;
+    public GameObject[] basicWeaponEffect;
 
     private void Awake()
     {
@@ -364,6 +364,11 @@ public class InGameManager : MonoBehaviour
 
         magazines[a]--;
         UIManager.Instance.inGameUI.MagazineUpdate(a, magazines[a]);
+    }
+
+    public void BasicWeaponCheck(bool check)
+    {
+        basicWeaponEffect[playerWeaponType].SetActive(check);
     }
 
     public void MaxHPUpdate()

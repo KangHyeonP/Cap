@@ -285,6 +285,7 @@ MonoBehaviour:
   isAttack: 0
   isSkill: 0
   isReload: 0
+  initPower: 0
   avoidChance: 0
   reloadTime: 3
   speedApply: 0
@@ -303,8 +304,9 @@ MonoBehaviour:
   subWeapon:
   - {fileID: 3028016912943127212}
   - {fileID: 6113866756370500214}
-  knife: {fileID: 8171601237869767536}
+  basicWeapon: {fileID: 0}
   weaponPivot: {fileID: 9197894793384565284}
+  hadnSprite: {fileID: 4256205921349603720}
   playerCanvas: {fileID: 465279191457892063}
   reloadSlider: {fileID: 1803775860251653657}
   fireEffect: {fileID: 7302751013044986120}
@@ -1283,8 +1285,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6753089740093373889, guid: 9d4d3d9dd70bd084d83f6dbab9711b4f, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1294,17 +1295,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3079713032995448022, guid: 9d4d3d9dd70bd084d83f6dbab9711b4f, type: 3}
   m_PrefabInstance: {fileID: 5438009184140650784}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8171601237869767536 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4184104146030117456, guid: 9d4d3d9dd70bd084d83f6dbab9711b4f, type: 3}
-  m_PrefabInstance: {fileID: 5438009184140650784}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ce981fe88f94114587f3a70b8cf7585, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &6269930582595615607
 PrefabInstance:
   m_ObjectHideFlags: 0

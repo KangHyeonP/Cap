@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Knife : MonoBehaviour
+public abstract class BasicWeapon : MonoBehaviour
 {
     public float fireDelay = 2.0f;
     public float fireMaximumDelay = 0.15f;
     protected float fireTime = 0;
     protected SpriteRenderer spriteRenderer;
-    public Coroutine kinfeCoroutine;
+    public Coroutine AttackCoroutine;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
 
-    void Start()
+    protected virtual void Start()
     {
 
     }
@@ -36,15 +36,13 @@ public class Knife : MonoBehaviour
         if (fireTime >= fireMaximumDelay &&
             fireDelay <= fireTime + InGameManager.Instance.AttackDelay / 10.0f + DrugManager.Instance.playerAttackDelay / 6.0f)
         {
-            kinfeCoroutine = StartCoroutine(Attack());
+            AttackCoroutine = StartCoroutine(Attack());
         }
     }
 
     protected virtual IEnumerator Attack()
     {
-        //InGameManager.Instance.knifeEffect.SetActive(true);
-        //yield return new WaitForSeconds(0.1f);
-        InGameManager.Instance.knifeEffect.SetActive(true);
+        InGameManager.Instance.BasicWeaponCheck(true);
         InGameManager.Instance.player.KnifeAttack(true);
         spriteRenderer.enabled = false;
         InGameManager.Instance.player.isAttack = true;
@@ -52,23 +50,20 @@ public class Knife : MonoBehaviour
 
         yield return new WaitForSeconds(0.3f);
 
-        InGameManager.Instance.knifeEffect.SetActive(false);
+        InGameManager.Instance.BasicWeaponCheck(false);
         spriteRenderer.enabled = true;
         InGameManager.Instance.player.isAttack = false;
-
-        //yield return new WaitForSeconds(0.1f);
-        //InGameManager.Instance.knifeEffect.SetActive(false);
     }
 
-    public void CancleKnife()
+    public virtual void CancleAttack()
     {
         gameObject.SetActive(false);
-        InGameManager.Instance.knifeEffect.SetActive(false);
-        if (kinfeCoroutine == null) return;
+        InGameManager.Instance.BasicWeaponCheck(false);
+        if (AttackCoroutine == null) return;
 
-        StopCoroutine(kinfeCoroutine);
+        StopCoroutine(AttackCoroutine);
         spriteRenderer.enabled = true;
         InGameManager.Instance.player.isAttack = false;
-        kinfeCoroutine = null;
+        AttackCoroutine = null;
     }
 }

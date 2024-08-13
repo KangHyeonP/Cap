@@ -98,9 +98,10 @@ public abstract class Player : MonoBehaviour
     public Weapons tempGun; // 교체용 변수
 
     public GameObject[] subWeapon; // 이글, 아나콘다 순
-    public Knife knife;
+    public BasicWeapon basicWeapon;
     [SerializeField]
     private GameObject weaponPivot;
+    public SpriteRenderer hadnSprite;
     public RectTransform playerCanvas; // 추후 다른 UI도 추가되어야한다면 slider로 교체
     public Slider reloadSlider;
     public Coroutine reloadCoroutine;
@@ -431,7 +432,7 @@ public abstract class Player : MonoBehaviour
         // 무기를 전부 비활성화, 비용이 많이 든다면 추후 활성화 무기만 체크하여 비활성화로 돌리는 로직으로 수정
         if (InGameManager.Instance.lastWeaponIndex == 4)
         {
-            knife.CancleKnife();
+            basicWeapon.CancleAttack();
         }
         else if (InGameManager.Instance.lastWeaponIndex == 3)
         {
@@ -504,7 +505,7 @@ public abstract class Player : MonoBehaviour
             InGameManager.Instance.lastWeaponIndex = InGameManager.Instance.curWeaponIndex;
             InGameManager.Instance.curWeaponIndex = 4;
 
-            knife.gameObject.SetActive(true);
+            basicWeapon.gameObject.SetActive(true);
             UIManager.Instance.inGameUI.WeaponInven(5);
             UIManager.Instance.inGameUI.KnifeTextUpdate();
             gunCheck = false;
@@ -614,7 +615,7 @@ public abstract class Player : MonoBehaviour
     }
     
     // 스킬 시작과 끝을 계산
-    private IEnumerator ESkill()
+    protected virtual IEnumerator ESkill()
     {
         yield return null;
         // 카메라 고정 및 위치 이동

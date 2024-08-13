@@ -34,11 +34,11 @@ public class DefaultData
 public class CharacterData
 {
     // 메인, 서브, 1, 2, 3 -> Characters, 이름 꼭 지어야함
-    private int[] defaultHp = { 6, 4, 1, 1, 1 };
-    private float[] defaultSpeed = { 3.5f, 4.0f, 2, 2, 2 };
+    private int[] defaultHp = { 6, 4, 8, 1, 1 };
+    private float[] defaultSpeed = { 3.5f, 4.0f, 2.5f, 2, 2 };
     private float[] defaultAimAccuracy = { 5, 7, 3, 3, 3 };
-    private int[] defaultAttackPower = { 10, 8, 4, 4, 4 };
-    private float[] defaultAttackDealy = { 10.0f, 12.0f, 6, 6, 6 };
+    private int[] defaultAttackPower = { 10, 8, 12, 4, 4 };
+    private float[] defaultAttackDealy = { 10.0f, 12.0f, 8, 6, 6 };
 
     public void UpdateData(int i)
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 추후 캐릭터 이름으로 이름 변경
-public class MainPlayer : Player
+public class Haeseong : Player
 {
     [SerializeField]
     private int SkillDamage = 300;
@@ -33,6 +33,11 @@ public class MainPlayer : Player
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
+    }
+
+    protected override IEnumerator ESkill()
+    {
+        return base.ESkill();
     }
 
     protected override void PlayerSkill()
