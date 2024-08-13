@@ -626,7 +626,7 @@ public abstract class Player : MonoBehaviour
         weaponPivot.SetActive(false);
 
         // 일시 동작 정지
-        InGameManager.Instance.Pause(true);
+        //InGameManager.Instance.Pause(true);
 
         UIManager.Instance.inGameUI.skillUI.UseSkill();
         PlayerSkill();

@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class Black : Player
 {
-    [SerializeField]
-    private int SkillDamage = 300;
-
-    private List<AI> agents = new List<AI>();
 
     protected override void Awake()
     {

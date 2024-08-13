@@ -42,6 +42,9 @@ public class Haeseong : Player
 
     protected override void PlayerSkill()
     {
+        // 일시 동작 정지
+        InGameManager.Instance.Pause(true);
+
         //Debug.Log("기본 플레이어 스킬");
         // 에이전트 초기화
         agents.Clear();
@@ -74,5 +77,6 @@ public class Haeseong : Player
         {
             a.Damage(SkillDamage / agentCnt, WeaponValue.Knife);
         }
+
     }
 }
