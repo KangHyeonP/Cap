@@ -126,12 +126,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 536ebdd90679c60499c077fb7979d258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eraseSpeed: 0.3
+  eraseSpeed: 0.1
   eUsers: 0
   eBullets: 1
   target: {fileID: 0}
+  bulletSize: []
   triggerCount: 0
-  bulletPower: 5
+  bulletPower: 4
 --- !u!58 &6219425674392921992
 CircleCollider2D:
   m_ObjectHideFlags: 0

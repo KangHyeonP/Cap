@@ -40,17 +40,17 @@ public class InGameManager : MonoBehaviour
     private int maxHp;
     public int MaxHp => maxHp;
 
-    private float speed;
-    public float Speed => speed;
-
     private int power;
     public int Power => power;
 
-    public int[] weaponDamage; // 라이플, 샷건, 스나, 권총 순
-    //public int weaponIndex = 0; // 스왑 및 데미지 적용으로 사용 예정 변수들
-
     private float aim;
     public float Aim => aim;
+
+    private float bulletDistance;
+    public float BulletDistance => bulletDistance;
+
+    private float speed;
+    public float Speed => speed;
 
     private float attackDelay;
     public float AttackDelay => attackDelay;
@@ -123,9 +123,10 @@ public class InGameManager : MonoBehaviour
 
         maxHp = GameManager.Instance.PlayerHp;
         hp = maxHp;
-        speed = GameManager.Instance.PlayerSpeed;
         power = GameManager.Instance.PlayerAttackPower;
         aim = GameManager.Instance.PlayerAimAccuracy;
+        bulletDistance = GameManager.Instance.PlayerBulletDistance;
+        speed = GameManager.Instance.PlayerSpeed;
         attackDelay = GameManager.Instance.PlayerAttackDelay;
     }
 
@@ -386,6 +387,23 @@ public class InGameManager : MonoBehaviour
         else hp += value;
 
         UIManager.Instance.hpUpdate();
+    }
+
+    public int PlayerBuffPower() // 현재 플레이어 적용된 버프 파워 반환
+    {
+        // 기본 공격력 + 무기 공격력 + 버프별 적용된 공격력 
+        int curPower = DrugManager.Instance.power + power + player.weaponPower;
+
+        if(DrugManager.Instance.red2)
+        {
+            curPower = curPower + curPower * DrugManager.Instance.powerUpValue / 100;
+        }
+        if(DrugManager.Instance.isAnger)
+        {
+            curPower = curPower + (int)(curPower * DrugManager.Instance.angerPower * 0.4f);
+        }
+
+        return curPower - power;
     }
 
     public void Hit(int value)

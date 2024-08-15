@@ -281,8 +281,8 @@ MonoBehaviour:
   hadnSprite: {fileID: 4256205921349603720}
   playerCanvas: {fileID: 465279191457892063}
   reloadSlider: {fileID: 1803775860251653657}
+  weaponPower: 10
   fireEffect: {fileID: 7302751013044986120}
-  SkillDamage: 0
 --- !u!50 &7709076486287083608
 Rigidbody2D:
   serializedVersion: 4

@@ -129,7 +129,8 @@ public class UIManager : MonoBehaviour
 		if (!IsTab)
 		{
 			IsTab = true;
-			TabUI.gameObject.SetActive(true);
+            TabUI.TabOn();
+            //TabUI.gameObject.SetActive(true);
 		}
 		else
 		{

@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 536ebdd90679c60499c077fb7979d258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eraseSpeed: 0.3
+  eraseSpeed: 0.4
   eUsers: 0
   eBullets: 2
   target: {fileID: 0}

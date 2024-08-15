@@ -105,6 +105,7 @@ public abstract class Player : MonoBehaviour
     public RectTransform playerCanvas; // 추후 다른 UI도 추가되어야한다면 slider로 교체
     public Slider reloadSlider;
     public Coroutine reloadCoroutine;
+    public int weaponPower = 0; // 현재 장착한 무기의 공격력(단순 UI표기용), 초기값은 플레이어 별 무기 공격력
 
     [SerializeField]
     public GameObject fireEffect;
@@ -480,6 +481,7 @@ public abstract class Player : MonoBehaviour
             reloadTime = InGameManager.Instance.gunInven.reloadSpeed;
             gunValue = 0;
             gunCheck = true;
+            weaponPower = InGameManager.Instance.gunInven.power;
         }
         else if (idx == 1)
         {
@@ -499,6 +501,7 @@ public abstract class Player : MonoBehaviour
             reloadTime = InGameManager.Instance.pistolInven.reloadSpeed;
             gunValue = 1;
             gunCheck = true;
+            weaponPower = InGameManager.Instance.pistolInven.power;
         }
         else
         {
@@ -509,6 +512,7 @@ public abstract class Player : MonoBehaviour
             UIManager.Instance.inGameUI.WeaponInven(5);
             UIManager.Instance.inGameUI.KnifeTextUpdate();
             gunCheck = false;
+            weaponPower = initPower;
         }
 
         tempWeaponIndex = idx;

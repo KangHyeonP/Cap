@@ -549,3 +549,4 @@ MonoBehaviour:
   checkMagazine: 0
   bulletCount: 10
   reloadSpeed: 4
+  power: 15

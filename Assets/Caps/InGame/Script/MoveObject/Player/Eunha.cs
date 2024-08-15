@@ -36,8 +36,10 @@ public class Eunha : Player
             {
                 fogCheck = false;
                 fogTimer = 0;
+                fogIn = false;
 
                 Destroy(fog);
+                fog = null;
             }
         }
     }
@@ -49,7 +51,14 @@ public class Eunha : Player
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        base.OnTriggerEnter2D(collision);
+        if (collision.tag == "EnemyBullet") //수정
+        {
+            if (fogIn) return;
+
+            if (avoidCheck || isHit) return;
+
+            Damage(1); // 데미지 로직 나중에 수정
+        }
     }
 
     protected override IEnumerator ESkill()

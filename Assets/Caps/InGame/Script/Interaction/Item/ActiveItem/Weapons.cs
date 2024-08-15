@@ -9,6 +9,7 @@ public class Weapons : Item
     public bool checkMagazine = false; // 무기 첫 획득 판단
     public int bulletCount = 0; // 각 무기의 탄창의 탄알 개수
     public float reloadSpeed = -1;
+    public int power = 0; // 단순 UI 표기용
 
     protected override void Awake()
     {

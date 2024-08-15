@@ -11,15 +11,22 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int playerHp = 0;
     public int PlayerHp => playerHp;
-    [SerializeField]
-    private float playerSpeed;
-    public float PlayerSpeed => playerSpeed;
-    [SerializeField]
-    private float playerAimAccuracy;
-    public float PlayerAimAccuracy => playerAimAccuracy;
+
     [SerializeField]
     private int playerAttackPower;
     public int PlayerAttackPower => playerAttackPower;
+
+    [SerializeField]
+    private float playerBulletDistance;
+    public float PlayerBulletDistance => playerBulletDistance;
+
+    [SerializeField]
+    private float playerAimAccuracy;
+    public float PlayerAimAccuracy => playerAimAccuracy;
+
+    [SerializeField]
+    private float playerSpeed;
+    public float PlayerSpeed => playerSpeed;
 
     [SerializeField]
     private float playerAttackDelay;
@@ -56,12 +63,13 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    public void GetPlayerValue(int hp, float speed, float aim, int power, float attackDelay)
+    public void GetPlayerValue(int hp, int power, float aim, float distance, float speed, float attackDelay)
     {
         playerHp = hp;
-        playerSpeed = speed;
-        playerAimAccuracy = aim;
         playerAttackPower = power;
+        playerAimAccuracy = aim;
+        playerBulletDistance = distance;
+        playerSpeed = speed;
         playerAttackDelay = attackDelay;
     }
 

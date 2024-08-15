@@ -281,7 +281,7 @@ MonoBehaviour:
   silhouette: {fileID: 0}
   playerSkillAnim: {fileID: 7767309881001614562}
   rollingSpeed: 2.5
-  skillDelay: 15
+  skillDelay: 2
   isAttack: 0
   isSkill: 0
   isReload: 0
@@ -309,6 +309,7 @@ MonoBehaviour:
   hadnSprite: {fileID: 4256205921349603720}
   playerCanvas: {fileID: 465279191457892063}
   reloadSlider: {fileID: 1803775860251653657}
+  weaponPower: 8
   fireEffect: {fileID: 7302751013044986120}
   fogPrefab: {fileID: 7632603496833477354, guid: a65f84963668ccc4a98c9074a01eeb2c, type: 3}
   fogCheck: 0
