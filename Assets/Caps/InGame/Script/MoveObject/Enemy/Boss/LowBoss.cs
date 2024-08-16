@@ -46,7 +46,7 @@ public class LowBoss : Boss
         agent.isStopped = false;
         isDetect = true;
         curStatus = EnemyStatus.Idle;
-        
+        bossAttack = false;
     }
 
     protected override void SelectBP()

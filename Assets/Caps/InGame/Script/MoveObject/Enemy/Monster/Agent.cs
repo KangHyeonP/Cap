@@ -32,6 +32,11 @@ public class Agent : AI
         base.FixedUpdate();
     }
 
+    protected override void AngleCalculate(float angleValue)
+    {
+        base.AngleCalculate(angleValue);
+    }
+
     protected override void UpdateState(EnemyStatus enemy)
     {
         if (isDie) return;

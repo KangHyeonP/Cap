@@ -66,13 +66,14 @@ public class MiddleBoss : Boss
         agent.isStopped = false;
         isDetect = true;
         curStatus = EnemyStatus.Idle;
-
+        bossAttack = false;
     }
 
     protected override void SelectBP()
     {
-        int[] numbers = { 1, 2, 3, 5, 9 }; // 7해야함
-                                           //selectPivot = Random.Range(1, 14);
+        int[] numbers = { 5 };
+        //int[] numbers = { 1, 2, 3, 5, 9 }; // 7해야함
+        //selectPivot = Random.Range(1, 14);
         selectPivot = numbers[Random.Range(0, numbers.Length)];
         Debug.Log("보스 스킬 사용");
         muzzle.localRotation = Quaternion.Euler(0, 0, -90);

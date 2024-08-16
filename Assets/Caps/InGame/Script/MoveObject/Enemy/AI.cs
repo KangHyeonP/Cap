@@ -150,7 +150,7 @@ public abstract class AI : MonoBehaviour
         return angle;
     }
 
-    protected void AngleCalculate(float angleValue)
+    protected virtual void AngleCalculate(float angleValue)
     {
         // 후면(윗 방향)
         if (angleValue < 120 && angleValue > 60)

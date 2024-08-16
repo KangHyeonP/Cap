@@ -24,6 +24,65 @@ public class TopBoss : Boss
         base.FixedUpdate();
     }
 
+    protected override IEnumerator IAttack()
+    {
+        //Debug.Log("공격 실행");
+        AttackLogic();
+        //yield return new WaitForSeconds(attackDelay);
+
+        switch (selectPivot)
+        {
+            case 1:
+                BP1();
+                yield return new WaitForSeconds(1);
+                break;
+            case 2:
+                yield return StartCoroutine("BP2");
+                break;
+            case 3:
+                BP3();
+                yield return new WaitForSeconds(1);
+                break;
+            case 4:
+                yield return StartCoroutine("BP4");
+                break;
+            case 5:
+                yield return StartCoroutine("BP5");
+                break;
+            /*
+    case 6:
+        BP6();
+        break;
+
+    case 7:
+        BP7();
+        break;
+        */
+            case 8:
+                yield return StartCoroutine("BP8");
+                break;
+
+            case 10:
+                yield return StartCoroutine("BP10");
+                break;
+
+            case 11:
+                yield return StartCoroutine("BP11");
+                break;
+
+            case 12:
+                yield return StartCoroutine("BP12");
+                break;
+        }
+
+        curAttackDelay = 0;
+        isAttack = false;
+        agent.isStopped = false;
+        isDetect = true;
+        curStatus = EnemyStatus.Idle;
+        bossAttack = false;
+    }
+
     protected override void SelectBP()
     {
         int[] numbers = { 1, 2, 3, 4, 5, 8, 10, 11, 12 }; // 6, 7야함
@@ -31,58 +90,5 @@ public class TopBoss : Boss
         selectPivot = numbers[Random.Range(0, numbers.Length)];
         Debug.Log("보스 스킬 사용");
         muzzle.localRotation = Quaternion.Euler(0, 0, -90);
-        switch (selectPivot)
-        {
-            case 1:
-                BP1();
-                break;
-
-            case 2:
-                StartCoroutine("BP2");
-                break;
-
-            case 3:
-                BP3();
-                break;
-
-            case 4:
-                StartCoroutine("BP4");
-                break;
-
-            case 5:
-                StartCoroutine("BP5");
-                break;
-            /*
-        case 6:
-            BP6();
-            break;
-
-        case 7:
-            BP7();
-            break;
-            */
-            case 8:
-                StartCoroutine("BP8");
-                break;
-
-
-            case 9:
-                StartCoroutine("BP9");
-                break;
-
-
-            case 10:
-                StartCoroutine("BP10");
-                break;
-
-            case 11:
-                StartCoroutine("BP11");
-                break;
-
-            case 12:
-                StartCoroutine("BP12");
-                break;
-
-        }
     }
 }

@@ -647,7 +647,7 @@ public abstract class Player : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "EnemyBullet") //수정
+        if (collision.tag == "EnemyBullet" || collision.tag == "Boss" | collision.tag == "Agent") //수정
         {
             if (avoidCheck || isHit) return;
            

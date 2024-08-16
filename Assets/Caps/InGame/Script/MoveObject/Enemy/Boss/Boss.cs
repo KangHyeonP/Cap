@@ -20,6 +20,9 @@ public abstract class Boss : AI
     //public bool bossKey;
     public int selectPivot = 0;
     public bool knifeThrow = false; // 투척 전까지 플레이어를 쫓도록 추가한 변수
+    public bool bossAttack = false; // 보스 공격 중 시선 변경 차단 로직
+
+    public Vector2 playerVec;
 
     protected override void Awake()
     {
@@ -38,24 +41,34 @@ public abstract class Boss : AI
 
         //BossInputKey();
         //SelectBP();
-        BossRush();
+        //BossRush();
     }
     /*public void BossInputKey()
     {
         bossKey = Input.GetKeyDown(KeyCode.B);
     }*/
+    protected override void AngleCalculate(float angleValue)
+    {
+        if (bossAttack) return;
+
+        base.AngleCalculate(angleValue);
+    }
+
     protected void BossRush()
     {
         if (!isRush) return;
 
-        Vector3 dir = (target.position - transform.position).normalized;
-        transform.position = transform.position + (dir * rushPower * Time.deltaTime);
+        //playerVec = (target.position - transform.position).normalized;
+        rigid.MovePosition(rigid.position + playerVec * rushPower * Time.fixedDeltaTime);
+        //transform.position = transform.position + (dir * rushPower * Time.deltaTime);
     }
 
     // 떨림 방지
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+
+        BossRush();
     }
 
     protected override void UpdateState(EnemyStatus enemy)
@@ -110,6 +123,7 @@ public abstract class Boss : AI
 
     protected override void AttackLogic()
     {
+        bossAttack = true;
         SelectBP();
     }
 
@@ -141,6 +155,7 @@ public abstract class Boss : AI
     public IEnumerator BP2() // 좆밥보스, 최종보스
     {
         knifeThrow = true;
+        bossAttack = false;
         Line.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(1);
@@ -182,6 +197,7 @@ public abstract class Boss : AI
         }
 
         Debug.Log("BP4");
+        yield return new WaitForSeconds(1f);
     }
 
 
@@ -201,8 +217,10 @@ public abstract class Boss : AI
         //      agent.speed = originSpd;
 
         isRush = true;
+        playerVec = (target.position - transform.position).normalized;
+        //rigid.velocity = Vector3.zero;
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.75f);
 
         isRush = false;
 
@@ -244,8 +262,8 @@ public abstract class Boss : AI
             }
             yield return new WaitForSeconds(0.07f);
         }
-        //Debug.Log("BP8");
-
+        Debug.Log("BP8");
+        yield return new WaitForSeconds(1f);
         //for (int i = 0; i < 4; i++)
         //{
         //    Vector2 BP1bulletDir_1 = (target.position - muzzle.position).normalized;
@@ -338,6 +356,7 @@ public abstract class Boss : AI
         //   yield return new WaitForSeconds(0.1f);
         //}
         Debug.Log("BP10");
+        yield return new WaitForSeconds(1f);
     }
 
     public IEnumerator BP11() // 최종보스
@@ -355,6 +374,7 @@ public abstract class Boss : AI
 
 
         Debug.Log("BP11");
+        yield return new WaitForSeconds(1f);
     }
 
     public IEnumerator BP12() // 최종보스 개선 필요 코드 더러움
@@ -372,6 +392,7 @@ public abstract class Boss : AI
         }
 
         Debug.Log("BP12");
+        yield return new WaitForSeconds(1f);
     }
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
