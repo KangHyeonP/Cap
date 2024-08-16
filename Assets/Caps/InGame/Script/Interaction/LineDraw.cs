@@ -28,7 +28,7 @@ public class LineDraw : MonoBehaviour
         {
             return;
         }
-        transform.localScale += new Vector3(0, 10, 0);
+        transform.localScale += new Vector3(0, 100, 0) * Time.unscaledDeltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

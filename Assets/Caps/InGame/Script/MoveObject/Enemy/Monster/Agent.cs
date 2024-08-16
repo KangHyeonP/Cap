@@ -7,7 +7,7 @@ using UnityEngine.AI;
 
 public class Agent : AI
 {
-    public float[] tableValue = { 0, 0 };
+    public float[] tableValue = { 0, 0 }; // x,y축 이동 거리 값
 
     public Table table = null;
 

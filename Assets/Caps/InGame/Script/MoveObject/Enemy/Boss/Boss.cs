@@ -17,8 +17,9 @@ public abstract class Boss : AI
     public float rushPower; //임시
     bool isRush = false;
 
-    public bool bossKey;
+    //public bool bossKey;
     public int selectPivot = 0;
+    public bool knifeThrow = false; // 투척 전까지 플레이어를 쫓도록 추가한 변수
 
     protected override void Awake()
     {
@@ -35,15 +36,15 @@ public abstract class Boss : AI
     {
         base.Update();
 
-        BossInputKey();
-        SelectBP();
+        //BossInputKey();
+        //SelectBP();
         BossRush();
     }
-    public void BossInputKey()
+    /*public void BossInputKey()
     {
         bossKey = Input.GetKeyDown(KeyCode.B);
-    }
-    void BossRush()
+    }*/
+    protected void BossRush()
     {
         if (!isRush) return;
 
@@ -90,10 +91,13 @@ public abstract class Boss : AI
 
     protected override IEnumerator IAttack()
     {
+        yield return base.IAttack();
+        /*
         //Debug.Log("공격 실행");
         AttackLogic();
-        yield return new WaitForSeconds(attackDelay);
+        //yield return new WaitForSeconds(attackDelay);
 
+        //yield return StartCoroutine()
 
         //Debug.Log("공격 끝");
 
@@ -101,15 +105,17 @@ public abstract class Boss : AI
         agent.isStopped = false;
         isDetect = true;
         curStatus = EnemyStatus.Idle;
+        */
     }
 
     protected override void AttackLogic()
     {
-        //SelectBP();
+        SelectBP();
     }
 
     protected virtual void SelectBP()
     {
+
     }
 
     public void BP1() // 중간보스, 최종보스
@@ -134,6 +140,7 @@ public abstract class Boss : AI
 
     public IEnumerator BP2() // 좆밥보스, 최종보스
     {
+        knifeThrow = true;
         Line.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(1);
@@ -141,8 +148,11 @@ public abstract class Boss : AI
         Line.localScale = new Vector3(1, 1, 1);
         Line.gameObject.SetActive(false);
 
+        knifeThrow = false;
         gun.ShotReady();
         Debug.Log("BP2");
+
+        yield return new WaitForSeconds(1);
     }
 
 
@@ -197,7 +207,7 @@ public abstract class Boss : AI
         isRush = false;
 
         Debug.Log("BP5");
-
+        yield return new WaitForSeconds(1f);
         //transform.position = Vector2.MoveTowards(transform.position, target.position, 80f * Time.deltaTime);
     }
 
@@ -304,34 +314,8 @@ public abstract class Boss : AI
             }
             yield return new WaitForSeconds(0.1f);
         }
-        //Vector2 BP9bulletDir_1 = (target.position - muzzle.position).normalized;
-        //muzzle.up = BP9bulletDir_1;
-        //muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z + 0);
 
-        //GameObject BP9bulletcopy_1 = Instantiate(bullet, muzzle.position, muzzle.rotation);
-        //BP9bulletcopy_1.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
-
-        //Vector2 BP9bulletDir_2 = (target.position - muzzle.position).normalized;
-        //muzzle.up = BP9bulletDir_2;
-        //muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z + 10);
-
-        //GameObject BP9bulletcopy_2 = Instantiate(bullet, muzzle.position, muzzle.rotation);
-        //BP9bulletcopy_2.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
-
-        //Vector2 BP9bulletDir_3 = (target.position - muzzle.position).normalized;
-        //muzzle.up = BP9bulletDir_3;
-        //muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z - 10);
-
-        //GameObject BP9bulletcopy_3 = Instantiate(bullet, muzzle.position, muzzle.rotation);
-        //BP9bulletcopy_3.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
-
-        //Vector2 BP9bulletDir_4 = (target.position - muzzle.position).normalized;
-        //muzzle.up = BP9bulletDir_4;
-        //muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z - 30);
-
-        //GameObject BP9bulletcopy_4 = Instantiate(bullet, muzzle.position, muzzle.rotation);
-        //BP9bulletcopy_4.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
-
+        yield return new WaitForSeconds(1f);
     }
 
     public IEnumerator BP10() // 최종보스 개선해야할지도모름, 삼각함수 사용안함.
@@ -356,12 +340,7 @@ public abstract class Boss : AI
         Debug.Log("BP10");
     }
 
-    public void BP11() // 최종보스 
-    {
-        Debug.Log("BP11");
-    }
-
-    public IEnumerator BP12() // 최종보스
+    public IEnumerator BP11() // 최종보스
     {
         Vector3 dirVec = muzzle.up;
 
@@ -375,10 +354,10 @@ public abstract class Boss : AI
         }
 
 
-        Debug.Log("BP12");
+        Debug.Log("BP11");
     }
 
-    public IEnumerator BP13() // 최종보스 개선 필요 코드 더러움
+    public IEnumerator BP12() // 최종보스 개선 필요 코드 더러움
     {
         Vector3 dirVec = muzzle.up;
 
@@ -392,7 +371,7 @@ public abstract class Boss : AI
             yield return new WaitForSeconds(0.1f);
         }
 
-        Debug.Log("BP13");
+        Debug.Log("BP12");
     }
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
