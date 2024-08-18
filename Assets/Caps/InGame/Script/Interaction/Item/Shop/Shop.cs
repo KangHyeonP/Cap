@@ -58,7 +58,7 @@ public class Shop : MonoBehaviour
             //Debug.Log("°ª : "+curIndex);
             if (itemRand < 2)
             {
-                PoolManager.Instance.GetMagzine(itemRand).ShopItem(itemPos[curIndex++].position);
+                PoolManager.Instance.GetMagazine(itemRand).ShopItem(itemPos[curIndex++].position);
             }
             else
             {

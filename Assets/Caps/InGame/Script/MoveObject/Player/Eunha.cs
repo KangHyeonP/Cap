@@ -29,8 +29,14 @@ public class Eunha : Player
         {
             fogTimer += Time.deltaTime;
 
-            if (fogDistance > 3) { fogIn = false; }
-            else fogIn = true;
+            if (fogDistance > 3) 
+            { 
+                fogIn = false;
+            }
+            else 
+            { 
+                fogIn = true;
+            }
 
             if(fogTimer > 3)
             {
@@ -51,6 +57,7 @@ public class Eunha : Player
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
+        //base.OnTriggerEnter2D(collision);
         if (collision.tag == "EnemyBullet") //¼öÁ¤
         {
             if (fogIn) return;

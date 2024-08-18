@@ -332,7 +332,7 @@ public class PoolManager : MonoBehaviour
         poolingMagazine[value].Enqueue(m);
     }
 
-    public Magazine GetMagzine(int value)
+    public Magazine GetMagazine(int value)
     {
         if (poolingMagazine[value].Count <= 0)
         {

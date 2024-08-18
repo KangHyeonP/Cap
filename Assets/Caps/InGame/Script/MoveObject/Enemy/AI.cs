@@ -389,12 +389,12 @@ public abstract class AI : MonoBehaviour
         // Magazine
         if (value <=15)
         {
-            Magazine magazine = PoolManager.Instance.GetMagzine(0);
+            Magazine magazine = PoolManager.Instance.GetMagazine(0);
             magazine.ThrowItem(transform.position);
         }
         else if(value <= 30)
         {
-            Magazine magazine = PoolManager.Instance.GetMagzine(1);
+            Magazine magazine = PoolManager.Instance.GetMagazine(1);
             magazine.ThrowItem(transform.position);
         }
 
