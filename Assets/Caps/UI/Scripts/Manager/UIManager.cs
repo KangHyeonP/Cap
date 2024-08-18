@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
 
 	public PauseUI pauseUI;
 	public TabUI TabUI;
-	public GameObject DictUI;
+	public DictionaryUI DictUI;
 	public GameObject ExitUI;
 	public InGameUI inGameUI;
     public GameObject TempUI;
@@ -51,10 +51,6 @@ public class UIManager : MonoBehaviour
 	void Update()
 	{
 		//InputKey();
-
-        //OpenPause();
-		//OpenTab();
-		//OpenDict();
 
         if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) && !IsDict)
         {
@@ -97,13 +93,13 @@ public class UIManager : MonoBehaviour
 
 	//public void InitPlayer
 
-	private void InputKey()
+	/*private void InputKey()
 	{
 		isEscKey = Input.GetKeyDown(KeyCode.Escape);
 		isPauseKey = Input.GetKeyDown(KeyCode.P);
 		isTabKey = Input.GetKeyDown(KeyCode.Tab);
 		isInventoryKey = Input.GetKeyDown(KeyCode.I);
-    }
+    }*/
 
 	private void OpenDict() //µµ°¨
 	{
@@ -112,13 +108,14 @@ public class UIManager : MonoBehaviour
 		if (!IsDict)
 		{
             IsDict = true;
-			DictUI.SetActive(true);
+			DictUI.gameObject.SetActive(true);
+            DictUI.ContentUpdate();
 			PauseTime(true);
 		}
 		else
 		{
 			PauseTime(false);
-			DictUI.GetComponent<DictionaryUI>().Close();
+			DictUI.Close();
 		}
 	}
 

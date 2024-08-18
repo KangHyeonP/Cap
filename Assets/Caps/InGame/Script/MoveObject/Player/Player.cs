@@ -110,6 +110,8 @@ public abstract class Player : MonoBehaviour
     [SerializeField]
     public GameObject fireEffect;
 
+    public bool fogIn = false; //안개 안에 있는지 여부
+
     protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();

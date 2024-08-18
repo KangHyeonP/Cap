@@ -6,7 +6,6 @@ public class Eunha : Player
 {
     public GameObject fogPrefab;
     public bool fogCheck = false;
-    public bool fogIn = false; //안개 안에 있는지 여부
     public float fogDistance = 0;
     public float fogTimer = 0;
     public GameObject fog;

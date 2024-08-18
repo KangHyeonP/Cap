@@ -18,16 +18,17 @@ public class SettingUI : MonoBehaviour
         Init();
     }
 
-    private void OnEnable()
+    public void Open()
     {
         UIManager.Instance.TempUI = this.gameObject;
         UIManager.Instance.IsPopup++;
     }
 
-    private void OnDisable()
+    public void Close()
     {
         UIManager.Instance.pauseUI.SelectButtonOn();
         UIManager.Instance.IsPopup--;
+        gameObject.SetActive(false);
     }
 
     private void Init()
@@ -59,7 +60,8 @@ public class SettingUI : MonoBehaviour
                 if (toggles[volNum].isOn)
                 {
                     SoundManager.Instance.sfxSource.mute = false;
-                    SoundManager.Instance.bgmSource.Play();
+                    if(!SoundManager.Instance.bgmSource.isPlaying)
+                        SoundManager.Instance.bgmSource.Play();
                     toggles[1].isOn = true;
                     toggles[2].isOn = true;
                 }

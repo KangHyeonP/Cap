@@ -19,6 +19,7 @@ public class EnemyBullet : Bullet
         if (collision.tag == "Player" && !InGameManager.Instance.player.AvoidCheck 
             && !InGameManager.Instance.player.IsHit)
         {
+            if (InGameManager.Instance.player.fogIn) return;
             TrrigerLogic();
         }
     }
