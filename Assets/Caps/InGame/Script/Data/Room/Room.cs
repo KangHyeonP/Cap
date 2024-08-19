@@ -34,6 +34,7 @@ public class Room : MonoBehaviour
 
     // Room Status
     private bool clearCheck = false; // 현재 클리어한 방인지 체크
+    public bool ClearCheck => clearCheck;
     private int curEnemyCnt = 0; // 처치한 적 수
     private int fullEnemyCnt = 0; // 현재 적 수
 
