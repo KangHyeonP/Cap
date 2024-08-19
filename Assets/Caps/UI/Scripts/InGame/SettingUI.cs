@@ -13,6 +13,13 @@ public class SettingUI : MonoBehaviour
 
     private bool isUpdating = false;
 
+
+
+    private void OnDisable()
+    {
+        if (UIManager.Instance != null) Close();
+    }
+
     private void Start()
     {
         Init();
@@ -28,7 +35,6 @@ public class SettingUI : MonoBehaviour
     {
         UIManager.Instance.pauseUI.SelectButtonOn();
         UIManager.Instance.IsPopup--;
-        gameObject.SetActive(false);
     }
 
     private void Init()

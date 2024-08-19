@@ -54,7 +54,7 @@ public class UIManager : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) && !IsDict)
         {
-			Debug.Log(IsPopup);
+			Debug.Log("ㅍㅇ:"+IsPopup);
             OpenPause();
         }
 
@@ -138,7 +138,6 @@ public class UIManager : MonoBehaviour
 
     private void OpenPause() //일시정지
 	{
-		
         switch (IsPopup)
         {
             case 0:
@@ -147,7 +146,7 @@ public class UIManager : MonoBehaviour
                 break;
             case 1:
                 PauseTime(false);
-                pauseUI.gameObject.GetComponent<PauseUI>().Close();
+                pauseUI.Close();
                 IsPopup--;
                 break;
             case 2:
