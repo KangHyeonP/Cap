@@ -81,7 +81,7 @@ public class Room : MonoBehaviour
     {
         PlayerRoom(true);
         AgentActive(isPlayerRoom);
-        ActiveDoor();
+        //ActiveDoor();
     }
 
     // 현재 플레이어가 방에 들어온 상태
@@ -117,6 +117,7 @@ public class Room : MonoBehaviour
         }
     }
 
+    // 이 부분은 이제 문이 나오면 해당 문에서 수정
     public void ActiveDoor()
     {
         if (!clearCheck && door.Length != 0)

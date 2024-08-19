@@ -26,7 +26,8 @@ public class EnemyHand : MonoBehaviour
 	{
 		if (enemy.IsAttack) return;
 		
-		playerVec2 = (Vector2)InGameManager.Instance.player.transform.localPosition - (Vector2)enemyTransform.localPosition;
+		playerVec2 = (Vector2)InGameManager.Instance.player.transform.position
+			- (Vector2)enemyTransform.position;
 		angle = Mathf.Atan2(playerVec2.y, playerVec2.x) * Mathf.Rad2Deg;
 
 		if (enemyTransform.localScale.x == -1)
