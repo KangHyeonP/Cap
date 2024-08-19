@@ -50,7 +50,7 @@ public class Bulletproof : Item
     {
         int index = (InGameManager.Instance.Hp - 1) / 2;
         UIManager.Instance.bulletProof.rectTransform.anchoredPosition
-            = new Vector2(index * 57, -5);
+            = new Vector2(23 + index * 57, -16);
 
 
             //= UIManager.Instance.heartImages[index].rectTransform.position;
