@@ -98,6 +98,12 @@ public class InGameManager : MonoBehaviour
     public GameObject[] basicWeaponEffect;
 
     public bool bossRushCheck = false;
+
+    // Diary
+    public bool checkItem = false;
+    public bool checkWeapon = false;
+    public bool checkEunha = false;
+
     private void Awake()
     {
         Init();
@@ -406,6 +412,25 @@ public class InGameManager : MonoBehaviour
 
         return curPower - power;
     }
+
+    public void CheckGirl() // 윤하해금여부 체크
+    {
+        if (checkEunha) return;
+
+        for (int i = (int)EDiaryValue.Band - 1; i < (int)EDiaryValue.SubMagazine; i++)
+        {
+            if (!GameManager.Instance.DiaryDataCheck[i]) return;
+        }
+
+        for (int i = (int)EDiaryValue.Desert_Eagle - 1; i < (int)EDiaryValue.AWP; i++)
+        {
+            if (!GameManager.Instance.DiaryDataCheck[i]) return;
+        }
+
+        GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Eunha); // 윤하 해금
+        DataManager.Instacne.UpdateLock((int)ECharacters.Eunha);
+    }
+
 
     public void Hit(int value)
     {

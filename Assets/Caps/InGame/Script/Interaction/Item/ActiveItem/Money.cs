@@ -25,6 +25,8 @@ public class Money : Item
     {
         if (DrugManager.Instance.itemBanCheck) return;
 
+        GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Money);
+        InGameManager.Instance.CheckGirl();
         UseItem();
     }
 

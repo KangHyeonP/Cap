@@ -35,6 +35,9 @@ public class Band : Item
             ItemUIPlay(false);
             isProduct = false;
         }
+
+        GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Band);
+        InGameManager.Instance.CheckGirl();
         UseItem();
     }
 

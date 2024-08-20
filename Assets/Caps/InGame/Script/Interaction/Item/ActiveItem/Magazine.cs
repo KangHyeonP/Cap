@@ -36,7 +36,8 @@ public class Magazine : Item
             isProduct = false;
         }
 
-
+        GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.MainMagazine + value);
+        InGameManager.Instance.CheckGirl();
         UseItem();
     }
 

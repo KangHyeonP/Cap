@@ -49,6 +49,8 @@ public class Weapons : Item
 
         if (eWeapons == EWeapons.Revolver) // 현재 획득무기가 보조무기라면
         {
+            GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Desert_Eagle + index);
+
             if (InGameManager.Instance.pistolInven != null) // 현재 보조무기를 보유 중인지 확인
             {
                 // 수정 로직
@@ -56,31 +58,38 @@ public class Weapons : Item
                 InGameManager.Instance.pistolInven.PutWeapon(); // 보유 중인 권총을 밖으로 뺌
             }
         }
-        else if(InGameManager.Instance.gunInven != null) // 현재 획득무기가 주무기라면
+        else
         {
-            // 수정 로직
-            InGameManager.Instance.PutBullet(eWeapons); //  현재 플레이어의 주무기에 탄을 저장
+            GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.AK47 + index);
 
-            // 마약 버프가 활성화 된 상태인지 확인
-            if (DrugManager.Instance.isManyWeapon)
+            if (InGameManager.Instance.gunInven != null) // 현재 획득무기가 주무기라면
             {
-                if(InGameManager.Instance.blueGunInven == null) // 마약 무기 인벤이 비어있다면
-                {
-                    InGameManager.Instance.blueGunInven = InGameManager.Instance.gunInven; // 현재 주 무기를 마약 인벤으로 저장
-                    InGameManager.Instance.blueGunInven.gameObject.SetActive(false); // 교체된 주무기 숨기기
-                }
-                else
-                {
-                    InGameManager.Instance.gunInven.PutWeapon(); // 현재 장착 무기 반환
-                }
+                // 수정 로직
+                InGameManager.Instance.PutBullet(eWeapons); //  현재 플레이어의 주무기에 탄을 저장
 
-            }
-            else //마약 버프가 활성화 된 상태가 아니라면
-            {
-                InGameManager.Instance.gunInven.PutWeapon(); // 보유 주무기를 밖으로 뺌
+                // 마약 버프가 활성화 된 상태인지 확인
+                if (DrugManager.Instance.isManyWeapon)
+                {
+                    if (InGameManager.Instance.blueGunInven == null) // 마약 무기 인벤이 비어있다면
+                    {
+                        InGameManager.Instance.blueGunInven = InGameManager.Instance.gunInven; // 현재 주 무기를 마약 인벤으로 저장
+                        InGameManager.Instance.blueGunInven.gameObject.SetActive(false); // 교체된 주무기 숨기기
+                    }
+                    else
+                    {
+                        InGameManager.Instance.gunInven.PutWeapon(); // 현재 장착 무기 반환
+                    }
+
+                }
+                else //마약 버프가 활성화 된 상태가 아니라면
+                {
+                    InGameManager.Instance.gunInven.PutWeapon(); // 보유 주무기를 밖으로 뺌
+                }
             }
         }
-        
+
+        InGameManager.Instance.CheckGirl();
+        //GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Desert_Eagle + (int)eWeapons);
         UseItem();
     }
 

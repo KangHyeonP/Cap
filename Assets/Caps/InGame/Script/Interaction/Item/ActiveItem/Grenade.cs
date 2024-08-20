@@ -34,7 +34,8 @@ public class Grenade : Item
             ItemUIPlay(false);
             isProduct = false;
         }
-
+        GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Grenade);
+        InGameManager.Instance.CheckGirl();
         UseItem();
     }
 

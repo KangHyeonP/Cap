@@ -33,7 +33,8 @@ public class Key : Item
             ItemUIPlay(false);
             isProduct = false;
         }
-
+        GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Key);
+        InGameManager.Instance.CheckGirl();
         UseItem();
     }
 
