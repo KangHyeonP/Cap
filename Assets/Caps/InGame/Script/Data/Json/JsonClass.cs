@@ -14,18 +14,25 @@ public class JsonClass
     private PlayerData _playerData;
     public PlayerData _PlayerData => _playerData;
 
+    private DiaryData _diaryData;
+    public DiaryData _DiaryData => _diaryData;
+
     // DefaultPath
     private string defaultPath;
     private const string pDJsonName = "PlayerData.json";
+    private const string dDJsonName = "DiaryData.json";
 
     private string pdPath;
+    private string ddPath;
 
-    private FileInfo fileInfo;
+    private FileInfo pdFileInfo;
+    private FileInfo ddFileInfo;
 
     // Init Data Settings
     public JsonClass()
     {
         _playerData = new PlayerData();
+        _diaryData = new DiaryData();
     }
 
     // Check Data
@@ -33,28 +40,46 @@ public class JsonClass
     {
         defaultPath = Application.persistentDataPath + '/';
         pdPath = defaultPath + pDJsonName;
-        fileInfo = new FileInfo(pdPath);
+        ddPath = defaultPath + dDJsonName;
 
-        //Debug.Log(Application.persistentDataPath);
-        //Debug.Log(pdPath);
+        pdFileInfo = new FileInfo(pdPath);
+        ddFileInfo = new FileInfo(ddPath);
 
-        if (!fileInfo.Exists) return;
+        string readJsonData = null;
 
-        string readJsonData = File.ReadAllText(pdPath);
-        _playerData = JsonUtility.FromJson<PlayerData>(readJsonData);
+        if (pdFileInfo.Exists)
+        {
+            readJsonData = File.ReadAllText(pdPath);
+            _playerData = JsonUtility.FromJson<PlayerData>(readJsonData);
+        }
 
-
+        if(ddFileInfo.Exists)
+        {
+            readJsonData = File.ReadAllText(ddPath);
+            _diaryData = JsonUtility.FromJson<DiaryData>(readJsonData);
+        }
     }
 
     // Save PlayerData 저장(죽을때, 게임을 종료할 때 해당 조건을 게임매니저에서 실행)
     public void SavePlayerData()
     {
+        UpdateDiaryCheck();
+
         File.WriteAllText(pdPath, JsonUtility.ToJson(_playerData));
+        File.WriteAllText(ddPath, JsonUtility.ToJson(_diaryData));
     }
 
     public void UpdateLock(int index)
     {
         _playerData.playerLock[index] = true;
+    }
+
+    public void UpdateDiaryCheck()
+    {
+        for(int i=0;i<_diaryData.checkDiary.Length; i++)
+        {
+            _diaryData.checkDiary[i] = GameManager.Instance.DiaryDataCheck[i];
+        }
     }
 }
 
@@ -67,5 +92,36 @@ public class PlayerData
 
 public class DiaryData
 {
-
+    public bool[] checkDiary =
+    {
+        false, false, false, false, false, false, // 마약
+        false, false, false, false, false, false, false, // 아이템
+        false, false, false, // 근접 무기
+        false, false, false, false, false, // 보조무기, 주무기
+        false, false, false, // 캐릭터
+        false, false, false, // 적
+        false, false, false, // 보스
+        false, false, // Npc
+        false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, // 버프
+        false, false, false, false, false, false, false, false, false, false // 디버프
+    };
+    /*public bool[] checkDrug = { false, false, false, false, false, false };
+    public bool[] checkItem = { false, false, false, false, false, false, false };
+    public bool[] checkMelee = { false, false, false };
+    public bool[] checkWeapon = { false, false, false, false, false };
+    public bool[] checkCharacter = { false, false, false };
+    public bool[] checkEnemy = { false, false, false };
+    public bool[] checkBoos = { false, false, false };
+    public bool[] checkNpc = { false, false, false };
+    public bool[] checkBuff = 
+        { false, false, false, 
+        false, false, false , 
+        false, false, false,
+        false, false, false, 
+        false, false, false};
+    public bool[] checkNerf =
+        {false, false, false,
+        false, false, false,
+        false, false, false,
+        false};*/
 }

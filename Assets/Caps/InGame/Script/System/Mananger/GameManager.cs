@@ -36,6 +36,12 @@ public class GameManager : MonoBehaviour
 
     public bool playerCheck = false;
 
+    [SerializeField]
+    private bool[] diaryDataCheck = new bool[57];
+    public bool[] DiaryDataCheck => diaryDataCheck;
+
+    public DictionaryUI dictionaryUI = null;
+
     private void Awake()
     {
         Init();
@@ -73,6 +79,24 @@ public class GameManager : MonoBehaviour
         playerAttackDelay = attackDelay;
     }
 
+    public void GetDiaryDate(bool[] d)
+    {
+        for(int i=0; i<diaryDataCheck.Length; i++)
+        {
+            diaryDataCheck[i] = d[i];
+        }
+    }
+
+    public void UpdateDiaryDate(int index)
+    {
+        Debug.Log("들어온 값 : " + index);
+
+        // GameManager에는 57개임 58개가아닌
+        if (DiaryDataCheck[index-1]) return;
+
+        diaryDataCheck[index-1] = true;
+        dictionaryUI.UpdateContent(index);
+    }
 
     // 죽을때 or 게임 종료할 때
     public void SaveData()

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ public class Drug : Item
 
     public bool mapDrug = false; // 이미 생선된 마약인지 체크, 맵에 있는 마약은
     // 이미 생성된 상태이므로 색맹마약과 별개로 사용할려고
+
+    public int drugIndex = 0; // 다이어리에 들어갈 드러그 인덱스
 
     protected override void Awake()
     {
@@ -30,12 +33,14 @@ public class Drug : Item
             drugSprite.sprite = blackDrugSprite;
             curDrugSprite = blackDrugSprite;
             Debug.Log("색맹임");
+            drugIndex = 6;
         }
         else
         {
             drugSprite.sprite = curDrugSprite;
             Debug.Log("색맹 실행안함");
             mapDrug = true; // 생성 이후 맵 마약으로 등록
+            drugIndex = (int)value + 1;
         }
 
         // 색맹은 나중에 몬스터 아이템 드랍 이후로 확인해봐야함
@@ -75,7 +80,7 @@ public class Drug : Item
 
         InGameManager.Instance.drugInven = this;
         UIManager.Instance.inGameUI.DrugInven(drugSprite.sprite);
-        //InGameManager.Instance.tempDrug = null;
+        GameManager.Instance.UpdateDiaryDate(drugIndex);
 
         base.GetItem();
     }
@@ -86,6 +91,7 @@ public class Drug : Item
         InGameManager.Instance.UpdateDrug(drugGuage);
         DrugAbility();
         mapDrug = false;
+        GameManager.Instance.UpdateDiaryDate(drugIndex);
 
         PoolManager.Instance.ReturnDrug(this, value);
     }

@@ -217,13 +217,14 @@ public abstract class Boss : AI
         //      agent.speed = originSpd;
 
         isRush = true;
+        InGameManager.Instance.bossRushCheck = true;
         playerVec = (target.position - transform.position).normalized;
         //rigid.velocity = Vector3.zero;
 
         yield return new WaitForSeconds(0.75f);
 
         isRush = false;
-
+        InGameManager.Instance.bossRushCheck = false;
         Debug.Log("BP5");
         yield return new WaitForSeconds(1f);
         //transform.position = Vector2.MoveTowards(transform.position, target.position, 80f * Time.deltaTime);

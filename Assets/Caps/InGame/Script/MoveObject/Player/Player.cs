@@ -655,6 +655,12 @@ public abstract class Player : MonoBehaviour
            
             Damage(1); // 데미지 로직 나중에 수정
         }
+        else if(collision.tag == "Boss")
+        {
+            if (!InGameManager.Instance.bossRushCheck || isHit) return;
+
+            Damage(1); // 데미지 로직 나중에 수정
+        }
 
     }
 }

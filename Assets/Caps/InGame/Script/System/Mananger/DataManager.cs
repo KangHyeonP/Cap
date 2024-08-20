@@ -40,9 +40,9 @@ public class DataManager : MonoBehaviour
         else Destroy(this.gameObject);
     }
 
-    void Start()
+    private void Start()
     {
-        
+        GameManager.Instance.GetDiaryDate(jsonClass._DiaryData.checkDiary);
     }
 
     // Update is called once per frame

@@ -30,18 +30,25 @@ public class DictionaryUI : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        Init();
+        //Init();
     }
 
-    void Start()
+    private void Start()
     {
+        GameManager.Instance.dictionaryUI = this;
+        
+        for(int i=1; i<contents.Length;i++)
+        {
+            contents[i].isUnLock = GameManager.Instance.DiaryDataCheck[i-1];
+            contents[i].LockUpdate();
+        }
     }
 
     public void ShowInformation()
     {
         int i = int.Parse(EventSystem.current.currentSelectedGameObject.name);
 
-        if (contents[i].isLock)
+        if (!contents[i].isUnLock)
         {
             i = 0;
         }
@@ -53,13 +60,22 @@ public class DictionaryUI : MonoBehaviour
         Debug.Log("아이템 번호: " + i);
     }
 
-    public void Init()
+    public void UpdateContent(int i) // 단일 업데이트
+    {
+        Debug.Log("단일 업데이트 실행");
+
+        contents[i].UnLockContent();
+
+        //Debug.Log("아이템 번호: " + i);
+    }
+
+    /*public void Init()
     {
         for (int i = 1; i < contents.Length; i++)
         {
-            contents[i].isLock = true;
+            contents[i].isUnLock = false;
         }
-    }
+    }*/
 
 
     public void MoveBookMark(int contentType)
@@ -67,13 +83,13 @@ public class DictionaryUI : MonoBehaviour
         scrollbar.value = scrollvalue[contentType];
     }
 
-    public void ContentUpdate()
+    /*public void ContentUpdate()
     {
         for (int i = 1; i < contents.Length; i++)
         {
             contents[i].LockUpdate();
         }
-    }
+    }*/
 
     public void Close()
     {
@@ -81,7 +97,7 @@ public class DictionaryUI : MonoBehaviour
     }
     public void DictOff()
     {
-        UIManager.Instance.IsDict = false;
+        if(UIManager.Instance != null) UIManager.Instance.IsDict = false;
         gameObject.SetActive(false);
     }
 }

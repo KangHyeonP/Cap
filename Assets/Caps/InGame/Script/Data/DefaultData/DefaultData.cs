@@ -3,7 +3,7 @@ public enum ECharacters
 {
     Haeseong,
     Eunha,
-    Black, 
+    Kuiper, 
     c2, 
     c3
 }

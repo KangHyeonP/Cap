@@ -4,8 +4,31 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum EDiaryValue
+{
+    None, RedDrug, OrangeDrug, YellowDrug, GreenDrug, BlueDrug, BlackDrug,
+    Band, Key, BulletProof, Grenade, Money, MainMagazine, SubMagazine,
+    Sashimi, Combat_Knife, Fist,
+    Desert_Eagle, Anaconda,
+    AK47, M870, AWP,
+    Haeseong, Eunha, Kuiper,
+    Strike_Team1, Strike_Team2, Strike_Team3, Mikazuki, Deimos, FullMoon,
+    Merchant, Unlicensed_Doctor,
+    Extra_Health, Berserker, Rage,
+    Expanded_Bullet, Piercing, Execution,
+    Sniper, Bleeding, Explosion,
+    Dash, Evasion, Time_Dilation,
+    Burst, Extra_Weapon, Weapon_Master,
+    Merchant_Hostility, Contaminated_Bandage, Dud_Grenade,
+    Drug_Addiction, Missed_Shot, Drug_Induced_Colorblindness,
+    Roll_Restriction, Excess, Weakness_Exposure,
+    Mirage
+}
+
 public class DictionaryContents : MonoBehaviour
 {
+    public EDiaryValue value;
+
     private string[] descs = new string[]
     {
       "아직 뭔지 몰라..",
@@ -15,7 +38,7 @@ public class DictionaryContents : MonoBehaviour
         "상처를 치료해줄 사람 어디 없나", "넣는 건 늘 새로워", "안아파 나 안아파",
         "폭발은 예술이다", "1000원의 행복", "주 탄창", "보조 탄창",
         //무기
-        "사시미", "군용 나이프", "주먹", "아나콘다", "데저트 이글", "AK-47", "M870", "AWP",
+        "사시미", "군용 나이프", "주먹", "데저트 이글", "아나콘다",  "AK-47", "M870", "AWP",
         //캐릭터
         "해성", "은하", "카이퍼",
         //적
@@ -43,7 +66,7 @@ public class DictionaryContents : MonoBehaviour
         //아이템 7개
         "붕대","열쇠","방탄복","수류탄", "돈", "주무기 탄창", "보조무기 탄창",
         //무기
-        "사시미", "군용 나이프", "주먹", "아나콘다", "데저트 이글", "AK-47", "M870", "AWP",
+        "사시미", "군용 나이프", "주먹", "데저트 이글", "아나콘다", "AK-47", "M870", "AWP",
         //캐릭터
         "해성", "은하", "카이퍼",
         //적
@@ -63,16 +86,18 @@ public class DictionaryContents : MonoBehaviour
         "신기루"
    };
 
-    private Image iconImage;
-    public bool isLock;
+    //private Image iconImage;
+
+    public Image iconImage;
+    public bool isUnLock;
     public int itemNum;
 
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
-        itemNum = int.Parse(gameObject.name);
+        //itemNum = int.Parse(gameObject.name);
         if (itemNum == 0) return;
-        iconImage = transform.GetChild(0).GetComponent<Image>();
+        //iconImage = transform.GetChild(0).GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -81,12 +106,18 @@ public class DictionaryContents : MonoBehaviour
 
     }
 
+    public void UnLockContent()
+    {
+        isUnLock = true;
+        LockUpdate();
+    }
+
     public void LockUpdate()
     {
-        if (isLock)
-            iconImage.color = Color.black;
-        else
+        if (isUnLock)
             iconImage.color = Color.white;
+        else
+            iconImage.color = Color.black;
     }
 
     public void SetIcon(Sprite sprite)

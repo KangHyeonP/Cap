@@ -97,6 +97,7 @@ public class InGameManager : MonoBehaviour
     public GameObject basicWeaponPivot;
     public GameObject[] basicWeaponEffect;
 
+    public bool bossRushCheck = false;
     private void Awake()
     {
         Init();
@@ -145,8 +146,8 @@ public class InGameManager : MonoBehaviour
                 index = (int)ECharacters.Eunha;
                 playerWeaponType = index;
                 break;
-            case ECharacters.Black:
-                index = (int)ECharacters.Black;
+            case ECharacters.Kuiper:
+                index = (int)ECharacters.Kuiper;
                 playerWeaponType = index;
                 break;
                 /*

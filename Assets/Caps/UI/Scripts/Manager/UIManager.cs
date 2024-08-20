@@ -44,7 +44,7 @@ public class UIManager : MonoBehaviour
 
 	void Start()
 	{
-		
+        GameManager.Instance.dictionaryUI = DictUI;
 	}
 
 	// Update is called once per frame
@@ -54,7 +54,6 @@ public class UIManager : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) && !IsDict)
         {
-			Debug.Log("ㅍㅇ:"+IsPopup);
             OpenPause();
         }
 
@@ -109,7 +108,7 @@ public class UIManager : MonoBehaviour
 		{
             IsDict = true;
 			DictUI.gameObject.SetActive(true);
-            DictUI.ContentUpdate();
+            //DictUI.ContentUpdate(); // 잠시 주석, 궂이 킬때마다 다 갱신할 필요없을듯
 			PauseTime(true);
 		}
 		else
