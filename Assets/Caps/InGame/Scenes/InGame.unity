@@ -1399,6 +1399,9 @@ MonoBehaviour:
   isRollBan: 0
   itemBanCheck: 0
   doubleDamageCheck: 0
+  mirageCheck: 0
+  isCurse: 0
+  isCrazy: 0
 --- !u!4 &105032742
 Transform:
   m_ObjectHideFlags: 0
@@ -3010,6 +3013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a1240de37761d45bf7cfb35fa1db40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorValue: 3
 --- !u!1 &340325150
 GameObject:
   m_ObjectHideFlags: 0
@@ -5179,7 +5183,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 191
+    m_Bits: 959
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -9409,6 +9413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e91998c687c52c54f874fa9acf4a8076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorValue: 1
 --- !u!1 &785577884
 GameObject:
   m_ObjectHideFlags: 0
@@ -10030,7 +10035,7 @@ MonoBehaviour:
   drugInven: {fileID: 0}
   tempDrug: []
   tempDrugIndex: -1
-  drugGuage: 0
+  drugGauge: 0
   grenadeObj: {fileID: 5052371408824336673, guid: ef6d95ec1c30a7048b0e5d9974b1e981, type: 3}
   basicWeaponPivot: {fileID: 1160348199}
   basicWeaponEffect:
@@ -10038,6 +10043,9 @@ MonoBehaviour:
   - {fileID: 1958433008}
   - {fileID: 728626076}
   bossRushCheck: 0
+  checkItem: 0
+  checkWeapon: 0
+  checkEunha: 0
 --- !u!1 &834928611
 GameObject:
   m_ObjectHideFlags: 0
@@ -12028,6 +12036,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f6a6a9fa83be845a89d27b21697a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorValue: 2
 --- !u!1 &1030795343
 GameObject:
   m_ObjectHideFlags: 0
@@ -12657,6 +12666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926bd71c5554ec246a4daef2e4abc70d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorValue: 0
 --- !u!1001 &1092869308
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15580,6 +15590,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b430fe094e2f2004d84d644c16da4d25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1500968340
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1500968341}
+  m_Layer: 0
+  m_Name: BossGrenade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1500968341
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500968340}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1801873979}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1509770958
 GameObject:
   m_ObjectHideFlags: 0
@@ -18330,6 +18371,7 @@ Transform:
   - {fileID: 616995577}
   - {fileID: 1303075066}
   - {fileID: 2065878134}
+  - {fileID: 1500968341}
   m_Father: {fileID: 1509770959}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1801873980
@@ -18388,8 +18430,8 @@ MonoBehaviour:
   magazinePos:
   - {fileID: 909521926}
   - {fileID: 995941688}
-  weapon: []
-  weaponPos: []
+  bossGrenade: {fileID: 5052371408824336673, guid: dd26ccb0e434b7a4486ae658619ae811, type: 3}
+  bossGrenadePos: {fileID: 1500968341}
   initCount: 5
 --- !u!1 &1823052354
 GameObject:
@@ -18696,6 +18738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4adde6ff6b7373941a4603e89f202caf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorValue: 4
 --- !u!1 &1843694585
 GameObject:
   m_ObjectHideFlags: 0

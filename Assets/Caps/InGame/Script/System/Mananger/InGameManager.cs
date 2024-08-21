@@ -26,7 +26,7 @@ public class InGameManager : MonoBehaviour
 
     [SerializeField]
     private Slider drugBar;
-    public float DrugGague => drugBar.value;
+    public float DrugGauge => drugBar.value;
 
     [SerializeField]
     private bool isPause = false; //일단 현재는 인게임 상태이므로 일시정지 해제
@@ -89,7 +89,7 @@ public class InGameManager : MonoBehaviour
     public List<Drug> tempDrug = new List<Drug>();
     public int tempDrugIndex = -1;
 
-    public int drugGuage;
+    public int drugGauge;
 
     public GameObject grenadeObj;
 
@@ -242,10 +242,12 @@ public class InGameManager : MonoBehaviour
     public void UpdateDrug(int value)
     {
         // UI 매니저에서 수정
-        drugGuage += value;
-        drugBar.value = drugGuage;
+        if (drugGauge + value > 100) drugGauge = 100;
+        else drugGauge += value;
+        
+        drugBar.value = drugGauge;
 
-        DrugManager.Instance.LockCheck(DrugGague);
+        DrugManager.Instance.LockCheck(DrugGauge);
     }
 
     // 수정 로직

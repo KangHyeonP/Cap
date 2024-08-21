@@ -24,6 +24,11 @@ public class TopBoss : Boss
         base.FixedUpdate();
     }
 
+    protected override void Die()
+    {
+        base.Die();
+        GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.FullMoon);
+    }
     protected override IEnumerator IAttack()
     {
         //Debug.Log("공격 실행");
@@ -49,15 +54,16 @@ public class TopBoss : Boss
             case 5:
                 yield return StartCoroutine("BP5");
                 break;
-            /*
+  /*          
     case 6:
         BP6();
         break;
-
-    case 7:
-        BP7();
-        break;
-        */
+*/
+            case 7:
+                BP7();
+                yield return new WaitForSeconds(1);
+                break;
+        
             case 8:
                 yield return StartCoroutine("BP8");
                 break;
@@ -85,8 +91,9 @@ public class TopBoss : Boss
 
     protected override void SelectBP()
     {
-        int[] numbers = { 1, 2, 3, 4, 5, 8, 10, 11, 12 }; // 6, 7야함
-                                                          //selectPivot = Random.Range(1, 14);
+        int[] numbers = { 7 };
+        //int[] numbers = { 1, 2, 3, 4, 5, 7, 8, 10, 11, 12 }; // 6, 7야함
+        //selectPivot = Random.Range(1, 14);
         selectPivot = numbers[Random.Range(0, numbers.Length)];
         Debug.Log("보스 스킬 사용");
         muzzle.localRotation = Quaternion.Euler(0, 0, -90);

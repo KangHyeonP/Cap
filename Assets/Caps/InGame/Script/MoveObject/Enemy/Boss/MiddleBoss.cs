@@ -23,6 +23,11 @@ public class MiddleBoss : Boss
     {
         base.FixedUpdate();
     }
+    protected override void Die()
+    {
+        base.Die();
+        GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Deimos);
+    }
 
     protected override IEnumerator IAttack()
     {
@@ -55,6 +60,10 @@ public class MiddleBoss : Boss
         BP7();
         break;
         */
+            case 7:
+                BP7();
+                yield return new WaitForSeconds(1);
+                break;
             case 9:
                 yield return StartCoroutine("BP9");
                 break;
@@ -71,9 +80,8 @@ public class MiddleBoss : Boss
 
     protected override void SelectBP()
     {
-        int[] numbers = { 5 };
-        //int[] numbers = { 1, 2, 3, 5, 9 }; // 7해야함
-        //selectPivot = Random.Range(1, 14);
+        int[] numbers = { 7 };
+        //int[] numbers = { 1, 2, 3, 5, 7, 9 }; // 7해야함
         selectPivot = numbers[Random.Range(0, numbers.Length)];
         Debug.Log("보스 스킬 사용");
         muzzle.localRotation = Quaternion.Euler(0, 0, -90);

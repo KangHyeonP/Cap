@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class ColorBuff : MonoBehaviour
 {
+    public EDrugColor colorValue;
+
     protected virtual void Awake()
     {
         
@@ -25,6 +27,10 @@ public abstract class ColorBuff : MonoBehaviour
         else if (i == 1) SecondBuff();
         else if (i == 2) ThirdBuff();
 
+        int index = ((int)colorValue) * 3 + i;
+        Debug.Log("버프 실행 인덱스 값 : " + index);
+        //    (i + 1) - 1;
+        GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Extra_Health + index);
         Debug.Log(i+1 + " 버프 실행");
     }
 

@@ -10,6 +10,7 @@ TagManager:
   - PlayerBullet
   - Wall
   - Knife
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -19,8 +20,8 @@ TagManager:
   - UI
   - MiniMapIcon
   - Item
-  - 
-  - 
+  - Boss
+  - BossItem
   - 
   - 
   - 

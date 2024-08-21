@@ -4,10 +4,6 @@ using UnityEngine;
 using static System.Net.WebRequestMethods;
 using UnityEngine.UIElements;
 
-public enum EThirdNerf
-{
-    RollBan, ItemBan, DoubleDamage
-}
 
 public class ThirdNerf : Nerf
 {
@@ -44,6 +40,7 @@ public class ThirdNerf : Nerf
         }
 
         isActive = true;
+        GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Roll_Restriction + value);
     }
 
     /*

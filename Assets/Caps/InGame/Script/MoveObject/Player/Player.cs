@@ -171,6 +171,7 @@ public abstract class Player : MonoBehaviour
     {
         // 만약 inputVec 0이면 Idle, 아니면 Run으로 체인지
         if (isSkill) return;
+        if (DrugManager.Instance.isCrazy) inputVec *= -1;
 
         moveVec = inputVec.normalized;
 
@@ -266,6 +267,10 @@ public abstract class Player : MonoBehaviour
         return attackKey && !isAttack && !isRoll && !isSkill;
     }
 
+    public void Hit(int power) // 외부에서 사용가능하도록
+    {
+        Damage(power);
+    }
 
     protected void Damage(int power)
     {
@@ -651,8 +656,6 @@ public abstract class Player : MonoBehaviour
     {
         if (collision.tag == "EnemyBullet") //수정
         {
-            if (avoidCheck || isHit) return;
-           
             Damage(1); // 데미지 로직 나중에 수정
         }
         else if(collision.tag == "Boss")

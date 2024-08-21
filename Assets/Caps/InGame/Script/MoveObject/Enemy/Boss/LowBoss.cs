@@ -24,6 +24,12 @@ public class LowBoss : Boss
         base.FixedUpdate();
     }
 
+    protected override void Die()
+    {
+        base.Die();
+        GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Mikazuki);
+    }
+
     protected override IEnumerator IAttack()
     {
         //Debug.Log("공격 실행");

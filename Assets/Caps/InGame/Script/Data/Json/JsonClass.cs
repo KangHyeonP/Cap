@@ -98,7 +98,7 @@ public class DiaryData
         false, false, false, false, false, false, false, // 아이템
         false, false, false, // 근접 무기
         false, false, false, false, false, // 보조무기, 주무기
-        false, false, false, // 캐릭터
+        true, false, false, // 캐릭터
         false, false, false, // 적
         false, false, false, // 보스
         false, false, // Npc

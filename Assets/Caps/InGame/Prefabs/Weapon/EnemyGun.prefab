@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8909645730516905866}
   - component: {fileID: 3755020315799838342}
   - component: {fileID: 7875177715511483415}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: EnemyGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d26d3e7cbb4887649901035a91f2952f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wepons: 3
+  weapons: 0
   users: 1
   fireEffectPos: {fileID: 6179561094200550743}
   muzzle: {fileID: 967795214088072938}
@@ -118,7 +118,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6179561094200550743}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: FireEffectPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 967795214088072938}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,10 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum EFirstNerf
-{
-    HostHate, InfectedBandage, BombMiss
-}
 
 public class FirstNerf : Nerf
 {
@@ -41,6 +37,7 @@ public class FirstNerf : Nerf
         }
 
         isActive = true;
+        GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Merchant_Hostility + value);
     }
 
     /*

@@ -5,6 +5,7 @@ using System.Data;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UIElements;
 
 public abstract class Boss : AI
@@ -127,6 +128,11 @@ public abstract class Boss : AI
         SelectBP();
     }
 
+    protected override void Die()
+    {
+        base.Die();
+    }
+
     protected virtual void SelectBP()
     {
 
@@ -242,14 +248,21 @@ public abstract class Boss : AI
     }
     */
 
-    /*
+    
     public void BP7() // 중간보스
     {
         //수류탄 받아오기
 
+        for(int i=0; i<3;i++)
+        {
+            BossGrenade bg = PoolManager.Instance.GetBossGrenade();
+            bg.gameObject.transform.position = transform.position;
+            bg.gameObject.transform.rotation = transform.rotation;
+        }
+
         Debug.Log("BP7");
     }
-    */
+    
 
     public IEnumerator BP8() // 최종보스
     {

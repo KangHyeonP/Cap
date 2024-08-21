@@ -45,9 +45,9 @@ public class PoolManager : MonoBehaviour
     private Transform[] magazinePos;
 
     [SerializeField]
-    private GameObject[] weapon;
+    private GameObject bossGrenade;
     [SerializeField]
-    private Transform[] weaponPos;
+    private Transform bossGrenadePos;
 
     [SerializeField]
     private int initCount;
@@ -66,6 +66,7 @@ public class PoolManager : MonoBehaviour
     public Queue<GrenadeObject> poolingGrenadeObject = new Queue<GrenadeObject>(); // 날라가는 수류탄
     public Queue<Magazine>[] poolingMagazine = { new Queue<Magazine>(), new Queue<Magazine>() };
 
+    public Queue<BossGrenade> poolingBossGrenade = new Queue<BossGrenade>();
     // 총은 각각 자신의 총알을 가지므로 사용하기 안좋음
 
     private void Awake()
@@ -105,6 +106,8 @@ public class PoolManager : MonoBehaviour
 
             CreateMagzine(0);
             CreateMagzine(1);
+
+            CreateBossGrenade();
         }
 
         /*
@@ -346,5 +349,31 @@ public class PoolManager : MonoBehaviour
     {
         m.gameObject.SetActive(false);
         poolingMagazine[value].Enqueue(m);
+    }
+
+    private void CreateBossGrenade()
+    {
+        BossGrenade g = Instantiate(bossGrenade).GetComponent<BossGrenade>();
+        g.transform.SetParent(bossGrenadePos);
+        g.name += "Item";
+        g.gameObject.SetActive(false);
+        poolingBossGrenade.Enqueue(g);
+    }
+
+    public BossGrenade GetBossGrenade()
+    {
+        if (poolingBossGrenade.Count <= 0)
+        {
+            CreateBossGrenade();
+        }
+
+        BossGrenade g = poolingBossGrenade.Dequeue();
+        g.gameObject.SetActive(true);
+        return g;
+    }
+    public void ReturnBossGrenade(BossGrenade g)
+    {
+        g.gameObject.SetActive(false);
+        poolingBossGrenade.Enqueue(g);
     }
 }

@@ -25,7 +25,7 @@ public class Band : Item
 
     public override void GetItem()
     {
-        if (DrugManager.Instance.itemBanCheck) return;
+        if (DrugManager.Instance.itemBanCheck || DrugManager.Instance.isCurse) return;
 
         if(isProduct)
         {

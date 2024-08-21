@@ -1,11 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum ESecondNerf
-{
-    GuageIncrease, BlackDrug, AimMiss
-}
-
 public class SecondNerf : Nerf
 {
 
@@ -32,14 +27,15 @@ public class SecondNerf : Nerf
                 GuageIncrease();
                 break;
             case 1:
-                BlackDrug();
+                AimMiss();
                 break;
             case 2:
-                AimMiss();
+                BlackDrug();
                 break;
         }
 
         isActive = true;
+        GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Drug_Addiction + value);
     }
 
     /*
@@ -70,16 +66,17 @@ public class SecondNerf : Nerf
         Debug.Log("마약 게이지 증가");
     }
 
-    public  void BlackDrug() // 마약 색맹
-    {
-        DrugManager.Instance.colorBlindCheck = true;
-        Debug.Log("마약 색맹 활성화");
-    }
-
     public void AimMiss() // 조준 미스
     {
         DrugManager.Instance.aimMissCheck = true;
         Debug.Log("조준 미스 활성화");
     }
+
+    public void BlackDrug() // 마약 색맹
+    {
+        DrugManager.Instance.colorBlindCheck = true;
+        Debug.Log("마약 색맹 활성화");
+    }
+
 
 }

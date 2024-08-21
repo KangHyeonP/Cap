@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2383892247606009233}
   - component: {fileID: 3422886991768803786}
   - component: {fileID: 3552720409696953285}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: TargetLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 741828872927841820}
   - component: {fileID: 2620492821735618530}
   - component: {fileID: 2059263120531290064}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 'MiddleBossAI '
   m_TagString: Boss
   m_Icon: {fileID: 0}
@@ -314,6 +314,7 @@ MonoBehaviour:
   selectPivot: 0
   knifeThrow: 0
   bossAttack: 0
+  playerVec: {x: 0, y: 0}
 --- !u!1 &2595222195932689430
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,7 +326,7 @@ GameObject:
   - component: {fileID: 3558020061693086032}
   - component: {fileID: 5788356588657701825}
   - component: {fileID: 4562317733863047904}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +424,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6185101234479749850}
   - component: {fileID: 2236286787398519768}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,6 +510,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyGun
       objectReference: {fileID: 0}
+    - target: {fileID: 277980493279965441, guid: 3fa0bd5ef89a8234d8c8015cd45705fa, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1637196343393422474, guid: 3fa0bd5ef89a8234d8c8015cd45705fa, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8909645730516905866, guid: 3fa0bd5ef89a8234d8c8015cd45705fa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -548,6 +557,10 @@ PrefabInstance:
     - target: {fileID: 8909645730516905866, guid: 3fa0bd5ef89a8234d8c8015cd45705fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9126224015322406007, guid: 3fa0bd5ef89a8234d8c8015cd45705fa, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

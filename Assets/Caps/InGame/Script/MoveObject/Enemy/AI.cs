@@ -353,7 +353,7 @@ public abstract class AI : MonoBehaviour
 
 
     // 나중에 죽었을때 기능 구현
-    protected void Die()
+    protected virtual void Die()
     {
         isDie = true;
         isDetect = false;

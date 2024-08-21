@@ -30,7 +30,6 @@ public class DictionaryUI : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        //Init();
     }
 
     private void Start()
@@ -42,6 +41,13 @@ public class DictionaryUI : MonoBehaviour
             contents[i].isUnLock = GameManager.Instance.DiaryDataCheck[i-1];
             contents[i].LockUpdate();
         }
+
+        int j = 1;
+        if (!contents[j].isUnLock) j = 0;
+
+        nameText.text = contents[j].GetName();
+        descText.text = contents[j].GetDescription();
+        image.sprite = ilusts[j];
     }
 
     public void ShowInformation()
@@ -66,30 +72,13 @@ public class DictionaryUI : MonoBehaviour
 
         contents[i].UnLockContent();
 
-        //Debug.Log("아이템 번호: " + i);
     }
-
-    /*public void Init()
-    {
-        for (int i = 1; i < contents.Length; i++)
-        {
-            contents[i].isUnLock = false;
-        }
-    }*/
 
 
     public void MoveBookMark(int contentType)
     {
         scrollbar.value = scrollvalue[contentType];
     }
-
-    /*public void ContentUpdate()
-    {
-        for (int i = 1; i < contents.Length; i++)
-        {
-            contents[i].LockUpdate();
-        }
-    }*/
 
     public void Close()
     {

@@ -96,6 +96,10 @@ public class DrugManager : MonoBehaviour
     public bool itemBanCheck = false;
     public bool doubleDamageCheck = false;
 
+    // 신기루
+    public bool mirageCheck = false; // 신기루 터진지 체크
+    public bool isCurse = false; // 피1 고정 체력회복 불가
+    public bool isCrazy = false; // 좌우키 반전
 
     private void Awake()
     {
@@ -150,6 +154,8 @@ public class DrugManager : MonoBehaviour
 
             LockActive();
         }
+
+        if (gauge == 100) Mirage(); 
     }
 
     // 락 활성화, 만약 숫자가 겹침(빨 0~10까지, 주황 10~20까지, 값이 10이면 순차적으로 빨 실행)
@@ -316,5 +322,27 @@ public class DrugManager : MonoBehaviour
                 InGameManager.Instance.curBullet[InGameManager.Instance.curWeaponIndex],
                 InGameManager.Instance.bulletMagazine[InGameManager.Instance.curWeaponIndex]);
         }
+    }
+
+    public void Mirage()
+    {
+        if (mirageCheck) return;
+        mirageCheck = true;
+        int index = Random.Range(0, 2);
+        Debug.Log("신기루 인덱스 : " + index);
+
+        switch(index)
+        {
+            case 0:
+                isCurse = true;
+                InGameManager.Instance.Hit(InGameManager.Instance.Hp -1);
+                UIManager.Instance.hpUpdate();
+                break;
+            case 1:
+                isCrazy = true;
+                break;
+        }
+
+        GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Mirage);
     }
 }

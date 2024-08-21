@@ -4,12 +4,18 @@ using System.Data;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum EBasicEnemy
+{
+    Strike_Team1, Strike_Team2, Strike_Team3
+}
 
 public class Agent : AI
 {
     public float[] tableValue = { 0, 0 }; // x,y축 이동 거리 값
 
     public Table table = null;
+
+    public EBasicEnemy enemyValue;
 
     protected override  void Awake()
     {
@@ -92,7 +98,13 @@ public class Agent : AI
     {
 
     }
-    
+
+    protected override void Die()
+    {
+        base.Die();
+        GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Strike_Team1 + (int)enemyValue);
+    }
+
     public void UpLean() // 테이블 이동 및 저격까지
     {
         // 기대기
