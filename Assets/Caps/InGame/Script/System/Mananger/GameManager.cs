@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization;
 
 public class GameManager : MonoBehaviour
 {
@@ -54,7 +56,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        
+
     }
 
     private void Init()
@@ -103,6 +105,4 @@ public class GameManager : MonoBehaviour
     {
         DataManager.Instacne.JsonClass.SavePlayerData();
     }
-
-    
 }

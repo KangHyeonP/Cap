@@ -131,6 +131,8 @@ public abstract class Player : MonoBehaviour
         if (InGameManager.Instance.IsPause || isDead) return;
 
         InputKey();
+        if (DrugManager.Instance.isCrazy) inputVec *= -1;
+
         VectorStatus(curVec);
         Roll();
         Swap();
@@ -171,7 +173,6 @@ public abstract class Player : MonoBehaviour
     {
         // 만약 inputVec 0이면 Idle, 아니면 Run으로 체인지
         if (isSkill) return;
-        if (DrugManager.Instance.isCrazy) inputVec *= -1;
 
         moveVec = inputVec.normalized;
 
@@ -189,6 +190,7 @@ public abstract class Player : MonoBehaviour
         }
 
         if (DrugManager.Instance.green3) nextVec *= 1.25f;
+
         rigid.MovePosition(rigid.position + nextVec);
     }
 
@@ -208,6 +210,7 @@ public abstract class Player : MonoBehaviour
         if (isReload) CancleReload();
 
         string rollStatus = null;
+
         rollReverse = false;
         weaponPivot.SetActive(false);
         isRoll = true;
@@ -236,6 +239,8 @@ public abstract class Player : MonoBehaviour
         else transform.localScale = new Vector3(1, 1, 1);
 
         rollingSpeed *= 2;
+
+        
         anim.SetTrigger("Roll");
         anim.SetTrigger(rollStatus);
 
@@ -547,6 +552,7 @@ public abstract class Player : MonoBehaviour
             if (shiftKey && InGameManager.Instance.drugInven != null)
             {
                 InGameManager.Instance.drugInven.UseItem();
+                InGameManager.Instance.drugInven = null;
                 UIManager.Instance.inGameUI.DrugInven(null);
             }
             // 땅에있는 마약

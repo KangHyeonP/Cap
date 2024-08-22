@@ -109,6 +109,7 @@ public abstract class Item : MonoBehaviour
             if (isProduct) ItemUIPlay(false);
 
             InGameManager.Instance.tempItems.Remove(this);
+            Debug.Log("지금 먹은 아이템 : " + gameObject.name);
             distance = 999f;
             playerCheck = false;
             //Debug.Log("리스트 체크(삭제) : " + InGameManager.Instance.tempItems.Count);

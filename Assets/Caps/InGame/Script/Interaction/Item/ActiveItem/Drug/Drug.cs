@@ -133,6 +133,7 @@ public class Drug : Item
             InGameManager.Instance.tempItems.Add(this);
             InGameManager.Instance.tempDrug.Add(this);
             playerCheck = true;
+            Debug.Log("지금 먹은 아이템 : " + gameObject.name);
         }
     }
 
@@ -142,6 +143,7 @@ public class Drug : Item
         {
             if (isProduct) ItemUIPlay(false);
 
+            Debug.Log("나온 먹은 아이템 : " + gameObject.name);
             InGameManager.Instance.tempItems.Remove(this);
             InGameManager.Instance.tempDrug.Remove(this);
             distance = 999f;

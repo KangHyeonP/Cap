@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class SettingUI : MonoBehaviour
@@ -13,28 +14,35 @@ public class SettingUI : MonoBehaviour
 
     private bool isUpdating = false;
 
-
+    public bool uiManagerCheckc = false;
 
     private void OnDisable()
     {
-        if (UIManager.Instance != null) Close();
+        if (uiManagerCheckc) Close();
     }
 
     private void Start()
     {
         Init();
+
+        if (UIManager.Instance != null) uiManagerCheckc = true;
+        else uiManagerCheckc = false;
     }
 
     public void Open()
     {
+        Debug.Log("üũ");
         UIManager.Instance.TempUI = this.gameObject;
         UIManager.Instance.IsPopup++;
     }
 
     public void Close()
     {
-        UIManager.Instance.pauseUI.SelectButtonOn();
-        UIManager.Instance.IsPopup--;
+        if (uiManagerCheckc)
+        {
+            UIManager.Instance.pauseUI.SelectButtonOn();
+            UIManager.Instance.IsPopup--;
+        }
     }
 
     private void Init()
@@ -113,4 +121,27 @@ public class SettingUI : MonoBehaviour
         SoundManager.Instance.SetToggle(toggles);
         isUpdating = false;
     }
+
+    public void SetLanguage(int index)
+    {
+
+        LocalizationSettings.SelectedLocale =
+            LocalizationSettings.AvailableLocales.Locales[index];
+    }
+    /*
+    public enum ELanguage 
+    { 
+    Korean, English
+    }
+    public ELanguage languageValue;
+    Locale currentSelectedLocale;
+     currentSelectedLocale = LocalizationSettings.SelectedLocale;
+        languageValue = (ELanguage)LocalizationSettings.AvailableLocales.Locales.IndexOf(LocalizationSettings.SelectedLocale);
+        Debug.Log("languageIndex : " + languageValue);
+
+    languageValue = (ELanguage)num; 
+
+        LocalizationSettings.SelectedLocale =
+            LocalizationSettings.AvailableLocales.Locales[num];
+     */
 }

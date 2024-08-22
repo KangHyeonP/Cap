@@ -195,7 +195,7 @@ public class InGameManager : MonoBehaviour
                 {
                     minDistance = tempItems[i].distance;
                     tempItemIndex = i;
-                    //Debug.Log("아이템 인덱스 :" + tempItemIndex);
+                    Debug.Log("아이템 인덱스 :" + tempItemIndex);
                 }
                 Debug.Log(i + "번째 아이템 실행 통과");
             }
@@ -216,7 +216,7 @@ public class InGameManager : MonoBehaviour
                 Debug.Log(i + "번째 마약 실행 문제 체크");
                 if (tempDrug[i] == null) continue;
 
-                if (minDistance > tempDrug[i].distance)
+                if (minDistance >= tempDrug[i].distance)
                 {
                     minDistance = tempDrug[i].distance;
                     tempDrugIndex = i;

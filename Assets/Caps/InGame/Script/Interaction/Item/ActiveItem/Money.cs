@@ -45,11 +45,21 @@ public class Money : Item
     // 콜라이더 추가
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        base.OnTriggerEnter2D(collision);
+        //base.OnTriggerEnter2D(collision);
+
+        if (collision.tag == "Player")
+        {
+            if (isProduct) ItemUIPlay(true);
+
+            GetItem();
+            //InGameManager.Instance.tempItems.Add(this);
+            //playerCheck = true;
+            //Debug.Log("리스트 체크(추가) : " + InGameManager.Instance.tempItems.Count);
+        }
     }
 
     protected override void OnTriggerExit2D(Collider2D collision)
     {
-        base.OnTriggerExit2D(collision);
+        //base.OnTriggerExit2D(collision);
     }
 }
