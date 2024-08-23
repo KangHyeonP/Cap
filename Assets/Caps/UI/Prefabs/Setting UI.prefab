@@ -900,7 +900,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5475788758996571838}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6964930131817451058}
+        m_TargetAssemblyTypeName: SettingUI, Assembly-CSharp
+        m_MethodName: SetMousePointer
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1799868523112980013
 GameObject:
   m_ObjectHideFlags: 0
@@ -1414,7 +1426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3157,6 +3169,11 @@ MonoBehaviour:
   - {fileID: 3079706702059771820}
   - {fileID: 2911524232961573845}
   uiManagerCheckc: 0
+  mousePointer: {fileID: 6272386231832513357}
+  mousePointerImages:
+  - {fileID: 1974976969, guid: 162cbdd6554ab17458ce9ed9a709bb0d, type: 3}
+  - {fileID: -163225356, guid: 162cbdd6554ab17458ce9ed9a709bb0d, type: 3}
+  - {fileID: 1797762507, guid: 162cbdd6554ab17458ce9ed9a709bb0d, type: 3}
 --- !u!1 &7096283161629665883
 GameObject:
   m_ObjectHideFlags: 0
@@ -3968,7 +3985,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5195949594637890512}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6964930131817451058}
+        m_TargetAssemblyTypeName: SettingUI, Assembly-CSharp
+        m_MethodName: SetMousePointer
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &9018942155710157128
 GameObject:
   m_ObjectHideFlags: 0

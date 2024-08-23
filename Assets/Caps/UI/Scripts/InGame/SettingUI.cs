@@ -16,6 +16,13 @@ public class SettingUI : MonoBehaviour
 
     public bool uiManagerCheckc = false;
 
+    public Image mousePointer;
+    
+    /*
+    [SerializeField]
+    private Sprite[] mousePointerImages;
+    */
+
     private void OnDisable()
     {
         if (uiManagerCheckc) Close();
@@ -27,6 +34,8 @@ public class SettingUI : MonoBehaviour
 
         if (UIManager.Instance != null) uiManagerCheckc = true;
         else uiManagerCheckc = false;
+
+        ChangePointer(DataManager.Instacne.MouseIndex);
     }
 
     public void Open()
@@ -120,6 +129,21 @@ public class SettingUI : MonoBehaviour
         }
         SoundManager.Instance.SetToggle(toggles);
         isUpdating = false;
+    }
+
+    public void SetMousePointer(int value)
+    {
+        ChangePointer(DataManager.Instacne.MouseIndex + value);
+    }
+
+    public void ChangePointer(int value)
+    {
+        Debug.Log("지금 포인터 값 : " + value);
+
+        if (value < 0 || value > DataManager.Instacne.pointerSprites.Length - 1) return;
+
+        DataManager.Instacne.UpdatePointer(value);
+        mousePointer.sprite = DataManager.Instacne.pointerSprites[value];
     }
 
     public void SetLanguage(int index)

@@ -74,6 +74,16 @@ public class JsonClass
         _playerData.playerLock[index] = true;
     }
 
+    public void UpdatePointer(int index)
+    {
+        for(int i=0; i < _playerData.mousePointer.Length; i++)
+        {
+            _playerData.mousePointer[i] = false;
+        }
+
+        _playerData.mousePointer[index] = true;
+    }
+
     public void UpdateDiaryCheck()
     {
         for(int i=0;i<_diaryData.checkDiary.Length; i++)
@@ -88,6 +98,7 @@ public class PlayerData
     public bool[] playerLock = { true, false, false, false, false }; // true : 해제, false : 잠금
     public float playTime = 0;
     public float killEnemy = 0;
+    public bool[] mousePointer = { true, false, false }; 
 }
 
 public class DiaryData

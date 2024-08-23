@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,15 @@ public class DataManager : MonoBehaviour
     private DefaultData defaultData;
     public DefaultData DefaultData => defaultData;
 
+    // DateValue
+    /// Cursor
+    private int mouseIndex = -1;
+    public int MouseIndex => mouseIndex;
+
+    public Sprite[] pointerSprites;
+    public Texture2D[] pointerTextures;
+    Vector2 hotSpot;
+
     // Generacte Value
     public DataManager()
     {
@@ -28,6 +38,15 @@ public class DataManager : MonoBehaviour
         Init();
 
         jsonClass.StartPlayerData();
+
+        for (int i = 0; i < jsonClass._PlayerData.mousePointer.Length; i++)
+        {
+            if (jsonClass._PlayerData.mousePointer[i] == true)
+            {
+                UpdatePointer(i);
+                break;
+            }
+        }
     }
 
     private void Init()
@@ -58,6 +77,18 @@ public class DataManager : MonoBehaviour
         if (jsonClass._PlayerData.playerLock[index]) return;
 
         jsonClass.UpdateLock(index);
+    }
+
+    public void UpdatePointer(int index)
+    {
+        mouseIndex = index;
+        jsonClass.UpdatePointer(mouseIndex);
+
+        // 만약 크기가 동일하면 awake에서 그냥 사용
+        hotSpot.x = pointerTextures[mouseIndex].width / 2;
+        hotSpot.y = pointerTextures[mouseIndex].height / 2;
+
+        Cursor.SetCursor(pointerTextures[mouseIndex], hotSpot, CursorMode.Auto);
     }
 
 }

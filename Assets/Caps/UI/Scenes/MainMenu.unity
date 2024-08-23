@@ -2700,6 +2700,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b903c7a17a003714d9dd2f62c7f5b79e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointerSprites:
+  - {fileID: 21300000, guid: 138a0d543357c6c43836b758ca85f26f, type: 3}
+  - {fileID: 21300000, guid: 7c63829cb22611346921f814cc7fe74c, type: 3}
+  - {fileID: 21300000, guid: a3f97a655656a444b8f2eeffff5706d3, type: 3}
+  pointerTextures:
+  - {fileID: 2800000, guid: 2f4db36e35bfe144e9709cc715266659, type: 3}
+  - {fileID: 2800000, guid: 3be0f45355f77b045b18e7af4f804d2f, type: 3}
+  - {fileID: 2800000, guid: 0187dd616dba8114cb03c9e2df50e8e1, type: 3}
 --- !u!1 &1357852319
 GameObject:
   m_ObjectHideFlags: 0
