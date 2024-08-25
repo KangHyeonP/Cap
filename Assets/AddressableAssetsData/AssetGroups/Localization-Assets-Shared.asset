@@ -22,6 +22,24 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 25de901211e5a36468058e278d02ff33
+    m_Address: Assets/Caps/UI/Localization/Table/DiaryTable/DiaryTableDescs/New Table
+      Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1f250da3880951f4597e89acd284419f
+    m_Address: Assets/Caps/UI/Localization/Table/DiaryTable/DiaryNames/New Table
+      Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5f2d78233dbcbcd4293016d66d3a4b36
+    m_Address: Assets/Caps/UI/Localization/Table/DiaryTable/BookMark/New Table Shared
+      Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 8a27a11028788dd4f9f22215940f2ef7, type: 2}
   m_SchemaSet:

@@ -17,7 +17,6 @@ public class SettingUI : MonoBehaviour
     public bool uiManagerCheckc = false;
 
     public Image mousePointer;
-    
     /*
     [SerializeField]
     private Sprite[] mousePointerImages;
@@ -148,7 +147,6 @@ public class SettingUI : MonoBehaviour
 
     public void SetLanguage(int index)
     {
-
         LocalizationSettings.SelectedLocale =
             LocalizationSettings.AvailableLocales.Locales[index];
     }

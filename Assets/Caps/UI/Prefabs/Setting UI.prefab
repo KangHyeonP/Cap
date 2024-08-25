@@ -3170,10 +3170,9 @@ MonoBehaviour:
   - {fileID: 2911524232961573845}
   uiManagerCheckc: 0
   mousePointer: {fileID: 6272386231832513357}
-  mousePointerImages:
-  - {fileID: 1974976969, guid: 162cbdd6554ab17458ce9ed9a709bb0d, type: 3}
-  - {fileID: -163225356, guid: 162cbdd6554ab17458ce9ed9a709bb0d, type: 3}
-  - {fileID: 1797762507, guid: 162cbdd6554ab17458ce9ed9a709bb0d, type: 3}
+  locals:
+  - {fileID: 11400000, guid: a86968948f17dd74385588ca6ed796e5, type: 2}
+  - {fileID: 11400000, guid: b968c3bcc64499a45a02aae4b44d737e, type: 2}
 --- !u!1 &7096283161629665883
 GameObject:
   m_ObjectHideFlags: 0

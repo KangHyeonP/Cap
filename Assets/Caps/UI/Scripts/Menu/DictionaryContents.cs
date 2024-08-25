@@ -125,12 +125,12 @@ public class DictionaryContents : MonoBehaviour
         iconImage.sprite = sprite;
     }
 
-    public string GetName()
+    /*public string GetName()
     {
         return names[itemNum];
     }
     public string GetDescription()
     {
         return descs[itemNum];
-    }
+    }*/
 }

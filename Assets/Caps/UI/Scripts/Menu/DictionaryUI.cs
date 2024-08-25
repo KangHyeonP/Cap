@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Localization.Components;
 
 public class DictionaryUI : MonoBehaviour
 {
@@ -16,8 +17,10 @@ public class DictionaryUI : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI nameText;
+    public LocalizeStringEvent localName;
     [SerializeField]
     private TextMeshProUGUI descText;
+    public LocalizeStringEvent localDesc;
     [SerializeField]
     private Image image;
     [SerializeField]
@@ -45,8 +48,11 @@ public class DictionaryUI : MonoBehaviour
         int j = 1;
         if (!contents[j].isUnLock) j = 0;
 
+        /*
         nameText.text = contents[j].GetName();
-        descText.text = contents[j].GetDescription();
+        descText.text = contents[j].GetDescription();*/
+        localName.StringReference.TableEntryReference = contents[j].value.ToString();
+        localDesc.StringReference.TableEntryReference = contents[j].value.ToString();
         image.sprite = ilusts[j];
     }
 
@@ -58,9 +64,12 @@ public class DictionaryUI : MonoBehaviour
         {
             i = 0;
         }
-
+        /*
         nameText.text = contents[i].GetName();
         descText.text = contents[i].GetDescription();
+        */
+        localName.StringReference.TableEntryReference = contents[i].value.ToString();
+        localDesc.StringReference.TableEntryReference = contents[i].value.ToString();
         image.sprite = ilusts[i];
 
         Debug.Log("아이템 번호: " + i);
