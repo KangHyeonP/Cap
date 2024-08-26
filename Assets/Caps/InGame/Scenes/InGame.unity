@@ -23497,7 +23497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7761955133758419385}
   m_Layer: 5
-  m_Name: Accuracy
+  m_Name: HIT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31706,7 +31706,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5210547410075776194}
   m_Layer: 5
-  m_Name: DEX
+  m_Name: MOV
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33229,7 +33229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6728564220856782384}
   m_Layer: 5
-  m_Name: Distance
+  m_Name: RAN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -8,7 +8,7 @@ public class TabUI : MonoBehaviour
 {
 	private Animator animator;
 
-	// 공격력, 정확도, 사거리, 이속, 공속
+	// 공격력, 정확성, 사거리, 기동력, 연사력
 	public TextMeshProUGUI attackDamage;
     public TextMeshProUGUI bulletAccuracy;
     public TextMeshProUGUI bulletDistance;
