@@ -110,6 +110,8 @@ public abstract class Player : MonoBehaviour
     [SerializeField]
     public GameObject fireEffect;
 
+    public Image[] RageImages;
+
     public bool fogIn = false; //안개 안에 있는지 여부
 
     protected virtual void Awake()
@@ -657,6 +659,17 @@ public abstract class Player : MonoBehaviour
     }
 
     protected abstract void PlayerSkill();
+
+    public void RageUpdate(int cnt)
+    {
+        for (int i = 0; i < 5; i++)
+            RageImages[i].color = Color.white;
+
+        for (int i = 0; i < cnt; i++)
+        {
+            RageImages[i].color = new Color(0.88f, 0.33f, 0, 1);
+        }
+    }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {

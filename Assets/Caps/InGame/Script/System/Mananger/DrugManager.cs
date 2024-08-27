@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public enum EDrugColor
@@ -115,11 +115,17 @@ public class DrugManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isAnger)
+        if (isAnger)
         {
+            if (angerPower == 0) return;
+
             curAngryTimer += Time.deltaTime; // 퀵실버와 같은 3단계이므로 언스케일 칠 필요x
 
-            if (curAngryTimer >= angrtTimer) angerPower = 0;
+            if (curAngryTimer >= angrtTimer)
+            {
+                angerPower = 0;
+                InGameManager.Instance.player.RageUpdate(angerPower);
+            }
         }
     }
 
@@ -228,12 +234,24 @@ public class DrugManager : MonoBehaviour
 
     public void RunRedBuff3()
     {
-        if (red3) isAnger = true;
+        if (red3)
+        {
+            isAnger = true;
+
+            foreach(Image i in InGameManager.Instance.player.RageImages)
+            {
+                i.gameObject.SetActive(true);
+            }
+        }
     }
 
     public void AngryCount()
     {
-        if (angerPower < 5) angerPower++;
+        if (angerPower < 5)
+        {
+            angerPower++;
+            InGameManager.Instance.player.RageUpdate(angerPower);
+        }
         curAngryTimer = 0;
     }
 
