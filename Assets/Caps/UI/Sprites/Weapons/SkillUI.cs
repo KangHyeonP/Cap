@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class SkillUI : MonoBehaviour
 {
+	public Sprite[] PlayerSkillIcon;
+	public Image SkillIcon;
+
 	public Image skillFilter; 
 	public TextMeshProUGUI coolTimeCounter;
 	public float coolTime;     
@@ -15,7 +18,10 @@ public class SkillUI : MonoBehaviour
 	public bool CanUseSkill => canUseSkill;
 	void Start() 
 	{
-		skillFilter.fillAmount = 0; 
+		SkillIcon.sprite = PlayerSkillIcon[
+			(int)GameManager.Instance.selectCharacter];
+
+        skillFilter.fillAmount = 0; 
 	}
 
 	void Update()

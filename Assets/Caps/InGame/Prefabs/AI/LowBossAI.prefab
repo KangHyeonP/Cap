@@ -304,7 +304,7 @@ MonoBehaviour:
   maxHp: 200
   curStatus: 0
   isDetect: 0
-  attackDelay: 4
+  attackDelay: 3.5
   curAttackDelay: 0
   attackDistance: 7
   TestAgent: 0

@@ -189,7 +189,7 @@ public class Agent : AI
 
         yield return new WaitForSeconds(0.5f); // 조준까지 걸어가는 시간
 
-        if(table.curAgent == null)
+        /*if(table.curAgent == null)
         {
             isDetect = true;
             agent.isStopped = false;
@@ -199,8 +199,11 @@ public class Agent : AI
         else
         {
             table.LeanAgent(transform.position);
-        }
-
+        }*/
+        isDetect = true;
+        agent.isStopped = false;
+        curStatus = EnemyStatus.Chase;
+        table = null;
     }
     protected void LeanAiming()
     {

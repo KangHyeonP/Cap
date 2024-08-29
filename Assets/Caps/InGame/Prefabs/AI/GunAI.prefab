@@ -192,14 +192,15 @@ MonoBehaviour:
   maxHp: 75
   curStatus: 0
   isDetect: 0
-  attackDelay: 1
+  attackDelay: 2
   curAttackDelay: 0
-  attackDistance: 7
+  attackDistance: 6
   TestAgent: 0
   tableValue:
   - 2
   - 2
   table: {fileID: 0}
+  enemyValue: 0
   gun: {fileID: 3363599335819604270}
 --- !u!95 &2620492821735618530
 Animator:

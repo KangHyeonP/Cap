@@ -3053,9 +3053,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3947979635468992791, guid: 8d9a79c91161811418166fbce974881a, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3947979635468992791, guid: 8d9a79c91161811418166fbce974881a, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4307153981131081630, guid: 8d9a79c91161811418166fbce974881a, type: 3}
       propertyPath: m_Name
       value: Map
+      objectReference: {fileID: 0}
+    - target: {fileID: 4753358421981370285, guid: 8d9a79c91161811418166fbce974881a, type: 3}
+      propertyPath: m_Extents.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4753358421981370285, guid: 8d9a79c91161811418166fbce974881a, type: 3}
+      propertyPath: m_Extents.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193547696985148150, guid: 8d9a79c91161811418166fbce974881a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9038765276309068891, guid: 8d9a79c91161811418166fbce974881a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23963,6 +23983,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9e03c56d5482db47b1cb2aeff288629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerSkillIcon:
+  - {fileID: 1983871731, guid: 23a1231658b409e49a0bd8c8299ae839, type: 3}
+  - {fileID: -1103902130, guid: 23a1231658b409e49a0bd8c8299ae839, type: 3}
+  - {fileID: -1024308450, guid: 23a1231658b409e49a0bd8c8299ae839, type: 3}
+  SkillIcon: {fileID: 4462309643281506641}
   skillFilter: {fileID: 3212199971020097523}
   coolTimeCounter: {fileID: 5120997480994187781}
   coolTime: 30
@@ -26456,7 +26481,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1576845146105190487
 GameObject:
   m_ObjectHideFlags: 0
@@ -27714,7 +27739,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1730254177, guid: 132358e9bf26b60458b731bf001e31db, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -29217,7 +29242,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1730254177, guid: 132358e9bf26b60458b731bf001e31db, type: 3}
+  m_Sprite: {fileID: 1983871731, guid: 23a1231658b409e49a0bd8c8299ae839, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -32,6 +32,9 @@ public class Table : MonoBehaviour
 
     public Agent curAgent = null;
 
+    [SerializeField]
+    private BoxCollider2D triggerCol;
+
     int playerLine = -1;
     int agentLine = -1;
     float playerVec = 0;
@@ -65,38 +68,43 @@ public class Table : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!tableActive && curArrow == TableArrow.none && collision.gameObject.tag.Equals("Player"))
+        if(!tableActive)
         {
-            playerCheck = true;
-
-            //Debug.Log("들어옴");
+            if (curArrow == TableArrow.none && collision.gameObject.tag.Equals("Player"))
+            {
+                playerCheck = true;
+            }
         }
-
-        if(!enemyCheck && curArrow != TableArrow.none && collision.gameObject.tag.Equals("Agent") && curAgent == null)
+        else
         {
-            enemyCheck = true;
-            curAgent = collision.gameObject.GetComponent<Agent>();
-            LeanAgent(curAgent.gameObject.transform.position);
-            // 기존코드
-            ///GameObject agentObj = collision.gameObject;
-            //LeanAgent(agentObj.transform.position, agentObj);
+            if (!enemyCheck && curArrow != TableArrow.none && collision.gameObject.tag.Equals("Agent") && curAgent == null)
+            {
+                enemyCheck = true;
+                curAgent = collision.gameObject.GetComponent<Agent>();
+                LeanAgent(curAgent.gameObject.transform.position);
+
+            }
         }
 
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (curArrow == TableArrow.none && collision.gameObject.tag.Equals("Player"))
+        if (!tableActive)
         {
-            playerCheck = false;
-            ActiveLine(false);
-            //Debug.Log("나옴");
+            if (curArrow == TableArrow.none && collision.gameObject.tag.Equals("Player"))
+            {
+                playerCheck = false;
+                ActiveLine(false);
+            }
         }
-
-        if (enemyCheck && curArrow != TableArrow.none && collision.gameObject.tag.Equals("Agent") && curAgent != null)
+        else
         {
-            enemyCheck = false;
-            curAgent = null;
-            Debug.Log("테이블 탈출");
+            if (enemyCheck && curArrow != TableArrow.none && collision.gameObject.tag.Equals("Agent") && curAgent != null)
+            {
+                enemyCheck = false;
+                curAgent = null;
+                //Debug.Log("테이블 탈출");
+            }
         }
     }
 
@@ -149,6 +157,9 @@ public class Table : MonoBehaviour
         tableActive = true;
         lineObj[lineIndex].enabled = false;
         StartCoroutine(MoveTable());
+        ActiveLine(false);
+        gameObject.tag = "Table";
+        triggerCol.size = new Vector2(1, 1);
         //playerCheck = false; //이건 테스트 반드시 끝나면 활성화
 
         // 테이블 크기 변경
@@ -217,7 +228,7 @@ public class Table : MonoBehaviour
     //private void LeanAgent(Vector3 vec, GameObject agentObj)
     public void LeanAgent(Vector3 vec)
     {
-        moveVec = InGameManager.Instance.player.transform.localPosition;
+        moveVec = InGameManager.Instance.player.transform.position;
 
         playerLine = -1;
         agentLine = -1;

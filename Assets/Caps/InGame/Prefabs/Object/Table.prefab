@@ -149,7 +149,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.1}
+  m_Extents: {x: 0.25, y: 0.5, z: 0.1}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
@@ -173,6 +173,8 @@ MonoBehaviour:
   - {fileID: 9005694279938283437}
   - {fileID: 3962466840089030313}
   tableActive: 0
+  curAgent: {fileID: 0}
+  triggerCol: {fileID: 5705460076696236780}
 --- !u!50 &3064963036343467639
 Rigidbody2D:
   serializedVersion: 4

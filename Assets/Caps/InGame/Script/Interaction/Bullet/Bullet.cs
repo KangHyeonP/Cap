@@ -72,7 +72,7 @@ public abstract class Bullet : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {   
-        if (collision.tag == "Wall")
+        if (collision.tag == "Wall" || collision.tag == "Table")
         {
             TrrigerLogic();
         }
