@@ -30,12 +30,45 @@ public class Agent : AI
     protected override void Update()
     {
         base.Update();
+        Test();
     }
 
     // 떨림 방지
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+    }
+
+    public override IEnumerator EDamage()
+    {
+        Debug.Log("PlayerVec : " + playerPosVec);
+
+        if (!isLean) // 밀리는 로직
+        {
+
+            //agent.isStopped = false;
+            //rigid.AddForce(-playerPosVec.normalized * 5f, ForceMode2D.Impulse);
+            if (!isAttack || isDetect)
+            {
+                agent.isStopped = true;
+            }
+        }
+        yield return base.EDamage();
+
+        if(!isAttack || isDetect)
+        {
+            agent.isStopped = false;
+        }
+    }
+
+    public void Test()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            //agent.isStopped = false;
+            //rigid.AddForce(-playerPosVec.normalized * 5f, ForceMode2D.Impulse);
+            //rigid.MovePosition(-playerPosVec.normalized);
+        }    
     }
 
     protected override void AngleCalculate(float angleValue)

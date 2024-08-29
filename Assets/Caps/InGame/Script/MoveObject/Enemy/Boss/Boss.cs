@@ -48,6 +48,11 @@ public abstract class Boss : AI
     {
         bossKey = Input.GetKeyDown(KeyCode.B);
     }*/
+
+    public override IEnumerator EDamage()
+    {
+        yield return base.EDamage();
+    }
     protected override void AngleCalculate(float angleValue)
     {
         if (bossAttack) return;

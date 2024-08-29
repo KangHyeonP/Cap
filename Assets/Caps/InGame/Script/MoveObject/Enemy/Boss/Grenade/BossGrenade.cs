@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class BossGrenade : MonoBehaviour
@@ -7,7 +8,12 @@ public class BossGrenade : MonoBehaviour
     // Start is called before the first frame update
     Rigidbody2D rigid;
 
-    public float distance = 1.5f;
+    public float distance = 2.5f;
+    public ParticleSystem particle;
+
+    public SpriteRenderer render;
+
+    public CircleCollider2D cirCol;
 
     //public Vector2 moveVec;
     private Vector2 lastVec;
@@ -15,6 +21,7 @@ public class BossGrenade : MonoBehaviour
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        cirCol = GetComponent<CircleCollider2D>();
     }
 
     private void OnEnable()
@@ -23,6 +30,9 @@ public class BossGrenade : MonoBehaviour
         //transform.rotation = InGameManager.Instance.player.transform.rotation;
 
         //rigid.AddForce(CameraController.Instance.MouseVecValue.normalized * 5f, ForceMode2D.Impulse);
+        render.enabled = true;
+        cirCol.isTrigger = false;
+        rigid.constraints = RigidbodyConstraints2D.None;
 
         float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
 
@@ -30,7 +40,6 @@ public class BossGrenade : MonoBehaviour
         float x = Mathf.Cos(angle);
         float y = Mathf.Sin(angle);
         Vector2 moveVec = new Vector2(x, y);
-        
 
         rigid.AddForce(moveVec.normalized * 7.5f, ForceMode2D.Impulse);
         StartCoroutine(Explode());
@@ -44,7 +53,11 @@ public class BossGrenade : MonoBehaviour
 
     private IEnumerator Explode()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2f);
+        render.enabled = false;
+        particle.Play();
+        rigid.constraints = RigidbodyConstraints2D.FreezeAll;
+        cirCol.isTrigger = true;
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.localPosition, distance);
 
@@ -52,6 +65,9 @@ public class BossGrenade : MonoBehaviour
         {
             c.GetComponent<Player>()?.Hit(1);
         }
+
+        yield return new WaitForSeconds(2f);
+        particle.Stop();
 
         PoolManager.Instance.ReturnBossGrenade(this);
     }

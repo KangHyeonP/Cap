@@ -79,6 +79,7 @@ public abstract class AI : MonoBehaviour
 
     protected Vector3 moveVec; // lean상태에서 움직일 방향
     protected Vector3 tableVec; // table 위치
+    protected Vector3 playerPosVec;
 
     // AI 임시 삭제용
     public bool TestAgent = false;
@@ -136,10 +137,10 @@ public abstract class AI : MonoBehaviour
 
     protected float AgentVector()
     {
-        Vector3 value = InGameManager.Instance.player.transform.position - transform.position;
+        playerPosVec = InGameManager.Instance.player.transform.position - transform.position;
         // 현재 자기 자신을 기점으로 플레이어의 위치를 계산하여 어느 방향을 바라봐야하는지 보여줌
         float angle;
-        angle = Mathf.Atan2(value.y, value.x) * Mathf.Rad2Deg; // 범위가 180 ~ -180
+        angle = Mathf.Atan2(playerPosVec.y, playerPosVec.x) * Mathf.Rad2Deg; // 범위가 180 ~ -180
 
         return angle;
     }
@@ -272,6 +273,8 @@ public abstract class AI : MonoBehaviour
             }
         }
 
+        StartCoroutine(EDamage());
+
         if (value == WeaponValue.Gun)
         {
             damage += InGameManager.Instance.bulletPower;
@@ -324,6 +327,21 @@ public abstract class AI : MonoBehaviour
             RoomController.Instance.ClearRoomCount();
             Die();
         }
+    }
+
+    // 맞았을 때 깜빡임
+    public virtual IEnumerator EDamage()
+    {
+        int i = 0;
+        for (i = 0; i < 3; i++)  // 추후 실루엣 스프라이트로 변경
+        {
+            spritesRenderer.color = Color.red;
+            yield return new WaitForSeconds(0.1f);
+            spritesRenderer.color = Color.white;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        yield return null;
     }
 
     public IEnumerator Bleed()

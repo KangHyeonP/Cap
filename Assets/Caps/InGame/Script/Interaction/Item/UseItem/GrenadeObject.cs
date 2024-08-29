@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class GrenadeObject : MonoBehaviour
@@ -7,20 +8,31 @@ public class GrenadeObject : MonoBehaviour
     // Start is called before the first frame update
     Rigidbody2D rigid;
 
-    public float distance = 1.5f;
+    public float distance = 2.5f;
     public int damage = 100;
 
     //public Vector2 moveVec;
     private Vector2 lastVec;
 
+    public CircleCollider2D cirCol;
+
+    public ParticleSystem particle;
+
+    public SpriteRenderer render;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        cirCol = GetComponent<CircleCollider2D>();
     }
 
     private void OnEnable()
     {
         //moveVec = new Vector2(transform.localPosition.x, transform.localPosition.y);
+
+        render.enabled = true;
+        cirCol.isTrigger = false;
+        rigid.constraints = RigidbodyConstraints2D.None;
 
         transform.position = InGameManager.Instance.player.transform.position;
         transform.rotation = InGameManager.Instance.player.transform.rotation;
@@ -52,7 +64,11 @@ public class GrenadeObject : MonoBehaviour
 
     private IEnumerator Explode()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2f);
+        render.enabled = false;
+        particle.Play();
+        rigid.constraints = RigidbodyConstraints2D.FreezeAll;
+        cirCol.isTrigger = true;
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.localPosition, distance);
 
@@ -60,6 +76,9 @@ public class GrenadeObject : MonoBehaviour
         {
             c.GetComponent<AI>()?.Damage(damage, WeaponValue.Knife);
         }
+
+        yield return new WaitForSeconds(2f);
+        particle.Stop();
 
         PoolManager.Instance.ReturnGrenadeObject(this);
     }

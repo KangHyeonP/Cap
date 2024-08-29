@@ -105,7 +105,7 @@ public class PlayerBullet : Bullet
 
     private void BombBullet() // 처음 맞은 적은 데미지 안들어 오게 할거면 따로 변수로 체크
     {
-        RoomController.Instance.BombLogic(transform.localPosition);
+        RoomController.Instance.BombLogic(transform.position);
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)

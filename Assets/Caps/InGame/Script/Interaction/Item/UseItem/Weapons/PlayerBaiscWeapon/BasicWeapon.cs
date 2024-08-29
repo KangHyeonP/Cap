@@ -7,12 +7,11 @@ public abstract class BasicWeapon : MonoBehaviour
     public float fireDelay = 2.0f;
     public float fireMaximumDelay = 0.15f;
     protected float fireTime = 0;
-    protected SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     public Coroutine AttackCoroutine;
 
     protected virtual void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
 
