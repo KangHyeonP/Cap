@@ -39,6 +39,11 @@ public class Agent : AI
         base.FixedUpdate();
     }
 
+    protected override void Attack()
+    {
+        base.Attack();
+    }
+
     public override IEnumerator EDamage()
     {
         Debug.Log("PlayerVec : " + playerPosVec);
@@ -55,7 +60,7 @@ public class Agent : AI
         }
         yield return base.EDamage();
 
-        if(!isAttack || isDetect)
+        if (!isAttack || isDetect)
         {
             agent.isStopped = false;
         }

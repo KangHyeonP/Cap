@@ -25,8 +25,10 @@ public class Drug : Item
         curDrugSprite = drugSprite.sprite;
     }
 
-    protected virtual void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
+
         if (DrugManager.Instance == null) return;
         else if (DrugManager.Instance.colorBlindCheck && !mapDrug)
         {
@@ -142,7 +144,7 @@ public class Drug : Item
         if (collision.tag == "Player")
         {
             if (isProduct) ItemUIPlay(false);
-
+            SilhouetteCheck(false);
             Debug.Log("나온 먹은 아이템 : " + gameObject.name);
             InGameManager.Instance.tempItems.Remove(this);
             InGameManager.Instance.tempDrug.Remove(this);

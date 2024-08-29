@@ -83,6 +83,7 @@ public abstract class AI : MonoBehaviour
 
     // AI 임시 삭제용
     public bool TestAgent = false;
+    protected bool HitCheck;
 
     protected virtual void Awake()
     {
@@ -221,9 +222,9 @@ public abstract class AI : MonoBehaviour
         agent.SetDestination(target.position);
     }
 
-    protected void Attack()
+    protected virtual void Attack()
     {
-        if (IsAttack) return;
+        if (IsAttack || HitCheck) return;
 
         //Debug.Log("코루틴 시작 1");
         isAttack = true;
@@ -333,6 +334,7 @@ public abstract class AI : MonoBehaviour
     public virtual IEnumerator EDamage()
     {
         int i = 0;
+        HitCheck = true;
         for (i = 0; i < 3; i++)  // 추후 실루엣 스프라이트로 변경
         {
             spritesRenderer.color = Color.red;
@@ -341,6 +343,7 @@ public abstract class AI : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
+        HitCheck = false;
         yield return null;
     }
 

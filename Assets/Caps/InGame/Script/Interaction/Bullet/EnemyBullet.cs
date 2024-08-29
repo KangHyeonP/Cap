@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class EnemyBullet : Bullet
 {
+    public float eraseTimer = 0;
 
     protected override IEnumerator Erase()
     {
-        yield return new WaitForSeconds(eraseSpeed);
+        yield return new WaitForSeconds(eraseSpeed + eraseTimer);
         TrrigerLogic();
     }
 

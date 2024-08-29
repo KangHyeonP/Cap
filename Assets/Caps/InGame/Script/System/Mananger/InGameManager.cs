@@ -18,6 +18,8 @@ public class InGameManager : MonoBehaviour
 
     public int playerWeaponType; // 캐릭터 기본 무기
 
+    public Material material;
+
     [SerializeField]
     private GameObject[] prefabs;
 
@@ -66,7 +68,6 @@ public class InGameManager : MonoBehaviour
     public int lastWeaponIndex = 4; // 이전 무기 인덱스
     public int lastPistolIndex = -1; // 이전 권총 인덱스
     public int curPistolIndex = -1; // 현재 권총 인덱스
-
 
     // Items;
     public int money = 0;
@@ -118,7 +119,29 @@ public class InGameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (tempItems.Count == 0) return;
 
+        if (tempItems.Count != 0) // 근처에 아이템이 존재한다면
+        {
+            float minDistance = 999f;
+            tempItemIndex = -1;
+
+            for (int i = tempItems.Count - 1; i >= 0; i--)
+            {
+                //Debug.Log(i + "번째 아이템 실행 문제 체크");
+
+                tempItems[i].SilhouetteCheck(false);
+                if (minDistance >= tempItems[i].distance)
+                {
+                    minDistance = tempItems[i].distance;
+                    tempItemIndex = i;
+                   // Debug.Log("아이템 인덱스 :" + tempItemIndex);
+                }
+                //Debug.Log(i + "번째 아이템 실행 통과");
+            }
+        }
+
+        tempItems[tempItemIndex].SilhouetteCheck(true);
     }
 
     private void Init()
@@ -178,7 +201,7 @@ public class InGameManager : MonoBehaviour
     }
 
     public void ItemUse()
-    {
+    {/*
         if (tempItems.Count == 0) return;
 
         if (tempItems.Count != 0) // 근처에 아이템이 존재한다면
@@ -199,8 +222,8 @@ public class InGameManager : MonoBehaviour
                 }
                 Debug.Log(i + "번째 아이템 실행 통과");
             }
-        }
-
+        }*/
+        if (tempItems.Count == 0) return;
         tempItems[tempItemIndex].GetItem();
     }
 

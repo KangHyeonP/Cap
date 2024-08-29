@@ -194,7 +194,7 @@ MonoBehaviour:
   isDetect: 0
   attackDelay: 2
   curAttackDelay: 0
-  attackDistance: 6
+  attackDistance: 4
   TestAgent: 0
   tableValue:
   - 2

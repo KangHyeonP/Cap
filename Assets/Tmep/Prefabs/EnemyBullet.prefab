@@ -171,7 +171,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a44f04a93457a0943b4c29a1cf6f1af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eraseSpeed: 10
+  eraseSpeed: 2
   eUsers: 1
   eBullets: 3
   target: {fileID: 0}
+  bulletSize: []
+  eraseTimer: 8

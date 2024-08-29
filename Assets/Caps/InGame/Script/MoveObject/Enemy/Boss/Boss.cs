@@ -49,6 +49,19 @@ public abstract class Boss : AI
         bossKey = Input.GetKeyDown(KeyCode.B);
     }*/
 
+    protected override void Attack()
+    {
+        if (IsAttack) return;
+
+        //Debug.Log("코루틴 시작 1");
+        isAttack = true;
+        isDetect = false;
+        agent.isStopped = true;
+        curAttackDelay = 0;
+
+        StartCoroutine(IAttack());
+    }
+
     public override IEnumerator EDamage()
     {
         yield return base.EDamage();

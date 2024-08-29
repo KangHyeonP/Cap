@@ -22,15 +22,23 @@ public abstract class Item : MonoBehaviour
     public float distance = 999f; // 플레이어와 아이템의 거리
 
     public TextMeshPro priceText;
+    public SpriteRenderer spriteRenderer;
     public SpriteRenderer eIconRenderer;
     public SpriteRenderer moneyRenderer;
 
     protected Rigidbody2D itemRigid;
 
+    public bool silhouetteActive = false; // 부하를 조금이라도 줄이기 위한 변수.
+
     protected virtual void Awake()
     {
         itemRigid = GetComponent<Rigidbody2D>();
         curPrice = price;
+    }
+
+    protected virtual void OnEnable()
+    {
+        SilhouetteCheck(false);
     }
 
     protected virtual void Start()
@@ -89,6 +97,21 @@ public abstract class Item : MonoBehaviour
         moneyRenderer.enabled = check;
     }
 
+    public void SilhouetteCheck(bool check)
+    {
+        if (check)
+        {
+            if (silhouetteActive) return;
+            spriteRenderer.color = Color.white;
+            spriteRenderer.material = InGameManager.Instance.material;
+            silhouetteActive = true;
+        }
+        else
+        {
+            spriteRenderer.color = new Color(1, 1, 1, 0);
+            silhouetteActive = false;
+        }
+    }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
@@ -108,6 +131,7 @@ public abstract class Item : MonoBehaviour
         {
             if (isProduct) ItemUIPlay(false);
 
+            SilhouetteCheck(false);
             InGameManager.Instance.tempItems.Remove(this);
             Debug.Log("지금 먹은 아이템 : " + gameObject.name);
             distance = 999f;

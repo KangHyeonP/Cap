@@ -45,7 +45,7 @@ public abstract class Bullet : MonoBehaviour
     }
 
     // 추가 1
-    protected Vector2 moveDir;
+    protected Vector2 moveDir;//여기 해야함
 
     protected virtual void FixedUpdate()
     {
