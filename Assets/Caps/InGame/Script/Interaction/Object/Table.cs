@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -159,7 +160,7 @@ public class Table : MonoBehaviour
         StartCoroutine(MoveTable());
         ActiveLine(false);
         gameObject.tag = "Table";
-        triggerCol.size = new Vector2(1, 1);
+        triggerCol.size = new Vector2(1, 2);
         //playerCheck = false; //이건 테스트 반드시 끝나면 활성화
 
         // 테이블 크기 변경
@@ -264,6 +265,7 @@ public class Table : MonoBehaviour
 
     public bool StateCheck()
     {
-        return (playerLine == agentLine || agentArrow != (TableArrow)agentLine);
+        return (agentArrow != (TableArrow)agentLine);
+        //playerLine == agentLine는 생략함
     }
 }

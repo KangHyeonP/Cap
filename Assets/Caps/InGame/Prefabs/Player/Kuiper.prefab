@@ -1557,6 +1557,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Punch
       objectReference: {fileID: 0}
+    - target: {fileID: 2373944877231246652, guid: 66855c58f76411f42936e1d81b39913b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2695458387839416430, guid: 66855c58f76411f42936e1d81b39913b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3079713032995448022, guid: 66855c58f76411f42936e1d81b39913b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -20,6 +20,7 @@ public class SkillUI : MonoBehaviour
 	{
 		SkillIcon.sprite = PlayerSkillIcon[
 			(int)GameManager.Instance.selectCharacter];
+		skillFilter.sprite = SkillIcon.sprite;
 
         skillFilter.fillAmount = 0; 
 	}

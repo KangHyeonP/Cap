@@ -432,7 +432,7 @@ MonoBehaviour:
   silhouette: {fileID: 0}
   playerSkillAnim: {fileID: 7767309881001614562}
   rollingSpeed: 2.5
-  skillDelay: 2
+  skillDelay: 5
   isAttack: 0
   isSkill: 0
   isReload: 0
