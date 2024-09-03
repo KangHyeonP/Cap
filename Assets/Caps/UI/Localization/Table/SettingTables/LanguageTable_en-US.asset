@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en-US
   m_SharedData: {fileID: 11400000, guid: 335652b94b5399a4cb889890232be64e, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 9066229918097473544
   m_TableData:
   - m_Id: 68360253440
     m_Localized: Korean
@@ -41,7 +42,50 @@ MonoBehaviour:
   - m_Id: 20694202494976
     m_Localized: MainMenu
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 9066229918097473544
+  - m_Id: 4375984699797504
+    m_Localized: 'Play Time : {global.play-hour} hour {global.play-minute} minute'
+    m_Metadata:
+      m_Items:
+      - rid: 9066229918097473544
+  - m_Id: 4376086176788480
+    m_Localized: 'Kill Count : {global.kill-count}'
+    m_Metadata:
+      m_Items:
+      - rid: 9066229918097473544
+  - m_Id: 4376170331303936
+    m_Localized: 'Diary Count : {global.diary-count}'
+    m_Metadata:
+      m_Items:
+      - rid: 9066229918097473544
+  - m_Id: 4376276631744512
+    m_Localized: 'Character Count  : {global.chracter-count}'
+    m_Metadata:
+      m_Items:
+      - rid: 9066229918097473544
+  - m_Id: 4376359444082688
+    m_Localized: 'Death Count : {global.death-count}'
+    m_Metadata:
+      m_Items:
+      - rid: 9066229918097473544
+  - m_Id: 4376421054214144
+    m_Localized: 'Clear Count : {global.clear-count}'
+    m_Metadata:
+      m_Items:
+      - rid: 9066229918097473544
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 9066229918097473544
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 20694202494976
+        - id: 4375984699797504
+        - id: 4376421054214144
+        - id: 4376359444082688
+        - id: 4376276631744512
+        - id: 4376170331303936
+        - id: 4376086176788480

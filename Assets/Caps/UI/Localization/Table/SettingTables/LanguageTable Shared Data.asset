@@ -39,6 +39,30 @@ MonoBehaviour:
     m_Key: MainMenu
     m_Metadata:
       m_Items: []
+  - m_Id: 4375984699797504
+    m_Key: PlayTime
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4376086176788480
+    m_Key: KillCount
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4376170331303936
+    m_Key: DiaryCount
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4376276631744512
+    m_Key: CharacterCount
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4376359444082688
+    m_Key: DeathCount
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4376421054214144
+    m_Key: ClearCount
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

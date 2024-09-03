@@ -15,11 +15,11 @@ public class DictionaryUI : MonoBehaviour
     [SerializeField]
     private Sprite[] icons;
 
-    [SerializeField]
-    private TextMeshProUGUI nameText;
+    //[SerializeField]
+    //private TextMeshProUGUI nameText;
     public LocalizeStringEvent localName;
-    [SerializeField]
-    private TextMeshProUGUI descText;
+    //[SerializeField]
+    //private TextMeshProUGUI descText;
     public LocalizeStringEvent localDesc;
     [SerializeField]
     private Image image;

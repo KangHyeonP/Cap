@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: ko-KR
   m_SharedData: {fileID: 11400000, guid: 335652b94b5399a4cb889890232be64e, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 9066229918097473543
   m_TableData:
   - m_Id: 68360253440
     m_Localized: "\uD55C\uAD6D\uC5B4"
@@ -41,7 +42,51 @@ MonoBehaviour:
   - m_Id: 20694202494976
     m_Localized: "\uBA54\uB274\uB85C \uB098\uAC00\uAE30"
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 9066229918097473543
+  - m_Id: 4375984699797504
+    m_Localized: "\uCD1D \uD50C\uB808\uC774 \uD0C0\uC784 : {global.play-hour} \uC2DC\uAC04 
+      {global.play-minute} \uBD84"
+    m_Metadata:
+      m_Items:
+      - rid: 9066229918097473543
+  - m_Id: 4376086176788480
+    m_Localized: "\uCD1D \uCC98\uCE58 \uC218 : {global.kill-count}"
+    m_Metadata:
+      m_Items:
+      - rid: 9066229918097473543
+  - m_Id: 4376170331303936
+    m_Localized: "\uB2E4\uC774\uC5B4\uB9AC \uCE74\uC6B4\uD2B8 : {global.diary-count}"
+    m_Metadata:
+      m_Items:
+      - rid: 9066229918097473543
+  - m_Id: 4376276631744512
+    m_Localized: "\uD574\uAE08 \uCE90\uB9AD\uD130 \uCE74\uC6B4\uD2B8 : {global.chracter-count}"
+    m_Metadata:
+      m_Items:
+      - rid: 9066229918097473543
+  - m_Id: 4376359444082688
+    m_Localized: "\uB370\uC2A4 \uCE74\uC6B4\uD2B8 : {global.death-count}"
+    m_Metadata:
+      m_Items:
+      - rid: 9066229918097473543
+  - m_Id: 4376421054214144
+    m_Localized: "\uD074\uB9AC\uC5B4 \uCE74\uC6B4\uD2B8 : {global.clear-count}"
+    m_Metadata:
+      m_Items:
+      - rid: 9066229918097473543
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 9066229918097473543
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 20694202494976
+        - id: 4375984699797504
+        - id: 4376421054214144
+        - id: 4376359444082688
+        - id: 4376276631744512
+        - id: 4376170331303936
+        - id: 4376086176788480
