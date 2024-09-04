@@ -62,6 +62,9 @@ public class DataManager : MonoBehaviour
     private void Start()
     {
         GameManager.Instance.GetDiaryDate(jsonClass._DiaryData.checkDiary);
+        GameManager.Instance.GetPlayerInformation(
+            jsonClass._PlayerData.playTime, jsonClass._PlayerData.killEnemy,
+            jsonClass._PlayerData.deathCount, jsonClass._PlayerData.clearCount);
     }
 
     // Update is called once per frame

@@ -95,10 +95,13 @@ public class JsonClass
 
 public class PlayerData
 {
-    public bool[] playerLock = { true, false, false, false, false }; // true : 해제, false : 잠금
-    public float playTime = 0;
-    public float killEnemy = 0;
     public bool[] mousePointer = { true, false, false }; 
+    public int playTime = 0;
+    public int killEnemy = 0;
+    public int diaryCount = 0;
+    public bool[] playerLock = { true, false, false}; // true : 해제, false : 잠금
+    public int deathCount = 0;
+    public int clearCount = 0;
 }
 
 public class DiaryData

@@ -44,6 +44,26 @@ public class GameManager : MonoBehaviour
 
     public DictionaryUI dictionaryUI = null;
 
+    // PlayerInformation
+    private int playTime = 0;
+    public int PlayTime => playTime;
+
+    private int killCount = 0;
+    public int KillCount => killCount;
+
+    private int diaryCount = 0;
+    public int DiaryCount => diaryCount;
+
+    private int characterCount = 0;
+    public int CharacterCount => characterCount;
+
+    private int deathCount = 0;
+    public int DeathCount => deathCount;
+
+    private int clearCount = 0;
+    public int ClearCount => clearCount;
+
+
     private void Awake()
     {
         Init();
@@ -87,6 +107,22 @@ public class GameManager : MonoBehaviour
         {
             diaryDataCheck[i] = d[i];
         }
+    }
+
+    public void GetPlayerInformation(int time, int killCnt, int deathCnt, int clearCnt)
+    {
+        playTime = time;
+        killCount = killCnt;
+        foreach(bool d in diaryDataCheck)
+        {
+            if (d) diaryCount++;
+        }
+        for(int i=21; i<24; i++)
+        {
+            if (diaryDataCheck[i]) characterCount++;
+        }
+        deathCount = deathCnt;
+        clearCount = clearCnt;
     }
 
     public void UpdateDiaryDate(int index)

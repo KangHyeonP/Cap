@@ -37,7 +37,7 @@ public class CharacterImage : MonoBehaviour
 
     private void Init()
     {
-        maxIndex = characterSprites.Length - 1;
+        maxIndex = characterSprites.Length - 2;
     }
 
     public void UpdateIndex(int num)
@@ -58,7 +58,7 @@ public class CharacterImage : MonoBehaviour
         else buttons[1].sprite = sprites[0];
 
         // 메인 캐릭터 이미지 갱신
-        if(!DataManager.Instacne.JsonClass._PlayerData.playerLock[curIndex]) characterImage.sprite = characterSprites[4];
+        if(!DataManager.Instacne.JsonClass._PlayerData.playerLock[curIndex]) characterImage.sprite = characterSprites[maxIndex+1];
         else characterImage.sprite = characterSprites[curIndex];
     }
 
