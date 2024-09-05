@@ -136,6 +136,11 @@ public class GameManager : MonoBehaviour
         dictionaryUI.UpdateContent(index);
     }
 
+    public void UpdateKill()
+    {
+        killCount++;
+    }
+
     // 죽을때 or 게임 종료할 때
     public void SaveData()
     {

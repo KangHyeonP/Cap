@@ -60,7 +60,7 @@ MonoBehaviour:
       m_Items:
       - rid: 9066229918097473544
   - m_Id: 4376276631744512
-    m_Localized: 'Character Count  : {global.chracter-count}'
+    m_Localized: 'Character Count  : {global.character-count}'
     m_Metadata:
       m_Items:
       - rid: 9066229918097473544

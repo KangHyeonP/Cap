@@ -3927,6 +3927,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   names: []
   playTimeText: {fileID: 0}
+  hour: 0
+  minute: 0
+  playTime: 0
+  killCount: 0
+  diaryCount: 0
+  characterCount: 0
+  deathCount: 0
+  clearCount: 0
 --- !u!1 &1306683857
 GameObject:
   m_ObjectHideFlags: 0

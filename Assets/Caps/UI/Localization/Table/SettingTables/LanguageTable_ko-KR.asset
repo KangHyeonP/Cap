@@ -61,7 +61,7 @@ MonoBehaviour:
       m_Items:
       - rid: 9066229918097473543
   - m_Id: 4376276631744512
-    m_Localized: "\uD574\uAE08 \uCE90\uB9AD\uD130 \uCE74\uC6B4\uD2B8 : {global.chracter-count}"
+    m_Localized: "\uD574\uAE08 \uCE90\uB9AD\uD130 \uCE74\uC6B4\uD2B8 : {global.character-count}"
     m_Metadata:
       m_Items:
       - rid: 9066229918097473543

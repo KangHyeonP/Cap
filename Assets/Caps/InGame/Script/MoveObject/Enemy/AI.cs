@@ -377,6 +377,7 @@ public abstract class AI : MonoBehaviour
 
         DropItem();
         gameObject.SetActive(false);
+        GameManager.Instance.UpdateKill();
     }
 
     public void DropItem()

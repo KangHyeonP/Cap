@@ -25,7 +25,7 @@ MonoBehaviour:
   - name: diary-count
     variable:
       rid: 9066229918097473538
-  - name: chracter-count
+  - name: character-count
     variable:
       rid: 9066229918097473539
   - name: death-count
