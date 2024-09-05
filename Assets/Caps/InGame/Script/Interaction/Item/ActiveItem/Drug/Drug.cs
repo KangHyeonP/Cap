@@ -34,13 +34,13 @@ public class Drug : Item
         {
             drugSprite.sprite = blackDrugSprite;
             curDrugSprite = blackDrugSprite;
-            Debug.Log("색맹임");
+            //Debug.Log("색맹임");
             drugIndex = 6;
         }
         else
         {
             drugSprite.sprite = curDrugSprite;
-            Debug.Log("색맹 실행안함");
+            //Debug.Log("색맹 실행안함");
             mapDrug = true; // 생성 이후 맵 마약으로 등록
             drugIndex = (int)value + 1;
         }

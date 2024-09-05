@@ -64,6 +64,7 @@ public class JsonClass
     public void SavePlayerData()
     {
         UpdateDiaryCheck();
+        UpdateHistory();
 
         File.WriteAllText(pdPath, JsonUtility.ToJson(_playerData));
         File.WriteAllText(ddPath, JsonUtility.ToJson(_diaryData));
@@ -90,6 +91,12 @@ public class JsonClass
         {
             _diaryData.checkDiary[i] = GameManager.Instance.DiaryDataCheck[i];
         }
+    }
+
+    public void UpdateHistory()
+    {
+        _playerData.killEnemy = GameManager.Instance.KillCount;
+        _playerData.diaryCount = GameManager.Instance.DiaryCount;
     }
 }
 

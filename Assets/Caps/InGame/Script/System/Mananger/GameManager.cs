@@ -86,10 +86,8 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
-        else
-        {
-            Destroy(this.gameObject);
-        }
+        else Destroy(this.gameObject);
+
     }
     public void GetPlayerValue(int hp, int power, float aim, float distance, float speed, float attackDelay)
     {
@@ -101,7 +99,7 @@ public class GameManager : MonoBehaviour
         playerAttackDelay = attackDelay;
     }
 
-    public void GetDiaryDate(bool[] d)
+    public void GetDiaryData(bool[] d)
     {
         for(int i=0; i<diaryDataCheck.Length; i++)
         {
@@ -113,11 +111,30 @@ public class GameManager : MonoBehaviour
     {
         playTime = time;
         killCount = killCnt;
-        foreach(bool d in diaryDataCheck)
+        /*foreach(bool d in diaryDataCheck)
         {
-            if (d) diaryCount++;
+            if (d)
+            {
+                diaryCount++;
+                // 디버그용
+                Debug.Log()
+            }
+        }*/
+        // Scene로드 시 GameManager 초기화
+        diaryCount = 0;
+        characterCount = 0;
+
+        for(int i=0; i <diaryDataCheck.Length; i++)
+        {
+            if (diaryDataCheck[i])
+            {
+                diaryCount++;
+                // 디버그용
+                Debug.Log("다이어리 인덱스 + 1 : " + i);
+            }
         }
-        for(int i=21; i<24; i++)
+
+        for (int i=21; i<24; i++)
         {
             if (diaryDataCheck[i]) characterCount++;
         }

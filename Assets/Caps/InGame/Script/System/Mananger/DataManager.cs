@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // 게임 매니저로 JsonClass의 데이터를 넘겨줌
 public class DataManager : MonoBehaviour
@@ -59,18 +60,43 @@ public class DataManager : MonoBehaviour
         else Destroy(this.gameObject);
     }
 
+    /*private void OnEnable()
+    {
+        Debug.Log("활성화 체크");
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("비활성화 체크");
+    }*/
+
     private void Start()
     {
-        GameManager.Instance.GetDiaryDate(jsonClass._DiaryData.checkDiary);
-        GameManager.Instance.GetPlayerInformation(
-            jsonClass._PlayerData.playTime, jsonClass._PlayerData.killEnemy,
-            jsonClass._PlayerData.deathCount, jsonClass._PlayerData.clearCount);
+        Debug.Log("함수 실행 여부");
+
+
+        GetData();
+        SceneManager.sceneLoaded += SceneLoadFunc;
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    // 씬이 메인 메뉴 갈 때 마다 실행되는 함수
+    private void SceneLoadFunc(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.buildIndex == 0) GetData();
+    }
+
+    private void GetData()
+    {
+        GameManager.Instance.GetDiaryData(jsonClass._DiaryData.checkDiary);
+        GameManager.Instance.GetPlayerInformation(
+            jsonClass._PlayerData.playTime, jsonClass._PlayerData.killEnemy,
+            jsonClass._PlayerData.deathCount, jsonClass._PlayerData.clearCount);
     }
 
     // 락 해제, 추후 로직 변동 필요할듯

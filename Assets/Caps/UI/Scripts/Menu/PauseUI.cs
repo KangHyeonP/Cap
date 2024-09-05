@@ -42,8 +42,8 @@ public class PauseUI : MonoBehaviour
 	public void GoMenu()
 	{
         GameManager.Instance.SaveData();
-        SceneManager.LoadScene(0);
 		Time.timeScale = 1f;
+        SceneManager.LoadScene(0);
 	}
 
 	public void Close()
