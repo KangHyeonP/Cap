@@ -108,6 +108,11 @@ public class PlayerBullet : Bullet
         RoomController.Instance.BombLogic(transform.position);
     }
 
+    protected override void TrrigerLogic()
+    {
+        base.TrrigerLogic();
+    }
+
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);

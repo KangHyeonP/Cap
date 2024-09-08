@@ -64,7 +64,7 @@ public abstract class Bullet : MonoBehaviour
         TrrigerLogic();
     }
 
-    protected void TrrigerLogic()
+    protected virtual void TrrigerLogic()
     {
         target = null;
         PoolManager.Instance.ReturnBullet(this, eUsers, eBullets);

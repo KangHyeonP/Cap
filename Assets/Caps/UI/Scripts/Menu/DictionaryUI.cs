@@ -38,7 +38,7 @@ public class DictionaryUI : MonoBehaviour
     private void Start()
     {
         GameManager.Instance.dictionaryUI = this;
-        
+
         for(int i=1; i<contents.Length;i++)
         {
             contents[i].isUnLock = GameManager.Instance.DiaryDataCheck[i-1];

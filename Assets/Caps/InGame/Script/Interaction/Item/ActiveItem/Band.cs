@@ -37,7 +37,7 @@ public class Band : Item
         }
 
         GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Band);
-        InGameManager.Instance.CheckGirl();
+        GameManager.Instance.CheckEunha();
         UseItem();
     }
 

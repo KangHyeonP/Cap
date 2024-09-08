@@ -371,6 +371,8 @@ MonoBehaviour:
   playerCheck: 0
   diaryDataCheck: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   dictionaryUI: {fileID: 0}
+  kuiperOn: 0
+  eunhaOn: 0
 --- !u!4 &106019976
 Transform:
   m_ObjectHideFlags: 0
@@ -2259,6 +2261,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 2981
       objectReference: {fileID: 0}
+    - target: {fileID: 8263668066597871623, guid: 80ccbd973ad524b4083ad94487897944, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8299876593075752840, guid: 80ccbd973ad524b4083ad94487897944, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -2494,6 +2500,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7850307159318808193, guid: 80ccbd973ad524b4083ad94487897944, type: 3}
   m_PrefabInstance: {fileID: 187410392}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &187410395 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6702640010678063220, guid: 80ccbd973ad524b4083ad94487897944, type: 3}
+  m_PrefabInstance: {fileID: 187410392}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187410394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0862f1865466a3e42bb7d789dfd51c8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &439035288
 GameObject:
   m_ObjectHideFlags: 0
@@ -6616,6 +6633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073adc838fd92914987353182bd53342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dictUi: {fileID: 187410395}
 --- !u!1 &2611526935515077774
 GameObject:
   m_ObjectHideFlags: 0

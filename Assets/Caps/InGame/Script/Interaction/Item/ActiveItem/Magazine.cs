@@ -37,7 +37,7 @@ public class Magazine : Item
         }
 
         GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.MainMagazine + value);
-        InGameManager.Instance.CheckGirl();
+        GameManager.Instance.CheckEunha();
         UseItem();
     }
 

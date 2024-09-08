@@ -12,6 +12,10 @@ public class EnemyBullet : Bullet
         TrrigerLogic();
     }
 
+    protected override void TrrigerLogic()
+    {
+        base.TrrigerLogic();
+    }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {

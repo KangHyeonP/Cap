@@ -15,6 +15,9 @@ public abstract class Boss : AI
     [SerializeField]
     protected Transform Line;
 
+    public SpriteRenderer gunRenderer;
+
+
     public float rushPower; //¿”Ω√
     bool isRush = false;
 
@@ -175,21 +178,22 @@ public abstract class Boss : AI
         }
 
     }
-
     public IEnumerator BP2() // ¡øπ‰∫∏Ω∫, √÷¡æ∫∏Ω∫
     {
         knifeThrow = true;
         bossAttack = false;
         Line.gameObject.SetActive(true);
+        gunRenderer.enabled = false;
 
         yield return new WaitForSeconds(1);
 
         Line.localScale = new Vector3(1, 1, 1);
         Line.gameObject.SetActive(false);
 
+        gun.KnifeShotReady(isReverse);
         knifeThrow = false;
-        gun.ShotReady();
         Debug.Log("BP2");
+        gunRenderer.enabled = true;
 
         yield return new WaitForSeconds(1);
     }

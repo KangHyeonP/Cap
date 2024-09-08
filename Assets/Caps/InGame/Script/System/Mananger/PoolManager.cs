@@ -50,6 +50,11 @@ public class PoolManager : MonoBehaviour
     private Transform bossGrenadePos;
 
     [SerializeField]
+    private GameObject knifeBullet;
+    [SerializeField]
+    private Transform knifeBulletPos;
+
+    [SerializeField]
     private int initCount;
 
     public Queue<Drug>[] poolingDrug = { new Queue<Drug>(), new Queue<Drug>(), new Queue<Drug>(), new Queue<Drug>(), new Queue<Drug>() };
@@ -68,6 +73,8 @@ public class PoolManager : MonoBehaviour
 
     public Queue<BossGrenade> poolingBossGrenade = new Queue<BossGrenade>();
     // 총은 각각 자신의 총알을 가지므로 사용하기 안좋음
+
+    public Queue<KnifeBullet> poolingKnifeBulletBoss = new Queue<KnifeBullet>();
 
     private void Awake()
     {
@@ -108,6 +115,8 @@ public class PoolManager : MonoBehaviour
             CreateMagzine(1);
 
             CreateBossGrenade();
+            CreateKnifeBullet();
+            //
         }
 
         /*
@@ -179,7 +188,7 @@ public class PoolManager : MonoBehaviour
 
     private void CreateNewBullet(EUsers eUser, EBullets eBullet)
     {
-        if(eUser == EUsers.Enemy)
+        if (eUser == EUsers.Enemy)
         {
             Bullet newObj = Instantiate(agentBullet).GetComponent<Bullet>();
             newObj.gameObject.SetActive(false);
@@ -199,11 +208,11 @@ public class PoolManager : MonoBehaviour
 
     public Bullet GetBullet(EUsers eUser, EBullets eBullet, Quaternion q)
     {
-        if(eUser == EUsers.Player)
+        if (eUser == EUsers.Player)
         {
             //Debug.Log("poolingPlayerBullet : " + )
 
-            if(poolingPlayerBullet[(int)eBullet].Count <= 0)
+            if (poolingPlayerBullet[(int)eBullet].Count <= 0)
             {
                 CreateNewBullet(eUser, eBullet);
             }
@@ -219,7 +228,7 @@ public class PoolManager : MonoBehaviour
             {
                 CreateNewBullet(eUser, eBullet);
             }
-        
+
             Bullet obj = poolingEnemyBullet.Dequeue();
             obj.gameObject.SetActive(true);
             return obj;
@@ -310,7 +319,7 @@ public class PoolManager : MonoBehaviour
 
     public GrenadeObject GetGrenadeObject()
     {
-        if(poolingGrenadeObject.Count <= 0)
+        if (poolingGrenadeObject.Count <= 0)
         {
             CreateGrenadeObject();
         }
@@ -330,7 +339,7 @@ public class PoolManager : MonoBehaviour
         Magazine m = Instantiate(magazine[value]).GetComponent<Magazine>();
 
         m.transform.SetParent(magazinePos[value]);
-        m.name =  (value == 1 ? "Sub" : "Main") + value.ToString();
+        m.name = (value == 1 ? "Sub" : "Main") + value.ToString();
         m.gameObject.SetActive(false);
         poolingMagazine[value].Enqueue(m);
     }
@@ -375,5 +384,33 @@ public class PoolManager : MonoBehaviour
     {
         g.gameObject.SetActive(false);
         poolingBossGrenade.Enqueue(g);
+    }
+
+    private void CreateKnifeBullet()
+    {
+        KnifeBullet newObj = Instantiate(knifeBullet).GetComponent<KnifeBullet>();
+        newObj.gameObject.SetActive(false);
+        newObj.transform.SetParent(knifeBulletPos);
+        poolingKnifeBulletBoss.Enqueue(newObj);
+    }
+
+    public KnifeBullet GetKnifeBullet(Quaternion q)
+    {
+        if (poolingKnifeBulletBoss.Count <= 0)
+        {
+            CreateKnifeBullet();
+        }
+
+        KnifeBullet obj = poolingKnifeBulletBoss.Dequeue();
+        obj.gameObject.transform.rotation = q;
+        obj.gameObject.SetActive(true);
+        return obj;
+    }
+
+    public void ReturnKnifeBullet(KnifeBullet obj)
+    {
+        obj.gameObject.SetActive(false);
+
+        poolingKnifeBulletBoss.Enqueue(obj);
     }
 }

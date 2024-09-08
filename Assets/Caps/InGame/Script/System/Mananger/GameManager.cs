@@ -63,6 +63,9 @@ public class GameManager : MonoBehaviour
     private int clearCount = 0;
     public int ClearCount => clearCount;
 
+    // 해금여부
+    public bool kuiperOn = false;
+    public bool eunhaOn = false;
 
     private void Awake()
     {
@@ -111,15 +114,7 @@ public class GameManager : MonoBehaviour
     {
         playTime = time;
         killCount = killCnt;
-        /*foreach(bool d in diaryDataCheck)
-        {
-            if (d)
-            {
-                diaryCount++;
-                // 디버그용
-                Debug.Log()
-            }
-        }*/
+       
         // Scene로드 시 GameManager 초기화
         diaryCount = 0;
         characterCount = 0;
@@ -156,6 +151,32 @@ public class GameManager : MonoBehaviour
     public void UpdateKill()
     {
         killCount++;
+        if(killCount >= 300) CheckKuiper();
+    }
+
+    public void CheckEunha()
+    {
+        // none이 없으므로 1씩 줄어듬
+        if (eunhaOn) return;
+
+        for (int i = 6; i < 22; i++)
+        {
+            if (!diaryDataCheck[i]) return;
+            if (i == 12) i = 16;
+        }
+
+        DataManager.Instacne.JsonClass.UpdateLock((int)ECharacters.Eunha);
+        UpdateDiaryDate((int)EDiaryValue.Eunha);
+
+        eunhaOn = true;
+    }
+
+    public void CheckKuiper()
+    {
+        if (kuiperOn) return;
+        DataManager.Instacne.JsonClass.UpdateLock((int)ECharacters.Kuiper);
+        UpdateDiaryDate((int)EDiaryValue.Kuiper);
+        kuiperOn = true;
     }
 
     // 죽을때 or 게임 종료할 때

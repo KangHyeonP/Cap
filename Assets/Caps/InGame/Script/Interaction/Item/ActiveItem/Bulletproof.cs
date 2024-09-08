@@ -36,7 +36,7 @@ public class Bulletproof : Item
             isProduct = false;
         }
         GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.BulletProof);
-        InGameManager.Instance.CheckGirl();
+        GameManager.Instance.CheckEunha();
         UseItem();
     }
 

@@ -88,7 +88,7 @@ public class Weapons : Item
             }
         }
 
-        InGameManager.Instance.CheckGirl();
+        GameManager.Instance.CheckEunha();
         //GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Desert_Eagle + (int)eWeapons);
         UseItem();
     }

@@ -438,7 +438,7 @@ public class InGameManager : MonoBehaviour
         return curPower - power;
     }
 
-    public void CheckGirl() // 윤하해금여부 체크
+    /*public void CheckGirl() // 윤하해금여부 체크
     {
         if (checkEunha) return;
 
@@ -454,7 +454,7 @@ public class InGameManager : MonoBehaviour
 
         GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Eunha); // 윤하 해금
         DataManager.Instacne.UpdateLock((int)ECharacters.Eunha);
-    }
+    }*/
 
 
     public void Hit(int value)

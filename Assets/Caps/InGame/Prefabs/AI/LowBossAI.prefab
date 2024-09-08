@@ -310,6 +310,7 @@ MonoBehaviour:
   TestAgent: 0
   gun: {fileID: 3363599335819604270}
   Line: {fileID: 0}
+  gunRenderer: {fileID: 8645544296083747775}
   rushPower: 0.1
   selectPivot: 0
   knifeThrow: 0
@@ -589,5 +590,10 @@ Transform:
 --- !u!4 &5659313000866956243 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 967795214088072938, guid: 3fa0bd5ef89a8234d8c8015cd45705fa, type: 3}
+  m_PrefabInstance: {fileID: 4893063886974364985}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &8645544296083747775 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3755020315799838342, guid: 3fa0bd5ef89a8234d8c8015cd45705fa, type: 3}
   m_PrefabInstance: {fileID: 4893063886974364985}
   m_PrefabAsset: {fileID: 0}
