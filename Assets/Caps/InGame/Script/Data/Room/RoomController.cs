@@ -24,7 +24,7 @@ public class RoomController : MonoBehaviour
 
     void Start()
     {
-        rooms[0].ActiveRoom();
+        rooms[0].FirstRoom();
     }
 
     // Update is called once per frame
@@ -44,6 +44,7 @@ public class RoomController : MonoBehaviour
         rooms[curIndex].RoomStateUpdate(RoomState.been);
         curIndex = num;
         rooms[curIndex].RoomStateUpdate(RoomState.being);
+        rooms[curIndex].UpdateDoor();
     }
 
     public void ClearRoomCount() // 적을 처지할 때 마다 방이 클리어 상태인지 확인

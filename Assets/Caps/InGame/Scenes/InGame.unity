@@ -7282,16 +7282,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fog: {fileID: 1823052356}
+  roomIcon: {fileID: 0}
   agents:
   - {fileID: 1075438251}
   - {fileID: 1853347963}
   - {fileID: 1489823525}
   - {fileID: 525380474}
   roomIndex: 1
-  door:
-  - {fileID: 861092907}
-  - {fileID: 758381061}
-  - {fileID: 2145066668}
+  doors: []
 --- !u!114 &641083631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9893,12 +9891,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fog: {fileID: 934385623}
+  roomIcon: {fileID: 0}
   agents:
   - {fileID: 378520706652495067}
   - {fileID: 539887409}
   roomIndex: 3
-  door:
-  - {fileID: 1053383044}
+  doors: []
 --- !u!114 &792108268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21952,9 +21950,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fog: {fileID: 366199698}
+  roomIcon: {fileID: 0}
   agents: []
   roomIndex: 0
-  door: []
+  doors: []
 --- !u!61 &2072712274
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -22822,9 +22821,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fog: {fileID: 1724537981}
+  roomIcon: {fileID: 0}
   agents: []
   roomIndex: 2
-  door: []
+  doors: []
 --- !u!114 &2136068100
 MonoBehaviour:
   m_ObjectHideFlags: 0

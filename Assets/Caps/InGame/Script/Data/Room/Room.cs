@@ -17,6 +17,9 @@ public class Room : MonoBehaviour
     [SerializeField]
     private SpriteRenderer fog;
 
+    [SerializeField]
+    private GameObject roomIcon;
+
     // Agents
     [SerializeField]
     private List<AI> agents;
@@ -28,9 +31,8 @@ public class Room : MonoBehaviour
     private int roomIndex;
     public int RoomIndex => roomIndex;
 
-    // Door
     [SerializeField]
-    private GameObject[] door;
+    private Door[] doors;
 
     // Room Status
     private bool clearCheck = false; // 현재 클리어한 방인지 체크
@@ -45,7 +47,7 @@ public class Room : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()
@@ -55,10 +57,11 @@ public class Room : MonoBehaviour
 
     private void InitRoom()
     {
+        //roomIcon = transform.GetChild(transform.childCount - 1).gameObject;
+
         fullEnemyCnt = agents.Count;
         RoomStateUpdate(RoomState.notBeen);
 
-        foreach (GameObject g in door) g.SetActive(false);
     }
 
     public void RoomStateUpdate(RoomState state)
@@ -66,13 +69,15 @@ public class Room : MonoBehaviour
         switch (state)
         {
             case RoomState.notBeen:
+                roomIcon.SetActive(false);
                 fog.color = new Color(0, 0, 0, 1);
                 break;
             case RoomState.being:
+                roomIcon.SetActive(true);
                 fog.color = new Color(0, 0, 0, 0);
                 break;
             case RoomState.been:
-                fog.color = new Color(0, 0, 0, 0.8f);
+                fog.color = new Color(0, 0, 0, 0.7f);
                 break;
         }
     }
@@ -82,16 +87,23 @@ public class Room : MonoBehaviour
     {
         PlayerRoom(true);
         AgentActive(isPlayerRoom);
-        //ActiveDoor();
+        ActiveDoor();
+    }
+
+    public void FirstRoom()
+    {
+        ActiveRoom();
+        clearCheck = true;
+        DisableDoor();
     }
 
     // 현재 플레이어가 방에 들어온 상태
     private void PlayerRoom(bool check)
     {
         isPlayerRoom = check;
-        RoomController.Instance.ChangePlayerRoom(roomIndex); 
+        RoomController.Instance.ChangePlayerRoom(roomIndex);
     }
-    
+
     // 현재 방에 있는 몬스터들을 활성화 시키는 로직, 추 후 몬스터의 자동 움직임으로 구현을 변경
     public void AgentActive(bool check)
     {
@@ -111,7 +123,7 @@ public class Room : MonoBehaviour
     {
         curEnemyCnt++;
 
-        if(curEnemyCnt >= fullEnemyCnt)
+        if (curEnemyCnt >= fullEnemyCnt)
         {
             clearCheck = true;
             DisableDoor();
@@ -121,20 +133,29 @@ public class Room : MonoBehaviour
     // 이 부분은 이제 문이 나오면 해당 문에서 수정
     public void ActiveDoor()
     {
-        if (!clearCheck && door.Length != 0)
+        if (!clearCheck)
         {
-            foreach (GameObject g in door) g.SetActive(true);
+            foreach (Door door in doors) door.DoorLock();
         }
     }
 
     private void DisableDoor()
     {
-        if (clearCheck && door.Length != 0)
+        if (clearCheck)
         {
-            foreach (GameObject g in door) g.SetActive(false);
+            foreach (Door door in doors) door.DoorUnlock();
+
         }
     }
-    
+    public void UpdateDoor()
+    {
+        for (int i = 0; i < doors.Length; i++)
+        {
+            doors[i].QMOff();
+            doors[i].nextQMOn();
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
