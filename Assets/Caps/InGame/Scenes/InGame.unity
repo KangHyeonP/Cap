@@ -27132,11 +27132,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 9066218870136208287}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 15}
   m_SizeDelta: {x: 155, y: 80}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2282530708736354066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33408,7 +33408,11 @@ MonoBehaviour:
   - {fileID: -2024680881, guid: 28234379c6dde7940a418301215bb7ab, type: 3}
   - {fileID: -1418466666, guid: 9bed31c7db7cdb641b3882e9a57982ba, type: 3}
   - {fileID: 58791510, guid: d18bef1aa7d440647ad39ea50125b73f, type: 3}
-  - {fileID: 133776751, guid: ccb6a36c348cdf647b03560620129119, type: 3}
+  - {fileID: -1324166345, guid: 2911c50fe4a8f894bb95cf912ff0b3d9, type: 3}
+  - {fileID: 1218956525, guid: 2e8b52a43adcd3b4c8bd4a3ec4a18eb5, type: 3}
+  - {fileID: 189076875, guid: 23da80d0440f1574db72573d5f34adda, type: 3}
+  weaponWidth: 78000000960000009b00000050000000640000000d0000000e00000026000000
+  weaponHeight: 5000000046000000430000003c0000003200000047000000460000002a000000
   bulletText: {fileID: 758347062}
   curBulletCount: 0
   maxBulletCount: 0

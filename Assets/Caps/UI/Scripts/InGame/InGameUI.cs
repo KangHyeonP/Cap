@@ -11,6 +11,9 @@ public class InGameUI : MonoBehaviour
     public Image WeaponUI;
 
     public Sprite[] weaponSprites;
+    public int[] weaponWidth;
+    public int[] weaponHeight;
+
     public TextMeshProUGUI bulletText;
     public int curBulletCount;
     public int maxBulletCount;
@@ -23,7 +26,7 @@ public class InGameUI : MonoBehaviour
 
     private void Awake()
     {
-        
+
     }
 
     void Start()
@@ -59,6 +62,7 @@ public class InGameUI : MonoBehaviour
     public void WeaponInven(int index)
     {
         WeaponUI.sprite = weaponSprites[index];
+        WeaponUI.rectTransform.sizeDelta = new Vector2(weaponWidth[index], weaponHeight[index]);
     }
 
     public void BulletTextUpdate(int bulletCunt)

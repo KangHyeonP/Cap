@@ -523,7 +523,7 @@ public abstract class Player : MonoBehaviour
             InGameManager.Instance.curWeaponIndex = 4;
 
             basicWeapon.gameObject.SetActive(true);
-            UIManager.Instance.inGameUI.WeaponInven(5);
+            UIManager.Instance.inGameUI.WeaponInven(5 + InGameManager.Instance.playerWeaponType);
             UIManager.Instance.inGameUI.KnifeTextUpdate();
             gunCheck = false;
             weaponPower = initPower;
@@ -627,7 +627,7 @@ public abstract class Player : MonoBehaviour
 
     protected void Skill()
     {
-        if (isSkill || !skillKey || !UIManager.Instance.inGameUI.skillUI.CanUseSkill || isRoll) return;
+        if (isAttack || isSkill || !skillKey || !UIManager.Instance.inGameUI.skillUI.CanUseSkill || isRoll) return;
 
         isSkill = true;
         StartCoroutine(ESkill());
