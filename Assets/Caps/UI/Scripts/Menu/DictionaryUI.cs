@@ -30,6 +30,8 @@ public class DictionaryUI : MonoBehaviour
 
     public float[] scrollvalue;
 
+    public bool diaryOpenCheck;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -97,5 +99,15 @@ public class DictionaryUI : MonoBehaviour
     {
         if(UIManager.Instance != null) UIManager.Instance.IsDict = false;
         gameObject.SetActive(false);
+    }
+
+    public IEnumerator CloseLogic()
+    {
+        diaryOpenCheck = true;
+        Close();
+        yield return new WaitForSeconds(0.5f);
+
+        gameObject.SetActive(false);
+        diaryOpenCheck = false;
     }
 }

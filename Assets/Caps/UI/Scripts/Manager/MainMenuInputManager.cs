@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MainMenuInputManager : MonoBehaviour
 {
-    public GameObject Dictionary;
+    public DictionaryUI Dictionary;
 
     void Start()
     {
@@ -14,10 +14,10 @@ public class MainMenuInputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!Dictionary.activeSelf) return;
-        if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Escape))
+        if (!Dictionary.gameObject.activeSelf) return;
+        if ((Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Escape)) && !Dictionary.diaryOpenCheck)
         {
-            Dictionary.SetActive(false);
+            StartCoroutine(Dictionary.CloseLogic());
         }
     }
 }
