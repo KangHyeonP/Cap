@@ -1060,7 +1060,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1371828422, guid: 5683cf4439bb6bb46b59d794b818d365, type: 3}
+  m_Sprite: {fileID: -1570231920, guid: 917bcc41cb1f54544904e95bc0ea81d6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1602,7 +1602,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 40
+  m_Spacing: 50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -4568,7 +4568,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1679768655, guid: 5683cf4439bb6bb46b59d794b818d365, type: 3}
+  m_Sprite: {fileID: 1509510298, guid: 917bcc41cb1f54544904e95bc0ea81d6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5401,7 +5401,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -250, y: 40}
-  m_SizeDelta: {x: 450, y: 490}
+  m_SizeDelta: {x: 450, y: 580}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6213339439456731447
 CanvasRenderer:
@@ -6219,7 +6219,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1584255917, guid: 5683cf4439bb6bb46b59d794b818d365, type: 3}
+  m_Sprite: {fileID: -941580582, guid: 917bcc41cb1f54544904e95bc0ea81d6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8194,8 +8194,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: -17}
+  m_AnchoredPosition: {x: 0, y: -60}
+  m_SizeDelta: {x: 20, y: -60}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &3036545620411903427
 CanvasRenderer:
@@ -8279,7 +8279,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4324060736160715685}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.16437437
+  m_Size: 0.19456558
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -14205,7 +14205,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1446055664, guid: 5683cf4439bb6bb46b59d794b818d365, type: 3}
+  m_Sprite: {fileID: 69324343, guid: 917bcc41cb1f54544904e95bc0ea81d6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -16491,13 +16491,14 @@ MonoBehaviour:
   scrollbar: {fileID: 1700787582344661774}
   scrollvalue:
   - 1
-  - 0.875
-  - 0.75
-  - 0.582
-  - 0.499
-  - 0.373
-  - 0.291
-  - 0.039
+  - 0.87
+  - 0.741
+  - 0.567
+  - 0.48
+  - 0.352
+  - 0.263
+  - 0.003
+  diaryOpenCheck: 0
 --- !u!1 &7863016798165614663
 GameObject:
   m_ObjectHideFlags: 0

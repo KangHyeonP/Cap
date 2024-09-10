@@ -109,12 +109,12 @@ public class UIManager : MonoBehaviour
 			DictUI.gameObject.SetActive(true);
             //DictUI.ContentUpdate(); // 잠시 주석, 궂이 킬때마다 다 갱신할 필요없을듯
 			PauseTime(true);
-		}
+        }
 		else
 		{
-			PauseTime(false);
+            PauseTime(false);
 			DictUI.Close();
-		}
+        }
 	}
 
 	private void OpenTab() //탭

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5683cf4439bb6bb46b59d794b818d365
+guid: 917bcc41cb1f54544904e95bc0ea81d6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -106,19 +106,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -137,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6b04f4292f0d5614cb1c273207f3df74
-      internalID: -1446055664
+      spriteID: 3e77386a2f3ec7a4f9acaa3ec41a7186
+      internalID: -941580582
       vertices: []
       indices: 
       edges: []
@@ -158,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c4c17d90f0ed7148803140fe844dc33
-      internalID: -1584255917
+      spriteID: c4c2cf59102f81142be461a8836ac601
+      internalID: 69324343
       vertices: []
       indices: 
       edges: []
@@ -179,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 38fd64e408449044387425d6ed10fa11
-      internalID: 1371828422
+      spriteID: 51b244ca8175b564197de254409a5c53
+      internalID: -1570231920
       vertices: []
       indices: 
       edges: []
@@ -200,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e270af5d9674c8049bfca84cdc4c21a7
-      internalID: 1679768655
+      spriteID: 4334bf861406f0a40a2c0b5f798a0005
+      internalID: 1509510298
       vertices: []
       indices: 
       edges: []
@@ -217,10 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BuffUI2_0: -1446055664
-      BuffUI2_1: -1584255917
-      BuffUI2_2: 1371828422
-      BuffUI2_3: 1679768655
+      BuffUI2_0: -941580582
+      BuffUI2_1: 69324343
+      BuffUI2_2: -1570231920
+      BuffUI2_3: 1509510298
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -17,7 +17,7 @@ public class MainMenuInputManager : MonoBehaviour
         if (!Dictionary.gameObject.activeSelf) return;
         if ((Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Escape)) && !Dictionary.diaryOpenCheck)
         {
-            StartCoroutine(Dictionary.CloseLogic());
+            Dictionary.Close();
         }
     }
 }

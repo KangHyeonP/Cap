@@ -41,9 +41,9 @@ public class DictionaryUI : MonoBehaviour
     {
         GameManager.Instance.dictionaryUI = this;
 
-        for(int i=1; i<contents.Length;i++)
+        for (int i = 1; i < contents.Length; i++)
         {
-            contents[i].isUnLock = GameManager.Instance.DiaryDataCheck[i-1];
+            contents[i].isUnLock = GameManager.Instance.DiaryDataCheck[i - 1];
             contents[i].LockUpdate();
         }
 
@@ -97,7 +97,7 @@ public class DictionaryUI : MonoBehaviour
     }
     public void DictOff()
     {
-        if(UIManager.Instance != null) UIManager.Instance.IsDict = false;
+        if (UIManager.Instance != null) UIManager.Instance.IsDict = false;
         gameObject.SetActive(false);
     }
 
