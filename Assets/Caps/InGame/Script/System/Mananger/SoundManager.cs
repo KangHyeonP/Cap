@@ -9,6 +9,16 @@ public enum VolumeType
     masterVol, bgmVol, sfxVol
 }
 
+public enum BGM
+{
+    Main, InGame, Boss, GameOver
+}
+
+public enum SFX
+{
+    Walk, Shoot, Roll, Hit
+}
+
 public class SoundManager : MonoBehaviour
 {
     private static SoundManager instance;
@@ -16,15 +26,6 @@ public class SoundManager : MonoBehaviour
 
     public AudioMixer mixer;
 
-    public enum BGM
-    {
-        Main, InGame, Boss, Shop, GameOver
-    }
-
-    public enum SFX
-    {
-        Walk, Shoot, Roll, Hit
-    }
 
     [Header("Sounds")]
     public AudioClip[] bgmClips;

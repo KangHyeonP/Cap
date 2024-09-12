@@ -14,7 +14,7 @@ public class SettingUI : MonoBehaviour
 
     private bool isUpdating = false;
 
-    public bool uiManagerCheckc = false;
+    public bool uiManagerCheck = false;
 
     public Image mousePointer;
     /*
@@ -24,15 +24,15 @@ public class SettingUI : MonoBehaviour
 
     private void OnDisable()
     {
-        if (uiManagerCheckc) Close();
+        if (uiManagerCheck) Close();
     }
 
     private void Start()
     {
         Init();
 
-        if (UIManager.Instance != null) uiManagerCheckc = true;
-        else uiManagerCheckc = false;
+        if (UIManager.Instance != null) uiManagerCheck = true;
+        else uiManagerCheck = false;
 
         ChangePointer(DataManager.Instacne.MouseIndex);
     }
@@ -46,7 +46,7 @@ public class SettingUI : MonoBehaviour
 
     public void Close()
     {
-        if (uiManagerCheckc)
+        if (uiManagerCheck)
         {
             UIManager.Instance.pauseUI.SelectButtonOn();
             UIManager.Instance.IsPopup--;
