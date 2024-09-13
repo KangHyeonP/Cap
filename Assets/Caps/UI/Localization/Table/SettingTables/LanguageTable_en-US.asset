@@ -74,6 +74,26 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 9066229918097473544
+  - m_Id: 7930393189175296
+    m_Localized: ATK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7930485795213312
+    m_Localized: HIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7930527675338752
+    m_Localized: RAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7930566963384320
+    m_Localized: MOV
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7930626157596672
+    m_Localized: RPM
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

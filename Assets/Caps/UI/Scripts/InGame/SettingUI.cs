@@ -149,6 +149,8 @@ public class SettingUI : MonoBehaviour
     {
         LocalizationSettings.SelectedLocale =
             LocalizationSettings.AvailableLocales.Locales[index];
+
+        GameManager.Instance.languageIndex = index; // 나중에 번역을 설정하면 마우스 포인터처럼 저장힐지도 생각
     }
     /*
     public enum ELanguage 

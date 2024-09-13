@@ -63,6 +63,26 @@ MonoBehaviour:
     m_Key: ClearCount
     m_Metadata:
       m_Items: []
+  - m_Id: 7930393189175296
+    m_Key: ATK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7930485795213312
+    m_Key: HIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7930527675338752
+    m_Key: RAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7930566963384320
+    m_Key: MOV
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7930626157596672
+    m_Key: RPM
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

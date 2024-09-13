@@ -65,6 +65,9 @@ public class GameManager : MonoBehaviour
     public bool kuiperOn = false;
     public bool eunhaOn = false;
 
+    // System
+    public int languageIndex = 0; // 번역 인덱스 0:한국 1: 미국
+
     private void Awake()
     {
         Init();

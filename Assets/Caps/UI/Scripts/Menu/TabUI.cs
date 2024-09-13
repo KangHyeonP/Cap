@@ -53,5 +53,27 @@ public class TabUI : MonoBehaviour
             + " + " + DrugManager.Instance.speed + " )";
         attackSpeed.text = playerAttackSpeed + "( " + InGameManager.Instance.AttackDelay
             + " + " + DrugManager.Instance.playerAttackDelay + " )";
+
+		PositionChange();
     }
+
+	public void PositionChange()
+	{
+		if(GameManager.Instance.languageIndex ==0)
+		{
+			attackDamage.rectTransform.localPosition = new Vector3(220, 0, 0);
+			bulletAccuracy.rectTransform.localPosition = new Vector3(220, 0, 0);
+            bulletDistance.rectTransform.localPosition = new Vector3(220, 0, 0);
+            speed.rectTransform.localPosition = new Vector3(220, 0, 0);
+            attackSpeed.rectTransform.localPosition = new Vector3(220, 0, 0);
+        }
+		else
+		{
+            attackDamage.rectTransform.localPosition = new Vector3(175, 0, 0);
+            bulletAccuracy.rectTransform.localPosition = new Vector3(175, 0, 0);
+            bulletDistance.rectTransform.localPosition = new Vector3(175, 0, 0);
+            speed.rectTransform.localPosition = new Vector3(175, 0, 0);
+            attackSpeed.rectTransform.localPosition = new Vector3(175, 0, 0);
+        }
+	}
 }
