@@ -20,6 +20,8 @@ public abstract class Item : MonoBehaviour
     public int curPrice = 0;
     public bool playerCheck = false; // 플레이어와 충돌여부 체크
     public float distance = 999f; // 플레이어와 아이템의 거리
+    public int shopIndex;
+    public Shop shop;
 
     public TextMeshPro priceText;
     public SpriteRenderer spriteRenderer;
@@ -73,9 +75,11 @@ public abstract class Item : MonoBehaviour
         itemRigid.AddForce(vec.normalized, ForceMode2D.Impulse);
     }
 
-    public void ShopItem(Vector2 pos)
+    public void ShopItem(Vector2 pos, Shop s)
     {
         isProduct = true;
+
+        shop = s;
 
         transform.position = pos;
 

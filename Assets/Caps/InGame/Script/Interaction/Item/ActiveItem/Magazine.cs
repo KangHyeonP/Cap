@@ -34,6 +34,7 @@ public class Magazine : Item
             InGameManager.Instance.Buy(curPrice);
             ItemUIPlay(false);
             isProduct = false;
+            shop.ItemSoldout(shopIndex);
         }
 
         GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.MainMagazine + value);

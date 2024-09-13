@@ -32,6 +32,7 @@ public class Key : Item
             InGameManager.Instance.Buy(curPrice);
             ItemUIPlay(false);
             isProduct = false;
+            shop.ItemSoldout(shopIndex);
         }
         GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Key);
         //InGameManager.Instance.CheckGirl(); // 수정 전 로직 -> 모든 아이템 + 무기 

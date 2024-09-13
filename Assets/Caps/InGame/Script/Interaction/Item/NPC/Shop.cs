@@ -15,6 +15,9 @@ public class Shop : MonoBehaviour
     [SerializeField]
     Transform[] drugPos; //5개
 
+    public GameObject[] itemSoldout;
+    public GameObject[] drugSoldout;
+
     int curIndex = 0;
 
     void Start()
@@ -23,7 +26,9 @@ public class Shop : MonoBehaviour
 
         for (int i = 0; i < drugPos.Length; i++)
         {
-            PoolManager.Instance.GetDrug((EDrugColor)i).ShopItem(drugPos[i].position);
+            Drug j = PoolManager.Instance.GetDrug((EDrugColor)i);
+            j.ShopItem(drugPos[i].position, this);
+            j.shopIndex = i;
         }
     }
 
@@ -39,16 +44,25 @@ public class Shop : MonoBehaviour
 
         if (isGunSpawn == 3)
         {
-            Instantiate(glocks[Random.Range(0, glocks.Length)]).GetComponent<Item>().ShopItem(itemPos[curIndex++].position);
+            Item i = Instantiate(glocks[Random.Range(0, glocks.Length)]).GetComponent<Item>();
+            i.ShopItem(itemPos[curIndex].position, this);
+            i.shopIndex = curIndex++; // 무기일땐 +5를 무조건 해줄것
         }
         else if (isGunSpawn == 4)
         {
-            Instantiate(guns[Random.Range(0, glocks.Length)]).GetComponent<Item>().ShopItem(itemPos[curIndex++].position);
+            Item i = Instantiate(guns[Random.Range(0, guns.Length)]).GetComponent<Item>();
+            i.ShopItem(itemPos[curIndex].position, this);
+            i.shopIndex = curIndex++;
+
         }
         else if (isGunSpawn == 5)
         {
-            Instantiate(glocks[Random.Range(0, glocks.Length)]).GetComponent<Item>().ShopItem(itemPos[curIndex++].position);
-            Instantiate(guns[Random.Range(0, glocks.Length)]).GetComponent<Item>().ShopItem(itemPos[curIndex++].position);
+            Item i = Instantiate(glocks[Random.Range(0, glocks.Length)]).GetComponent<Item>();
+            i.ShopItem(itemPos[curIndex].position, this);
+            i.shopIndex = curIndex++;
+            Item j = Instantiate(guns[Random.Range(0, guns.Length)]).GetComponent<Item>();
+            j.ShopItem(itemPos[curIndex].position, this);
+            j.shopIndex = curIndex++;
         }
 
         for (int i=curIndex; i<itemPos.Length;i++)
@@ -58,13 +72,27 @@ public class Shop : MonoBehaviour
             //Debug.Log("값 : "+curIndex);
             if (itemRand < 2)
             {
-                PoolManager.Instance.GetMagazine(itemRand).ShopItem(itemPos[curIndex++].position);
+                Item m = PoolManager.Instance.GetMagazine(itemRand);
+                m.ShopItem(itemPos[curIndex].position, this);
+                m.shopIndex = curIndex++;
+
             }
             else
             {
-                PoolManager.Instance.GetActiveItem((EActiveItems)(itemRand - 2)).ShopItem(itemPos[curIndex++].position);
+                Item m = PoolManager.Instance.GetActiveItem((EActiveItems)(itemRand - 2));
+                m.ShopItem(itemPos[curIndex].position, this);
+                m.shopIndex = curIndex++;
             }
         }
     }
 
+    public void ItemSoldout(int index)
+    {
+        itemSoldout[index].SetActive(true);
+    }
+
+    public void DrugSoldout(int index)
+    {
+        drugSoldout[index].SetActive(true);
+    }
 }
