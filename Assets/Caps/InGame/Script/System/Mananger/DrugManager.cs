@@ -21,6 +21,7 @@ public class DrugManager : MonoBehaviour
 
     // nerf
     public Nerf[] nerfs;
+    public int[] nerfsIndex = { 0, 0, 0 };
 
     public int[] tempStackDrug = { 0, 0, 0, 0, 0 }; // 현재 락에서 먹은 마약 개수 체크
     public int[] stackDrug = { 0, 0, 0, 0, 0 };// red, orange, yellow, green, blue 순, 현재 락 전까지 먹은 마약 개수 
@@ -186,6 +187,7 @@ public class DrugManager : MonoBehaviour
                 colorBuffs[i].ExcuteBuff(duffIndex);
                 Debug.Log("실행한 마약 :  " + (EDrugColor)i);
                 nerfs[duffIndex].NerfOn();
+                UIManager.Instance.TabBuff((int)buffSteps[duffIndex], nerfsIndex[duffIndex], duffIndex);
                 break;
             }
             curGauge = stackGauge;

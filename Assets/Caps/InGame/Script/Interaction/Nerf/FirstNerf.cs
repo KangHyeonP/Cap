@@ -38,6 +38,7 @@ public class FirstNerf : Nerf
 
         isActive = true;
         GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Merchant_Hostility + value);
+        DrugManager.Instance.nerfsIndex[0] = (int)EDiaryValue.Merchant_Hostility + value;
     }
 
     /*

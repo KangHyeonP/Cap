@@ -25,6 +25,8 @@ public class DictionaryUI : MonoBehaviour
     private Image image;
     [SerializeField]
     private DictionaryContents[] contents;
+    public DictionaryContents[] Contents => contents;
+
     [SerializeField]
     private Scrollbar scrollbar;
 

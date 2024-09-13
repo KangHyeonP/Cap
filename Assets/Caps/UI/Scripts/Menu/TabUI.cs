@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TabUI : MonoBehaviour
 {
@@ -15,12 +16,19 @@ public class TabUI : MonoBehaviour
     public TextMeshProUGUI speed;
     public TextMeshProUGUI attackSpeed;
 
+	public TextMeshProUGUI characterName;
+
+	public Image[] buffImage;
+    public Image[] deBuffImage;
+	public Image mirage;
+	public Image[] line;
+
     private void Awake()
 	{
 		animator = GetComponent<Animator>();
 	}
 
-	public void Close()
+    public void Close()
 	{
 		animator.SetBool("Open", false);
 	}
@@ -55,6 +63,8 @@ public class TabUI : MonoBehaviour
             + " + " + DrugManager.Instance.playerAttackDelay + " )";
 
 		PositionChange();
+
+		characterName.text = GameManager.Instance.selectCharacter.ToString();
     }
 
 	public void PositionChange()
@@ -76,4 +86,27 @@ public class TabUI : MonoBehaviour
             attackSpeed.rectTransform.localPosition = new Vector3(175, 0, 0);
         }
 	}
+
+	public void MirageOn()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			buffImage[i].enabled = false;
+			deBuffImage[i].enabled = false;
+		}
+
+		line[0].enabled = false;
+		line[1].enabled = false;
+
+		mirage.enabled = true;
+	}
+
+	public void Onbuff(int level)
+	{
+		buffImage[level].enabled = true;
+		deBuffImage[level].enabled = true;
+
+		if (level == 1) line[0].enabled = true;
+        else if(level == 2) line[1].enabled = true;
+    }
 }

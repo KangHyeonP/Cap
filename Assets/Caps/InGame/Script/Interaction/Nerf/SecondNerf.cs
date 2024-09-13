@@ -36,6 +36,7 @@ public class SecondNerf : Nerf
 
         isActive = true;
         GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Drug_Addiction + value);
+        DrugManager.Instance.nerfsIndex[1] = (int)EDiaryValue.Drug_Addiction + value;
     }
 
     /*

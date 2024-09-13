@@ -41,6 +41,7 @@ public class ThirdNerf : Nerf
 
         isActive = true;
         GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Roll_Restriction + value);
+        DrugManager.Instance.nerfsIndex[2] = (int)EDiaryValue.Roll_Restriction + value;
     }
 
     /*

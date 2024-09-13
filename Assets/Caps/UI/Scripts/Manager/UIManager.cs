@@ -197,6 +197,21 @@ public class UIManager : MonoBehaviour
         bulletProof.color = c;
     }
 
+    public void TabBuff(int buffIndex, int deBuffIndex, int buffLevel)
+    {
+        buffIndex = ((int)EDiaryValue.Extra_Health + (buffIndex * 3 + buffLevel));
+
+        TabUI.Onbuff(buffLevel);
+
+        // buff
+        TabUI.buffImage[buffLevel].sprite
+            = DictUI.Contents[buffIndex].iconImage.sprite;
+
+        // deBuff
+        TabUI.deBuffImage[buffLevel].sprite
+            = DictUI.Contents[deBuffIndex].iconImage.sprite;
+    }
+
     public void PauseTime(bool IsPause)
 	{
 		if(IsPause)
