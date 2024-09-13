@@ -45,6 +45,7 @@ public class Weapons : Item
             InGameManager.Instance.Buy(curPrice);
             isProduct = false;
             ItemUIPlay(false);
+            shop.ItemSoldout(shopIndex);
         } // 상점 판매인지 체크
 
         if (eWeapons == EWeapons.Revolver) // 현재 획득무기가 보조무기라면
