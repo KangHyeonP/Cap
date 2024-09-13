@@ -16,7 +16,7 @@ public class WeaponBox : MonoBehaviour
 
     void Start()
     {
-        animator= GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -37,23 +37,25 @@ public class WeaponBox : MonoBehaviour
     {
         if (!openKey) return;
 
-        Debug.Log(InGameManager.Instance.key);    
+        Debug.Log(InGameManager.Instance.key);
         if (isLock)
         {
             if (InGameManager.Instance.key > 0)
             {
                 InGameManager.Instance.UpdateKey(-1);
-            }                
+            }
             else
                 return;
         }
 
         animator.enabled = true;
-        DropWeapon();
+
+        StartCoroutine(DropWeapon());
         Debug.Log("상자열기");
     }
-    public void DropWeapon()
+    IEnumerator DropWeapon()
     {
+        yield return new WaitForSeconds(3f);
         int value = Random.Range(1, 51);
         Debug.Log(value);
         int index = -1;

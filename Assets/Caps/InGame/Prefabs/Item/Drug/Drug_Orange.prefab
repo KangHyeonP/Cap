@@ -195,7 +195,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 0a20506cf87a0e3448f5d7c474811e3e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -291,6 +291,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4369529444631048427}
   eIconRenderer: {fileID: 3854749786286441573}
   moneyRenderer: {fileID: 6368801669013652089}
+  silhouetteActive: 0
   drugGuage: 0
   value: 1
   blackDrugSprite: {fileID: 21300000, guid: 14aea88c445e4d842a8a5eaae1d02230, type: 3}

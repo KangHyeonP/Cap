@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: a1120c50bf6611b4e86883e1a9845761, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -173,6 +173,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 6415330390879480315}
   eIconRenderer: {fileID: 8119758289548660713}
   moneyRenderer: {fileID: 4746518991001432950}
+  silhouetteActive: 0
 --- !u!1 &1457999809893622776
 GameObject:
   m_ObjectHideFlags: 0
