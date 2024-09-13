@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -272,6 +270,40 @@ public class InGameManager : MonoBehaviour
 
         DrugManager.Instance.LockCheck(DrugGauge);
     }
+
+    public void DecreaseDrug()
+    {
+        int randomGauge = Random.Range(0, 16);
+
+        if (drugGauge - randomGauge <= 0)
+        {
+            drugGauge = 0;
+        }
+
+        else if (drugGauge > 25 && drugGauge - randomGauge < 25)
+        {
+            drugGauge = 25;
+        }
+
+        else if (drugGauge > 50 && drugGauge - randomGauge < 50)
+        {
+            drugGauge = 50;
+        }
+
+        else if (drugGauge > 75 && drugGauge - randomGauge < 75)
+        {
+            drugGauge = 75;
+        }
+
+        else
+        {
+            drugGauge -= randomGauge;
+        }
+
+        drugBar.value = drugGauge;
+        money -= 10;
+    }
+
 
     // 수정 로직
     // 총 획득 로직 후 교체 -> 이름 수정 해야할듯
