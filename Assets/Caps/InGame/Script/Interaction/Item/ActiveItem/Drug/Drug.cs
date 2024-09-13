@@ -72,6 +72,7 @@ public class Drug : Item
 
             isProduct = false;
             ItemUIPlay(false);
+            shop.DrugSoldout(shopIndex);
         }
 
         if (InGameManager.Instance.drugInven != null)

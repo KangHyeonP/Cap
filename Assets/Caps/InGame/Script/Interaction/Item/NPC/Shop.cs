@@ -26,7 +26,9 @@ public class Shop : MonoBehaviour
 
         for (int i = 0; i < drugPos.Length; i++)
         {
-            PoolManager.Instance.GetDrug((EDrugColor)i).ShopItem(drugPos[i].position, this);
+            Drug j = PoolManager.Instance.GetDrug((EDrugColor)i);
+            j.ShopItem(drugPos[i].position, this);
+            j.shopIndex = i;
         }
     }
 
