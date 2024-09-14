@@ -444,6 +444,7 @@ public class InGameManager : MonoBehaviour
     }
     public void HealHp(int value)
     {
+        //Debug.Log("회복함 : " + value);
         if (hp + value > maxHp)
         {
             hp = maxHp;
@@ -491,6 +492,7 @@ public class InGameManager : MonoBehaviour
 
     public void Hit(int value)
     {
+        //Debug.Log("맞았음 : " + value);
         if (hp - value <= 0)
         {
             hp = 0;

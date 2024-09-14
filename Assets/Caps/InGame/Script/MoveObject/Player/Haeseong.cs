@@ -5,6 +5,8 @@ using UnityEngine;
 // 추후 캐릭터 이름으로 이름 변경
 public class Haeseong : Player
 {
+    public Animator playerSkillAnim;
+
     [SerializeField]
     private int SkillDamage = 300;
 
@@ -37,6 +39,9 @@ public class Haeseong : Player
 
     protected override IEnumerator ESkill()
     {
+        playerSkillAnim.SetTrigger("Skill");
+        spriteRenderer.enabled = false;
+        weaponPivot.SetActive(false);
         return base.ESkill();
     }
 

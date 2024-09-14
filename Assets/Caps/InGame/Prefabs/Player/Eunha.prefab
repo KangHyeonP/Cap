@@ -430,7 +430,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   silhouette: {fileID: 0}
-  playerSkillAnim: {fileID: 7767309881001614562}
   rollingSpeed: 2.5
   skillDelay: 5
   isAttack: 0
@@ -469,6 +468,7 @@ MonoBehaviour:
   - {fileID: 9035982453509516187}
   - {fileID: 1565070726347775651}
   fogIn: 0
+  skillAnimTime: 0.5
   fogPrefab: {fileID: 7632603496833477354, guid: a65f84963668ccc4a98c9074a01eeb2c, type: 3}
   fogCheck: 0
   fogDistance: 0

@@ -373,6 +373,7 @@ MonoBehaviour:
   dictionaryUI: {fileID: 0}
   kuiperOn: 0
   eunhaOn: 0
+  languageIndex: 0
 --- !u!4 &106019976
 Transform:
   m_ObjectHideFlags: 0
@@ -6821,12 +6822,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterSprites:
   - {fileID: 21300000, guid: cc8e2be9532fbc543af51c6932181466, type: 3}
-  - {fileID: 21300000, guid: acf24f91ea86d2140b7efa39f2011f06, type: 3}
+  - {fileID: 21300000, guid: 7818536958c3b23498213277985f027b, type: 3}
   - {fileID: 21300000, guid: cc8e2be9532fbc543af51c6932181466, type: 3}
-  - {fileID: 21300000, guid: c241e847af767d148b898393a975bb22, type: 3}
-  buttons:
-  - {fileID: 3105865603651800980}
-  - {fileID: 5793383046974539024}
+  CurIndex: 0
+  buttonText:
+  - {fileID: 885440300}
+  - {fileID: 359587660}
   sprites:
   - {fileID: 21300000, guid: 33cd3b491748050418115b4d3a0b6534, type: 3}
   - {fileID: 21300000, guid: f9619563aba8b7542abf0aabdc638afe, type: 3}
@@ -7006,6 +7007,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dictUi: {fileID: 187410395}
+  characterImage: {fileID: 1725687576301801095}
 --- !u!1 &2611526935515077774
 GameObject:
   m_ObjectHideFlags: 0
@@ -7436,7 +7438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5454021574602613276
 RectTransform:
   m_ObjectHideFlags: 0

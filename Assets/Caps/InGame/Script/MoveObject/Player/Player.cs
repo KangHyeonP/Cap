@@ -24,8 +24,6 @@ public abstract class Player : MonoBehaviour
     protected Animator anim;
     [SerializeField]
     protected SpriteRenderer silhouette;//피격 전용 실루엣
-    [SerializeField]
-    protected Animator playerSkillAnim;
 
     // Status
     // Status - Basic
@@ -100,7 +98,7 @@ public abstract class Player : MonoBehaviour
     public GameObject[] subWeapon; // 이글, 아나콘다 순
     public BasicWeapon basicWeapon;
     [SerializeField]
-    private GameObject weaponPivot;
+    protected GameObject weaponPivot;
     public SpriteRenderer hadnSprite;
     public RectTransform playerCanvas; // 추후 다른 UI도 추가되어야한다면 slider로 교체
     public Slider reloadSlider;
@@ -113,6 +111,7 @@ public abstract class Player : MonoBehaviour
     public Image[] RageImages;
 
     public bool fogIn = false; //안개 안에 있는지 여부
+    public float skillAnimTime = 0;
 
     protected virtual void Awake()
     {
@@ -640,9 +639,7 @@ public abstract class Player : MonoBehaviour
         // 카메라 고정 및 위치 이동
         CameraController.Instance.CameraActive(false);
         CameraController.Instance.CameraPos(transform.position.x, transform.position.y);
-        playerSkillAnim.SetTrigger("Skill");
-        spriteRenderer.enabled = false;
-        weaponPivot.SetActive(false);
+        //playerSkillAnim.SetTrigger("Skill");
 
         // 일시 동작 정지
         //InGameManager.Instance.Pause(true);
@@ -650,7 +647,7 @@ public abstract class Player : MonoBehaviour
         UIManager.Instance.inGameUI.skillUI.UseSkill();
         PlayerSkill();
 
-        yield return new WaitForSecondsRealtime(1.0f); // 타임스케일 영향 x
+        yield return new WaitForSecondsRealtime(skillAnimTime); // 타임스케일 영향 x
         InGameManager.Instance.Pause(false);
         CameraController.Instance.CameraActive(true);
         spriteRenderer.enabled = true;

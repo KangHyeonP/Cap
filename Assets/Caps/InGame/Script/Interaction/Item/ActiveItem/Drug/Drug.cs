@@ -90,6 +90,8 @@ public class Drug : Item
 
     public override void UseItem()
     {
+        if (isProduct) return;
+
         GetDrug();
         InGameManager.Instance.UpdateDrug(drugGuage);
         DrugAbility();
