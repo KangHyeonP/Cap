@@ -223,7 +223,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 562e6fc89c7525e449211b0a457340ac, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 57f5900df524c084d92549de5cf8bfca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -292,7 +292,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   silhouette: {fileID: 0}
-  playerSkillAnim: {fileID: 0}
   rollingSpeed: 2.5
   skillDelay: 15
   isAttack: 0
@@ -331,6 +330,7 @@ MonoBehaviour:
   - {fileID: 1843549761978409067}
   - {fileID: 2686813248254265703}
   fogIn: 0
+  skillAnimTime: 0
 --- !u!50 &7709076486287083608
 Rigidbody2D:
   serializedVersion: 4
@@ -368,7 +368,7 @@ Animator:
   m_GameObject: {fileID: 1161679338188269459}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4b5e0f4a657e9a0479e8ba6d150a9f26, type: 2}
+  m_Controller: {fileID: 22100000, guid: c4f479d19186da84aa1ea7c583ae3ed7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
