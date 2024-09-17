@@ -89,7 +89,7 @@ public class DictionaryContents : MonoBehaviour
     //private Image iconImage;
 
     public Image iconImage;
-    public bool isUnLock;
+    public bool isUnLock; // 해금인지 체크
     public int itemNum;
 
     // Start is called before the first frame update

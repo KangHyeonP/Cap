@@ -12,14 +12,15 @@ public class DictionaryUI : MonoBehaviour
 
     [SerializeField]
     private Sprite[] ilusts;
+    /*[SerializeField]
+    private Sprite[] icons;*/
     [SerializeField]
-    private Sprite[] icons;
+    private Vector2[] spriteSize;
+    [SerializeField]
+    private Sprite characterIllrust;
 
-    //[SerializeField]
-    //private TextMeshProUGUI nameText;
     public LocalizeStringEvent localName;
-    //[SerializeField]
-    //private TextMeshProUGUI descText;
+
     public LocalizeStringEvent localDesc;
     [SerializeField]
     private Image image;
@@ -52,31 +53,50 @@ public class DictionaryUI : MonoBehaviour
         int j = 1;
         if (!contents[j].isUnLock) j = 0;
 
-        /*
-        nameText.text = contents[j].GetName();
-        descText.text = contents[j].GetDescription();*/
         localName.StringReference.TableEntryReference = contents[j].value.ToString();
         localDesc.StringReference.TableEntryReference = contents[j].value.ToString();
-        image.sprite = ilusts[j];
+        UpdateImage(1); // 빨간 마약으로 일단 띄우기
+        //image.sprite = contents[j+1].iconImage.sprite;
+        //image.color = contents[j + 1].iconImage.color;
+        //image.sprite = ilusts[j];
     }
 
     public void ShowInformation()
     {
         int i = int.Parse(EventSystem.current.currentSelectedGameObject.name);
+        int j = i;
 
         if (!contents[i].isUnLock)
         {
-            i = 0;
+            j = 0;
         }
-        /*
-        nameText.text = contents[i].GetName();
-        descText.text = contents[i].GetDescription();
-        */
-        localName.StringReference.TableEntryReference = contents[i].value.ToString();
-        localDesc.StringReference.TableEntryReference = contents[i].value.ToString();
-        image.sprite = ilusts[i];
+
+        localName.StringReference.TableEntryReference = contents[j].value.ToString();
+        localDesc.StringReference.TableEntryReference = contents[j].value.ToString();
+
+        UpdateImage(i);
+        //image.sprite = ilusts[i];
+        //image.sprite = contents[j+1].iconImage.sprite;
+        //image.color = contents[j + 1].iconImage.color;
 
         Debug.Log("아이템 번호: " + i);
+    }
+
+    public void UpdateImage(int i)
+    {
+        // 캐릭터 일러스트 인덱스는 수정이 필요함
+
+        image.rectTransform.sizeDelta = spriteSize[i-1];
+
+        if(i >= 22 && i<= 32)
+        {
+            image.sprite = characterIllrust;
+        }
+        else
+        {
+            image.sprite = contents[i].iconImage.sprite;
+        }
+        image.color = contents[i].iconImage.color;
     }
 
     public void UpdateContent(int i) // 단일 업데이트
