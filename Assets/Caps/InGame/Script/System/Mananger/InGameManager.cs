@@ -57,6 +57,9 @@ public class InGameManager : MonoBehaviour
 
     public int bulletPower;
 
+    // Player Data
+    public int killCount = 0;
+
     public Weapons gunInven = null;
     public Weapons blueGunInven = null; // 파랑 마약 활성화 전용 인벤
 
@@ -489,6 +492,11 @@ public class InGameManager : MonoBehaviour
         DataManager.Instacne.UpdateLock((int)ECharacters.Eunha);
     }*/
 
+    public void UpdateKillCount()
+    {
+        killCount++;
+        GameManager.Instance.UpdateKill();
+    }
 
     public void Hit(int value)
     {

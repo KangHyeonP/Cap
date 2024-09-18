@@ -35,4 +35,13 @@ public class TimerUI : MonoBehaviour
             Min++;
         }
 	}
+    public string getSixDigitTime()
+    {
+        int calculatedHour = Min / 60;
+        int remainingMin = Min % 60;
+
+
+
+        return string.Format("{0:D2}:{1:D2}:{2:D2}", calculatedHour, remainingMin, (int)Sec);
+    }
 }

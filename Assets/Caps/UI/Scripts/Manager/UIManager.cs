@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,8 @@ public class UIManager : MonoBehaviour
 	public GameObject ExitUI;
 	public InGameUI inGameUI;
     public GameObject TempUI;
+    public TimerUI timerUI;
+    public GameOverUI gameOverUI;
 
     public Image[] heartImages;
     public Sprite[] heartSprites;
@@ -210,6 +213,11 @@ public class UIManager : MonoBehaviour
         // deBuff
         TabUI.deBuffImage[buffLevel].sprite
             = DictUI.Contents[deBuffIndex].iconImage.sprite;
+    }
+    public void GameOver()
+    {
+        gameOverUI.gameObject.SetActive(true);
+        gameOverUI.UpdateValue(timerUI.getSixDigitTime(), 0);
     }
 
     public void PauseTime(bool IsPause)
