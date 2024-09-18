@@ -513,5 +513,7 @@ public class InGameManager : MonoBehaviour
     private void GameOver()
     {
         player.GetComponent<BoxCollider2D>().enabled = false;
+        GameManager.Instance.UpdateDeathCount();
+        UIManager.Instance.GameOver();
     }
 }

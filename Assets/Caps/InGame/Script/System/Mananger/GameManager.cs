@@ -155,6 +155,20 @@ public class GameManager : MonoBehaviour
         if(killCount >= 300) CheckKuiper();
     }
 
+    public void UpdateTime(int t)
+    {
+        playTime += t;
+    }
+
+    public void UpdateDeathCount()
+    {
+        deathCount++;
+    }
+    public void UpdateClearCount()
+    {
+        clearCount++;
+    }
+
     public void CheckEunha()
     {
         // none이 없으므로 1씩 줄어듬

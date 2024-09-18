@@ -41,9 +41,12 @@ public class PauseUI : MonoBehaviour
 	}
 	public void GoMenu()
 	{
+		UIManager.Instance.timerUI.SaveTimer();
+
         GameManager.Instance.SaveData();
 		Time.timeScale = 1f;
         SceneManager.LoadScene(0);
+		//Debug.Log("게임매니저 타임  = " + GameManager.Instance.PlayTime);
 	}
 
 	public void Close()

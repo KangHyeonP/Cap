@@ -13,7 +13,7 @@ public class HistoryUI : MonoBehaviour
 {
     public string[] names = { };
 
-    public TextMeshProUGUI playTimeText;
+    //public TextMeshProUGUI playTimeText;
 
     private PersistentVariablesSource source;
 
@@ -49,10 +49,12 @@ public class HistoryUI : MonoBehaviour
 
     public void ChangeText()
     {
+        //Debug.Log("playTime : " + playTime);
+
         //source = LocalizationSettings.StringDatabase.SmartFormatter.GetSourceExtension<PersistentVariablesSource>();
         //var myFloat = source["global"]["my-float"] as UnityEngine.Localization.SmartFormat.PersistentVariables.FloatVariable;
-        hour = playTime / 60;
-        minute = playTime % 60;
+        hour = playTime / 3600;
+        minute = (playTime % 3600) / 60;
         
         IntVariable hours = source["global"]["play-hour"] as UnityEngine.Localization.SmartFormat.PersistentVariables.IntVariable;
         hours.Value = hour;

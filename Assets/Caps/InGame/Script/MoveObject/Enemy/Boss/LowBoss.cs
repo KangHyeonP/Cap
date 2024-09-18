@@ -57,7 +57,7 @@ public class LowBoss : Boss
 
     protected override void SelectBP()
     {
-        int[] numbers = { 2 };
+        int[] numbers = { 2, 9 };
         //selectPivot = Random.Range(1, 14);
         selectPivot = numbers[Random.Range(0, numbers.Length)];
         Debug.Log("보스 스킬 사용");

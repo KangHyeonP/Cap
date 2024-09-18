@@ -95,8 +95,11 @@ public class JsonClass
 
     public void UpdateHistory()
     {
+        _playerData.playTime = GameManager.Instance.PlayTime;
         _playerData.killEnemy = GameManager.Instance.KillCount;
         _playerData.diaryCount = GameManager.Instance.DiaryCount;
+        _playerData.deathCount = GameManager.Instance.DeathCount;
+        _playerData.clearCount = GameManager.Instance.ClearCount;
     }
 }
 

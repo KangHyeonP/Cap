@@ -4194,7 +4194,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   names: []
-  playTimeText: {fileID: 0}
   hour: 0
   minute: 0
   playTime: 0

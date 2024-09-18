@@ -195,6 +195,7 @@ MonoBehaviour:
   attackDelay: 2
   curAttackDelay: 0
   attackDistance: 4
+  keyRoom: 0
   TestAgent: 0
   tableValue:
   - 2
@@ -333,6 +334,10 @@ PrefabInstance:
     - target: {fileID: 277980493279965441, guid: 3fa0bd5ef89a8234d8c8015cd45705fa, type: 3}
       propertyPath: m_Name
       value: EnemyGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 7875177715511483415, guid: 3fa0bd5ef89a8234d8c8015cd45705fa, type: 3}
+      propertyPath: fireSpeed
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 8909645730516905866, guid: 3fa0bd5ef89a8234d8c8015cd45705fa, type: 3}
       propertyPath: m_LocalPosition.x

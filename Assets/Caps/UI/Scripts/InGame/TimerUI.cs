@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class TimerUI : MonoBehaviour
 {
-	private float Sec = 0f;
+	public float Sec = 0f;
 	private int Min = 0;
 
     private TextMeshProUGUI timeText;
@@ -40,8 +40,11 @@ public class TimerUI : MonoBehaviour
         int calculatedHour = Min / 60;
         int remainingMin = Min % 60;
 
-
-
         return string.Format("{0:D2}:{1:D2}:{2:D2}", calculatedHour, remainingMin, (int)Sec);
+    }
+
+    public void SaveTimer()
+    {
+        GameManager.Instance.UpdateTime(Min * 60 + (int)Sec);
     }
 }

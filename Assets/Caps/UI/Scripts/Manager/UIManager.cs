@@ -217,7 +217,8 @@ public class UIManager : MonoBehaviour
     public void GameOver()
     {
         gameOverUI.gameObject.SetActive(true);
-        gameOverUI.UpdateValue(timerUI.getSixDigitTime(), 0);
+        gameOverUI.UpdateValue(timerUI.getSixDigitTime(), InGameManager.Instance.killCount);
+        timerUI.SaveTimer();
     }
 
     public void PauseTime(bool IsPause)
