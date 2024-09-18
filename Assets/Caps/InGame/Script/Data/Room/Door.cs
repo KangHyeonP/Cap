@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    bool isOpened = false;
+    public bool isOpened = false;
     bool isLock;
-    private GameObject qmMark;
+    private GameObject qMark;
     private Animator animator;
-    private BoxCollider2D boxCol;
+    public BoxCollider2D boxCol;
 
     [SerializeField]
     private Door nextDoor;
@@ -17,7 +17,7 @@ public class Door : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         boxCol = GetComponent<BoxCollider2D>();
-        qmMark = transform.GetChild(0).gameObject;
+        qMark = transform.GetChild(0).gameObject;
     }
 
     private void Update()
@@ -35,12 +35,12 @@ public class Door : MonoBehaviour
     public void nextQMOn()
     {
         if (!nextDoor.animator.enabled)
-            nextDoor.qmMark.SetActive(true);
+            nextDoor.qMark.SetActive(true);
     }
 
     public void QMOff()
     {
-        qmMark.SetActive(false);
+        qMark.SetActive(false);
     }
 
     public void DoorLock()
@@ -51,6 +51,11 @@ public class Door : MonoBehaviour
     public void DoorUnlock()
     {
         boxCol.isTrigger = true;
+    }
+
+    public void Doorcol(bool check)
+    {
+        boxCol.enabled = check;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

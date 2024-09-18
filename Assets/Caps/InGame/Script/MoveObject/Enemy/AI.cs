@@ -81,6 +81,8 @@ public abstract class AI : MonoBehaviour
     protected Vector3 tableVec; // table 위치
     protected Vector3 playerPosVec;
 
+    // 열쇠방 전용 AI 체크
+    public bool keyRoom = false; // 활성화 될 시 AI 움직임 제어
     // AI 임시 삭제용
     public bool TestAgent = false;
     protected bool HitCheck;
@@ -198,6 +200,11 @@ public abstract class AI : MonoBehaviour
     {
         isDetect = true;
     }
+
+    public void DisPlayerRoom()
+    {
+        isDetect = false;
+    }    
 
     protected void Chase()
     {
