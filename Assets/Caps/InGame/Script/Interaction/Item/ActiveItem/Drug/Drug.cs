@@ -75,6 +75,7 @@ public class Drug : Item
             shop.DrugSoldout(shopIndex);
         }
 
+        SoundManager.Instance.PlaySFX(SFX.DrugPickUp);
         if (InGameManager.Instance.drugInven != null)
         {
             //InGameManager.Instance.drugInven.gameObject.SetActive(true);
@@ -92,6 +93,7 @@ public class Drug : Item
     {
         if (isProduct) return;
 
+        SoundManager.Instance.PlaySFX(SFX.UseDrug);
         GetDrug();
         InGameManager.Instance.UpdateDrug(drugGuage);
         DrugAbility();

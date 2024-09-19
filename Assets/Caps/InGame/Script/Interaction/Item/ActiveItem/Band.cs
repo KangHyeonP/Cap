@@ -37,6 +37,7 @@ public class Band : Item
             shop.ItemSoldout(shopIndex);
         }
 
+        SoundManager.Instance.PlaySFX(SFX.ItemPickUp);
         GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Band);
         GameManager.Instance.CheckEunha();
         UseItem();
@@ -60,6 +61,7 @@ public class Band : Item
             return;
         }
 
+        SoundManager.Instance.PlaySFX(SFX.UseBand);
         InGameManager.Instance.HealHp(1);
     }
     // 콜라이더 추가

@@ -75,7 +75,7 @@ public class GrenadeObject : MonoBehaviour
         {
             c.GetComponent<AI>()?.Damage(damage, WeaponValue.Knife);
         }
-
+        SoundManager.Instance.PlaySFX(SFX.UseGrenade);
         yield return new WaitForSeconds(2f);
         particle.Stop();
 

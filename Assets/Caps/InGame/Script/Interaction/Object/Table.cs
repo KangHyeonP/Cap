@@ -153,6 +153,7 @@ public class Table : MonoBehaviour
         // 애니메이션 대신 일단 스프라이트 변경
         //tableSprite.sprite = Sprites[(int)curArrow];
         anim.SetTrigger(agentArrow.ToString());
+        SoundManager.Instance.PlaySFX(SFX.Table_Kick);
 
         tableActive = true;
         lineObj[lineIndex].enabled = false;

@@ -43,13 +43,14 @@ public class WeaponBox : MonoBehaviour
             if (InGameManager.Instance.key > 0)
             {
                 InGameManager.Instance.UpdateKey(-1);
+                SoundManager.Instance.PlaySFX(SFX.UseKey);
             }
             else
                 return;
         }
 
         animator.enabled = true;
-
+        SoundManager.Instance.PlaySFX(SFX.Box_Open);
         StartCoroutine(DropWeapon());
         Debug.Log("상자열기");
     }

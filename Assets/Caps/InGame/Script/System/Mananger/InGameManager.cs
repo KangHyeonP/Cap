@@ -261,6 +261,7 @@ public class InGameManager : MonoBehaviour
     public void Buy(int price)
     {
         UpdateMoney(-price);
+        SoundManager.Instance.PlaySFX(SFX.UseMoney);
     }
 
     public void UpdateDrug(int value)
@@ -304,7 +305,7 @@ public class InGameManager : MonoBehaviour
         }
 
         drugBar.value = drugGauge;
-        money -= 10;
+        Buy(10);
     }
 
 

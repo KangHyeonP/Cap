@@ -38,6 +38,7 @@ public class LockDoor : MonoBehaviour
             if (InGameManager.Instance.key >= 1)
             {
                 InGameManager.Instance.UpdateKey(-1);
+                SoundManager.Instance.PlaySFX(SFX.UseKey);
                 door.Doorcol(true);
                 boxcol.enabled = false;
                 door.isOpened = true;

@@ -65,6 +65,7 @@ public class BossGrenade : MonoBehaviour
             c.GetComponent<Player>()?.Hit(1);
         }
 
+        SoundManager.Instance.PlaySFX(SFX.UseGrenade);
         yield return new WaitForSeconds(2f);
         particle.Stop();
 

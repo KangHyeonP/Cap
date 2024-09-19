@@ -40,6 +40,11 @@ public class DictionaryUI : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    private void OnEnable()
+    {
+        if(SoundManager.Instance != null) SoundManager.Instance.PlaySFX(SFX.DiaryOpen);
+    }
+
     private void Start()
     {
         GameManager.Instance.dictionaryUI = this;
@@ -115,6 +120,7 @@ public class DictionaryUI : MonoBehaviour
 
     public void Close()
     {
+        SoundManager.Instance.PlaySFX(SFX.DiaryClose);
         animator.SetBool("Open", false);
     }
     public void DictOff()

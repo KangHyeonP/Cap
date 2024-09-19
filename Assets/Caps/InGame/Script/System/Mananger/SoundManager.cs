@@ -11,12 +11,15 @@ public enum VolumeType
 
 public enum BGM
 {
-    Main, InGame, Boss, GameOver
+    Main, NoneBattle, Battle, Boss, GameOver
 }
 
 public enum SFX
 {
-    Walk, Shoot, Roll, Hit
+    Walk, Roll, Hit, AK_Reload, M870_Reload, AWP_Reload, Eagle_Reload, Anaconda_Reload,
+    Knife_Shot, Punch_Shot, AK_Shot, M870_Shot, AWP_Shot, Eagle_Shot, Anaconda_Shot, 
+    SoldOut, DrugPickUp, ItemPickUp, MoneyPickUp, UseBand, UseBFS, UseDrug, UseGaugeLock, UseGrenade, UseKey, UseMoney,
+    Box_Open, Door_Open, Table_Kick, DiaryOpen, DiaryClose
 }
 
 public class SoundManager : MonoBehaviour
@@ -97,11 +100,25 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlaySFX(SFX sfx)
+    /*public void PlaySFX(SFX sfx)
     {
         sfxSource.clip = sfxClips[(int)sfx];
         sfxSource.Play();
+    }*/
+    public void PlaySFX(SFX sfx)
+    {
+        //sfxSource.clip = sfxClips[(int)sfx];
+        //sfxSource.pitch = 1;
+        sfxSource.PlayOneShot(sfxClips[(int)sfx]);
     }
+
+
+    /*public void PlaySFX(SFX sfx, float pitch)
+    {
+        sfxSource.clip = sfxClips[(int)sfx];
+        sfxSource.pitch = pitch;
+        sfxSource.Play();
+    }*/
 
     public void PlayBGM(BGM bgm)
     {

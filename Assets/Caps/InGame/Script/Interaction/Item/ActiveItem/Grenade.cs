@@ -35,6 +35,7 @@ public class Grenade : Item
             isProduct = false;
             shop.ItemSoldout(shopIndex);
         }
+        SoundManager.Instance.PlaySFX(SFX.ItemPickUp);
         GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Grenade);
         GameManager.Instance.CheckEunha();
         UseItem();

@@ -25,6 +25,7 @@ public class Money : Item
     {
         if (DrugManager.Instance.itemBanCheck) return;
 
+        SoundManager.Instance.PlaySFX(SFX.MoneyPickUp);
         GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Money);
         GameManager.Instance.CheckEunha();
         UseItem();

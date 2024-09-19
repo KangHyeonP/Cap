@@ -88,11 +88,13 @@ public class Shop : MonoBehaviour
 
     public void ItemSoldout(int index)
     {
+        SoundManager.Instance.PlaySFX(SFX.SoldOut);
         itemSoldout[index].SetActive(true);
     }
 
     public void DrugSoldout(int index)
     {
+        SoundManager.Instance.PlaySFX(SFX.SoldOut);
         drugSoldout[index].SetActive(true);
     }
 }

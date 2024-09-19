@@ -4865,8 +4865,41 @@ MonoBehaviour:
   mixer: {fileID: 24100000, guid: d95c9a7dce1401548aa40980fd7e0fef, type: 2}
   bgmClips:
   - {fileID: 8300000, guid: f21bcfe527c82b64b89faefea5ccf3f0, type: 3}
+  - {fileID: 8300000, guid: c027eba0f4fc1c14a9c30ab964c37c63, type: 3}
+  - {fileID: 8300000, guid: fecc0a9dbb1c7dc4394b961f315994f4, type: 3}
+  - {fileID: 8300000, guid: 4be3556b0bb2033478494a659f9d8b0b, type: 3}
   sfxClips:
-  - {fileID: 8300000, guid: 39172f6db2fdd0b4dadb61dc250e5c9c, type: 3}
+  - {fileID: 8300000, guid: 273a897d79c6fb743b6bdf81197ea49d, type: 3}
+  - {fileID: 8300000, guid: c234bba49797e5e4aa1da2e531789840, type: 3}
+  - {fileID: 8300000, guid: eb743efe88e6769478cbeaeb380db96d, type: 3}
+  - {fileID: 8300000, guid: 6d7b6bf051316554c8a8a970487a63cf, type: 3}
+  - {fileID: 8300000, guid: f3c04239ebee3554cb86654abd20be2f, type: 3}
+  - {fileID: 8300000, guid: f95110c195d846c41898f52c385bd7cb, type: 3}
+  - {fileID: 8300000, guid: f3651fe1a00f9084ba505bed44a8500c, type: 3}
+  - {fileID: 8300000, guid: 754a5c61d3b91ed448358f76de9410e5, type: 3}
+  - {fileID: 8300000, guid: 31fdd548709a7c24e9a60b8af7d94df2, type: 3}
+  - {fileID: 8300000, guid: 7cfd3ea1e069616438dc1e12916fd6f6, type: 3}
+  - {fileID: 8300000, guid: 89f4757f43f37a94c9942acf35cfb30c, type: 3}
+  - {fileID: 8300000, guid: 24e04faa27add0148856c3a838c87cee, type: 3}
+  - {fileID: 8300000, guid: f52262a2548852b48a68fe3644210562, type: 3}
+  - {fileID: 8300000, guid: 7b85c60e4c619524095a439a499c135d, type: 3}
+  - {fileID: 8300000, guid: 5f9da14690f409d4caaf1814c61a872f, type: 3}
+  - {fileID: 8300000, guid: de136a411ae2fec4097676040e4fd0e8, type: 3}
+  - {fileID: 8300000, guid: fe77bcb5002b47e4ba5b519cc1e2dde1, type: 3}
+  - {fileID: 8300000, guid: e30146746e5190c4287396bd3aa9cd33, type: 3}
+  - {fileID: 8300000, guid: 0812f1e3aa7060f4483468ed5441d33e, type: 3}
+  - {fileID: 8300000, guid: 45443f1be6cc3c8409b01311784a2991, type: 3}
+  - {fileID: 8300000, guid: 82c4216a8b9529c4aafa15bec83d3bef, type: 3}
+  - {fileID: 8300000, guid: 531680b000ff42a4f95c1d22cea9d6b7, type: 3}
+  - {fileID: 8300000, guid: 9f30b7a16ecb41c458467065d841b38a, type: 3}
+  - {fileID: 8300000, guid: be4987118f3a76b49944e81c0fe1c675, type: 3}
+  - {fileID: 8300000, guid: c59345f355676d544988b14d20ddeae1, type: 3}
+  - {fileID: 8300000, guid: a880ad1c6da42484daa6eca62275c113, type: 3}
+  - {fileID: 8300000, guid: 24b197cbc59206e41b4aa822269fe405, type: 3}
+  - {fileID: 8300000, guid: f3a1a3e205395c64d979858b86b0083d, type: 3}
+  - {fileID: 8300000, guid: 26c98bb2ca372ba429c2782b3a740cdd, type: 3}
+  - {fileID: 8300000, guid: 95b9b9f0d18a1a24cbac8eed87096617, type: 3}
+  - {fileID: 8300000, guid: 5ef332a8d5fff7c40b66638ab5c28565, type: 3}
   bgmSource: {fileID: 1392859550}
   sfxSource: {fileID: 1392859549}
   toggleCheck: 010101

@@ -83,6 +83,8 @@ public abstract class Gun : MonoBehaviour
             curRecoil = 0;
         else curRecoil = recoil - (InGameManager.Instance.Aim + DrugManager.Instance.aim);
 
+        int value = (int)SFX.AK_Shot + InGameManager.Instance.curWeaponIndex;
+        SoundManager.Instance.PlaySFX((SFX)value);
 		for(int i=0;i<bulletCount; i++)
 		{
             muzzleRecoil[i] = Random.Range(-90.0f - curRecoil, -90.0f + curRecoil);
@@ -102,7 +104,8 @@ public abstract class Gun : MonoBehaviour
         fireTime = 0;
         UIManager.Instance.inGameUI.BulletTextUpdate(--InGameManager.Instance.curBullet[(int)weapons]);
         // UI¼öÁ¤
-        
+
+        SoundManager.Instance.PlaySFX((SFX)value);
         yield return new WaitForSeconds(0.1f);
 
         if (DrugManager.Instance.islucianPassive)

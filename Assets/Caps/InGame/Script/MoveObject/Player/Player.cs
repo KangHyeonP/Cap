@@ -85,6 +85,9 @@ public abstract class Player : MonoBehaviour
     protected bool shiftKey;
     protected bool reLoadKey;
 
+    // MoveSound
+    protected bool moveSoundCheck = true; //참이면 소리 활성화
+
     // Weapon
     public int tempWeaponIndex = 2;
     public int gunCnt = 0; // 파랑 마약 전용 인덱스 카운팅
@@ -132,6 +135,7 @@ public abstract class Player : MonoBehaviour
         if (InGameManager.Instance.IsPause || isDead) return;
 
         InputKey();
+        StartCoroutine(MoveSound());
         if (DrugManager.Instance.isCrazy) inputVec *= -1;
 
         VectorStatus(curVec);
@@ -195,6 +199,21 @@ public abstract class Player : MonoBehaviour
         rigid.MovePosition(rigid.position + nextVec);
     }
 
+    public IEnumerator MoveSound()
+    {
+        if (isWalk && moveSoundCheck && moveVec != null)
+        {
+            moveSoundCheck = false;
+            SoundManager.Instance.PlaySFX(SFX.Walk);
+            yield return new WaitForSeconds(0.75f);
+            moveSoundCheck = true;
+        }
+        /*else if(!isWalk && !moveSoundCheck)
+        {
+            
+        }*/
+    }
+
     protected void Roll()
     {
         if (isSkill || DrugManager.Instance.isRollBan) return;
@@ -241,7 +260,7 @@ public abstract class Player : MonoBehaviour
 
         rollingSpeed *= 2;
 
-        
+        SoundManager.Instance.PlaySFX(SFX.Roll);
         anim.SetTrigger("Roll");
         anim.SetTrigger(rollStatus);
 

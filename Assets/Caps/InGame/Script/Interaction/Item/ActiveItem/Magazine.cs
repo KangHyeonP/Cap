@@ -36,7 +36,7 @@ public class Magazine : Item
             isProduct = false;
             shop.ItemSoldout(shopIndex);
         }
-
+        SoundManager.Instance.PlaySFX(SFX.ItemPickUp);
         GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.MainMagazine + value);
         GameManager.Instance.CheckEunha();
         UseItem();

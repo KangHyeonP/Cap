@@ -34,6 +34,7 @@ public class Key : Item
             isProduct = false;
             shop.ItemSoldout(shopIndex);
         }
+        SoundManager.Instance.PlaySFX(SFX.ItemPickUp);
         GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Key);
         //InGameManager.Instance.CheckGirl(); // 수정 전 로직 -> 모든 아이템 + 무기 
         GameManager.Instance.CheckEunha();

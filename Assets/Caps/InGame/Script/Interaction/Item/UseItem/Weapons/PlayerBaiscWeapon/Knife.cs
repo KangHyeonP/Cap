@@ -26,6 +26,7 @@ public class Knife : BasicWeapon
 
     protected override IEnumerator Attack()
     {
+        SoundManager.Instance.PlaySFX(SFX.Knife_Shot);
         return base.Attack();
     }
 

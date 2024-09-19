@@ -36,6 +36,8 @@ public class Bulletproof : Item
             isProduct = false;
             shop.ItemSoldout(shopIndex);
         }
+
+        SoundManager.Instance.PlaySFX(SFX.ItemPickUp);
         GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.BulletProof);
         GameManager.Instance.CheckEunha();
         UseItem();
@@ -56,8 +58,8 @@ public class Bulletproof : Item
             = new Vector2(23 + index * 57, -16);
 
 
-            //= UIManager.Instance.heartImages[index].rectTransform.position;
-
+        //= UIManager.Instance.heartImages[index].rectTransform.position;
+        SoundManager.Instance.PlaySFX(SFX.UseBFS);
         UIManager.Instance.BulletproofUpdate(true);
     }
     // 콜라이더 추가

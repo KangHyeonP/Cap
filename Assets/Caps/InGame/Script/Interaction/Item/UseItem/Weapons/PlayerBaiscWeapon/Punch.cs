@@ -26,6 +26,8 @@ public class Punch : BasicWeapon
 
     protected override IEnumerator Attack()
     {
+        SoundManager.Instance.PlaySFX(SFX.Punch_Shot);
+
         InGameManager.Instance.BasicWeaponCheck(true);
         InGameManager.Instance.player.KnifeAttack(true);
         spriteRenderer.enabled = false;
@@ -33,7 +35,11 @@ public class Punch : BasicWeapon
         InGameManager.Instance.player.hadnSprite.enabled = false;
         fireTime = 0;
 
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.3f);
+
+        SoundManager.Instance.PlaySFX(SFX.Punch_Shot);
+
+        yield return new WaitForSeconds(0.3f);
 
         InGameManager.Instance.BasicWeaponCheck(false);
         spriteRenderer.enabled = true;

@@ -89,6 +89,7 @@ public class Weapons : Item
             }
         }
 
+        SoundManager.Instance.PlaySFX(SFX.ItemPickUp);
         GameManager.Instance.CheckEunha();
         //GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Desert_Eagle + (int)eWeapons);
         UseItem();
