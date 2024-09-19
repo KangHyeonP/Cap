@@ -287,6 +287,8 @@ MonoBehaviour:
   curPrice: 0
   playerCheck: 0
   distance: 999
+  shopIndex: 0
+  shop: {fileID: 0}
   priceText: {fileID: 3949379636183157944}
   spriteRenderer: {fileID: 3846019484883210279}
   eIconRenderer: {fileID: 3382448601829082404}
@@ -297,7 +299,7 @@ MonoBehaviour:
   blackDrugSprite: {fileID: 21300000, guid: 14aea88c445e4d842a8a5eaae1d02230, type: 3}
   curDrugSprite: {fileID: 0}
   mapDrug: 0
-  drugIndex: 0
+  drugIndex: 4
 --- !u!1 &4459572953624156332
 GameObject:
   m_ObjectHideFlags: 0
