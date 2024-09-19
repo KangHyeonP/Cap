@@ -369,7 +369,7 @@ MonoBehaviour:
   playerAttackDelay: 0
   selectCharacter: 0
   playerCheck: 0
-  diaryDataCheck: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  diaryDataCheck: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   dictionaryUI: {fileID: 0}
   kuiperOn: 0
   eunhaOn: 0
@@ -4000,13 +4000,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointerSprites:
-  - {fileID: 21300000, guid: 138a0d543357c6c43836b758ca85f26f, type: 3}
-  - {fileID: 21300000, guid: 7c63829cb22611346921f814cc7fe74c, type: 3}
-  - {fileID: 21300000, guid: a3f97a655656a444b8f2eeffff5706d3, type: 3}
+  - {fileID: 459195965, guid: 0ac3744df1a6dbb47a26dd45003c2d45, type: 3}
+  - {fileID: 1875969552, guid: 0f52e02dced3ba8419dc035c9545a916, type: 3}
+  - {fileID: 834555290, guid: b82f9a068f6a5f84aa902cdbbd28f5cd, type: 3}
+  - {fileID: -298188220, guid: b3be774799a66b84fa5ac3813b1d5f8b, type: 3}
+  - {fileID: -1173456520, guid: d3f16449af9a02546bab57b3e691b95f, type: 3}
   pointerTextures:
-  - {fileID: 2800000, guid: 2f4db36e35bfe144e9709cc715266659, type: 3}
-  - {fileID: 2800000, guid: 3be0f45355f77b045b18e7af4f804d2f, type: 3}
-  - {fileID: 2800000, guid: 0187dd616dba8114cb03c9e2df50e8e1, type: 3}
+  - {fileID: 2800000, guid: 47a5ac57abc4d494d970f757f1f84843, type: 3}
+  - {fileID: 2800000, guid: d965cb466a78f634db195ab5c003d919, type: 3}
+  - {fileID: 2800000, guid: 08cd26a91458d4549a7b8c04619458ce, type: 3}
+  - {fileID: 2800000, guid: b321b71a3300a0d44a1fa354d36a36b2, type: 3}
+  - {fileID: 2800000, guid: 3b664db9a7237b9489c10661549d03b3, type: 3}
 --- !u!1 &1265495635
 GameObject:
   m_ObjectHideFlags: 0

@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     public bool playerCheck = false;
 
     [SerializeField]
-    private bool[] diaryDataCheck = new bool[57];
+    private bool[] diaryDataCheck = new bool[55];
     public bool[] DiaryDataCheck => diaryDataCheck;
 
     public DictionaryUI dictionaryUI = null;

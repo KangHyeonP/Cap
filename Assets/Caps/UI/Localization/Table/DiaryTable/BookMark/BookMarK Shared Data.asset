@@ -47,6 +47,10 @@ MonoBehaviour:
     m_Key: DeBuff
     m_Metadata:
       m_Items: []
+  - m_Id: 9217736329850880
+    m_Key: Boss
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

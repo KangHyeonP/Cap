@@ -105,7 +105,7 @@ public class JsonClass
 
 public class PlayerData
 {
-    public bool[] mousePointer = { true, false, false }; 
+    public bool[] mousePointer = { true, false, false, false, false }; 
     public int playTime = 0;
     public int killEnemy = 0;
     public int diaryCount = 0;
@@ -123,7 +123,7 @@ public class DiaryData
         false, false, false, // 근접 무기
         false, false, false, false, false, // 보조무기, 주무기
         true, false, false, // 캐릭터
-        false, false, false, // 적
+        false, // 적
         false, false, false, // 보스
         false, false, // Npc
         false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, // 버프

@@ -12,7 +12,7 @@ public enum EDiaryValue
     Desert_Eagle, Anaconda,
     AK47, M870, AWP,
     Haeseong, Eunha, Kuiper,
-    Strike_Team1, Strike_Team2, Strike_Team3, Mikazuki, Deimos, FullMoon,
+    Strike_Team1, Mikazuki, Deimos, FullMoon,
     Merchant, Unlicensed_Doctor,
     Extra_Health, Berserker, Rage,
     Expanded_Bullet, Piercing, Execution,
