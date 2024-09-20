@@ -102,6 +102,13 @@ public abstract class Boss : AI
         if (isReverse) transform.localScale = new Vector3(-1, 1, 1);
         else transform.localScale = new Vector3(1, 1, 1);
 
+        if (isRush)
+        {
+            if(isReverse) transform.localScale = new Vector3(1, 1, 1);
+            else transform.localScale = new Vector3(-1, 1, 1);
+        }
+
+
         curAttackDelay += Time.deltaTime;
 
         switch (enemy)
@@ -245,6 +252,8 @@ public abstract class Boss : AI
         //      agent.speed = originSpd;
 
         isRush = true;
+        //transform.localScale = new Vector3(1, 1, 1);
+
         bossAnim.SetTrigger("Rush");
         gunRenderer.enabled = false;
         yield return new WaitForSeconds(0.2f);
@@ -258,7 +267,7 @@ public abstract class Boss : AI
         isRush = false;
         InGameManager.Instance.bossRushCheck = false;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         Debug.Log("BP5");
         gunRenderer.enabled = true;
         //transform.position = Vector2.MoveTowards(transform.position, target.position, 80f * Time.deltaTime);

@@ -83,6 +83,10 @@ public class CharacterImage : MonoBehaviour
             else return;
         }
 
+        if(curIndex == 2) characterImage.rectTransform.sizeDelta = new Vector2(600, 600);
+        else characterImage.rectTransform.sizeDelta = new Vector2(500, 500);
+
+
         if (curIndex == 0) buttonText[0].enabled = false;
         else buttonText[0].enabled = true;
 

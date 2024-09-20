@@ -118,19 +118,9 @@ public class ShaderEffect : MonoBehaviour
         else Graphics.Blit(source, destination, shadowMaterial);
     }
 
-    public void StartMirage(int index)
+    public void StartMirage()
     {
-        switch (index)
-        {
-            case 0:
-                effectImage.color = new Color(1, 1, 1, 0);
-                break;
-
-            case 1:
-                effectImage.color = new Color(0.49f, 0, 1, 0);
-                break;
-        }
-
+        effectImage.color = new Color(0, 0, 0, 0);
 
         StartCoroutine(MirageEffect());
     }
@@ -141,7 +131,7 @@ public class ShaderEffect : MonoBehaviour
 
         for (int i = 0; i < repeatCount; i++)
         {
-            yield return StartCoroutine(ChangeAlpha(0.1f));
+            yield return StartCoroutine(ChangeAlpha(0.8f));
             yield return StartCoroutine(InvertEffect());
             yield return StartCoroutine(ChangeAlpha(0f));
         }

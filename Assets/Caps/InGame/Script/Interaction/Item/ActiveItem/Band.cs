@@ -63,6 +63,7 @@ public class Band : Item
 
         SoundManager.Instance.PlaySFX(SFX.UseBand);
         InGameManager.Instance.HealHp(1);
+        UIManager.Instance.BulletproofPosUpdate();
     }
     // 콜라이더 추가
     protected override void OnTriggerEnter2D(Collider2D collision)

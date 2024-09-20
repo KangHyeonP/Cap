@@ -34,6 +34,8 @@ public class Room : MonoBehaviour
     [SerializeField]
     private Door[] doors;
 
+    public Doctor doctor;
+
     // Room Status
     private bool clearCheck = false; // 현재 클리어한 방인지 체크
     public bool ClearCheck => clearCheck;

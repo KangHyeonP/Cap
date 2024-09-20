@@ -351,7 +351,7 @@ public class DrugManager : MonoBehaviour
         mirageCheck = true;
         int index = Random.Range(0, 2);
         Debug.Log("신기루 인덱스 : " + index);
-        shaderEffect.StartMirage(index);
+        shaderEffect.StartMirage();
 
         switch(index)
         {

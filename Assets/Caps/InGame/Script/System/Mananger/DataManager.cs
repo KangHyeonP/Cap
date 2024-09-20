@@ -113,9 +113,11 @@ public class DataManager : MonoBehaviour
         mouseIndex = index;
         jsonClass.UpdatePointer(mouseIndex);
 
-        // 만약 크기가 동일하면 awake에서 그냥 사용
         hotSpot.x = pointerTextures[mouseIndex].width / 2;
-        hotSpot.y = pointerTextures[mouseIndex].height / 2;
+
+        if (index == 3) hotSpot.y = 0;
+        else if (index == 4) { hotSpot.x = 0; hotSpot.y = 0; }
+        else hotSpot.y = pointerTextures[mouseIndex].height / 2;
 
         Cursor.SetCursor(pointerTextures[mouseIndex], hotSpot, CursorMode.Auto);
     }

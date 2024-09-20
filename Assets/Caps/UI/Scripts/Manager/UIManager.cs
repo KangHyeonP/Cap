@@ -198,6 +198,14 @@ public class UIManager : MonoBehaviour
         Color c = bulletProof.color;
         c.a = isActive ? 1 : 0;
         bulletProof.color = c;
+        BulletproofPosUpdate();
+    }
+
+    public void BulletproofPosUpdate()
+    {
+        int index = (InGameManager.Instance.Hp - 1) / 2;
+        bulletProof.rectTransform.anchoredPosition
+            = new Vector2(23 + index * 57, -16);
     }
 
     public void TabBuff(int buffIndex, int deBuffIndex, int buffLevel)
