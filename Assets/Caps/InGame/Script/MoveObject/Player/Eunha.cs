@@ -48,6 +48,12 @@ public class Eunha : Player
             }
         }
     }
+    protected override void Damage(int power)
+    {
+        if (fogIn) return;
+        base.Damage(power);
+    }
+
 
     protected override void FixedUpdate()
     {
@@ -56,15 +62,15 @@ public class Eunha : Player
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        //base.OnTriggerEnter2D(collision);
-        if (collision.tag == "EnemyBullet") //수정
+        base.OnTriggerEnter2D(collision);
+        /*if (collision.tag == "EnemyBullet") //수정
         {
             if (fogIn) return;
 
             if (avoidCheck || isHit) return;
 
             Damage(1); // 데미지 로직 나중에 수정
-        }
+        }*/
     }
 
     protected override IEnumerator ESkill()

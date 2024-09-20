@@ -275,7 +275,7 @@ Animator:
   m_GameObject: {fileID: 1530444416697801524}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: a1d254f216479d445a0617d720729627, type: 2}
+  m_Controller: {fileID: 9100000, guid: ebc31afe9c59ddc42ba6295edc1ba7ff, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -312,6 +312,7 @@ MonoBehaviour:
   gun: {fileID: 3363599335819604270}
   Line: {fileID: 0}
   gunRenderer: {fileID: 8645544296083747775}
+  bossAnim: {fileID: 2620492821735618530}
   rushPower: 10
   selectPivot: 0
   knifeThrow: 0

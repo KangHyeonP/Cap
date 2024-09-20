@@ -91,8 +91,8 @@ public class TopBoss : Boss
 
     protected override void SelectBP()
     {
-        //int[] numbers = { 7 };
-        int[] numbers = { 1, 2, 3, 4, 5, 7, 8, 10, 11, 12 }; // 6, 7야함
+        int[] numbers = { 5 };
+        //int[] numbers = { 1, 2, 3, 4, 5, 7, 8, 10, 11, 12 }; // 6, 7야함
         //selectPivot = Random.Range(1, 14);
         selectPivot = numbers[Random.Range(0, numbers.Length)];
         Debug.Log("보스 스킬 사용");

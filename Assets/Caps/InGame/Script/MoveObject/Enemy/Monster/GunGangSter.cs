@@ -35,6 +35,7 @@ public class GunGangSter : Agent
 
         GameObject bulletcopy = Instantiate(bullet, muzzle.position, muzzle.rotation);
         bulletcopy.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;*/
+        attackDistance = Random.Range(3.0f, 5.0f);
         gun.fireSpeed = Random.Range(6.0f, 7.0f);
         gun.ShotReady();
     }

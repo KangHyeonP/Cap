@@ -27,7 +27,17 @@ public class Knife : BasicWeapon
     protected override IEnumerator Attack()
     {
         SoundManager.Instance.PlaySFX(SFX.Knife_Shot);
-        return base.Attack();
+        InGameManager.Instance.BasicWeaponCheck(true);
+        InGameManager.Instance.player.KnifeAttack(true);
+        spriteRenderer.enabled = false;
+        InGameManager.Instance.player.isAttack = true;
+        fireTime = 0;
+
+        yield return new WaitForSeconds(0.3f);
+
+        InGameManager.Instance.BasicWeaponCheck(false);
+        spriteRenderer.enabled = true;
+        InGameManager.Instance.player.isAttack = false;
     }
 
     public override void CancleAttack()

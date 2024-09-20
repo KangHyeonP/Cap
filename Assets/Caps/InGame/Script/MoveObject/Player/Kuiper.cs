@@ -25,9 +25,19 @@ public class Kuiper : Player
         base.FixedUpdate();
     }
 
+    protected override void Damage(int power)
+    {
+        base.Damage(power);
+    }
+
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
+    }
+
+    protected override void OnCollisionEnter2D(Collision2D collision)
+    {
+        base.OnCollisionEnter2D(collision);
     }
 
     protected override IEnumerator ESkill()

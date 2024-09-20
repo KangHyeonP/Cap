@@ -312,6 +312,7 @@ MonoBehaviour:
   gun: {fileID: 3363599335819604270}
   Line: {fileID: 0}
   gunRenderer: {fileID: 8645544296083747775}
+  bossAnim: {fileID: 2620492821735618530}
   rushPower: 10
   selectPivot: 0
   knifeThrow: 0

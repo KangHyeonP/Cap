@@ -13,24 +13,33 @@ public class ShaderEffect : MonoBehaviour
     bool isInvert = false;
 
     public int repeatCount = 2;
-    private bool isAnimating = false;
+   // private bool isAnimating = false;
 
-    int r = 0;
-
-    void Update()
+    /*void Update()
     {
         // V 키를 눌렀을 때 애니메이션 시작
         if (Input.GetKeyDown(KeyCode.V) && !isAnimating)
         {
             StartCoroutine(FadeAlpha((EDrugColor)r++));
         }
+    }*/
+
+    private void Start()
+    {
+        DrugManager.Instance.shaderEffect = this;
     }
+
+    public void StartDrugEffect(EDrugColor drugColor)
+    {
+        StartCoroutine(FadeAlpha(drugColor));
+    }
+
 
     IEnumerator FadeAlpha(EDrugColor drugColor)
     {
         ChangeColor(drugColor);
 
-        isAnimating = true;
+        //isAnimating = true;
 
         for (int i = 0; i < repeatCount; i++)
         {
@@ -43,7 +52,7 @@ public class ShaderEffect : MonoBehaviour
         color.a = 0f;
         effectImage.color = color;
 
-        isAnimating = false;
+        //isAnimating = false;
     }
 
     IEnumerator ChangeAlpha(float targetAlpha)
@@ -107,5 +116,40 @@ public class ShaderEffect : MonoBehaviour
         if (!isInvert) Graphics.Blit(source, destination);
 
         else Graphics.Blit(source, destination, shadowMaterial);
+    }
+
+    public void StartMirage(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                effectImage.color = new Color(1, 1, 1, 0);
+                break;
+
+            case 1:
+                effectImage.color = new Color(0.49f, 0, 1, 0);
+                break;
+        }
+
+
+        StartCoroutine(MirageEffect());
+    }
+    
+    private IEnumerator MirageEffect()
+    {
+        //isAnimating = true;
+
+        for (int i = 0; i < repeatCount; i++)
+        {
+            yield return StartCoroutine(ChangeAlpha(0.1f));
+            yield return StartCoroutine(InvertEffect());
+            yield return StartCoroutine(ChangeAlpha(0f));
+        }
+
+        Color color = effectImage.color;
+        color.a = 0f;
+        effectImage.color = color;
+
+        //isAnimating = false;
     }
 }

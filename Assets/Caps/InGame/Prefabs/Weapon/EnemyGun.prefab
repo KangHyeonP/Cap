@@ -103,7 +103,7 @@ MonoBehaviour:
   users: 1
   fireEffectPos: {fileID: 6179561094200550743}
   muzzle: {fileID: 967795214088072938}
-  fireSpeed: 8
+  fireSpeed: 6.5
   fireDelay: 0
   fireMaximumDelay: 0
   recoil: 10

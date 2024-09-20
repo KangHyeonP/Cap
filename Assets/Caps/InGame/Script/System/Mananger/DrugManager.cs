@@ -30,8 +30,8 @@ public class DrugManager : MonoBehaviour
 
     private int duffIndex = -1;
 
+    public ShaderEffect shaderEffect;
 
-    // 추후에 redLevel로 묶고 BuffSteps와 연동
     //Red 
     public bool red1;
     public bool red2;
@@ -187,6 +187,7 @@ public class DrugManager : MonoBehaviour
                 colorBuffs[i].ExcuteBuff(duffIndex);
                 Debug.Log("실행한 마약 :  " + (EDrugColor)i);
                 nerfs[duffIndex].NerfOn();
+                shaderEffect.StartDrugEffect(buffSteps[duffIndex]);
                 UIManager.Instance.TabBuff((int)buffSteps[duffIndex], nerfsIndex[duffIndex], duffIndex);
                 break;
             }
@@ -350,6 +351,7 @@ public class DrugManager : MonoBehaviour
         mirageCheck = true;
         int index = Random.Range(0, 2);
         Debug.Log("신기루 인덱스 : " + index);
+        shaderEffect.StartMirage(index);
 
         switch(index)
         {

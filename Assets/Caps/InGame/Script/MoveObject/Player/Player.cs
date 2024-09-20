@@ -297,7 +297,7 @@ public abstract class Player : MonoBehaviour
         Damage(power);
     }
 
-    protected void Damage(int power)
+    protected virtual void Damage(int power)
     {
         if (avoidCheck || isHit) return;
         else if(DrugManager.Instance.isBulletAvoid)
@@ -693,12 +693,15 @@ public abstract class Player : MonoBehaviour
         {
             Damage(1); // 데미지 로직 나중에 수정
         }
-        else if(collision.tag == "Boss")
+    }
+
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Boss")
         {
-            if (!InGameManager.Instance.bossRushCheck || isHit) return;
+            if (!InGameManager.Instance.bossRushCheck) return;
 
             Damage(1); // 데미지 로직 나중에 수정
         }
-
     }
 }
