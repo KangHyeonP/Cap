@@ -13,6 +13,8 @@ public enum RoomState // 현재 방의 상태
 
 public class Room : MonoBehaviour
 {
+    public BGM roomBGM;
+
     // Fog
     [SerializeField]
     private SpriteRenderer fog;
@@ -114,6 +116,10 @@ public class Room : MonoBehaviour
             foreach (AI a in agents)
                 a.PlayerRoom();
         }
+        else // 추가로직
+        {
+            ClearCheckRoom();
+        }
     }
 
     public void RoomAgent()
@@ -129,6 +135,8 @@ public class Room : MonoBehaviour
         {
             clearCheck = true;
             DisableDoor();
+            roomBGM = BGM.NoneBattle;
+            BGMChange();
         }
     }
 
@@ -158,11 +166,19 @@ public class Room : MonoBehaviour
         }
     }
 
+    public void BGMChange()
+    {
+        if (SoundManager.Instance.bgm == roomBGM) return;
+
+        SoundManager.Instance.PlayBGM(roomBGM);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
             ActiveRoom();
+            BGMChange();
         }
     }
 }

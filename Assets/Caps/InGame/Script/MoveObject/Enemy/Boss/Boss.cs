@@ -71,7 +71,8 @@ public abstract class Boss : AI
     }
     protected override void AngleCalculate(float angleValue)
     {
-        if (bossAttack) return;
+        // 추가 로직 isRush
+        if (bossAttack || isRush) return;
 
         base.AngleCalculate(angleValue);
     }
@@ -102,11 +103,11 @@ public abstract class Boss : AI
         if (isReverse) transform.localScale = new Vector3(-1, 1, 1);
         else transform.localScale = new Vector3(1, 1, 1);
 
-        if (isRush)
+        /*if (isRush)
         {
             if(isReverse) transform.localScale = new Vector3(1, 1, 1);
             else transform.localScale = new Vector3(-1, 1, 1);
-        }
+        }*/
 
 
         curAttackDelay += Time.deltaTime;

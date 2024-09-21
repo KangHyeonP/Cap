@@ -27,8 +27,9 @@ public class SoundManager : MonoBehaviour
     private static SoundManager instance;
     public static SoundManager Instance => instance;
 
-    public AudioMixer mixer;
+    public BGM bgm;
 
+    public AudioMixer mixer;
 
     [Header("Sounds")]
     public AudioClip[] bgmClips;
@@ -122,6 +123,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBGM(BGM bgm)
     {
+        this.bgm = bgm;
         bgmSource.clip = bgmClips[(int)bgm];
         bgmSource.Play();
     }

@@ -5,6 +5,10 @@ using UnityEngine;
 public class LockDoor : MonoBehaviour
 {
     public Door door;
+    public Door backDoor;
+    public LockBackDoor lockBackDoor;
+    public Room room;
+
     public bool isTouch;
     public bool doorCheck = false; // 다음방으로 넘어간 상태인지 체크
     private BoxCollider2D boxcol;
@@ -40,6 +44,8 @@ public class LockDoor : MonoBehaviour
                 InGameManager.Instance.UpdateKey(-1);
                 SoundManager.Instance.PlaySFX(SFX.UseKey);
                 door.Doorcol(true);
+                backDoor.Doorcol(true);
+                lockBackDoor.DisCol();
                 boxcol.enabled = false;
                 door.isOpened = true;
             }
@@ -51,6 +57,9 @@ public class LockDoor : MonoBehaviour
         if (door.boxCol.isTrigger) return;
 
         doorCheck = true;
+
+        Debug.Log("차이 값 기존 도어 락: " + (room.gameObject.transform.position.x - InGameManager.Instance.player.transform.position.x));
+        if (room.gameObject.transform.position.x > InGameManager.Instance.player.transform.position.x) return;
 
         foreach(Agent a in agent)
         {
