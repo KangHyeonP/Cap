@@ -109,6 +109,7 @@ public class InGameManager : MonoBehaviour
     [SerializeField]
     private LockAnimation[] lockAni;
 
+    public TrailRenderer[] meleeRenderer;
     private void Awake()
     {
         Init();
@@ -511,6 +512,11 @@ public class InGameManager : MonoBehaviour
             GameOver();
         }
         else hp -= value;
+    }
+
+    public void TrailCheck(bool check)
+    {
+        meleeRenderer[playerWeaponType].enabled = check;
     }
     public void LockAnimationPlay(int index)
     {

@@ -30,6 +30,7 @@ public class Key : Item
             if (InGameManager.Instance.money < curPrice) return;
 
             InGameManager.Instance.Buy(curPrice);
+            GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Merchant);
             ItemUIPlay(false);
             isProduct = false;
             shop.ItemSoldout(shopIndex);

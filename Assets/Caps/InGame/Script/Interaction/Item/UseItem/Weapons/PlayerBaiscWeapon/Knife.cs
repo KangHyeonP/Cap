@@ -32,12 +32,14 @@ public class Knife : BasicWeapon
         spriteRenderer.enabled = false;
         InGameManager.Instance.player.isAttack = true;
         fireTime = 0;
+        InGameManager.Instance.TrailCheck(true);
 
         yield return new WaitForSeconds(0.3f);
 
         InGameManager.Instance.BasicWeaponCheck(false);
         spriteRenderer.enabled = true;
         InGameManager.Instance.player.isAttack = false;
+        InGameManager.Instance.TrailCheck(false);
     }
 
     public override void CancleAttack()

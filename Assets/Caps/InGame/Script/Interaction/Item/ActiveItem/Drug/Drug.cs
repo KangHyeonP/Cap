@@ -69,6 +69,7 @@ public class Drug : Item
             if (InGameManager.Instance.money < curPrice) return;
 
             InGameManager.Instance.Buy(curPrice);
+            GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Merchant);
 
             isProduct = false;
             ItemUIPlay(false);
