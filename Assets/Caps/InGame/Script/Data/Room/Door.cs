@@ -9,6 +9,10 @@ public class Door : MonoBehaviour
     private GameObject qMark;
     private Animator animator;
     public BoxCollider2D boxCol;
+    private GameObject sideCol;
+    bool isSide = false;
+    float dist;
+
 
     [SerializeField]
     private Door nextDoor;
@@ -18,9 +22,16 @@ public class Door : MonoBehaviour
         animator = GetComponent<Animator>();
         boxCol = GetComponent<BoxCollider2D>();
         qMark = transform.GetChild(0).gameObject;
+
+        if (transform.localScale.y != 1)
+        {
+            isSide = true;
+            sideCol = transform.GetChild(1).gameObject;
+        }
+
     }
 
-    private void Update()
+    /*private void Update()
     {
         DoorOpen();
     }
@@ -30,7 +41,7 @@ public class Door : MonoBehaviour
         if (!isOpened || animator.enabled) return;
 
         animator.enabled = true;
-    }
+    }*/
 
     public void nextQMOn()
     {
@@ -46,12 +57,61 @@ public class Door : MonoBehaviour
     public void DoorLock()
     {
         boxCol.isTrigger = false;
+        DoorClose();
     }
 
     public void DoorUnlock()
     {
         boxCol.isTrigger = true;
     }
+
+    IEnumerator DoorReverse()
+    {
+        yield return new WaitForSeconds(0.3f);
+        transform.localScale += new Vector3(2, 0, 0);
+    }
+
+
+    public void DoorClose()
+    {
+        if (!isOpened) return;
+
+        if (isSide) sideCol.SetActive(false);
+        animator.SetTrigger("Close");
+        isOpened = false;
+
+        if (transform.localScale.x < 0)
+            StartCoroutine(DoorReverse());
+    }
+
+    void DoorOpen()
+    {
+        if (isSide)
+        {
+            if (dist < 0)
+                transform.localScale -= new Vector3(2, 0, 0);
+
+            animator.SetTrigger("Side");
+
+            sideCol.SetActive(true);
+        }
+        else
+        {
+            if (dist > 0)
+            {
+                animator.SetTrigger("Up");
+            }
+            else
+            {
+                animator.SetTrigger("Down");
+            }
+        }
+
+        isOpened = true;
+    }
+
+
+
 
     public void Doorcol(bool check)
     {
@@ -60,9 +120,12 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !isOpened)
         {
-            isOpened = true;
+            if (isSide) dist = (transform.position.x - InGameManager.Instance.player.transform.position.x);
+            else dist = (transform.position.y - InGameManager.Instance.player.transform.position.y);
+
+            DoorOpen();
         }
     }
 }

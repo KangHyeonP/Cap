@@ -42,8 +42,8 @@ public class EnemyGun : Gun
         // Ãß°¡
         muzzle.localRotation = Quaternion.Euler(0, 0, Random.Range(-90.0f - curRecoil, -90.0f + curRecoil));
         Bullet bullet = PoolManager.Instance.GetBullet(EUsers.Enemy, EBullets.Revolver, muzzle.localRotation);
-        if (reverseCheck) bullet.gameObject.transform.localScale = new Vector3(-1, 1, 1);
-        else bullet.gameObject.transform.localScale = new Vector3(1, 1, 1);
+        if (reverseCheck) bullet.gameObject.transform.localScale = new Vector3(-0.2f, 0.2f, 1);
+        else bullet.gameObject.transform.localScale = new Vector3(0.2f, 0.2f, 1);
         bullet.transform.position = pos;
 
 
@@ -116,8 +116,8 @@ public class EnemyGun : Gun
 
             Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)weapons, muzzleRotation[i]);
 
-            if (reverseCheck) bullet.gameObject.transform.localScale = new Vector3(-1, 1, 1);
-            else bullet.gameObject.transform.localScale = new Vector3(1, 1, 1);
+            if (reverseCheck) bullet.gameObject.transform.localScale = new Vector3(-0.2f, 0.2f, 1);
+            else bullet.gameObject.transform.localScale = new Vector3(0.2f, 0.2f, 1);
 
             bullet.transform.position = muzzle.position;
             muzzleTransform[i] = bullet.transform.position;
@@ -141,8 +141,8 @@ public class EnemyGun : Gun
 
         Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)weapons, muzzle.localRotation);
         //Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)weapons, transform.rotation);
-        if (reverseCheck) bullet.gameObject.transform.localScale = new Vector3(-1, 1, 1);
-        else bullet.gameObject.transform.localScale = new Vector3(1, 1, 1);
+        if (reverseCheck) bullet.gameObject.transform.localScale = new Vector3(-0.2f, 0.2f, 1);
+        else bullet.gameObject.transform.localScale = new Vector3(0.2f, 0.2f, 1);
         //bullet.transform.position = transform.position;
         bullet.transform.position = pos;
         bullet.MoveBullet(muzzle.up * fireSpeed);
