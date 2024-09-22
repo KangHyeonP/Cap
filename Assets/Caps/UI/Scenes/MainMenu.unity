@@ -374,6 +374,11 @@ MonoBehaviour:
   kuiperOn: 0
   eunhaOn: 0
   languageIndex: 0
+  clearPlayTime: 0
+  clearDrugCount: 0
+  clearEnemyCount: 0
+  clearRoomCount: 0
+  clearMoney: 0
 --- !u!4 &106019976
 Transform:
   m_ObjectHideFlags: 0
@@ -4866,6 +4871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f02cd3b5e41cf064f972dd83142c8ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bgm: 0
   mixer: {fileID: 24100000, guid: d95c9a7dce1401548aa40980fd7e0fef, type: 2}
   bgmClips:
   - {fileID: 8300000, guid: f21bcfe527c82b64b89faefea5ccf3f0, type: 3}

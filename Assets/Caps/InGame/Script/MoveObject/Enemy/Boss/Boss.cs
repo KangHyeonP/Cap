@@ -28,7 +28,9 @@ public abstract class Boss : AI
 
     public Vector2 playerVec;
     public int moneySize = 0; // 각 보스별 드랍 돈
-    
+
+    public Item[] guns;
+
     protected override void Awake()
     {
         base.Awake();
@@ -179,6 +181,25 @@ public abstract class Boss : AI
         PoolManager.Instance.GetMagazine(1).ThrowItem(transform.position);
 
         // 아이템은 각 보스별 단계에서 다시
+    }
+
+    protected void DropWeapon(int index)
+    {
+        int mainCheck = Random.Range(1, 5); // 1,2,3,4
+        mainCheck += index; // mainCheck < 5면 보조무기
+        Debug.Log("mainCheck : " + mainCheck);
+
+        if(mainCheck < 5) // 보조무기
+        {
+            index = Random.Range(3, 5);
+        }
+        else
+        {
+            index = Random.Range(0, 3);
+        }
+        
+        Weapons weapon = Instantiate(guns[index], transform.position, transform.rotation).GetComponent<Weapons>();
+        weapon.ThrowItem(transform.position);
     }
 
 

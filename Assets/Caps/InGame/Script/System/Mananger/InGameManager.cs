@@ -106,6 +106,9 @@ public class InGameManager : MonoBehaviour
     public bool checkWeapon = false;
     public bool checkEunha = false;
 
+    [SerializeField]
+    private LockAnimation[] lockAni;
+
     private void Awake()
     {
         Init();
@@ -508,6 +511,13 @@ public class InGameManager : MonoBehaviour
             GameOver();
         }
         else hp -= value;
+    }
+    public void LockAnimationPlay(int index)
+    {
+        //int index = (drugGauge / 25) - 1;
+
+        lockAni[index].gameObject.SetActive(true);
+        lockAni[index].AniPlay(index);
     }
 
     // 추후 사망로직 추가하기

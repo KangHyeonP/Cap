@@ -28,6 +28,9 @@ public class TopBoss : Boss
     {
         base.DropItem();
         PoolManager.Instance.GetActiveItem((EActiveItems)Random.Range(0, 3)).ThrowItem(transform.position);
+        PoolManager.Instance.GetActiveItem((EActiveItems)Random.Range(0, 3)).ThrowItem(transform.position);
+        PoolManager.Instance.GetActiveItem((EActiveItems)Random.Range(0, 3)).ThrowItem(transform.position);
+        DropWeapon(4);
     }
 
     protected override void Die()

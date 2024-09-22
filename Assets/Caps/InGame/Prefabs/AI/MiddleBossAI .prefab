@@ -320,6 +320,12 @@ MonoBehaviour:
   bossAttack: 0
   playerVec: {x: 0, y: 0}
   moneySize: 10
+  guns:
+  - {fileID: -6584235549833516515, guid: ef8d08093ebcd624aaa616084c0ef1f3, type: 3}
+  - {fileID: 2108778322815918185, guid: 6d16fbe784bb6a742b7eee769fa57780, type: 3}
+  - {fileID: -4394175300519433874, guid: 461ae697df1d5d948896aaac45dd28a8, type: 3}
+  - {fileID: -3635929254406300350, guid: 7afac1cc3b0692c4e93eebcad985fe57, type: 3}
+  - {fileID: 756641442816449964, guid: 8f04db9eebad70a4a88573703b443714, type: 3}
 --- !u!1 &2595222195932689430
 GameObject:
   m_ObjectHideFlags: 0

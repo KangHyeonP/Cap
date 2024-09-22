@@ -22,11 +22,23 @@ public class TabUI : MonoBehaviour
     public Image[] deBuffImage;
 	public Image mirage;
 	public Image[] line;
+	public Image characterIllust;
+	public Sprite[] characters;
 
     private void Awake()
 	{
 		animator = GetComponent<Animator>();
 	}
+
+    private void Start()
+    {
+        characterIllust.sprite = characters[(int)GameManager.Instance.selectCharacter];
+    }
+
+    public void Init()
+    {
+        characterIllust.sprite = characters[(int)GameManager.Instance.selectCharacter];
+    }
 
     public void Close()
 	{

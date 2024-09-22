@@ -27,7 +27,8 @@ public class LowBoss : Boss
     protected override void DropItem()
     {
         base.DropItem();
-        PoolManager.Instance.GetActiveItem(EActiveItems.Key).ThrowItem(transform.position);
+        if(Random.Range(0,2) == 0) PoolManager.Instance.GetActiveItem(EActiveItems.Key).ThrowItem(transform.position);
+        DropWeapon(2);
     }
 
     protected override void Die()

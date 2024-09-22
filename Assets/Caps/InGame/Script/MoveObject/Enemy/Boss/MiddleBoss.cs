@@ -27,7 +27,15 @@ public class MiddleBoss : Boss
     protected override void DropItem()
     {
         base.DropItem();
-        PoolManager.Instance.GetActiveItem((EActiveItems)Random.Range(0,3)).ThrowItem(transform.position);
+
+        int value = Random.Range(1, 11);
+        Debug.Log("°ª : " + value);
+
+        PoolManager.Instance.GetActiveItem((EActiveItems)Random.Range(0, 3)).ThrowItem(transform.position);
+
+        if (value > 5) PoolManager.Instance.GetActiveItem((EActiveItems)Random.Range(0, 3)).ThrowItem(transform.position);
+        if(value == 10) PoolManager.Instance.GetActiveItem((EActiveItems)Random.Range(0,3)).ThrowItem(transform.position);
+        DropWeapon(3);
     }
 
     protected override void Die()

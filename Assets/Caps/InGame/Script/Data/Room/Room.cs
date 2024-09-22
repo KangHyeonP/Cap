@@ -132,6 +132,11 @@ public class Room : MonoBehaviour
     {
         curEnemyCnt++;
 
+        if(!clearCheck)
+        {
+            GameManager.Instance.clearRoomCount++;
+        }
+
         if (curEnemyCnt >= fullEnemyCnt)
         {
             clearCheck = true;

@@ -68,6 +68,13 @@ public class GameManager : MonoBehaviour
     // System
     public int languageIndex = 0; // 번역 인덱스 0:한국 1: 미국
 
+    // ClearData
+    public int clearPlayTime = 0;
+    public int clearDrugCount = 0;
+    public int clearEnemyCount = 0;
+    public int clearRoomCount = 0;
+    public int clearMoney = 0;
+
     private void Awake()
     {
         Init();
@@ -192,6 +199,15 @@ public class GameManager : MonoBehaviour
         DataManager.Instacne.JsonClass.UpdateLock((int)ECharacters.Kuiper);
         UpdateDiaryDate((int)EDiaryValue.Kuiper);
         kuiperOn = true;
+    }
+
+    public void ResetClearData()
+    {
+        clearPlayTime = 0;
+        clearDrugCount = 0;
+        clearEnemyCount = 0;
+        clearRoomCount = 0;
+        clearMoney = 0;
     }
 
     // 죽을때 or 게임 종료할 때

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     public bool isOpened = false;
-    bool isLock;
+
     private GameObject qMark;
     private Animator animator;
     public BoxCollider2D boxCol;
