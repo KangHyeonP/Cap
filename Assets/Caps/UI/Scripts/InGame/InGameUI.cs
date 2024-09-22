@@ -32,8 +32,9 @@ public class InGameUI : MonoBehaviour
     void Start()
     {
         InitUI();
-        WeaponInven(5); // 추후 캐릭터마다 칼이 다르다면 player에서 초기화를 시키도록 수정
+        WeaponInven(5 + InGameManager.Instance.playerWeaponType); // 추후 캐릭터마다 칼이 다르다면 player에서 초기화를 시키도록 수정
         KnifeTextUpdate();
+        DrugInven(null);
     }
 
     // Update is called once per frame
@@ -56,7 +57,12 @@ public class InGameUI : MonoBehaviour
 
     public void DrugInven(Sprite s)
     {
-        DrugUI.sprite = s;
+        if (s == null) DrugUI.enabled = false;
+        else
+        {
+            DrugUI.enabled = true;
+            DrugUI.sprite = s;
+        }
     }
 
     public void WeaponInven(int index)

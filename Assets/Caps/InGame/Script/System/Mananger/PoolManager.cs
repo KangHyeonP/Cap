@@ -230,6 +230,7 @@ public class PoolManager : MonoBehaviour
             }
 
             Bullet obj = poolingEnemyBullet.Dequeue();
+            obj.gameObject.transform.rotation = q; // Ãß°¡ÇÔ
             obj.gameObject.SetActive(true);
             return obj;
         }

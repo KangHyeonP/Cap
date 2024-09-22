@@ -37,6 +37,6 @@ public class GunGangSter : Agent
         bulletcopy.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;*/
         attackDistance = Random.Range(3.0f, 5.0f);
         gun.fireSpeed = Random.Range(6.0f, 7.0f);
-        gun.ShotReady();
+        gun.ShotReady(isReverse);
     }
 }

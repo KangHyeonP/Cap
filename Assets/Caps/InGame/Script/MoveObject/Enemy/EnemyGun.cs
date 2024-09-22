@@ -6,6 +6,7 @@ public class EnemyGun : Gun
 {
     // Enemy는 Update를 쓰지 않음
     // 추 후 Gun의 하위 PlayerGun으로 분리해야 할 수 도 있음
+    bool reverseCheck = false;
     protected override void OnEnable()
     {
 
@@ -16,25 +17,39 @@ public class EnemyGun : Gun
 
     }
 
-    public void ShotReady()
+    public void ShotReady(bool isReverse)
     {
+        reverseCheck = isReverse;
         ShotDelay();
     }
 
-    public void ShotReady(Vector2 pos, float angle)
+    public void ShotReady(Vector2 pos, float angle, bool isReverse)
     {
+        reverseCheck = isReverse;
+
         StartCoroutine(Shot(pos, angle));
     }
 
-    public void ShotReady(Vector3 dir, Vector2 pos, int angle) // 범위 각도
+    public void ShotReady(Vector3 dir, Vector2 pos, int angle, bool isReverse) // 범위 각도
     {
+        reverseCheck = isReverse;
+
         Shot(dir, angle);
     }
 
     public void Shot(Vector3 dir, Vector2 pos, int angle)
     {
-        Bullet bullet = PoolManager.Instance.GetBullet(EUsers.Enemy, EBullets.Revolver, Quaternion.Euler(0, 0, angle % 360));
+        // 추가
+        muzzle.localRotation = Quaternion.Euler(0, 0, Random.Range(-90.0f - curRecoil, -90.0f + curRecoil));
+        Bullet bullet = PoolManager.Instance.GetBullet(EUsers.Enemy, EBullets.Revolver, muzzle.localRotation);
+        if (reverseCheck) bullet.gameObject.transform.localScale = new Vector3(-1, 1, 1);
+        else bullet.gameObject.transform.localScale = new Vector3(1, 1, 1);
         bullet.transform.position = pos;
+
+
+        //Bullet bullet = PoolManager.Instance.GetBullet(EUsers.Enemy, EBullets.Revolver, Quaternion.Euler(0, 0, angle % 360));
+        //bullet.transform.position = pos;
+        
         bullet.MoveBullet(dir * fireSpeed);
     }
 
@@ -44,8 +59,21 @@ public class EnemyGun : Gun
     }
     protected IEnumerator KnifeShot(bool isReverse)
     {
+        muzzle.localRotation = Quaternion.Euler(0, 0, -90.0f);
 
-        for (int i = 0; i < bulletCount; i++)
+        KnifeBullet bullet = PoolManager.Instance.GetKnifeBullet(transform.rotation);
+        if (isReverse) bullet.gameObject.transform.localScale = new Vector3(-1, 1, 1);
+        else bullet.gameObject.transform.localScale = new Vector3(1, 1, 1);
+
+        bullet.transform.position = muzzle.position;
+
+        bullet.MoveBullet(muzzle.up * (fireSpeed + Random.Range(1, -1)));
+
+
+        fireTime = 0;
+
+        yield return new WaitForSeconds(0.1f);
+        /*for (int i = 0; i < bulletCount; i++)
         {
             muzzleRecoil[i] = -90.0f;
 
@@ -68,6 +96,7 @@ public class EnemyGun : Gun
 
         yield return new WaitForSeconds(0.1f);
         //InGameManager.Instance.player.fireEffect.SetActive(false);
+        */
     }
 
 
@@ -78,7 +107,6 @@ public class EnemyGun : Gun
 
     protected override IEnumerator Shot()
     {
-
         for (int i = 0; i < bulletCount; i++)
         {
             muzzleRecoil[i] = Random.Range(-90.0f - curRecoil, -90.0f + curRecoil);
@@ -87,6 +115,10 @@ public class EnemyGun : Gun
             muzzleRotation[i] = transform.rotation;
 
             Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)weapons, muzzleRotation[i]);
+
+            if (reverseCheck) bullet.gameObject.transform.localScale = new Vector3(-1, 1, 1);
+            else bullet.gameObject.transform.localScale = new Vector3(1, 1, 1);
+
             bullet.transform.position = muzzle.position;
             muzzleTransform[i] = bullet.transform.position;
             muzzleUp[i] = muzzle.up;
@@ -108,6 +140,10 @@ public class EnemyGun : Gun
         muzzle.localRotation = Quaternion.Euler(0, 0, angle);
 
         Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)weapons, muzzle.localRotation);
+        //Bullet bullet = PoolManager.Instance.GetBullet(users, (EBullets)weapons, transform.rotation);
+        if (reverseCheck) bullet.gameObject.transform.localScale = new Vector3(-1, 1, 1);
+        else bullet.gameObject.transform.localScale = new Vector3(1, 1, 1);
+        //bullet.transform.position = transform.position;
         bullet.transform.position = pos;
         bullet.MoveBullet(muzzle.up * fireSpeed);
     }

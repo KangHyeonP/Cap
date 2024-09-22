@@ -219,7 +219,7 @@ public abstract class Boss : AI
 
         for (int i = 0; i < 36; i++)
         {
-            gun.ShotReady(transform.position, 10 * i);
+            gun.ShotReady(transform.position, 10 * i, isReverse);
 
             /*
             Vector2 BP1bulletDir = (target.position - muzzle.position).normalized;
@@ -274,7 +274,7 @@ public abstract class Boss : AI
         for (int i = 0; i < 30; i++)
         {
             int randomAngle = Random.Range(0, 36);
-            gun.ShotReady(transform.position, 10 * randomAngle);
+            gun.ShotReady(transform.position, 10 * randomAngle, isReverse);
             yield return new WaitForSeconds(0.1f);
         }
 
@@ -356,7 +356,7 @@ public abstract class Boss : AI
         {
             for (int j = 0; j < 6; j++)
             {
-                gun.ShotReady(transform.position, 60 * j);
+                gun.ShotReady(transform.position, 60 * j, isReverse);
             }
             yield return new WaitForSeconds(0.07f);
         }

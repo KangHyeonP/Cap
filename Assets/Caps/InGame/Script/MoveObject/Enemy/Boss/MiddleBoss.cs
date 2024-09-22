@@ -95,7 +95,7 @@ public class MiddleBoss : Boss
 
     protected override void SelectBP()
     {
-        int[] numbers = { 5 };
+        int[] numbers = { 1 };
         //int[] numbers = { 1, 2, 3, 5, 7, 9 }; // 7해야함
         selectPivot = numbers[Random.Range(0, numbers.Length)];
         Debug.Log("보스 스킬 사용");
