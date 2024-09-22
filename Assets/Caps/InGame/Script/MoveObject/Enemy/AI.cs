@@ -388,7 +388,7 @@ public abstract class AI : MonoBehaviour
         //GameManager.Instance.UpdateKill();
     }
 
-    public void DropItem()
+    protected virtual void DropItem()
     {
         int value = Random.Range(1, 101);
 

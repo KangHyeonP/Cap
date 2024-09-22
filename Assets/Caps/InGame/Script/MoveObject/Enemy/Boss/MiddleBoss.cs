@@ -23,6 +23,13 @@ public class MiddleBoss : Boss
     {
         base.FixedUpdate();
     }
+
+    protected override void DropItem()
+    {
+        base.DropItem();
+        PoolManager.Instance.GetActiveItem((EActiveItems)Random.Range(0,3)).ThrowItem(transform.position);
+    }
+
     protected override void Die()
     {
         base.Die();

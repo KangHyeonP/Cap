@@ -27,7 +27,8 @@ public abstract class Boss : AI
     public bool bossAttack = false; // 보스 공격 중 시선 변경 차단 로직
 
     public Vector2 playerVec;
-
+    public int moneySize = 0; // 각 보스별 드랍 돈
+    
     protected override void Awake()
     {
         base.Awake();
@@ -156,6 +157,30 @@ public abstract class Boss : AI
         bossAttack = true;
         SelectBP();
     }
+
+    protected override void DropItem()
+    {
+        DropMoney(moneySize);
+
+        int drugValue1 = Random.Range(0, 5);
+        int drugValue2 = drugValue1;
+        while(drugValue1 == drugValue2)
+        {
+            drugValue2 = Random.Range(0, 5);
+        }
+
+        for(int i=0; i<5;i++)
+        {
+            if (i == drugValue1 || i == drugValue2) continue;
+            else PoolManager.Instance.GetDrug((EDrugColor)i).ThrowItem(transform.position);
+        }
+
+        PoolManager.Instance.GetMagazine(0).ThrowItem(transform.position);
+        PoolManager.Instance.GetMagazine(1).ThrowItem(transform.position);
+
+        // 아이템은 각 보스별 단계에서 다시
+    }
+
 
     protected override void Die()
     {

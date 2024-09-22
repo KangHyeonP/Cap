@@ -319,6 +319,7 @@ MonoBehaviour:
   knifeThrow: 0
   bossAttack: 0
   playerVec: {x: 0, y: 0}
+  moneySize: 10
 --- !u!1 &2595222195932689430
 GameObject:
   m_ObjectHideFlags: 0

@@ -44,6 +44,11 @@ public class Agent : AI
         base.Attack();
     }
 
+    protected override void DropItem()
+    {
+        base.DropItem();
+    }
+
     public override IEnumerator EDamage()
     {
         Debug.Log("PlayerVec : " + playerPosVec);

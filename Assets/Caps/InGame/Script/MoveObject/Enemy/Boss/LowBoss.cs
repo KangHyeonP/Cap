@@ -24,6 +24,12 @@ public class LowBoss : Boss
         base.FixedUpdate();
     }
 
+    protected override void DropItem()
+    {
+        base.DropItem();
+        PoolManager.Instance.GetActiveItem(EActiveItems.Key).ThrowItem(transform.position);
+    }
+
     protected override void Die()
     {
         base.Die();
