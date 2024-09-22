@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("들어온 값 : " + index);
 
-        // GameManager에는 57개임 58개가아닌
+        // GameManager에는 55개임 56개가아닌
         if (DiaryDataCheck[index-1]) return;
 
         diaryDataCheck[index-1] = true;

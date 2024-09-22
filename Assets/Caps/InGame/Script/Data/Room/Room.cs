@@ -14,6 +14,9 @@ public enum RoomState // 현재 방의 상태
 public class Room : MonoBehaviour
 {
     public BGM roomBGM;
+    protected RoomState roomState;
+    public RoomState RoomState => roomState;
+
 
     // Fog
     [SerializeField]
@@ -35,8 +38,6 @@ public class Room : MonoBehaviour
 
     [SerializeField]
     private Door[] doors;
-
-    public Doctor doctor;
 
     // Room Status
     private bool clearCheck = false; // 현재 클리어한 방인지 체크
@@ -65,7 +66,6 @@ public class Room : MonoBehaviour
 
         fullEnemyCnt = agents.Count;
         RoomStateUpdate(RoomState.notBeen);
-
     }
 
     public void RoomStateUpdate(RoomState state)
@@ -84,6 +84,7 @@ public class Room : MonoBehaviour
                 fog.color = new Color(0, 0, 0, 0.7f);
                 break;
         }
+        roomState = state;
     }
 
     // 룸 활성화 로직

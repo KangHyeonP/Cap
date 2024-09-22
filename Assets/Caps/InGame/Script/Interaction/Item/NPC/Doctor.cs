@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class Doctor : MonoBehaviour
 {
+    public Room room;
+    
     bool isDoctor;
     bool touchDoctor;
     bool firstCheck;
     bool completeCure;
     bool chatPrevent = false;
+    bool dieDoctor = false;
 
     string firstDoctorText = "니 곧 죽겠다. 도와줘?";
     string maxGuageText = "닌 안돼";
@@ -21,6 +24,8 @@ public class Doctor : MonoBehaviour
 
     void Update()
     {
+        if (dieDoctor) return;
+
         CheckNeedDoctor();
         InteractDoctor();
 
@@ -39,10 +44,14 @@ public class Doctor : MonoBehaviour
                 firstCheck = false;
             }
         }
+
+        DieDoctor();
     }
 
     void CheckNeedDoctor()
     {
+        if (completeCure) return;
+        
         isDoctor = Input.GetKeyDown(KeyCode.E);
     }
 
@@ -62,6 +71,8 @@ public class Doctor : MonoBehaviour
 
     IEnumerator ChatDoctor()
     {
+        GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Unlicensed_Doctor);
+
         if (InGameManager.Instance.drugGauge == 100) //신기루라서 못할 때 텍스트
         {
             chatPrevent = true;
@@ -115,6 +126,15 @@ public class Doctor : MonoBehaviour
             chatPrevent = false;
         }
 
+    }
+
+    public void DieDoctor()
+    {
+        if (completeCure && room.RoomState != RoomState.being)
+        {
+            gameObject.SetActive(false);
+            dieDoctor = true;
+        }
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
