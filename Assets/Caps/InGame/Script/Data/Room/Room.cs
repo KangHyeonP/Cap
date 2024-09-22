@@ -45,6 +45,8 @@ public class Room : MonoBehaviour
     private int curEnemyCnt = 0; // 처치한 적 수
     private int fullEnemyCnt = 0; // 현재 적 수
 
+    private BoxCollider2D boxCol;
+
     private void Awake()
     {
         InitRoom();
@@ -66,6 +68,8 @@ public class Room : MonoBehaviour
 
         fullEnemyCnt = agents.Count;
         RoomStateUpdate(RoomState.notBeen);
+        boxCol = GetComponent<BoxCollider2D>();
+        boxCol.size -= new Vector2(1f, 1f);
     }
 
     public void RoomStateUpdate(RoomState state)
