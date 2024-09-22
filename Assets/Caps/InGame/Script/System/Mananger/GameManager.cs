@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
     public int clearEnemyCount = 0;
     public int clearRoomCount = 0;
     public int clearMoney = 0;
+    public bool clearCheck = false;
 
     private void Awake()
     {
@@ -208,6 +209,7 @@ public class GameManager : MonoBehaviour
         clearEnemyCount = 0;
         clearRoomCount = 0;
         clearMoney = 0;
+        clearCheck = false;
     }
 
     // 죽을때 or 게임 종료할 때

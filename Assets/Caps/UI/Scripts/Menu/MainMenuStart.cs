@@ -10,6 +10,11 @@ public class MainMenuStart : MonoBehaviour
         {
             SoundManager.Instance.PlayBGM(BGM.Main);
         }
+
+        if(GameManager.Instance.clearCheck)
+        {
+
+        }
     }
 
     // Update is called once per frame

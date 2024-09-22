@@ -287,17 +287,17 @@ public class InGameManager : MonoBehaviour
             drugGauge = 0;
         }
 
-        else if (drugGauge > 25 && drugGauge - randomGauge < 25)
+        else if (drugGauge >= 25 && drugGauge - randomGauge < 25)
         {
             drugGauge = 25;
         }
 
-        else if (drugGauge > 50 && drugGauge - randomGauge < 50)
+        else if (drugGauge >= 50 && drugGauge - randomGauge < 50)
         {
             drugGauge = 50;
         }
 
-        else if (drugGauge > 75 && drugGauge - randomGauge < 75)
+        else if (drugGauge >= 75 && drugGauge - randomGauge < 75)
         {
             drugGauge = 75;
         }
