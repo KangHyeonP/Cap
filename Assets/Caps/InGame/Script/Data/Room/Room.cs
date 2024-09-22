@@ -132,13 +132,9 @@ public class Room : MonoBehaviour
     {
         curEnemyCnt++;
 
-        if(!clearCheck)
-        {
-            GameManager.Instance.clearRoomCount++;
-        }
-
         if (curEnemyCnt >= fullEnemyCnt)
         {
+            if(!clearCheck) GameManager.Instance.clearRoomCount++;
             clearCheck = true;
             DisableDoor();
             roomBGM = BGM.NoneBattle;

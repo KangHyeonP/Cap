@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
     public int languageIndex = 0; // 번역 인덱스 0:한국 1: 미국
 
     // ClearData
-    public int clearPlayTime = 0;
+    public string clearPlayTime = null;
     public int clearDrugCount = 0;
     public int clearEnemyCount = 0;
     public int clearRoomCount = 0;
@@ -204,7 +204,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetClearData()
     {
-        clearPlayTime = 0;
+        clearPlayTime = null;
         clearDrugCount = 0;
         clearEnemyCount = 0;
         clearRoomCount = 0;

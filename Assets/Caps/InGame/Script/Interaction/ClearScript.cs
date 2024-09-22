@@ -6,16 +6,21 @@ using UnityEngine.SceneManagement;
 public class ClearScript : MonoBehaviour
 {
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
+            UIManager.Instance.timerUI.SaveTimer();
+
+            GameManager.Instance.SaveData();
+            Time.timeScale = 1f;
+
+            GameManager.Instance.clearPlayTime = UIManager.Instance.timerUI.getSixDigitTime();
             GameManager.Instance.clearEnemyCount = InGameManager.Instance.killCount;
-            GameManager.Instance.clearDrugCount = DrugManager.Instance.fullStackDrug + DrugManager.Instance.curStackDrug;
             GameManager.Instance.clearMoney = InGameManager.Instance.money;
             GameManager.Instance.clearCheck = true;
 
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(0);
         }
     }
 }

@@ -106,6 +106,7 @@ public class Drug : Item
     public void GetDrug()
     {
         DrugManager.Instance.tempStackDrug[(int)value]++;
+        GameManager.Instance.clearDrugCount++;
 
         if(DrugManager.Instance.gaugeUp)
         {

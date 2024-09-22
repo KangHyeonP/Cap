@@ -379,6 +379,7 @@ MonoBehaviour:
   clearEnemyCount: 0
   clearRoomCount: 0
   clearMoney: 0
+  clearCheck: 0
 --- !u!4 &106019976
 Transform:
   m_ObjectHideFlags: 0
@@ -531,6 +532,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdfa77c7372bb04a86efd1816dc9328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  signUI: {fileID: 2768934515318659572}
+  clearPlayTimeText: {fileID: 7520961387047422579}
+  clearDrugCountText: {fileID: 5426479367278930996}
+  clearEnemyCountText: {fileID: 1395368749820096737}
+  clearRoomCountText: {fileID: 2525834934412091185}
+  clearMoneyText: {fileID: 6642811905151254682}
 --- !u!1001 &187410392
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7028,6 +7035,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 106019975}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ResetClearData
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
