@@ -12,6 +12,7 @@ public class ClearScript : MonoBehaviour
         {
             UIManager.Instance.timerUI.SaveTimer();
 
+            GameManager.Instance.UpdateClearCount();
             GameManager.Instance.SaveData();
             Time.timeScale = 1f;
 

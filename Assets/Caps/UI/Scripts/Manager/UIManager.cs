@@ -205,7 +205,7 @@ public class UIManager : MonoBehaviour
     {
         int index = (InGameManager.Instance.Hp - 1) / 2;
         bulletProof.rectTransform.anchoredPosition
-            = new Vector2(23 + index * 57, -16);
+            = new Vector2(30 + index * 72, -24.75f);
     }
 
     public void TabBuff(int buffIndex, int deBuffIndex, int buffLevel)
