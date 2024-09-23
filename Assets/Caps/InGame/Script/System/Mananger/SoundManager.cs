@@ -108,6 +108,7 @@ public class SoundManager : MonoBehaviour
     }*/
     public void PlaySFX(SFX sfx)
     {
+        if (!toggleCheck[2]) return;
         //sfxSource.clip = sfxClips[(int)sfx];
         //sfxSource.pitch = 1;
         sfxSource.PlayOneShot(sfxClips[(int)sfx]);
@@ -123,6 +124,8 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBGM(BGM bgm)
     {
+        if (toggleCheck[1] == false) return;
+
         this.bgm = bgm;
         bgmSource.clip = bgmClips[(int)bgm];
         bgmSource.Play();
