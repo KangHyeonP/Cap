@@ -97,6 +97,8 @@ public class DictionaryContents : MonoBehaviour
     {
         //itemNum = int.Parse(gameObject.name);
         if (itemNum == 0) return;
+
+        value = (EDiaryValue)itemNum;
         //iconImage = transform.GetChild(0).GetComponent<Image>();
     }
 

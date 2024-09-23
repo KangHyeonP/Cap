@@ -56,7 +56,7 @@ public class WeaponBox : MonoBehaviour
     }
     IEnumerator DropWeapon()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0.75f);
         int value = Random.Range(1, 51);
         Debug.Log(value);
         int index = -1;

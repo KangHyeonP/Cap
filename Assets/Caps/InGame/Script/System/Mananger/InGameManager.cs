@@ -119,7 +119,7 @@ public class InGameManager : MonoBehaviour
 
     void Start()
     {
-
+        //GameManager.Instance.UpdateDiaryDate(playerWeaponType + (int)EDiaryValue.Haeseong);
     }
 
     // Update is called once per frame
@@ -193,7 +193,7 @@ public class InGameManager : MonoBehaviour
 
                     break;*/
         }
-
+        
         playerObj = Instantiate(prefabs[index], transform.position, transform.rotation);
         player = playerObj.GetComponent<Player>();
     }

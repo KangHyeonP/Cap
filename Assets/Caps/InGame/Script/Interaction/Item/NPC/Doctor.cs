@@ -14,9 +14,9 @@ public class Doctor : MonoBehaviour
     bool chatPrevent = false;
     bool dieDoctor = false;
 
-    string firstDoctorText = "니 곧 죽겠다. 도와줘?";
-    string maxGuageText = "닌 안돼";
-    string acceptText = "다 됨 그만 쳐먹어 이제";
+    string firstDoctorText = "도박 한 번 해볼래?";
+    string maxGuageText = "넌 가망이 없어...";
+    string acceptText = "끊어라, 그러다 병신된다.";
     string refuseText = "돈 없어? 그럼 꺼져";
     public TextMeshPro chatText;
     public float doctorDistance = 3;

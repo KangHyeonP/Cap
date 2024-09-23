@@ -25,7 +25,7 @@ public abstract class Item : MonoBehaviour
 
     public TextMeshPro priceText;
     public SpriteRenderer spriteRenderer;
-    public SpriteRenderer eIconRenderer;
+    public TextMeshPro eText;
     public SpriteRenderer moneyRenderer;
 
     protected Rigidbody2D itemRigid;
@@ -97,7 +97,7 @@ public abstract class Item : MonoBehaviour
         }
 
         priceText.enabled = check;
-        eIconRenderer.enabled = check;
+        eText.enabled = check;
         moneyRenderer.enabled = check;
     }
 
