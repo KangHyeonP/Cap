@@ -16357,65 +16357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0862f1865466a3e42bb7d789dfd51c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ilusts:
-  - {fileID: 1724612194, guid: 162cbdd6554ab17458ce9ed9a709bb0d, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   spriteSize:
   - {x: 60, y: 112.5}
   - {x: 60, y: 112.5}
@@ -16474,7 +16415,16 @@ MonoBehaviour:
   - {x: 400, y: 400}
   - {x: 400, y: 400}
   - {x: 400, y: 400}
-  characterIllrust: {fileID: 21300000, guid: 8222cdb74faf67f44a583d94ef447ec3, type: 3}
+  characterIllrust:
+  - {fileID: 21300000, guid: a2a9a4abdb4d6cc45a4a3934cf1e7211, type: 3}
+  - {fileID: 21300000, guid: 8222cdb74faf67f44a583d94ef447ec3, type: 3}
+  - {fileID: 21300000, guid: 8222cdb74faf67f44a583d94ef447ec3, type: 3}
+  - {fileID: 21300000, guid: 8222cdb74faf67f44a583d94ef447ec3, type: 3}
+  - {fileID: 21300000, guid: 8222cdb74faf67f44a583d94ef447ec3, type: 3}
+  - {fileID: 21300000, guid: 8222cdb74faf67f44a583d94ef447ec3, type: 3}
+  - {fileID: 21300000, guid: 6e456e8a31c0ac04a8abbba5f5af99bf, type: 3}
+  - {fileID: 21300000, guid: 8222cdb74faf67f44a583d94ef447ec3, type: 3}
+  - {fileID: 21300000, guid: e576342e4de6ceb4787d4a9ebce9d69f, type: 3}
   localName: {fileID: 6750550912894013535}
   localDesc: {fileID: 6903862878501955155}
   image: {fileID: 6800811925223309434}

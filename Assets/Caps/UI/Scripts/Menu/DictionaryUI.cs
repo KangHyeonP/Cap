@@ -10,14 +10,12 @@ public class DictionaryUI : MonoBehaviour
 {
     private Animator animator;
 
-    [SerializeField]
-    private Sprite[] ilusts;
     /*[SerializeField]
     private Sprite[] icons;*/
     [SerializeField]
     private Vector2[] spriteSize;
     [SerializeField]
-    private Sprite characterIllrust;
+    private Sprite[] characterIllrust;
 
     public LocalizeStringEvent localName;
 
@@ -93,9 +91,9 @@ public class DictionaryUI : MonoBehaviour
 
         image.rectTransform.sizeDelta = spriteSize[i-1];
 
-        if(i >= 22 && i<= 32)
+        if(i >= 22 && i<= 30)
         {
-            image.sprite = characterIllrust;
+            image.sprite = characterIllrust[i-22];
         }
         else
         {

@@ -116,6 +116,8 @@ public abstract class Player : MonoBehaviour
     public bool fogIn = false; //안개 안에 있는지 여부
     public float skillAnimTime = 0;
 
+    public Animator dieAnim;
+
     protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -609,7 +611,7 @@ public abstract class Player : MonoBehaviour
     {
         if (isRoll) return;
 
-        if (isReverse)
+        if (isReverse && !InGameManager.Instance.IsPause)
         {
             transform.localScale = new Vector3(-1, 1, 1);
             playerCanvas.localScale = new Vector3(-1, 1, 1);
@@ -685,6 +687,12 @@ public abstract class Player : MonoBehaviour
         {
             RageImages[i].color = new Color(0.88f, 0.33f, 0, 1);
         }
+    }
+
+    public void DisableRenderer()
+    {
+        spriteRenderer.enabled = false;
+        weaponPivot.SetActive(false);
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)

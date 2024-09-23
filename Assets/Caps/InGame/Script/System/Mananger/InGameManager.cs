@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -530,7 +531,22 @@ public class InGameManager : MonoBehaviour
     private void GameOver()
     {
         player.GetComponent<BoxCollider2D>().enabled = false;
+        CameraController.Instance.transform.position = new Vector3(
+            player.transform.position.x, player.transform.position.y, -10);
+        Pause(true);
+        player.dieAnim.SetTrigger("Die");
+        player.DisableRenderer();
+
+
         GameManager.Instance.UpdateDeathCount();
+
+        StartCoroutine(IOver());
+        // 좀이따 띄우기
+    }
+
+    private IEnumerator IOver()
+    {
+        yield return new WaitForSecondsRealtime(1f);
         UIManager.Instance.GameOver();
     }
 }

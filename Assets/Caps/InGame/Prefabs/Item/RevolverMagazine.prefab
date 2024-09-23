@@ -534,7 +534,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 8197cf7297310fd4ea2c2b4d7707831c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -626,6 +626,8 @@ MonoBehaviour:
   curPrice: 0
   playerCheck: 0
   distance: 999
+  shopIndex: 0
+  shop: {fileID: 0}
   priceText: {fileID: 5680864390903576937}
   spriteRenderer: {fileID: 3354736399323899735}
   eIconRenderer: {fileID: 6578514949359949436}

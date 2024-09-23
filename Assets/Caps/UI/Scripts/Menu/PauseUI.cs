@@ -33,8 +33,14 @@ public class PauseUI : MonoBehaviour
 
 	public void Restart() //재시작
 	{
-		Debug.Log("재시작");
-	}
+        UIManager.Instance.timerUI.SaveTimer();
+
+        GameManager.Instance.SaveData();
+        Time.timeScale = 1f;
+        GameManager.Instance.ResetClearData();
+
+        SceneManager.LoadScene(1);
+    }
 	public void Setting() //설정
 	{
 		Debug.Log("설정");
