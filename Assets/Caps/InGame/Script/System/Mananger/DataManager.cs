@@ -72,7 +72,7 @@ public class DataManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("함수 실행 여부");
+        //Debug.Log("함수 실행 여부");
 
 
         GetData();

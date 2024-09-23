@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
             {
                 diaryCount++;
                 // 디버그용
-                Debug.Log("다이어리 인덱스 + 1 : " + i);
+                //Debug.Log("다이어리 인덱스 + 1 : " + i);
             }
         }
 
@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateDiaryDate(int index)
     {
-        Debug.Log("들어온 값 : " + index);
+        //Debug.Log("들어온 값 : " + index);
 
         // GameManager에는 55개임 56개가아닌
         if (DiaryDataCheck[index-1]) return;

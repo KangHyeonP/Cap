@@ -82,7 +82,7 @@ public class DictionaryUI : MonoBehaviour
         //image.sprite = contents[j+1].iconImage.sprite;
         //image.color = contents[j + 1].iconImage.color;
 
-        Debug.Log("아이템 번호: " + i);
+        //Debug.Log("아이템 번호: " + i);
     }
 
     public void UpdateImage(int i)
