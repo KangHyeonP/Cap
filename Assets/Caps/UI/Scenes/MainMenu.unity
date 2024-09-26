@@ -5016,10 +5016,10 @@ MonoBehaviour:
   bgm: 0
   mixer: {fileID: 24100000, guid: d95c9a7dce1401548aa40980fd7e0fef, type: 2}
   bgmClips:
-  - {fileID: 8300000, guid: f21bcfe527c82b64b89faefea5ccf3f0, type: 3}
-  - {fileID: 8300000, guid: c027eba0f4fc1c14a9c30ab964c37c63, type: 3}
-  - {fileID: 8300000, guid: fecc0a9dbb1c7dc4394b961f315994f4, type: 3}
-  - {fileID: 8300000, guid: 4be3556b0bb2033478494a659f9d8b0b, type: 3}
+  - {fileID: 8300000, guid: 4a12bbbdadb3c904dae593045de3bb34, type: 3}
+  - {fileID: 8300000, guid: 8b26f59a336c84442ae4e91c59022a55, type: 3}
+  - {fileID: 8300000, guid: 2acbbe1050e315a46a76e8601bdf07f6, type: 3}
+  - {fileID: 8300000, guid: 81d75f89f826c2740bb540e3a7953bde, type: 3}
   sfxClips:
   - {fileID: 8300000, guid: 273a897d79c6fb743b6bdf81197ea49d, type: 3}
   - {fileID: 8300000, guid: c234bba49797e5e4aa1da2e531789840, type: 3}
@@ -5032,9 +5032,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 31fdd548709a7c24e9a60b8af7d94df2, type: 3}
   - {fileID: 8300000, guid: 7cfd3ea1e069616438dc1e12916fd6f6, type: 3}
   - {fileID: 8300000, guid: 89f4757f43f37a94c9942acf35cfb30c, type: 3}
-  - {fileID: 8300000, guid: 24e04faa27add0148856c3a838c87cee, type: 3}
-  - {fileID: 8300000, guid: f52262a2548852b48a68fe3644210562, type: 3}
-  - {fileID: 8300000, guid: 7b85c60e4c619524095a439a499c135d, type: 3}
+  - {fileID: 8300000, guid: aef0ac25247e98446873d665c8c0a9be, type: 3}
+  - {fileID: 8300000, guid: eadfd42bc0dd2cc499c52413a9bed753, type: 3}
+  - {fileID: 8300000, guid: 2ed65d2b89d481f4b942649c9bc6305e, type: 3}
   - {fileID: 8300000, guid: 5f9da14690f409d4caaf1814c61a872f, type: 3}
   - {fileID: 8300000, guid: de136a411ae2fec4097676040e4fd0e8, type: 3}
   - {fileID: 8300000, guid: fe77bcb5002b47e4ba5b519cc1e2dde1, type: 3}
@@ -5052,6 +5052,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 26c98bb2ca372ba429c2782b3a740cdd, type: 3}
   - {fileID: 8300000, guid: 95b9b9f0d18a1a24cbac8eed87096617, type: 3}
   - {fileID: 8300000, guid: 5ef332a8d5fff7c40b66638ab5c28565, type: 3}
+  - {fileID: 8300000, guid: 2ab3ebef16bda6f45b7de4c99f4da021, type: 3}
+  - {fileID: 8300000, guid: a72ff8bac66732c4fa85596a2da13353, type: 3}
   bgmSource: {fileID: 1392859550}
   sfxSource: {fileID: 1392859549}
   toggleCheck: 010101
@@ -5306,6 +5308,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 136486732}
+        m_TargetAssemblyTypeName: MainMenuInputManager, Assembly-CSharp
+        m_MethodName: SoundOn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 2596026359491038205}
         m_TargetAssemblyTypeName: MeunUI, Assembly-CSharp
         m_MethodName: GameStart
@@ -5546,6 +5560,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 6153336025842855370}
+        m_TargetAssemblyTypeName: SettingUI, Assembly-CSharp
+        m_MethodName: SoundOn
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5957,6 +5983,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 136486732}
+        m_TargetAssemblyTypeName: MainMenuInputManager, Assembly-CSharp
+        m_MethodName: SoundOn
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9136,6 +9174,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 136486732}
+        m_TargetAssemblyTypeName: MainMenuInputManager, Assembly-CSharp
+        m_MethodName: SoundOn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &4682658989446391677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10012,6 +10062,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3132196734215872562, guid: 7e9911ef40fd0bd42875222b9d407cc7, type: 3}
   m_PrefabInstance: {fileID: 896986764608588626}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6153336025842855370 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6964930131817451058, guid: 7e9911ef40fd0bd42875222b9d407cc7, type: 3}
+  m_PrefabInstance: {fileID: 896986764608588626}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896986764608588627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a89a54a45fd90f64fbcdddcfc945251f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6205477781027145195
 RectTransform:
   m_ObjectHideFlags: 0

@@ -124,6 +124,11 @@ public class Weapons : Item
         itemRigid.AddForce(CameraController.Instance.MouseVecValue.normalized, ForceMode2D.Impulse);
     }
 
+    public void PutWeapon(float power)
+    {
+        itemRigid.AddForce(Vector2.up * power, ForceMode2D.Impulse);
+    }
+
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);

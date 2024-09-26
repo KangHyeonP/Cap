@@ -18,6 +18,13 @@ public class Doctor : MonoBehaviour
     string maxGuageText = "넌 가망이 없어...";
     string acceptText = "끊어라, 그러다 병신된다.";
     string refuseText = "돈 없어? 그럼 꺼져";
+
+    /*
+     string firstDoctorText = "도박 한 번 해볼래?"; You wanna try?
+string maxGuageText = "넌 가망이 없어..."; You're hopeless.
+string acceptText = "끊어라, 그러다 병신된다."; Quit it, jerk.
+string refuseText = "돈 없어? 그럼 꺼져"; Flat broke? Then get the hell out. 
+     * */
     public TextMeshPro chatText;
     public float doctorDistance = 3;
     Coroutine chatCoroutine;
@@ -80,7 +87,7 @@ public class Doctor : MonoBehaviour
             for (int i = 0; i < maxGuageText.Length; i++)
             {
                 chatText.text += maxGuageText[i];
-                yield return new WaitForSeconds(0.15f);
+                yield return new WaitForSeconds(0.1f);
             }
             chatPrevent = false;
         }
@@ -93,7 +100,7 @@ public class Doctor : MonoBehaviour
                 for (int i = 0; i < firstDoctorText.Length; i++) // 처음 말걸 때 텍스트
                 {
                     chatText.text += firstDoctorText[i];
-                    yield return new WaitForSeconds(0.15f);
+                    yield return new WaitForSeconds(0.1f);
                 }
                 firstCheck = true;
             }
@@ -105,7 +112,7 @@ public class Doctor : MonoBehaviour
                     for (int i = 0; i < refuseText.Length; i++) // 돈 없을 떄 텍스트
                     {
                         chatText.text += refuseText[i];
-                        yield return new WaitForSeconds(0.15f);
+                        yield return new WaitForSeconds(0.1f);
                     }
                 }
                 else
@@ -115,7 +122,7 @@ public class Doctor : MonoBehaviour
                     for (int i = 0; i < acceptText.Length; i++) // 치료 받았을 때 텍스트
                     {
                         chatText.text += acceptText[i];
-                        yield return new WaitForSeconds(0.15f);
+                        yield return new WaitForSeconds(0.1f);
                     }
 
                     yield return new WaitForSeconds(3.0f);

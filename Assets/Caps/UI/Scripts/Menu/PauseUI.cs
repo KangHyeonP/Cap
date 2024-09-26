@@ -71,4 +71,9 @@ public class PauseUI : MonoBehaviour
 		UIManager.Instance.IsPopup = 1;
 	}
 
+	public void SoundOn()
+	{
+        SoundManager.Instance.PlaySFX(SFX.MouseClick);
+    }
+
 }

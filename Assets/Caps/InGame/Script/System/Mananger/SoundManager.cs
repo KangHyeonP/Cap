@@ -19,7 +19,7 @@ public enum SFX
     Walk, Roll, Hit, AK_Reload, M870_Reload, AWP_Reload, Eagle_Reload, Anaconda_Reload,
     Knife_Shot, Punch_Shot, AK_Shot, M870_Shot, AWP_Shot, Eagle_Shot, Anaconda_Shot, 
     SoldOut, DrugPickUp, ItemPickUp, MoneyPickUp, UseBand, UseBFS, UseDrug, UseGaugeLock, UseGrenade, UseKey, UseMoney,
-    Box_Open, Door_Open, Table_Kick, DiaryOpen, DiaryClose
+    Box_Open, Door_Open, Table_Kick, DiaryOpen, DiaryClose, HeartBeat, MouseClick
 }
 
 public class SoundManager : MonoBehaviour
@@ -44,11 +44,12 @@ public class SoundManager : MonoBehaviour
     private void Awake()
     {
         Init();
+        bgmSource.clip = bgmClips[(int)bgm];
     }
 
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -99,6 +100,7 @@ public class SoundManager : MonoBehaviour
         {
             toggleCheck[i] = toggles[i].isOn;
         }
+        PlaySFX(SFX.MouseClick);
     }
 
     /*public void PlaySFX(SFX sfx)
@@ -124,10 +126,14 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBGM(BGM bgm)
     {
+        if(this.bgm != bgm)
+        {
+            this.bgm = bgm;
+            bgmSource.clip = bgmClips[(int)bgm];
+        }
+        
         if (toggleCheck[1] == false) return;
 
-        this.bgm = bgm;
-        bgmSource.clip = bgmClips[(int)bgm];
         bgmSource.Play();
     }
 

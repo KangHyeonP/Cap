@@ -188,6 +188,7 @@ public class DrugManager : MonoBehaviour
                 Debug.Log("실행한 마약 :  " + (EDrugColor)i);
                 nerfs[duffIndex].NerfOn();
                 InGameManager.Instance.LockAnimationPlay(duffIndex);
+                SoundManager.Instance.PlaySFX(SFX.HeartBeat);
                 shaderEffect.StartDrugEffect(buffSteps[duffIndex]);
                 UIManager.Instance.TabBuff((int)buffSteps[duffIndex], nerfsIndex[duffIndex], duffIndex);
                 break;
@@ -353,9 +354,10 @@ public class DrugManager : MonoBehaviour
         int index = Random.Range(0, 2);
         Debug.Log("신기루 인덱스 : " + index);
         InGameManager.Instance.LockAnimationPlay(3);
+        SoundManager.Instance.PlaySFX(SFX.HeartBeat);
         shaderEffect.StartMirage();
 
-        switch(index)
+        switch (index)
         {
             case 0:
                 isCurse = true;

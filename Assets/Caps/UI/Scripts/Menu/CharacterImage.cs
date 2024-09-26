@@ -83,6 +83,8 @@ public class CharacterImage : MonoBehaviour
             else return;
         }
 
+        SoundManager.Instance.PlaySFX(SFX.MouseClick);
+
         if(curIndex == 2) characterImage.rectTransform.sizeDelta = new Vector2(600, 600);
         else characterImage.rectTransform.sizeDelta = new Vector2(500, 500);
 

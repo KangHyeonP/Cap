@@ -56,6 +56,7 @@ public class UIManager : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) && !IsDict)
         {
+            Debug.Log("Áö±Ý: " + IsPopup);
             OpenPause();
         }
 

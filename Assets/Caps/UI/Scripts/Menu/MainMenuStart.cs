@@ -15,7 +15,7 @@ public class MainMenuStart : MonoBehaviour
 
     void Start()
     {
-        if(SoundManager.Instance != null && SoundManager.Instance.toggleCheck[1])
+        if(SoundManager.Instance != null)
         {
             SoundManager.Instance.PlayBGM(BGM.Main);
         }
@@ -35,6 +35,9 @@ public class MainMenuStart : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.E))
+            SoundManager.Instance.PlaySFX(SFX.UseKey);
+        else if(Input.GetKeyDown(KeyCode.W))
+            SoundManager.Instance.PlaySFX(SFX.HeartBeat);
     }
 }

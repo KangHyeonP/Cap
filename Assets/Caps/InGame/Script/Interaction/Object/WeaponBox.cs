@@ -49,14 +49,17 @@ public class WeaponBox : MonoBehaviour
                 return;
         }
 
-        animator.enabled = true;
-        SoundManager.Instance.PlaySFX(SFX.Box_Open);
         StartCoroutine(DropWeapon());
         Debug.Log("상자열기");
     }
     IEnumerator DropWeapon()
     {
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(0.35f);
+        animator.enabled = true;
+
+        yield return new WaitForSeconds(0.4f);
+
+        SoundManager.Instance.PlaySFX(SFX.Box_Open);
         int value = Random.Range(1, 51);
         Debug.Log(value);
         int index = -1;
@@ -81,7 +84,7 @@ public class WeaponBox : MonoBehaviour
             index = 4;
         }
 
-        Instantiate(guns[index], transform.position, transform.rotation);
+        Instantiate(guns[index], transform.position, transform.rotation).GetComponent<Weapons>().PutWeapon(0.1f);
     }
 
 

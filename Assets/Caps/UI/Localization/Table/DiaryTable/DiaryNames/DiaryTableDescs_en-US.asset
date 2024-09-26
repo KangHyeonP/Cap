@@ -19,31 +19,31 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 374070243328
-    m_Localized: No one knows
+    m_Localized: Unknown
     m_Metadata:
       m_Items: []
   - m_Id: 713590763520
-    m_Localized: RedDrug
+    m_Localized: "Red Pills\r"
     m_Metadata:
       m_Items: []
   - m_Id: 763351986176
-    m_Localized: OrangeDrug
+    m_Localized: "Orange Pills\r"
     m_Metadata:
       m_Items: []
   - m_Id: 784394809344
-    m_Localized: YellowDrug
+    m_Localized: "Yellow Pills\r"
     m_Metadata:
       m_Items: []
   - m_Id: 791504154624
-    m_Localized: GreenDrug
+    m_Localized: "Green Pills\r"
     m_Metadata:
       m_Items: []
   - m_Id: 825494794240
-    m_Localized: BlueDrug
+    m_Localized: "Blue Pills\r"
     m_Metadata:
       m_Items: []
   - m_Id: 838081900544
-    m_Localized: BlackDrug
+    m_Localized: "Black Pills\r"
     m_Metadata:
       m_Items: []
   - m_Id: 1028700434432

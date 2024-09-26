@@ -68,6 +68,7 @@ public class DictionaryUI : MonoBehaviour
     {
         int i = int.Parse(EventSystem.current.currentSelectedGameObject.name);
         int j = i;
+        SoundManager.Instance.PlaySFX(SFX.MouseClick);
 
         if (!contents[i].isUnLock)
         {
@@ -114,6 +115,7 @@ public class DictionaryUI : MonoBehaviour
     public void MoveBookMark(int contentType)
     {
         scrollbar.value = scrollvalue[contentType];
+        SoundManager.Instance.PlaySFX(SFX.MouseClick);
     }
 
     public void Close()

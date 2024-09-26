@@ -86,6 +86,8 @@ public class Door : MonoBehaviour
 
     void DoorOpen()
     {
+        SoundManager.Instance.PlaySFX(SFX.Door_Open);
+
         if (isSide)
         {
             if (dist < 0)

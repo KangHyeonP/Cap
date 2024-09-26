@@ -20,4 +20,9 @@ public class MainMenuInputManager : MonoBehaviour
             Dictionary.Close();
         }
     }
+
+    public void SoundOn()
+    {
+        SoundManager.Instance.PlaySFX(SFX.MouseClick);
+    }
 }

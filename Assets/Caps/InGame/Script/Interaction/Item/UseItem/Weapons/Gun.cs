@@ -82,8 +82,13 @@ public abstract class Gun : MonoBehaviour
         if (recoil < InGameManager.Instance.Aim + DrugManager.Instance.aim)
             curRecoil = 0;
         else curRecoil = recoil - (InGameManager.Instance.Aim + DrugManager.Instance.aim);
+        
+        int value = (int)SFX.AK_Shot;
+        if (InGameManager.Instance.curWeaponIndex < 3) value += InGameManager.Instance.gunInven.index;
+        else if (InGameManager.Instance.curWeaponIndex == 3) value += 3 + InGameManager.Instance.pistolInven.index;
+        else value += 4;
 
-        int value = (int)SFX.AK_Shot + InGameManager.Instance.curWeaponIndex;
+        //int value = (int)SFX.AK_Shot + InGameManager.Instance.curWeaponIndex;
         SoundManager.Instance.PlaySFX((SFX)value);
 		for(int i=0;i<bulletCount; i++)
 		{

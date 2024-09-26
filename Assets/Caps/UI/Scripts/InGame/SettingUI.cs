@@ -16,11 +16,13 @@ public class SettingUI : MonoBehaviour
 
     public bool uiManagerCheck = false;
 
+
     public Image mousePointer;
     /*
     [SerializeField]
     private Sprite[] mousePointerImages;
     */
+
 
     private void OnDisable()
     {
@@ -37,11 +39,19 @@ public class SettingUI : MonoBehaviour
         ChangePointer(DataManager.Instacne.MouseIndex);
     }
 
+    public void SoundOn()
+    {
+        SoundManager.Instance.PlaySFX(SFX.MouseClick);
+    }
+
     public void Open()
     {
-        Debug.Log("üũ");
-        UIManager.Instance.TempUI = this.gameObject;
-        UIManager.Instance.IsPopup++;
+        //Debug.Log("üũ");
+        //if (uiManagerCheck)
+        //{
+            UIManager.Instance.TempUI = this.gameObject;
+            UIManager.Instance.IsPopup++;
+        //}
     }
 
     public void Close()
@@ -137,10 +147,11 @@ public class SettingUI : MonoBehaviour
 
     public void ChangePointer(int value)
     {
-        Debug.Log("지금 포인터 값 : " + value);
+        //Debug.Log("지금 포인터 값 : " + value);
 
         if (value < 0 || value > DataManager.Instacne.pointerSprites.Length - 1) return;
 
+        SoundOn();
         DataManager.Instacne.UpdatePointer(value);
         mousePointer.sprite = DataManager.Instacne.pointerSprites[value];
     }
@@ -151,6 +162,8 @@ public class SettingUI : MonoBehaviour
             LocalizationSettings.AvailableLocales.Locales[index];
 
         GameManager.Instance.languageIndex = index; // 나중에 번역을 설정하면 마우스 포인터처럼 저장힐지도 생각
+
+        SoundOn();
     }
     /*
     public enum ELanguage 
