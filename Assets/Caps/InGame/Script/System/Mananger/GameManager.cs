@@ -124,33 +124,22 @@ public class GameManager : MonoBehaviour
         playTime = time;
         killCount = killCnt;
        
-        // Scene로드 시 GameManager 초기화
         diaryCount = 0;
         characterCount = 0;
 
-        for(int i=0; i <diaryDataCheck.Length; i++)
-        {
-            if (diaryDataCheck[i])
-            {
-                diaryCount++;
-                // 디버그용
-                //Debug.Log("다이어리 인덱스 + 1 : " + i);
-            }
-        }
+        for(int i=0; i <diaryDataCheck.Length; i++) 
+            if (diaryDataCheck[i]) diaryCount++;
+
 
         for (int i=21; i<24; i++)
-        {
             if (diaryDataCheck[i]) characterCount++;
-        }
+
         deathCount = deathCnt;
         clearCount = clearCnt;
     }
 
     public void UpdateDiaryDate(int index)
     {
-        //Debug.Log("들어온 값 : " + index);
-
-        // GameManager에는 55개임 56개가아닌
         if (DiaryDataCheck[index-1]) return;
 
         diaryDataCheck[index-1] = true;
@@ -179,7 +168,6 @@ public class GameManager : MonoBehaviour
 
     public void CheckEunha()
     {
-        // none이 없으므로 1씩 줄어듬
         if (eunhaOn) return;
 
         for (int i = 6; i < 22; i++)

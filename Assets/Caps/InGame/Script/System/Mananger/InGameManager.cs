@@ -541,7 +541,6 @@ public class InGameManager : MonoBehaviour
         GameManager.Instance.UpdateDeathCount();
 
         StartCoroutine(IOver());
-        // 좀이따 띄우기
     }
 
     private IEnumerator IOver()

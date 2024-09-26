@@ -450,9 +450,6 @@ public abstract class Player : MonoBehaviour
             tempWeaponIndex = 2;
         else return;
 
-
-        //Debug.Log("장전 실행, 실행 키 : " + tempWeaponIndex);
-
         InGameManager.Instance.lastWeaponIndex = InGameManager.Instance.curWeaponIndex;
         InGameManager.Instance.lastPistolIndex = InGameManager.Instance.curPistolIndex;
 
