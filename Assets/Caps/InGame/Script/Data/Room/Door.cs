@@ -5,6 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     public bool isOpened = false;
+    public bool firstOpenCheck = false;
 
     private GameObject qMark;
     private Animator animator;
@@ -45,7 +46,8 @@ public class Door : MonoBehaviour
 
     public void nextQMOn()
     {
-        if (!nextDoor.animator.enabled)
+        //if (!nextDoor.animator.enabled)
+        if(!firstOpenCheck)
             nextDoor.qMark.SetActive(true);
     }
 
@@ -110,6 +112,7 @@ public class Door : MonoBehaviour
         }
 
         isOpened = true;
+        firstOpenCheck = true;
     }
 
 
