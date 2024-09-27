@@ -110,8 +110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92e7533fbf6c2a648ac4a73a131fde5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 2.5
+  distance: 3
   damage: 100
+  cirCol: {fileID: 0}
   particle: {fileID: 5097580065385107124}
   render: {fileID: 901983517519284858}
 --- !u!1 &5674305252941565051

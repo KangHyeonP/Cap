@@ -111,10 +111,10 @@ public class Drug : Item
 
         if(DrugManager.Instance.gaugeUp)
         {
-            drugGuage = Random.Range(9, 13);
+            drugGuage = Random.Range(6, 10);
             return;
         }
-        drugGuage = Random.Range(6, 10);
+        drugGuage = Random.Range(3, 5);
     }
 
     public void PutDrug()

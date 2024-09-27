@@ -432,7 +432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   silhouette: {fileID: 0}
   rollingSpeed: 2.5
-  skillDelay: 5
+  skillDelay: 90
   isAttack: 0
   isSkill: 0
   isReload: 0

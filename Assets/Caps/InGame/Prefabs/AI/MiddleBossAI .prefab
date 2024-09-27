@@ -301,8 +301,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   muzzle: {fileID: 5659313000866956243}
-  hp: 500
-  maxHp: 500
+  hp: 2000
+  maxHp: 2000
   curStatus: 0
   isDetect: 0
   attackDelay: 3.5
