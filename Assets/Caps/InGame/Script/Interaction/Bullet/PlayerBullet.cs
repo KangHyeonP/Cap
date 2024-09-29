@@ -117,16 +117,17 @@ public class PlayerBullet : Bullet
     {
         base.OnTriggerEnter2D(collision);
 
-        if (collision.tag == "Agent")
+        if (collision.tag == "Agent" || collision.tag == "Boss")
         {
             if (DrugManager.Instance.isDistanceDamage) DistancePower();
             if (DrugManager.Instance.isBomb) BombBullet();
             InGameManager.Instance.bulletPower = this.bulletPower + distanceDamage;
 
             triggerCount++;
-            if (DrugManager.Instance.isBulletPass && triggerCount < 2) return;
+            if (DrugManager.Instance.isBulletPass && triggerCount < 5) return;
 
             TrrigerLogic();
         }
+        else if (collision.tag =="Door") TrrigerLogic();
     }
 }

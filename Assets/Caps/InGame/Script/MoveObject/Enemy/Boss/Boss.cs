@@ -112,8 +112,7 @@ public abstract class Boss : AI
             else transform.localScale = new Vector3(-1, 1, 1);
         }*/
 
-
-        curAttackDelay += Time.deltaTime;
+        if(!isAttack) curAttackDelay += Time.deltaTime;
 
         switch (enemy)
         {
@@ -158,6 +157,7 @@ public abstract class Boss : AI
     {
         bossAttack = true;
         SelectBP();
+        curAttackDelay = 0;
     }
 
     protected override void DropItem()
@@ -230,7 +230,7 @@ public abstract class Boss : AI
             //BP1bulletcopy.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
             */
         }
-
+        curAttackDelay = 2f;
     }
     public IEnumerator BP2() // 좆밥보스, 최종보스
     {
@@ -250,6 +250,7 @@ public abstract class Boss : AI
         gunRenderer.enabled = true;
 
         yield return new WaitForSeconds(1);
+        curAttackDelay = 3f;
     }
 
 
@@ -266,16 +267,17 @@ public abstract class Boss : AI
         }
 
         Debug.Log("BP3");
+        curAttackDelay = 3f;
     }
 
 
     public IEnumerator BP4() // 최종보스
     {
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 60; i++)
         {
             int randomAngle = Random.Range(0, 36);
             gun.ShotReady(transform.position, 10 * randomAngle, isReverse);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
         }
 
         Debug.Log("BP4");
@@ -318,6 +320,7 @@ public abstract class Boss : AI
         Debug.Log("BP5");
         gunRenderer.enabled = true;
         //transform.position = Vector2.MoveTowards(transform.position, target.position, 80f * Time.deltaTime);
+        curAttackDelay = 2f;
     }
 
     /*
@@ -345,6 +348,7 @@ public abstract class Boss : AI
         }
 
         Debug.Log("BP7");
+        curAttackDelay = 3f;
     }
     
 
@@ -362,53 +366,7 @@ public abstract class Boss : AI
         }
         Debug.Log("BP8");
         yield return new WaitForSeconds(1f);
-        //for (int i = 0; i < 4; i++)
-        //{
-        //    Vector2 BP1bulletDir_1 = (target.position - muzzle.position).normalized;
-        //    muzzle.up = BP1bulletDir_1;
-        //    muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z);
-
-        //    GameObject BP1bulletcopy_1 = Instantiate(bullet, muzzle.position, muzzle.rotation);
-        //    BP1bulletcopy_1.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
-
-        //    Vector2 BP1bulletDir_2 = (target.position - muzzle.position).normalized;
-        //    muzzle.up = BP1bulletDir_2;
-        //    muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z + 60);
-
-        //    GameObject BP1bulletcopy_2 = Instantiate(bullet, muzzle.position, muzzle.rotation);
-        //    BP1bulletcopy_2.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
-
-        //    Vector2 BP1bulletDir_3 = (target.position - muzzle.position).normalized;
-        //    muzzle.up = BP1bulletDir_3;
-        //    muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z + 120);
-
-        //    GameObject BP1bulletcopy_3 = Instantiate(bullet, muzzle.position, muzzle.rotation);
-        //    BP1bulletcopy_3.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
-
-        //    Vector2 BP1bulletDir_4 = (target.position - muzzle.position).normalized;
-        //    muzzle.up = BP1bulletDir_4;
-        //    muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z + 180);
-
-        //    GameObject BP1bulletcopy_4 = Instantiate(bullet, muzzle.position, muzzle.rotation);
-        //    BP1bulletcopy_4.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
-
-        //    Vector2 BP1bulletDir_5 = (target.position - muzzle.position).normalized;
-        //    muzzle.up = BP1bulletDir_5;
-        //    muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z + 240);
-
-        //    GameObject BP1bulletcopy_5 = Instantiate(bullet, muzzle.position, muzzle.rotation);
-        //    BP1bulletcopy_5.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
-
-        //    Vector2 BP1bulletDir_6 = (target.position - muzzle.position).normalized;
-        //    muzzle.up = BP1bulletDir_6;
-        //    muzzle.rotation = Quaternion.Euler(0, 0, muzzle.rotation.eulerAngles.z + 300);
-
-        //    GameObject BP1bulletcopy_6 = Instantiate(bullet, muzzle.position, muzzle.rotation);
-        //    BP1bulletcopy_6.GetComponent<Rigidbody2D>().velocity = muzzle.up * attackSpeed;
-
-        //    i++;
-        //    Debug.Log("for문 돌아감");
-        //}
+        curAttackDelay = 2f;
     }
 
     public IEnumerator BP9() // 좆밥보스
@@ -432,6 +390,7 @@ public abstract class Boss : AI
         }
 
         yield return new WaitForSeconds(1f);
+        curAttackDelay = 2f;
     }
 
     public IEnumerator BP10() // 최종보스 개선해야할지도모름, 삼각함수 사용안함.
@@ -455,6 +414,7 @@ public abstract class Boss : AI
         //}
         Debug.Log("BP10");
         yield return new WaitForSeconds(1f);
+        curAttackDelay = 1.5f;
     }
 
     public IEnumerator BP11() // 최종보스
@@ -473,6 +433,7 @@ public abstract class Boss : AI
 
         Debug.Log("BP11");
         yield return new WaitForSeconds(1f);
+        curAttackDelay = 2f;
     }
 
     public IEnumerator BP12() // 최종보스 개선 필요 코드 더러움

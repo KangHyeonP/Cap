@@ -8,6 +8,11 @@ public class KnifeBullet : Bullet
     public BoxCollider2D box2DCol;
 
 
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
+
     protected override void TrrigerLogic()
     {
         target = null;
@@ -31,7 +36,7 @@ public class KnifeBullet : Bullet
             if (InGameManager.Instance.player.fogIn) return;
             TrrigerLogic();
         }
-        else if(collision.tag == "Wall")
+        else if(collision.tag == "Wall" || collision.tag == "Door")
         {
             rigid.velocity = Vector2.zero;
             moveDir = Vector2.zero;

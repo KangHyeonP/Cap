@@ -32,18 +32,6 @@ public class Door : MonoBehaviour
 
     }
 
-    /*private void Update()
-    {
-        DoorOpen();
-    }
-
-    void DoorOpen()
-    {
-        if (!isOpened || animator.enabled) return;
-
-        animator.enabled = true;
-    }*/
-
     public void nextQMOn()
     {
         //if (!nextDoor.animator.enabled)

@@ -54,7 +54,7 @@ public class LowBoss : Boss
         }
         //Debug.Log("°ø°Ý ³¡");
 
-        curAttackDelay = 0;
+        //curAttackDelay = 0; // 9/29
         isAttack = false;
         agent.isStopped = false;
         isDetect = true;

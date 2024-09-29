@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -107,6 +108,7 @@ public abstract class Player : MonoBehaviour
     public Slider reloadSlider;
     public Coroutine reloadCoroutine;
     public int weaponPower = 0; // 현재 장착한 무기의 공격력(단순 UI표기용), 초기값은 플레이어 별 무기 공격력
+    public int reloadIndex = -1; // 장전할 무기의 인덱스
 
     [SerializeField]
     public GameObject fireEffect;
@@ -201,7 +203,7 @@ public abstract class Player : MonoBehaviour
         rigid.MovePosition(rigid.position + nextVec);
     }
 
-    public IEnumerator MoveSound()
+    /*public IEnumerator MoveSound()
     {
         if (isWalk && moveSoundCheck && moveVec != null)
         {
@@ -210,10 +212,20 @@ public abstract class Player : MonoBehaviour
             yield return new WaitForSeconds(0.75f);
             moveSoundCheck = true;
         }
-        /*else if(!isWalk && !moveSoundCheck)
+    }*/
+
+    public IEnumerator MoveSound()
+    {
+        if (moveSoundCheck)
         {
-            
-        }*/
+            moveSoundCheck = false;
+
+            if (!isWalk) SoundManager.Instance.StopPutSound();
+            else SoundManager.Instance.PlayPutSound();
+
+            yield return new WaitForSeconds(0.5f);
+            moveSoundCheck = true;
+        }
     }
 
     protected void Roll()
@@ -389,13 +401,14 @@ public abstract class Player : MonoBehaviour
     {
         isReload = true;
         speed = speedApply * 0.5f; //장전중 이속 저하
-        //Debug.Log("장전 진행 체크!");
 
         reloadSlider.value = 0f;
         float elapsed = 0f;
         float curReloadTime = DrugManager.Instance.reloadSpeed * reloadTime;
         reloadSlider.gameObject.SetActive(true);
 
+        //Debug.Log("값 : " + (SFX)reloadIndex);
+        SoundManager.Instance.PlayReload(reloadIndex);
         while (elapsed < curReloadTime)
         {
             elapsed += Time.unscaledDeltaTime;
@@ -423,6 +436,7 @@ public abstract class Player : MonoBehaviour
     public void CancleReload()
     {
         StopCoroutine(reloadCoroutine);
+        SoundManager.Instance.StopReload();
         reloadSlider.value = 0f;
         reloadSlider.gameObject.SetActive(false);
         isReload = false;
@@ -509,6 +523,7 @@ public abstract class Player : MonoBehaviour
                 InGameManager.Instance.bulletMagazine[temp]);
             InGameManager.Instance.curWeaponIndex = temp;
 
+            reloadIndex = (int)SFX.AK_Reload + InGameManager.Instance.gunInven.index;
             reloadTime = InGameManager.Instance.gunInven.reloadSpeed;
             gunValue = 0;
             gunCheck = true;
@@ -529,6 +544,7 @@ public abstract class Player : MonoBehaviour
             InGameManager.Instance.curWeaponIndex = 3;
             InGameManager.Instance.curPistolIndex = temp;
 
+            reloadIndex = (int)SFX.Eagle_Reload + InGameManager.Instance.pistolInven.index;
             reloadTime = InGameManager.Instance.pistolInven.reloadSpeed;
             gunValue = 1;
             gunCheck = true;
