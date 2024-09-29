@@ -21,11 +21,12 @@ public class EnemyBullet : Bullet
     {
         base.OnTriggerEnter2D(collision);
 
-        if (collision.tag == "Player" && !InGameManager.Instance.player.AvoidCheck 
+        if (collision.tag == "Player" && !InGameManager.Instance.player.AvoidCheck
             && !InGameManager.Instance.player.IsHit)
         {
             if (InGameManager.Instance.player.fogIn) return;
             TrrigerLogic();
         }
+        else if (collision.tag == "Door") TrrigerLogic();
     }
 }

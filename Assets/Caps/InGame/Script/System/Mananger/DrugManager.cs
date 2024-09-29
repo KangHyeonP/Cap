@@ -332,6 +332,7 @@ public class DrugManager : MonoBehaviour
         if(blue3)
         {
             reloadSpeed = 0.5f;
+            SoundManager.Instance.reloadSource.pitch = 2;
 
             for(int i=0; i<4;i++)
             {

@@ -92,7 +92,9 @@ public class SettingUI : MonoBehaviour
                 if (toggles[volNum].isOn)
                 {
                     SoundManager.Instance.sfxSource.mute = false;
-                    if(!SoundManager.Instance.bgmSource.isPlaying)
+                    SoundManager.Instance.reloadSource.mute = false;
+                    SoundManager.Instance.putSource.mute = false;
+                    if (!SoundManager.Instance.bgmSource.isPlaying)
                         SoundManager.Instance.bgmSource.Play();
                     toggles[1].isOn = true;
                     toggles[2].isOn = true;
@@ -100,6 +102,8 @@ public class SettingUI : MonoBehaviour
                 else
                 {
                     SoundManager.Instance.sfxSource.mute = true;
+                    SoundManager.Instance.reloadSource.mute = true;
+                    SoundManager.Instance.putSource.mute = true;
                     SoundManager.Instance.bgmSource.Pause();
                     toggles[1].isOn = false;
                     toggles[2].isOn = false;
@@ -124,6 +128,8 @@ public class SettingUI : MonoBehaviour
                 if (toggles[volNum].isOn)
                 {
                     SoundManager.Instance.sfxSource.mute = false;
+                    SoundManager.Instance.reloadSource.mute = false;
+                    SoundManager.Instance.putSource.mute = false;
                     if (toggles[1].isOn)
                     {
                         toggles[0].isOn = true;
@@ -132,6 +138,8 @@ public class SettingUI : MonoBehaviour
                 else
                 {
                     SoundManager.Instance.sfxSource.mute = true;
+                    SoundManager.Instance.reloadSource.mute = true;
+                    SoundManager.Instance.putSource.mute = true;
                     toggles[0].isOn = false;
                 }
                 break;

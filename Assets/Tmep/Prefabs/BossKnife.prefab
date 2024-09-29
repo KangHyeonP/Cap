@@ -124,7 +124,7 @@ MonoBehaviour:
   eBullets: 3
   target: {fileID: 0}
   bulletSize: []
-  eraseTimer: 10
+  eraseTimer: 7
   box2DCol: {fileID: 7444845101973166763}
 --- !u!1 &2977127648555913016
 GameObject:

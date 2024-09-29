@@ -67,7 +67,7 @@ public class EnemyGun : Gun
 
         bullet.transform.position = muzzle.position;
 
-        bullet.MoveBullet(muzzle.up * (fireSpeed + Random.Range(1, -1)));
+        bullet.MoveBullet(muzzle.up * (fireSpeed + 5 + Random.Range(1, -1)));
 
 
         fireTime = 0;

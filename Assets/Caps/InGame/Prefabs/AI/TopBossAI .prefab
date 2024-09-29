@@ -305,7 +305,7 @@ MonoBehaviour:
   maxHp: 5000
   curStatus: 0
   isDetect: 0
-  attackDelay: 3.5
+  attackDelay: 4
   curAttackDelay: 0
   attackDistance: 7
   keyRoom: 0

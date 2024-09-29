@@ -425,23 +425,23 @@ public abstract class AI : MonoBehaviour
         value = Random.Range(1, 101);
         Debug.Log("ActiveItem : " + value);// ºØ´ë, ¿­¼è, ¹æÅº, ¼ö·ùÅº Á¸Àç
 
-        if (!RoomController.Instance.Rooms[3].ClearCheck)
-        {
-            bool returnItem = true;
-            while (returnItem)
-            {
-                if (value >= 5 && value <= 9)
-                {
-                    value = Random.Range(1, 101);
-                }
-                else returnItem = false;
-            }
-        }
-
         // ActiveItem (0~4:ºØ´ë / 5~9:¿­¼è / 10~14:¹æÅº / 15~19 : ¼ö·ùÅº)
         if (value <= 20)
         {
-            Item activeItem = PoolManager.Instance.GetActiveItem((EActiveItems)((value - 1) / 5));
+            if (!RoomController.Instance.Rooms[3].ClearCheck)
+            {
+                bool returnItem = true;
+                while (returnItem)
+                {
+                    if (value >= 5 && value <= 9)
+                    {
+                        value = Random.Range(0, 20);
+                    }
+                    else returnItem = false;
+                }
+            }
+
+            Item activeItem = PoolManager.Instance.GetActiveItem((EActiveItems)(value / 5));
             activeItem.ThrowItem(transform.position);
         }
     }

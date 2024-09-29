@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum VolumeType
@@ -38,6 +39,8 @@ public class SoundManager : MonoBehaviour
     [Header("AudioSource")]
     public AudioSource bgmSource;
     public AudioSource sfxSource;
+    public AudioSource reloadSource;
+    public AudioSource putSource;
 
     public bool[] toggleCheck;
 
@@ -45,17 +48,7 @@ public class SoundManager : MonoBehaviour
     {
         Init();
         bgmSource.clip = bgmClips[(int)bgm];
-    }
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        putSource.clip = sfxClips[(int)SFX.Walk];
     }
 
     private void Init()
@@ -69,6 +62,17 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    private void Start()
+    {
+        //reloadSource.pitch = 1;
+        SceneManager.sceneLoaded += SceneLoadFunc;
+    }
+
+    private void SceneLoadFunc(Scene scene, LoadSceneMode mode)
+    {
+        reloadSource.pitch = 1;
     }
 
     public float GetVolume(VolumeType volType)
@@ -103,26 +107,11 @@ public class SoundManager : MonoBehaviour
         PlaySFX(SFX.MouseClick);
     }
 
-    /*public void PlaySFX(SFX sfx)
-    {
-        sfxSource.clip = sfxClips[(int)sfx];
-        sfxSource.Play();
-    }*/
     public void PlaySFX(SFX sfx)
     {
         if (!toggleCheck[2]) return;
-        //sfxSource.clip = sfxClips[(int)sfx];
-        //sfxSource.pitch = 1;
         sfxSource.PlayOneShot(sfxClips[(int)sfx]);
     }
-
-
-    /*public void PlaySFX(SFX sfx, float pitch)
-    {
-        sfxSource.clip = sfxClips[(int)sfx];
-        sfxSource.pitch = pitch;
-        sfxSource.Play();
-    }*/
 
     public void PlayBGM(BGM bgm)
     {
@@ -140,5 +129,26 @@ public class SoundManager : MonoBehaviour
     public void PauseBGM()
     {
         bgmSource.Pause();
+    }
+
+    public void PlayReload(int index)
+    {
+        reloadSource.clip = sfxClips[index];
+        reloadSource.Play();
+    }
+
+    public void StopReload()
+    {
+        reloadSource.Stop();
+    }
+
+    public void PlayPutSound()
+    {
+        putSource.Play();
+    }
+
+    public void StopPutSound()
+    {
+        putSource.Stop();
     }
 }

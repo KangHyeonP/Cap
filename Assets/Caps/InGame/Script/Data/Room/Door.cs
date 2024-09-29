@@ -59,12 +59,15 @@ public class Door : MonoBehaviour
         lineObject.layer = 6;
     }
 
+<<<<<<< HEAD
     public void DrawLine()
     {
         if (!nextDoor.lineDrawn)
             DrawLineBetweenDoors(qMark.transform.position, nextDoor.qMark.transform.position, wayPoints);
 	}
 
+=======
+>>>>>>> feature/TES-200_소리
     public void nextQMOn()
     {
         if (!firstOpenCheck)
