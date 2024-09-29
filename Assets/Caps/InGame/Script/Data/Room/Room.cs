@@ -153,7 +153,8 @@ public class Room : MonoBehaviour
         {
             foreach (Door door in doors) door.DoorLock();
         }
-    }
+        foreach (Door door in doors) door.nextClearCheck();
+	}
 
     private void DisableDoor()
     {

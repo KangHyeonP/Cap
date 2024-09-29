@@ -12,6 +12,8 @@ TagManager:
   - Knife
   - Boss
   - Table
+  - FxTemporaire
+  - Door
   layers:
   - Default
   - TransparentFX

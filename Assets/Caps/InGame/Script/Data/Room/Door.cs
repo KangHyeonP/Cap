@@ -6,11 +6,18 @@ public class Door : MonoBehaviour
 {
     public bool isOpened = false;
     public bool firstOpenCheck = false;
+    public bool lineDrawn = false;
 
     private GameObject qMark;
     private Animator animator;
     public BoxCollider2D boxCol;
     private GameObject sideCol;
+    private GameObject lineObject;
+    private LineRenderer lineRenderer;
+    public Material lineMat;
+
+    public Transform[] wayPoints;
+
     bool isSide = false;
     float dist;
 
@@ -20,36 +27,57 @@ public class Door : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-        boxCol = GetComponent<BoxCollider2D>();
-        qMark = transform.GetChild(0).gameObject;
+		qMark = transform.GetChild(0).gameObject;
 
-        if (transform.localScale.y != 1)
+		animator = GetComponent<Animator>();
+        boxCol = GetComponent<BoxCollider2D>();
+
+        if (transform.localScale.y != 1) //사이드 체크
         {
             isSide = true;
             sideCol = transform.GetChild(1).gameObject;
+
+            qMark.transform.localPosition = new Vector3(0, -1.2413f, 0);
+            qMark.transform.localScale = new Vector3(2, 1.379f, 1);
         }
+	}
 
+	private void Start()
+	{
+		LineInit();
+	}
+
+	private void LineInit()
+    {
+        lineObject = new GameObject("LineRendererObject");
+        lineObject.transform.parent = this.transform;
+
+        lineRenderer = lineObject.AddComponent<LineRenderer>();
+
+        lineRenderer.material = lineMat;
+		lineRenderer.sortingOrder = 3;
+        lineObject.layer = 6;
     }
 
-    /*private void Update()
+    public void DrawLine()
     {
-        DoorOpen();
-    }
-
-    void DoorOpen()
-    {
-        if (!isOpened || animator.enabled) return;
-
-        animator.enabled = true;
-    }*/
+        if (!nextDoor.lineDrawn)
+            DrawLineBetweenDoors(qMark.transform.position, nextDoor.qMark.transform.position, wayPoints);
+	}
 
     public void nextQMOn()
     {
-        //if (!nextDoor.animator.enabled)
-        if(!firstOpenCheck)
+        if (!firstOpenCheck)
+        {
             nextDoor.qMark.SetActive(true);
+		}
     }
+    
+    public void nextClearCheck()
+    {
+		nextDoor.firstOpenCheck = true;
+		DrawLine();
+	}
 
     public void QMOff()
     {
@@ -71,6 +99,7 @@ public class Door : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3f);
         transform.localScale += new Vector3(2, 0, 0);
+        qMark.transform.localScale = new Vector3(2, 1.379f, 1);
     }
 
 
@@ -93,7 +122,11 @@ public class Door : MonoBehaviour
         if (isSide)
         {
             if (dist < 0)
+            {
                 transform.localScale -= new Vector3(2, 0, 0);
+				qMark.transform.localScale = new Vector3(-2, 1.379f, 1);
+
+			}
 
             animator.SetTrigger("Side");
 
@@ -113,17 +146,57 @@ public class Door : MonoBehaviour
 
         isOpened = true;
         firstOpenCheck = true;
+
     }
-
-
-
 
     public void Doorcol(bool check)
     {
         boxCol.enabled = check;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+	private void DrawLineBetweenDoors(Vector2 vec1, Vector2 vec2, Transform[] wayPoints)
+	{
+        if (!isSide)
+        {
+            if (dist < 0)
+            {
+                vec1 = new Vector2(vec1.x, vec1.y + 0.75f);
+                vec2 = new Vector2(vec2.x, vec2.y - 0.75f);
+            }
+            else
+            {
+				vec1 = new Vector2(vec1.x, vec1.y - 0.75f);
+				vec2 = new Vector2(vec2.x, vec2.y + 0.75f);
+			}
+        }
+
+        if (!lineDrawn)
+        {
+            if (wayPoints.Length == 0)
+            {
+
+                lineRenderer.positionCount = 2;
+
+                lineRenderer.SetPosition(0, vec1);
+                lineRenderer.SetPosition(1, vec2);
+
+                lineDrawn = true;
+            }
+            else
+            {
+                lineRenderer.positionCount = 2 + wayPoints.Length;
+                lineRenderer.SetPosition(0, vec1);
+                for (int i = 1; i <= wayPoints.Length; i++)
+                {
+                    lineRenderer.SetPosition(i, wayPoints[i - 1].position);
+                }
+                lineRenderer.SetPosition(wayPoints.Length + 1, vec2);
+				lineDrawn = true;
+			}
+        }
+    }
+
+	private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && !isOpened)
         {
