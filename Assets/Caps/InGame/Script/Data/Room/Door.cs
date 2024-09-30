@@ -153,6 +153,14 @@ public class Door : MonoBehaviour
         boxCol.enabled = check;
     }
 
+    public void CheckDoor()
+    {
+        if (isSide) dist = (transform.position.x - InGameManager.Instance.player.transform.position.x);
+        else dist = (transform.position.y - InGameManager.Instance.player.transform.position.y);
+
+        DoorOpen();
+    }
+
 	private void DrawLineBetweenDoors(Vector2 vec1, Vector2 vec2, Transform[] wayPoints)
 	{
         if (!isSide)
@@ -199,10 +207,11 @@ public class Door : MonoBehaviour
     {
         if (collision.CompareTag("Player") && !isOpened)
         {
-            if (isSide) dist = (transform.position.x - InGameManager.Instance.player.transform.position.x);
+            /*if (isSide) dist = (transform.position.x - InGameManager.Instance.player.transform.position.x);
             else dist = (transform.position.y - InGameManager.Instance.player.transform.position.y);
 
-            DoorOpen();
+            DoorOpen();*/
+            CheckDoor();
         }
     }
 }

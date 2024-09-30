@@ -13,6 +13,7 @@ public class LockDoor : MonoBehaviour
     public bool doorCheck = false; // 다음방으로 넘어간 상태인지 체크
     private BoxCollider2D boxcol;
     public AI[] agent;
+    public GameObject closeDoor; // 열쇠 개방전 통로길 폐쇠
 
     private void Awake()
     {
@@ -46,8 +47,9 @@ public class LockDoor : MonoBehaviour
                 door.Doorcol(true);
                 backDoor.Doorcol(true);
                 lockBackDoor.DisCol();
+                door.CheckDoor();
                 boxcol.enabled = false;
-                door.isOpened = true;
+                closeDoor.SetActive(false);
             }
         }
     }
