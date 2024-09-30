@@ -8,7 +8,8 @@ public class BossGrenade : MonoBehaviour
     Rigidbody2D rigid;
 
     public float distance = 2.5f;
-    public ParticleSystem particle;
+    //public ParticleSystem particle;
+    public ParticleSystem particleObject;
 
     public SpriteRenderer render;
 
@@ -25,10 +26,6 @@ public class BossGrenade : MonoBehaviour
 
     private void OnEnable()
     {
-        //transform.position = InGameManager.Instance.player.transform.position;
-        //transform.rotation = InGameManager.Instance.player.transform.rotation;
-
-        //rigid.AddForce(CameraController.Instance.MouseVecValue.normalized * 5f, ForceMode2D.Impulse);
         render.enabled = true;
         cirCol.isTrigger = false;
         rigid.constraints = RigidbodyConstraints2D.None;
@@ -54,8 +51,10 @@ public class BossGrenade : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         render.enabled = false;
-        particle.Play();
+        //particle.Play();
         rigid.constraints = RigidbodyConstraints2D.FreezeAll;
+        particleObject = PoolManager.Instance.GetFireEffect(transform.rotation);
+        particleObject.transform.position = transform.position;
         cirCol.isTrigger = true;
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.localPosition, distance);
@@ -67,7 +66,8 @@ public class BossGrenade : MonoBehaviour
 
         SoundManager.Instance.PlaySFX(SFX.UseGrenade);
         yield return new WaitForSeconds(2f);
-        particle.Stop();
+        //particle.Stop();
+        PoolManager.Instance.ReturnFireEffect(particleObject);
 
         PoolManager.Instance.ReturnBossGrenade(this);
     }

@@ -422,11 +422,11 @@ public abstract class AI : MonoBehaviour
             magazine.ThrowItem(transform.position);
         }
 
-        value = Random.Range(1, 101);
+        value = Random.Range(0, 100);
         Debug.Log("ActiveItem : " + value);// ºØ´ë, ¿­¼è, ¹æÅº, ¼ö·ùÅº Á¸Àç
 
         // ActiveItem (0~4:ºØ´ë / 5~9:¿­¼è / 10~14:¹æÅº / 15~19 : ¼ö·ùÅº)
-        if (value <= 20)
+        if (value <= 19)
         {
             if (!RoomController.Instance.Rooms[3].ClearCheck)
             {

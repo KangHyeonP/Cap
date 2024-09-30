@@ -1162,6 +1162,37 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &42920563
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 42920564}
+  m_Layer: 0
+  m_Name: FireEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &42920564
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42920563}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1801873979}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &45454122
 GameObject:
   m_ObjectHideFlags: 0
@@ -27849,6 +27880,7 @@ Transform:
   - {fileID: 2065878134}
   - {fileID: 1500968341}
   - {fileID: 1809284012}
+  - {fileID: 42920564}
   m_Father: {fileID: 1509770959}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1801873980
@@ -27911,6 +27943,8 @@ MonoBehaviour:
   bossGrenadePos: {fileID: 1500968341}
   knifeBullet: {fileID: 1518909287637336462, guid: e32861821ad8a8742ab2ea180bd8251d, type: 3}
   knifeBulletPos: {fileID: 1809284012}
+  fireEffect: {fileID: 255662351828414014, guid: c563d288e714799428b4c32c31813e4d, type: 3}
+  fireEffectPos: {fileID: 42920564}
   initCount: 5
 --- !u!1 &1802800827
 GameObject:

@@ -58,16 +58,25 @@ public class RoomController : MonoBehaviour
     }
  
 
-    public void BombLogic(Vector3 pos) // getcomponent를 안 쓰고 적에게 폭발 데미지를 못줘서 여기다 구현
+    public void BombLogic(Vector3 pos, ParticleSystem p) // getcomponent를 안 쓰고 적에게 폭발 데미지를 못줘서 여기다 구현
     {
         foreach (AI a in rooms[curIndex].Agents)
         {
-            if (Vector3.Distance(pos, a.gameObject.transform.localPosition) < 4f)
+            if (Vector3.Distance(pos, a.gameObject.transform.position) < 3f)
             {
                 a.Damage(InGameManager.Instance.Power + DrugManager.Instance.power, WeaponValue.Knife);
                 Debug.Log("폭발탄 : " + a.gameObject.name);
             }
         }
+
+        StartCoroutine(StopEffect(p));
+    }
+
+    private IEnumerator StopEffect(ParticleSystem p)
+    {
+        yield return new WaitForSeconds(1.5f);
+        p.transform.localScale = new Vector3(1.6f, 1.6f, 1);
+        PoolManager.Instance.ReturnFireEffect(p);
     }
     /*
     private void CheckEnemy(int num)

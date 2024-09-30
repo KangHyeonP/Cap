@@ -110,9 +110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d725fa8377168f14da6b1044d02a4c89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 2.5
-  particle: {fileID: 4865324073044600835}
+  distance: 3
+  particleObject: {fileID: 0}
   render: {fileID: 1727536991806611671}
+  cirCol: {fileID: 0}
 --- !u!1 &9196702537710216100
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,10 +282,5 @@ PrefabInstance:
 --- !u!4 &3289652721033598011 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7927442098751552197, guid: c563d288e714799428b4c32c31813e4d, type: 3}
-  m_PrefabInstance: {fileID: 4874266085618806526}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &4865324073044600835 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 9505662638753533, guid: c563d288e714799428b4c32c31813e4d, type: 3}
   m_PrefabInstance: {fileID: 4874266085618806526}
   m_PrefabAsset: {fileID: 0}

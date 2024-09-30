@@ -55,6 +55,11 @@ public class PoolManager : MonoBehaviour
     private Transform knifeBulletPos;
 
     [SerializeField]
+    private GameObject fireEffect;
+    [SerializeField]
+    private Transform fireEffectPos;
+
+    [SerializeField]
     private int initCount;
 
     public Queue<Drug>[] poolingDrug = { new Queue<Drug>(), new Queue<Drug>(), new Queue<Drug>(), new Queue<Drug>(), new Queue<Drug>() };
@@ -75,6 +80,8 @@ public class PoolManager : MonoBehaviour
     // 총은 각각 자신의 총알을 가지므로 사용하기 안좋음
 
     public Queue<KnifeBullet> poolingKnifeBulletBoss = new Queue<KnifeBullet>();
+
+    public Queue<ParticleSystem> poolingFireEffect = new Queue<ParticleSystem>();
 
     private void Awake()
     {
@@ -116,7 +123,8 @@ public class PoolManager : MonoBehaviour
 
             CreateBossGrenade();
             CreateKnifeBullet();
-            //
+
+            CreateFireEffect();
         }
 
         /*
@@ -413,5 +421,34 @@ public class PoolManager : MonoBehaviour
         obj.gameObject.SetActive(false);
 
         poolingKnifeBulletBoss.Enqueue(obj);
+    }
+
+    private void CreateFireEffect()
+    {
+        ParticleSystem newObj = Instantiate(fireEffect).GetComponent<ParticleSystem>();
+        newObj.gameObject.SetActive(false);
+        newObj.transform.SetParent(fireEffectPos);
+        poolingFireEffect.Enqueue(newObj);
+    }
+
+    public ParticleSystem GetFireEffect(Quaternion q)
+    {
+        if (poolingFireEffect.Count <= 0)
+        {
+            CreateFireEffect();
+        }
+
+        ParticleSystem obj = poolingFireEffect.Dequeue();
+        obj.gameObject.transform.rotation = q;
+        obj.gameObject.SetActive(true);
+        obj.Play();
+        return obj;
+    }
+
+    public void ReturnFireEffect(ParticleSystem obj)
+    {
+        obj.gameObject.SetActive(false);
+
+        poolingFireEffect.Enqueue(obj);
     }
 }

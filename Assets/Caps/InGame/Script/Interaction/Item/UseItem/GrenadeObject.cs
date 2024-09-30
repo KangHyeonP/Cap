@@ -15,7 +15,8 @@ public class GrenadeObject : MonoBehaviour
 
     public CircleCollider2D cirCol;
 
-    public ParticleSystem particle;
+    //public ParticleSystem particle;
+    public ParticleSystem particleObject;
 
     public SpriteRenderer render;
 
@@ -27,8 +28,6 @@ public class GrenadeObject : MonoBehaviour
 
     private void OnEnable()
     {
-        //moveVec = new Vector2(transform.localPosition.x, transform.localPosition.y);
-
         render.enabled = true;
         cirCol.isTrigger = false;
         rigid.constraints = RigidbodyConstraints2D.None;
@@ -65,8 +64,10 @@ public class GrenadeObject : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         render.enabled = false;
-        particle.Play();
         rigid.constraints = RigidbodyConstraints2D.FreezeAll;
+        //particle.Play();
+        particleObject = PoolManager.Instance.GetFireEffect(transform.rotation);
+        particleObject.transform.position = transform.position;
         cirCol.isTrigger = true;
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.localPosition, distance);
@@ -77,7 +78,8 @@ public class GrenadeObject : MonoBehaviour
         }
         SoundManager.Instance.PlaySFX(SFX.UseGrenade);
         yield return new WaitForSeconds(2f);
-        particle.Stop();
+        //particle.Stop();
+        PoolManager.Instance.ReturnFireEffect(particleObject);
 
         PoolManager.Instance.ReturnGrenadeObject(this);
     }

@@ -16,6 +16,9 @@ public class PlayerBullet : Bullet
 
     private bool sizeCheck = false;
 
+    [SerializeField] // 외부에서 볼 수 있도록
+    private ParticleSystem bombEffect;
+    
     protected override void Awake()
     {
         base.Awake();
@@ -105,7 +108,11 @@ public class PlayerBullet : Bullet
 
     private void BombBullet() // 처음 맞은 적은 데미지 안들어 오게 할거면 따로 변수로 체크
     {
-        RoomController.Instance.BombLogic(transform.position);
+        bombEffect = PoolManager.Instance.GetFireEffect(transform.rotation);
+        bombEffect.transform.position = transform.position;
+        bombEffect.transform.localScale *= 0.8f;
+
+        RoomController.Instance.BombLogic(transform.position, bombEffect);
     }
 
     protected override void TrrigerLogic()
