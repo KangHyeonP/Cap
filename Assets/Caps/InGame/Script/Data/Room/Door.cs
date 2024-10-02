@@ -163,19 +163,19 @@ public class Door : MonoBehaviour
 
 	private void DrawLineBetweenDoors(Vector2 vec1, Vector2 vec2, Transform[] wayPoints)
 	{
-        if (!isSide)
-        {
-            if (dist < 0)
-            {
-                vec1 = new Vector2(vec1.x, vec1.y + 0.75f);
-                vec2 = new Vector2(vec2.x, vec2.y - 0.75f);
-            }
-            else
-            {
-				vec1 = new Vector2(vec1.x, vec1.y - 0.75f);
-				vec2 = new Vector2(vec2.x, vec2.y + 0.75f);
-			}
-        }
+   //     if (!isSide)
+   //     {
+   //         if (dist < 0)
+   //         {
+   //             vec1 = new Vector2(vec1.x, vec1.y + 0.75f);
+   //             vec2 = new Vector2(vec2.x, vec2.y - 0.75f);
+   //         }
+   //         else
+   //         {
+			//	vec1 = new Vector2(vec1.x, vec1.y - 0.75f);
+			//	vec2 = new Vector2(vec2.x, vec2.y + 0.75f);
+			//}
+   //     }
 
         if (!lineDrawn)
         {

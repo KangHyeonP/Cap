@@ -68,7 +68,7 @@ public class TabUI : MonoBehaviour
         bulletAccuracy.text = aim + "( " + InGameManager.Instance.Aim
 			+ " + " + DrugManager.Instance.aim + " )";
         bulletDistance.text = distance * 10 + "( " + InGameManager.Instance.BulletDistance * 10
-            + " + " + DrugManager.Instance.playerAttackRange * 10 + " )";
+            + " + " + DrugManager.Instance.playerAttackRange * 10 + " )"; // 표기만 10 곱해서 표현
         speed.text = playerSpeed + "( " + InGameManager.Instance.Speed
             + " + " + DrugManager.Instance.speed + " )";
         attackSpeed.text = playerAttackSpeed + "( " + InGameManager.Instance.AttackDelay
