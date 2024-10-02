@@ -419,7 +419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemValues: 1
-  price: 10
+  price: 7
   isProduct: 0
   curPrice: 0
   playerCheck: 0

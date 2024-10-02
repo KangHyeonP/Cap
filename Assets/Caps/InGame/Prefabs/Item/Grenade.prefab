@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemValues: 3
-  price: 20
+  price: 10
   isProduct: 0
   curPrice: 0
   playerCheck: 0
