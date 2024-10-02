@@ -291,7 +291,7 @@ public abstract class AI : MonoBehaviour
         }
         else
         {
-            damage += InGameManager.Instance.player.initPower;
+            damage += InGameManager.Instance.player.initMeleePower;
         }
 
         if (DrugManager.Instance.red2)
