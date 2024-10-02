@@ -474,6 +474,8 @@ public abstract class Player : MonoBehaviour
     // 수정 로직
     public void WeaponSwap(int idx)//, int weaponValue)
     {
+        if (isReload) CancleReload();
+
         Debug.Log("idx : " + idx);
 
         // 무기를 전부 비활성화, 비용이 많이 든다면 추후 활성화 무기만 체크하여 비활성화로 돌리는 로직으로 수정
