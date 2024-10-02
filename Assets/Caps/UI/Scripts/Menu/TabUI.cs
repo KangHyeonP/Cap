@@ -67,8 +67,8 @@ public class TabUI : MonoBehaviour
             + " + " + buffPower + " )";
         bulletAccuracy.text = aim + "( " + InGameManager.Instance.Aim
 			+ " + " + DrugManager.Instance.aim + " )";
-        bulletDistance.text = distance + "( " + InGameManager.Instance.BulletDistance
-            + " + " + DrugManager.Instance.playerAttackRange + " )m";
+        bulletDistance.text = distance * 10 + "( " + InGameManager.Instance.BulletDistance * 10
+            + " + " + DrugManager.Instance.playerAttackRange * 10 + " )";
         speed.text = playerSpeed + "( " + InGameManager.Instance.Speed
             + " + " + DrugManager.Instance.speed + " )";
         attackSpeed.text = playerAttackSpeed + "( " + InGameManager.Instance.AttackDelay
