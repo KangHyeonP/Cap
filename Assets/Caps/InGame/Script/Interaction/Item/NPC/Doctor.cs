@@ -6,7 +6,7 @@ using UnityEngine;
 public class Doctor : MonoBehaviour
 {
     public Room room;
-    
+
     bool isDoctor;
     bool touchDoctor;
     bool firstCheck;
@@ -14,10 +14,18 @@ public class Doctor : MonoBehaviour
     bool chatPrevent = false;
     bool dieDoctor = false;
 
-    string firstDoctorText = "도박 한 번 해볼래?";
-    string maxGuageText = "넌 가망이 없어...";
-    string acceptText = "끊어라, 그러다 병신된다.";
-    string refuseText = "돈 없어? 그럼 꺼져";
+    string[] firstDoctorText = { "도박 한 번 해볼래?", "You wanna try"};
+    string[] maxGuageText = {"넌 가망이 없어...", "You're hopeless."};
+    string[] acceptText = { "끊어라, 그러다 병신된다.", "Quit it, jerk."};
+    string[] refuseText = { "돈 없어? 그럼 꺼져", "Flat broke? Then get the hell out."};
+
+
+    public int languageIndex = 0;
+    /*string englishFirstDoctorText = "You wanna try";
+    string englishMaxGuageText = "You're hopeless.";
+    string englishAcceptText = "Quit it, jerk.";
+    string englishRefuseText = "Flat broke? Then get the hell out."*/
+
 
     /*
      string firstDoctorText = "도박 한 번 해볼래?"; You wanna try?
@@ -35,6 +43,7 @@ string refuseText = "돈 없어? 그럼 꺼져"; Flat broke? Then get the hell out.
 
         CheckNeedDoctor();
         InteractDoctor();
+        CheckLanguage();
 
         if (Vector2.Distance(InGameManager.Instance.player.transform.position, this.transform.position) > doctorDistance)
         {
@@ -70,6 +79,26 @@ string refuseText = "돈 없어? 그럼 꺼져"; Flat broke? Then get the hell out.
         }
     }
 
+    public void CheckLanguage()
+    {
+        if (GameManager.Instance.languageIndex == languageIndex) return;
+        else
+        {
+            languageIndex = GameManager.Instance.languageIndex;
+
+            if (chatCoroutine != null)
+            {
+                StopCoroutine(chatCoroutine);
+            }
+
+            chatText.text = "";
+            chatCoroutine = null;
+            chatPrevent = false;
+
+            chatCoroutine = StartCoroutine(ChatDoctor());
+        }
+    }
+
     public void RemoveGuage()
     {
         InGameManager.Instance.DecreaseDrug();
@@ -84,9 +113,9 @@ string refuseText = "돈 없어? 그럼 꺼져"; Flat broke? Then get the hell out.
         {
             chatPrevent = true;
             chatText.text = "";
-            for (int i = 0; i < maxGuageText.Length; i++)
+            for (int i = 0; i < maxGuageText[languageIndex].Length; i++)
             {
-                chatText.text += maxGuageText[i];
+                chatText.text += maxGuageText[languageIndex][i];
                 yield return new WaitForSeconds(0.1f);
             }
             chatPrevent = false;
@@ -97,9 +126,9 @@ string refuseText = "돈 없어? 그럼 꺼져"; Flat broke? Then get the hell out.
             chatPrevent = true;
             if (!firstCheck)
             {
-                for (int i = 0; i < firstDoctorText.Length; i++) // 처음 말걸 때 텍스트
+                for (int i = 0; i < firstDoctorText[languageIndex].Length; i++) // 처음 말걸 때 텍스트
                 {
-                    chatText.text += firstDoctorText[i];
+                    chatText.text += firstDoctorText[languageIndex][i];
                     yield return new WaitForSeconds(0.1f);
                 }
                 firstCheck = true;
@@ -109,9 +138,9 @@ string refuseText = "돈 없어? 그럼 꺼져"; Flat broke? Then get the hell out.
                 chatText.text = "";
                 if (InGameManager.Instance.money < 10)
                 {
-                    for (int i = 0; i < refuseText.Length; i++) // 돈 없을 떄 텍스트
+                    for (int i = 0; i < refuseText[languageIndex].Length; i++) // 돈 없을 떄 텍스트
                     {
-                        chatText.text += refuseText[i];
+                        chatText.text += refuseText[languageIndex][i];
                         yield return new WaitForSeconds(0.1f);
                     }
                 }
@@ -119,9 +148,9 @@ string refuseText = "돈 없어? 그럼 꺼져"; Flat broke? Then get the hell out.
                 {
                     chatText.text = "";
                     RemoveGuage();
-                    for (int i = 0; i < acceptText.Length; i++) // 치료 받았을 때 텍스트
+                    for (int i = 0; i < acceptText[languageIndex].Length; i++) // 치료 받았을 때 텍스트
                     {
-                        chatText.text += acceptText[i];
+                        chatText.text += acceptText[languageIndex][i];
                         yield return new WaitForSeconds(0.1f);
                     }
 

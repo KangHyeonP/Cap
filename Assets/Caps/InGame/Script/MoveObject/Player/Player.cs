@@ -326,7 +326,8 @@ public abstract class Player : MonoBehaviour
                 return;
             }
         }
-        else if(UIManager.Instance.isBulletProof)
+        
+        if(UIManager.Instance.isBulletProof)
         {
             UIManager.Instance.BulletproofUpdate(false);
 

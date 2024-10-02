@@ -40,17 +40,6 @@ public class GrenadeObject : MonoBehaviour
         else
             rigid.AddForce(CameraController.Instance.MouseVecValue.normalized * 5f, ForceMode2D.Impulse);
 
-        if (DrugManager.Instance.bombMissCheck)
-        {
-            int bombMissCheck = Random.Range(1, 11);
-            Debug.Log("값 : " + bombMissCheck);
-            if (bombMissCheck == 1)
-            {
-                Debug.Log("수류탄 불발");
-                PoolManager.Instance.ReturnGrenadeObject(this);
-                return;
-            }
-        }
         StartCoroutine(Explode());
     }
 
@@ -66,6 +55,19 @@ public class GrenadeObject : MonoBehaviour
         render.enabled = false;
         rigid.constraints = RigidbodyConstraints2D.FreezeAll;
         //particle.Play();
+
+        if (DrugManager.Instance.bombMissCheck)
+        {
+            int bombMissCheck = Random.Range(1, 11);
+            Debug.Log("값 : " + bombMissCheck);
+            if (bombMissCheck == 1)
+            {
+                Debug.Log("수류탄 불발");
+                PoolManager.Instance.ReturnGrenadeObject(this);
+                yield return null;
+            }
+        }
+
         particleObject = PoolManager.Instance.GetFireEffect(transform.rotation);
         particleObject.transform.position = transform.position;
         cirCol.isTrigger = true;
