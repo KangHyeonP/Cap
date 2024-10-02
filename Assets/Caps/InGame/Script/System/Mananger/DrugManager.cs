@@ -357,6 +357,7 @@ public class DrugManager : MonoBehaviour
         InGameManager.Instance.LockAnimationPlay(3);
         SoundManager.Instance.PlaySFX(SFX.HeartBeat);
         shaderEffect.StartMirage();
+        UIManager.Instance.TabUI.MirageOn();
 
         switch (index)
         {
