@@ -14,7 +14,7 @@ public class Doctor : MonoBehaviour
     bool chatPrevent = false;
     bool dieDoctor = false;
 
-    string[] firstDoctorText = { "도박 한 번 해볼래?", "You wanna try"};
+    string[] firstDoctorText = { "도박 한 번 해볼래?", "You wanna try?"};
     string[] maxGuageText = {"넌 가망이 없어...", "You're hopeless."};
     string[] acceptText = { "끊어라, 그러다 병신된다.", "Quit it, jerk."};
     string[] refuseText = { "돈 없어? 그럼 꺼져", "Flat broke? Then get the hell out."};
