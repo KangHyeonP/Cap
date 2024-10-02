@@ -107,6 +107,9 @@ public class InGameManager : MonoBehaviour
     public bool checkWeapon = false;
     public bool checkEunha = false;
 
+    // Stage Door
+    public GameObject stage1Door;
+
     [SerializeField]
     private LockAnimation[] lockAni;
 

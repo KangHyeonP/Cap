@@ -127,6 +127,10 @@ public abstract class Item : MonoBehaviour
             playerCheck = true;
             //Debug.Log("리스트 체크(추가) : " + InGameManager.Instance.tempItems.Count);
         }
+        else if (collision.tag == "Wall")
+        {
+            itemRigid.velocity = Vector3.zero;
+        }
     }
 
     protected virtual void OnTriggerExit2D(Collider2D collision)

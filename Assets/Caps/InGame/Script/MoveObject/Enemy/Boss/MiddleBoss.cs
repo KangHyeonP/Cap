@@ -42,6 +42,7 @@ public class MiddleBoss : Boss
     {
         base.Die();
         GameManager.Instance.UpdateDiaryDate((int)EDiaryValue.Deimos);
+        InGameManager.Instance.stage1Door.SetActive(false);
     }
 
     protected override IEnumerator IAttack()

@@ -144,6 +144,10 @@ public class Drug : Item
             playerCheck = true;
             Debug.Log("지금 먹은 아이템 : " + gameObject.name);
         }
+        else if (collision.tag == "Wall")
+        {
+            itemRigid.velocity = Vector3.zero;
+        }
     }
 
     protected override void OnTriggerExit2D(Collider2D collision)
