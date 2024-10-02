@@ -6726,6 +6726,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4399711302307690957, guid: 8d9a79c91161811418166fbce974881a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4428556401852285576, guid: 8d9a79c91161811418166fbce974881a, type: 3}
       propertyPath: m_Sprite
       value: 
