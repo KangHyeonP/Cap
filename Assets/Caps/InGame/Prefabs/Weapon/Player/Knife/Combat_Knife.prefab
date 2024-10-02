@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireDelay: 2
-  fireMaximumDelay: 0.15
+  fireMaximumDelay: 0.35
   spriteRenderer: {fileID: 1975232666191165024}
 --- !u!1 &6572939145631547116
 GameObject:

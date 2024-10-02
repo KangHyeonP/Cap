@@ -130,5 +130,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireDelay: 2
-  fireMaximumDelay: 0.15
+  fireMaximumDelay: 0.35
   spriteRenderer: {fileID: 4269067350562575162}
