@@ -370,7 +370,7 @@ MonoBehaviour:
   selectCharacter: 0
   playerCheck: 0
   diaryDataCheck: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  dictionaryUI: {fileID: 0}
+  dictionaryUI: {fileID: 2116632345}
   kuiperOn: 0
   eunhaOn: 0
   languageIndex: 0

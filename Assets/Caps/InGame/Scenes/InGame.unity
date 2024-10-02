@@ -13711,7 +13711,7 @@ MonoBehaviour:
   checkItem: 0
   checkWeapon: 0
   checkEunha: 0
-  stage1Door: {fileID: 0}
+  stage1Door: {fileID: 1004975592}
   lockAni:
   - {fileID: 7036622286608576958}
   - {fileID: 8961856937639629758}
@@ -16500,6 +16500,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2065878134}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1004975592 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 91529869493866933, guid: 8d9a79c91161811418166fbce974881a, type: 3}
+  m_PrefabInstance: {fileID: 1853668613}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1021591410
 GameObject:
   m_ObjectHideFlags: 0
