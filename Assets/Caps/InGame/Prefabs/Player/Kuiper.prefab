@@ -298,8 +298,8 @@ MonoBehaviour:
   isAttack: 0
   isSkill: 0
   isReload: 0
-  initPower: 8
-  initMeleePower: 10
+  initPower: 14
+  initMeleePower: 11
   avoidChance: 0
   reloadTime: 3
   speedApply: 0
