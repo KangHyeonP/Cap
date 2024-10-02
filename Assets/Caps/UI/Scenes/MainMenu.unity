@@ -8444,7 +8444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073adc838fd92914987353182bd53342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dictUi: {fileID: 0}
+  dictUi: {fileID: 2116632345}
   characterImage: {fileID: 1725687576301801095}
 --- !u!224 &2609177905876538065
 RectTransform:
