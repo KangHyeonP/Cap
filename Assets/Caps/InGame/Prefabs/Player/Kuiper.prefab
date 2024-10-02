@@ -299,6 +299,7 @@ MonoBehaviour:
   isSkill: 0
   isReload: 0
   initPower: 8
+  initMeleePower: 10
   avoidChance: 0
   reloadTime: 3
   speedApply: 0
@@ -323,6 +324,7 @@ MonoBehaviour:
   playerCanvas: {fileID: 465279191457892063}
   reloadSlider: {fileID: 1803775860251653657}
   weaponPower: 10
+  reloadIndex: -1
   fireEffect: {fileID: 7302751013044986120}
   RageImages:
   - {fileID: 2452174374971316426}

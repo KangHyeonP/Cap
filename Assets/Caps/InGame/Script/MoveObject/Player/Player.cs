@@ -55,6 +55,7 @@ public abstract class Player : MonoBehaviour
 
     // Status - curStatus
     public int initPower = 0; // 고유 무기 공격력
+    public int initMeleePower = 0;
     protected bool avoidCheck;
     public bool AvoidCheck => avoidCheck;
     public int avoidChance;
@@ -559,7 +560,7 @@ public abstract class Player : MonoBehaviour
             UIManager.Instance.inGameUI.WeaponInven(5 + InGameManager.Instance.playerWeaponType);
             UIManager.Instance.inGameUI.KnifeTextUpdate();
             gunCheck = false;
-            weaponPower = initPower;
+            weaponPower = initMeleePower;
         }
 
         tempWeaponIndex = idx;
