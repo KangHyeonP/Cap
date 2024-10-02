@@ -10,6 +10,8 @@ public class GrenadeObject : MonoBehaviour
     public float distance = 2.5f;
     public int damage = 100;
 
+    public bool boomCheck = false; // Æø¹ß ¼öÁ¤¿ë
+
     //public Vector2 moveVec;
     private Vector2 lastVec;
 
@@ -63,27 +65,33 @@ public class GrenadeObject : MonoBehaviour
             if (bombMissCheck == 1)
             {
                 Debug.Log("¼ö·ùÅº ºÒ¹ß");
+                boomCheck = true;
                 PoolManager.Instance.ReturnGrenadeObject(this);
                 yield return null;
             }
         }
 
-        particleObject = PoolManager.Instance.GetFireEffect(transform.rotation);
-        particleObject.transform.position = transform.position;
-        cirCol.isTrigger = true;
-
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.localPosition, distance);
-
-        foreach(Collider2D c in colliders)
+        if (!boomCheck)
         {
-            c.GetComponent<AI>()?.Damage(damage, WeaponValue.Knife);
-        }
-        SoundManager.Instance.PlaySFX(SFX.UseGrenade);
-        yield return new WaitForSeconds(2f);
-        //particle.Stop();
-        PoolManager.Instance.ReturnFireEffect(particleObject);
+            particleObject = PoolManager.Instance.GetFireEffect(transform.rotation);
+            particleObject.transform.position = transform.position;
+            cirCol.isTrigger = true;
 
-        PoolManager.Instance.ReturnGrenadeObject(this);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.localPosition, distance);
+
+            foreach (Collider2D c in colliders)
+            {
+                c.GetComponent<AI>()?.Damage(damage, WeaponValue.Knife);
+            }
+            SoundManager.Instance.PlaySFX(SFX.UseGrenade);
+            yield return new WaitForSeconds(2f);
+            //particle.Stop();
+            PoolManager.Instance.ReturnFireEffect(particleObject);
+
+            PoolManager.Instance.ReturnGrenadeObject(this);
+        }
+
+        boomCheck = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
