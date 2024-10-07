@@ -181,7 +181,7 @@ MonoBehaviour:
   checkMagazine: 0
   bulletCount: 10
   reloadSpeed: 1
-  power: 5
+  power: 6
 --- !u!1 &340876588910828930
 GameObject:
   m_ObjectHideFlags: 0

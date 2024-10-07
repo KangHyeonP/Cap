@@ -144,7 +144,7 @@ public class Drug : Item
             playerCheck = true;
             Debug.Log("지금 먹은 아이템 : " + gameObject.name);
         }
-        else if (collision.tag == "Wall")
+        else if (collision.tag == "Wall" || collision.tag == "MapObject")
         {
             itemRigid.velocity = Vector3.zero;
         }

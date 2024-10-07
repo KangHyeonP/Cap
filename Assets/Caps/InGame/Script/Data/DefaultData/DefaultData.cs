@@ -37,7 +37,7 @@ public class CharacterData
     private int[] defaultHp = { 6, 4, 8};
     private int[] defaultAttackPower = { 10, 8, 14};
     private float[] defaultAimAccuracy = { 5, 7, 3};
-    private float[] defaultBulletDistance = { 0.5f, 0.8f, 0.3f};
+    private float[] defaultBulletDistance = { 0.8f, 1.1f, 0.65f};
     private float[] defaultSpeed = { 3.5f, 4.5f, 3.0f};
     private float[] defaultAttackDealy = { 10, 13, 8};
 

@@ -57,7 +57,7 @@ public class Money : Item
             //playerCheck = true;
             //Debug.Log("리스트 체크(추가) : " + InGameManager.Instance.tempItems.Count);
         }
-        else if (collision.tag == "Wall")
+        else if (collision.tag == "Wall" || collision.tag == "MapObject")
         {
             itemRigid.velocity = Vector3.zero;
         }

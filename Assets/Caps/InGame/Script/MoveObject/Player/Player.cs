@@ -297,6 +297,20 @@ public abstract class Player : MonoBehaviour
             speed *= 1.5f;
             rollCnt = true;
             yield return new WaitForSeconds(2.5f);
+            if(!isReload) speed = speedApply;
+            rollCnt = false;
+        }
+    }
+
+    public void RollSpeedCheck(bool check)
+    {
+        if(check)
+        {
+            speed *= 1.5f;
+            rollCnt = true;
+        }
+        else if(check != rollCnt)
+        {
             speed = speedApply;
             rollCnt = false;
         }
