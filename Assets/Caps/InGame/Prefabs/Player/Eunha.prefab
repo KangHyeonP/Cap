@@ -461,7 +461,7 @@ MonoBehaviour:
   hadnSprite: {fileID: 4256205921349603720}
   playerCanvas: {fileID: 465279191457892063}
   reloadSlider: {fileID: 1803775860251653657}
-  weaponPower: 12
+  weaponPower: 11
   reloadIndex: -1
   fireEffect: {fileID: 7302751013044986120}
   RageImages:
@@ -611,7 +611,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 12
   m_Sprite: {fileID: -1105956840, guid: d88fce9a5538ae84e911cad599c8d22f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
