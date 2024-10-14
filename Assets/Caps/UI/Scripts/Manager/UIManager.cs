@@ -56,31 +56,25 @@ public class UIManager : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) && !IsDict)
         {
-            Debug.Log("지금: " + IsPopup);
+            //Debug.Log("지금: " + IsPopup);
             OpenPause();
         }
 
         if (Input.GetKeyDown(KeyCode.Tab) && !IsTab)
         {
             OpenTab();
-            Debug.Log("Open");
+            //Debug.Log("Open");
         }
 
         if (Input.GetKeyUp(KeyCode.Tab) && IsTab)
         {
             OpenTab();
-            Debug.Log("Close");
+            //Debug.Log("Close");
         }
 
         if (Input.GetKeyDown(KeyCode.I) && IsPopup == 0)
         {
             OpenDict();
-        }
-
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            Debug.Log("IsTab: " + IsTab);
-            Debug.Log("IsDict: " + IsDict);
         }
 
     }

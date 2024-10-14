@@ -41,23 +41,24 @@ public class LockDoor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isOpen) return;
-
-        if (isTouch)
+        if (!isOpen)
         {
-            CheckLanguage();
-            Chat();
-            Interact();
-        }
-        else if (isChat)
-        {
-            distance = Vector2.Distance(InGameManager.Instance.player.transform.position, transform.position);
-
-            if (distance > 2.0f)
+            if (isTouch)
             {
-                isChat = false;
-                chatText.text = "";
-                StopCoroutine(chatCoroutine);
+                CheckLanguage();
+                Chat();
+                Interact();
+            }
+            else if (isChat)
+            {
+                distance = Vector2.Distance(InGameManager.Instance.player.transform.position, transform.position);
+
+                if (distance > 2.0f)
+                {
+                    isChat = false;
+                    chatText.text = "";
+                    StopCoroutine(chatCoroutine);
+                }
             }
         }
 
@@ -93,8 +94,9 @@ public class LockDoor : MonoBehaviour
     {
         if (door.boxCol.isTrigger) return;
 
+        Debug.Log("실행 함?");
         doorCheck = true;
-
+        
         Debug.Log("차이 값 기존 도어 락: " + (room.gameObject.transform.position.x - InGameManager.Instance.player.transform.position.x));
         if (room.gameObject.transform.position.x > InGameManager.Instance.player.transform.position.x) return;
 
