@@ -51,7 +51,7 @@ public class Agent : AI
 
     public override IEnumerator EDamage()
     {
-        Debug.Log("PlayerVec : " + playerPosVec);
+        /*Debug.Log("PlayerVec : " + playerPosVec);
 
         if (!isLean) // 밀리는 로직
         {
@@ -62,13 +62,13 @@ public class Agent : AI
             {
                 agent.isStopped = true;
             }
-        }
+        }*/
         yield return base.EDamage();
 
-        if (!isAttack || isDetect)
+        /*if (!isAttack || isDetect)
         {
             agent.isStopped = false;
-        }
+        }*/
     }
 
     public void Test()

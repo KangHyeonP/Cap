@@ -25,7 +25,7 @@ public class Bulletproof : Item
     {
         if (UIManager.Instance.isBulletProof) return;
 
-        if (DrugManager.Instance.itemBanCheck) return;
+        if (DrugManager.Instance.itemBanCheck && !isProduct) return;
 
         if (isProduct)
         {

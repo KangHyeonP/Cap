@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class WeaponBox : MonoBehaviour
@@ -9,6 +10,7 @@ public class WeaponBox : MonoBehaviour
     bool openKey;
     bool touchBox;
     public bool isLock;
+    public bool isOpen = false;
 
     public Item[] guns;
 
@@ -36,6 +38,7 @@ public class WeaponBox : MonoBehaviour
     void OpenBox()
     {
         if (!openKey) return;
+        if (isOpen) return;
 
         Debug.Log(InGameManager.Instance.key);
         if (isLock)
@@ -49,6 +52,7 @@ public class WeaponBox : MonoBehaviour
                 return;
         }
 
+        isOpen = true;
         StartCoroutine(DropWeapon());
         Debug.Log("상자열기");
     }

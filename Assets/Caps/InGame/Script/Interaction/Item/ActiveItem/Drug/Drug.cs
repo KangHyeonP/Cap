@@ -111,7 +111,7 @@ public class Drug : Item
 
         if(DrugManager.Instance.gaugeUp)
         {
-            drugGuage = Random.Range(6, 10);
+            drugGuage = Random.Range(5, 8);
             return;
         }
         drugGuage = Random.Range(3, 5);

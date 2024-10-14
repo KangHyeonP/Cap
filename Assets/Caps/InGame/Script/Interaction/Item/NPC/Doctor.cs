@@ -12,6 +12,7 @@ public class Doctor : MonoBehaviour
     bool firstCheck;
     bool completeCure;
     bool chatPrevent = false;
+    [SerializeField]
     bool dieDoctor = false;
 
     string[] firstDoctorText = { "도박 한 번 해볼래?", "You wanna try?"};
@@ -41,26 +42,28 @@ string refuseText = "돈 없어? 그럼 꺼져"; Flat broke? Then get the hell out.
     {
         if (dieDoctor) return;
 
-        CheckNeedDoctor();
-        InteractDoctor();
-        CheckLanguage();
-
-        if (Vector2.Distance(InGameManager.Instance.player.transform.position, this.transform.position) > doctorDistance)
+        if (!completeCure)
         {
+            CheckNeedDoctor();
+            InteractDoctor();
+            CheckLanguage();
 
-            if (!completeCure && chatCoroutine != null)
+            if (Vector2.Distance(InGameManager.Instance.player.transform.position, this.transform.position) > doctorDistance)
             {
-                StopCoroutine(chatCoroutine);
-                chatCoroutine = null;
-                chatPrevent = false;
-            }
-            else
-            {
-                chatText.text = "";
-                firstCheck = false;
+
+                if (!completeCure && chatCoroutine != null)
+                {
+                    StopCoroutine(chatCoroutine);
+                    chatCoroutine = null;
+                    chatPrevent = false;
+                }
+                else
+                {
+                    chatText.text = "";
+                    firstCheck = false;
+                }
             }
         }
-
         DieDoctor();
     }
 

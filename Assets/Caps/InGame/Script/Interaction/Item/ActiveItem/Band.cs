@@ -25,7 +25,8 @@ public class Band : Item
 
     public override void GetItem()
     {
-        if (DrugManager.Instance.itemBanCheck || DrugManager.Instance.isCurse) return;
+        if (DrugManager.Instance.isCurse) return;
+        if (DrugManager.Instance.itemBanCheck && !isProduct) return;
 
         if(isProduct)
         {
@@ -58,8 +59,7 @@ public class Band : Item
             int infect = Random.Range(1, 11);
             Debug.Log("값 : " + infect);
             if (infect == 1)
-                Debug.Log("붕대 사용 못함");
-            return;
+                return;
         }
 
         SoundManager.Instance.PlaySFX(SFX.UseBand);

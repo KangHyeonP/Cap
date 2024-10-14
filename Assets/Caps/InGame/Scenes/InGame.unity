@@ -15469,6 +15469,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5028740341075718390, guid: 8d9a79c91161811418166fbce974881a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 1988942182406042903, guid: 8d9a79c91161811418166fbce974881a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 1443423337172820671, guid: 8d9a79c91161811418166fbce974881a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 8411628083319896300, guid: 8d9a79c91161811418166fbce974881a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -16390,37 +16396,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6051834611471890895, guid: dd1c52ede8d17f0409088fb0941fb5e7, type: 3}
   m_PrefabInstance: {fileID: 926039636}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &928395662
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 928395663}
-  m_Layer: 0
-  m_Name: MapTest
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &928395663
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 928395662}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &930415027
 GameObject:
   m_ObjectHideFlags: 0
@@ -73046,6 +73021,5 @@ SceneRoots:
   - {fileID: 1656070280}
   - {fileID: 3836661441661759235}
   - {fileID: 1341024762}
-  - {fileID: 928395663}
   - {fileID: 1465096862}
   - {fileID: 1541390161}

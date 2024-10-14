@@ -23,7 +23,7 @@ public class Key : Item
 
     public override void GetItem()
     {
-        if (DrugManager.Instance.itemBanCheck) return;
+        if (DrugManager.Instance.itemBanCheck && !isProduct) return;
 
         if (isProduct)
         {

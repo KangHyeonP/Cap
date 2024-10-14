@@ -12,7 +12,9 @@ public class LockBackDoor : MonoBehaviour
     private BoxCollider2D boxcol;
 
     public bool doorCheck = false; // 다음방으로 넘어간 상태인지 체크
+
     public AI[] agent;
+
 
     private void Start()
     {
