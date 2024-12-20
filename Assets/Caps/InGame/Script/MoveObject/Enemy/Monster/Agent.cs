@@ -111,13 +111,12 @@ public class Agent : AI
                 break;
             case EnemyStatus.Lean:
                 UpLean();
-                //UpdateLean();
                 break;
             case EnemyStatus.Die:
                 Die();
                 break;
             default:
-                Debug.Log("미구현 기능");
+                Debug.Log("Not Function");
                 break;
         }
     }
