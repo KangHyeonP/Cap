@@ -69,8 +69,6 @@ public class CameraController : MonoBehaviour
             UpdateCamPos();
             PlayerPos();
         }
-
-        
     }
 
     private void Init()

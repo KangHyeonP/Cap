@@ -150,8 +150,6 @@ public class Table : MonoBehaviour
 
         curArrow = (TableArrow)lineIndex;
 
-        // 애니메이션 대신 일단 스프라이트 변경
-        //tableSprite.sprite = Sprites[(int)curArrow];
         anim.SetTrigger(agentArrow.ToString());
         SoundManager.Instance.PlaySFX(SFX.Table_Kick);
 
@@ -161,9 +159,6 @@ public class Table : MonoBehaviour
         ActiveLine(false);
         gameObject.tag = "Table";
         triggerCol.size = new Vector2(1, 2);
-        //playerCheck = false; //이건 테스트 반드시 끝나면 활성화
-
-        // 테이블 크기 변경
     }
 
     private IEnumerator MoveTable()
